@@ -2,11 +2,11 @@
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/StringUtils.sh
 
-@test "substring returns "" when no arguments " {
+@test "substring returns empty when no arguments " {
   run StringUtils.indexOfAny
 }
 
-@test "substring returns "" when the input argument is empty" {
+@test "substring returns empty when the input argument is empty" {
   run StringUtils.substring ""
   [ "$output" = "" ]
 
