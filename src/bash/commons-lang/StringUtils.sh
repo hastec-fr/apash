@@ -3,6 +3,38 @@
 FUNCTION_SUCCESS=0
 FUNCTION_FAILURE=1
 
+
+
+# @description Checks if the CharSequence contains only certain characters.
+# A null CharSequence will return false. A null valid character array will return false. An empty CharSequence (length()=0) always returns true.
+# @example
+#    if StringUtils.constainsOnly "" ""        ; then echo "true"; else echo "false"; # return true
+#    if StringUtils.constainsOnly "ab" ""      ; then echo "true"; else echo "false"; # return false
+#    if StringUtils.constainsOnly "abab" "abc" ; then echo "true"; else echo "false"; # return true
+#    if StringUtils.constainsOnly "ab1"  "abc" ; then echo "true"; else echo "false"; # return false
+#    if StringUtils.constainsOnly "abz"  "abc" ; then echo "true"; else echo "false"; # return false
+#
+# @arg $1 string Input string to check
+# @arg $2 the list of characters which should compose the input string
+#
+# @stdout None
+# @stderr None
+#
+# @exitcode 0 true if the input string contains only provided characters.
+# @exitcode 1 Otherwise.
+StringUtils.containsOnly(){
+  set -x
+  local inString=$1
+  local inChars=$2
+
+  [[ -n $inString && -z $inChars ]] && return $FUNCTION_FAILURE
+
+  [[ $inString =~ ^[$inChars]*$ ]] && return $FUNCTION_SUCCESS
+  return $FUNCTION_FAILURE
+}
+
+
+
 # @description Check if a CharSequence ends with a specified suffix.
 # @example
 #    if StringUtils.endsWith "" ""        ; then echo "true"; else echo "false"; # return true
@@ -20,10 +52,10 @@ FUNCTION_FAILURE=1
 # @exitcode 0 If the string ends with the suffix
 # @exitcode 1 Otherwise.
 StringUtils.endsWith(){
-  local str=$1
-  local suffix=$2
+  local inString=$1
+  local inSuffix=$2
 
-  [[ $str =~ $suffix$ ]] && return $FUNCTION_SUCCESS
+  [[ $inString =~ $inSuffix$ ]] && return $FUNCTION_SUCCESS
   return $FUNCTION_FAILURE
 }
 
@@ -68,8 +100,7 @@ StringUtils.equals() {
 # @exitcode 0 If no argument or an agurment of length 0 is passed.
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 StringUtils.isEmpty() {
-  local inString="$1"
-  [ -z "$inString" ] && return $FUNCTION_SUCCESS
+  [ -z "$1" ] && return $FUNCTION_SUCCESS
   return $FUNCTION_FAILURE
 }
 
@@ -170,10 +201,61 @@ StringUtils.indexOfAny() {
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 StringUtils.isBlank() {
   local inString="$1"
-  local trimString  
-  trimString=$(StringUtils.trim "$inString")
-  [ -z "$trimString" ] && return $FUNCTION_SUCCESS
+  local trimmedString  
+  trimmedString=$(StringUtils.trim "$inString")
+  [ -z "$trimmedString" ] && return $FUNCTION_SUCCESS
   return $FUNCTION_FAILURE
+}
+
+
+
+# WIP to allow multiple char as delimiter
+StringUtils.split.awk() {
+  local inString="$1"
+  local inDelimiter="${2:- }"
+
+  echo "$inString" | awk -F "$inDelimiter" '{for (i = 1; i <= NF; i++) print $i}' && return $FUNCTION_SUCCESS
+  return $FUNCTION_FAILURE
+}
+
+# @description Splits the provided text into an array, using space as default separator.
+# The separator is not included in the returned String array. 
+# Adjacent separators are NOT treated as one separator.
+# @example
+#    if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # return true
+#    if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # return true
+#    if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # return false
+#
+# @arg $1 string Input string to evaluate
+#
+# @stdout None
+# @stderr None
+#
+# @warning: Not optimized, but looks functional. 
+#           Take care of the difference with JAVA doc about adjacent separator.
+# @exitcode 0 If no argument or an agurment of length 0 is passed.
+# @exitcode 1 If the argument with at lead one character (even space) is passed.
+StringUtils.split() {
+  local -n inArray="$1" || return $FUNCTION_FAILURE
+  local inString="$2"
+  local inDelimiter="${3:- }"
+  local currentString=""
+  inArray=()
+
+  # Loop on each char
+  for (( i=0; i<${#inString}; i++ )); do
+    # Check if the next chars correspond to delimiter
+    if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
+      inArray+=("$currentString")
+      currentString=""
+      # Skip the number of chars corresponding to the delimiter.
+      i=$((i + ${#inDelimiter} - 1))
+      continue
+    fi
+    currentString+=${inString:$i:1}
+  done
+  [ -n "$currentString" ] && inArray+=("$currentString")
+  return $FUNCTION_SUCCESS
 }
 
 
@@ -195,10 +277,10 @@ StringUtils.isBlank() {
 # @exitcode 0 If the string starts with the prefix
 # @exitcode 1 Otherwise.
 StringUtils.startsWith(){
-  local str=$1
-  local prefix=$2
+  local inString=$1
+  local inPrefix=$2
 
-  [[ $str =~ ^$prefix ]] && return $FUNCTION_SUCCESS
+  [[ $inString =~ ^$inPrefix ]] && return $FUNCTION_SUCCESS
   return $FUNCTION_FAILURE
 }
 

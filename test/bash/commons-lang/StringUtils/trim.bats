@@ -5,43 +5,36 @@ source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/Stri
 # Trim ########################################
 @test "trim returns string without leading and tailing whitespaces but preserve middle spaces" {
   run StringUtils.trim "   Hello   World   "
-  echo "$output,"
   [ "$output" = "Hello   World" ]
 }
 
 @test "trim returns empty string no characters are present" {
   run StringUtils.trim ""
-  echo "$output,"
   [ "$output" = "" ]
 }
 
 @test "trim returns empty string no argument is present" {
   run StringUtils.trim
-  echo "$output,"
   [ "$output" = "" ]
 }
 
 
 @test "trim returns empty string when only whitespaces are present (including tabs)" {
   run StringUtils.trim "   	  "
-  echo "$output,"
   [ "$output" = "" ]
 }
 
 @test "trim returns string without leading spaces" {
   run StringUtils.trim "   Hello World"
-  echo "$output,"
   [ "$output" = "Hello World" ]
 }
 
 @test "trim returns string without tailing spaces" {
   run StringUtils.trim "Hello World     "
-  echo "$output,"
   [ "$output" = "Hello World" ]
 }
 
 @test "trim returns the current value if no space to trim" {
   run StringUtils.trim "Hello World"
-  echo "$output,"
   [ "$output" = "Hello World" ]
 }
