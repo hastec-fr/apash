@@ -1,6 +1,9 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/StringUtils.sh
+source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash/apash.sh
+import fr.hastec.apash.commons-lang.StringUtils.split
+
+# source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/StringUtils.sh
 
 # split #######################################
 @test "split returns an empty array when the input string is empty " {

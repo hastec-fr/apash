@@ -10,7 +10,7 @@ export APASH_BASH_DIR
 
 import(){
   local lib
-  local -A libs
+  local libs=()
 
   for l in "$@"; do
     locations="$APASH_BASH_DIR/${l//./\/}"
@@ -27,9 +27,8 @@ import(){
   done
 
   for lib in "${libs[@]}"; do
-    if [[ -v ${APASH_LIBRARIES[$lib]} ]]; then
-      [ ! -r "$lib" ] && continue
-      echo "Source: $lib"
+    [ ! -r "$lib" ] && echo "WARNING: library missing" && continue
+    if [[ ! -v ${APASH_LIBRARIES["$lib"]} ]]; then
       # shellcheck disable=SC1090
       source "$lib"
       APASH_LIBRARIES["$lib"]=true

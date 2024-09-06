@@ -18,7 +18,7 @@
 # @exitcode 0 If no argument or an agurment of length 0 is passed.
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 StringUtils.split() {
-  local -n inArray="$1" || return $APASH_FUNCTION_FAILURE
+  local -n inArray="$1" || return "$APASH_FUNCTION_FAILURE"
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""
@@ -37,5 +37,5 @@ StringUtils.split() {
     currentString+=${inString:$i:1}
   done
   [ -n "$currentString" ] && inArray+=("$currentString")
-  return $APASH_FUNCTION_SUCCESS
+  return "$APASH_FUNCTION_SUCCESS"
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/StringUtils.sh
+source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash/apash.sh
+import fr.hastec.apash.commons-lang.StringUtils.startsWith
 
 # startsWith ###################################
 @test "startsWith succeed when the two arguments are empty" {
