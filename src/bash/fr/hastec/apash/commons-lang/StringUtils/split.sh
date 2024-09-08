@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-# @description Splits the provided text into an array, using space as default separator.
-# The separator is not included in the returned String array. 
+# @name StringUtils.split
+# @brief Splits the provided text into an array.
+#
+# @description Splits the provided text into an array. Default separator is " "
+# The separator is not included in the returned String array.
 # Adjacent separators are NOT treated as one separator.
 # @example
-#    if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # return false
+#    if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # true
+#    if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # true
+#    if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # false
 #
 # @arg $1 string Input string to evaluate
 #

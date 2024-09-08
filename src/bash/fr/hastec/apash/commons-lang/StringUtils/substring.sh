@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# @description Gets a substring from the specified String.
+# @name StringUtils.substring
+# @brief Gets a substring from the specified String.
 # @example
 #    StringUtils.trim ""                 # return ""
 #    StringUtils.trim "     "            # return ""

@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-# @file indexOfAny.sh
+# Dependencies #####################################
+import fr.hastec.apash.commons-lang.StringUtils.indexOf
+
+# @name StringUtils.indexOfAny
 # @brief  Search a string to find the first index of any character in the given set of characters.
 # @example
-#                        StringUtils.indexOfAny ""                 # => -1
-#    arr=("")          ; StringUtils.indexOfAny ""           arr   # => 0
-#    arr=("a")         ; StringUtils.indexOfAny ""           arr   # => -1
-#    arr=("cd" "ab" )  ; StringUtils.indexOfAny "zzabyycdxx" arr   # => 2
-#    arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   # => 1
+#                        StringUtils.indexOfAny ""                 # -1
+#    arr=("")          ; StringUtils.indexOfAny ""           arr   #  0
+#    arr=("a")         ; StringUtils.indexOfAny ""           arr   # -1
+#    arr=("cd" "ab" )  ; StringUtils.indexOfAny "zzabyycdxx" arr   #  2
+#    arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
 #
 # @arg $1 string The string to check.
 #
@@ -23,11 +26,6 @@
 #
 # Note for passing array by reference
 # see https://stackoverflow.com/questions/10953833/passing-multiple-distinct-arrays-to-a-shell-function
-
-# Dependencies #####################################
-import fr.hastec.apash.commons-lang.StringUtils.indexOf
-
-# Functions ########################################
 StringUtils.indexOfAny() {
   local inString="$1"
   local -n research="$2" 2> /dev/null || local research=()

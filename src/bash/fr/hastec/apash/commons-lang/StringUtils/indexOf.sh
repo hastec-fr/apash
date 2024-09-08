@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# @file indexOf.sh
+# @name StringUtils.indexOf
 # @brief Finds the first index of a substring occurence within another string.
 # @example
-#    StringUtils.indexOf ""         ""   # => 0
-#    StringUtils.indexOf "aabaabaa" ""   # => 0
-#    StringUtils.indexOf "aabaabaa" "b"  # => 2
-#    StringUtils.indexOf "aabaabaa" "ab" # => 1
-#    StringUtils.indexOf "aabaabaa" "mn" # => -1
+#    StringUtils.indexOf ""         ""   #  0
+#    StringUtils.indexOf "aabaabaa" ""   #  0
+#    StringUtils.indexOf "aabaabaa" "b"  #  2
+#    StringUtils.indexOf "aabaabaa" "ab" #  1
+#    StringUtils.indexOf "aabaabaa" "mn" # -1
 #
 # @arg $1 string The string to check.
 # @arg $2 string The substring to find within the input string.
@@ -19,8 +19,6 @@
 # @exitcode 1 Otherwise.
 #
 # @see [StringUtils](../StringUtils.md)
-
-# Functions ########################################
 StringUtils.indexOf() {
   local inString="$1"
   local research="$2"

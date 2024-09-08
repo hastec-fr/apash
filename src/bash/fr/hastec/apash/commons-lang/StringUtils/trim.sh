@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# @description Remove whitespaces characters from both ends of the input string.
+# @name StringUtils.trim
+# @brief Remove whitespaces characters from both ends of the input string.
 # @example
 #    StringUtils.trim ""                 # return ""
 #    StringUtils.trim "     "            # return ""

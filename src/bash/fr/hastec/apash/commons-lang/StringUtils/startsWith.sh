@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-# @description Check if a CharSequence starts with a specified prefix.
+# @name StringUtils.startsWith
+# @brief Check if a CharSequence starts with a specified prefix.
 # @example
-#    if StringUtils.startsWith "" ""        ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.startsWith "abcd" ""    ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.startsWith "abcd" "ab"  ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.startsWith "abcd" "abd" ; then echo "true"; else echo "false"; # return false
-#    if StringUtils.startsWith ""     "a"   ; then echo "true"; else echo "false"; # return false
+#    if StringUtils.startsWith "" ""        ; then echo "true"; else echo "false"; # true
+#    if StringUtils.startsWith "abcd" ""    ; then echo "true"; else echo "false"; # true
+#    if StringUtils.startsWith "abcd" "ab"  ; then echo "true"; else echo "false"; # true
+#    if StringUtils.startsWith "abcd" "abd" ; then echo "true"; else echo "false"; # false
+#    if StringUtils.startsWith ""     "a"   ; then echo "true"; else echo "false"; # false
 #
 # @arg $1 string Input string to check
 # @arg $2 the prefix to find

@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# @description Checks if a CharSequence is empty ("") or not existing.
+# @name StringUtils.isEmpty
+# @brief Checks if a string is empty ("") or not existing.
 # @example
-#    if StringUtils.isEmpty ""           ; then echo "true"; else echo "false"; # return true
-#    if StringUtils.isEmpty "     "      ; then echo "true"; else echo "false"; # return false
-#    if StringUtils.isEmpty "Hello World"; then echo "true"; else echo "false"; # return false
+#    if StringUtils.isEmpty ""           ; then echo "true"; else echo "false"; # true
+#    if StringUtils.isEmpty "     "      ; then echo "true"; else echo "false"; # false
+#    if StringUtils.isEmpty "Hello World"; then echo "true"; else echo "false"; # false
 #
 # @arg $1 string Input string to evaluate
 #
