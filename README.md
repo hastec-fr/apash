@@ -3,7 +3,8 @@
   <img src="assets/apash-logo.svg" ="center" />
 
   # Apash
-  Apache's Programs As SHell
+  Apache's Programs As SHell<br>  
+  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 </div>
 
 ## 👀 Introduction
@@ -11,9 +12,14 @@ Bash and more generally shells are popular command-line and scripting languages 
 Again we re-invent again these features 😅 by trying to looks like Apache's libraries realized in JAVA to simplify their usage especially for people doing DevOps.
 
 ## Table of contents
-- [Licence](#licence)
+- [Installation](#installation)
+- [Quick Start](#️quick-start)
+- [Features](#features)
+- [Documentation](#documentation)
+- [Troubleshooting](#troubleshooting)
+- [license](#license)
 
-## [📦](#installation) Installation
+## <a id="quick-start" ></a>📦 Installation
 As other shell projects, there are unfortunately no standard way to install Apash. But here the main's one:
 ### [Basher](https://www.basher.it/) 
 It's a package manager for bash which helps you quickly to install, uninstall and update bash packages (available on github) from the command line.
@@ -35,7 +41,7 @@ source "hastec-fr/apash/apashSource.sh"
 ```
 <div align="right">[ <a href="#apash-logo">↑ Back to top ↑</a> ]</div>
 
-## ⚡️ Quick start
+## <a id="quick-start" ></a>⚡️ Quick start
 Once Apash is installed, you can easily use the function by importing the package you desire by using command "import" with the name of the package.
 ```bash
 # Java style to import all methods from StringUtils
@@ -58,16 +64,17 @@ source fr/hastec/apash/commons-lang/StringUtils.sh
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## ✨ Features
+## <a id="features" ></a> ✨ Features
+String
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## 📖 Documentation
+## <a id="documentation" ></a> 📖 Documentation
 Apash is auto documented using the project [shdoc](https://github.com/reconquest/shdoc). Each file contains an header following the formalism of shdoc in order to generate the corresponding markdown file (.md) in the doc directory.<br>
 Let's [explore it](doc/bash/fr/hastec/apash.md) !!
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## ❓ Troubleshooting
+## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
 The concept with import function is that "." from package replace "/" and it allows to source all sources from a package. In addition, it prevents cycling re-loading of librairies by keeping in mind which source has been loaded inside the hashmap $APASH_LIBRARIES. To see which library is loaded, use:
 ```bash
@@ -89,6 +96,6 @@ Three ways to reload a libraries:
 Meanwhile the project [Amber](https://github.com/amber-lang/amber) becomes operation,
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## 📃 [Licence]{#licence}
-Apash is free and open-source software licensed under the 
+## <a id="license" ></a> 📃 license
+Apash is free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
