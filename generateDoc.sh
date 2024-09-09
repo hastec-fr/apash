@@ -1,41 +1,48 @@
 #!/usr/bin/env bash
-# set -x
-
-
 
 # @arg1: PlaceHolder
 replacePlaceHolders() {
-  placeHolder=$1 && shift
+  placeHolder=$1
   placeHolders=$(grep -rl "\.${placeHolder}" --include \*.sh --exclude generateDoc.sh)
 
   while read -r p; do
-  echo "Package: $p"
-  class=$(basename "$p" | sed 's/\.sh//')
-  package=$(dirname "$p")
-  rows="# <!-- $class.${placeHolder}Begin -->\n"
+    class=$(basename "$p" | sed 's/\.sh//')
+    package=$(dirname "$p")
+    rows="# <!-- $class.${placeHolder}Begin -->\n"
 
-  if [ "${placeHolder}" = "summaryTable" ]; then
-    rows+="# | Methods                  | Brief                                 |\n"
-    rows+="# |--------------------------|---------------------------------------|\n"
-    for f in "$package/$class"/*.sh; do
-      method=$(basename "$f"  | sed 's/\.sh//')
-      brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
-      row="# |[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"
-      echo "class: $row"
+    if [ "${placeHolder}" = "summaryTable" ]; then
+      # For each script contains in the corresponding package directory
+      # Create a line where the method is the name of the script without .sh and its brief content.
+      rows+="# | Methods                  | Brief                                 |\n"
+      rows+="# |--------------------------|---------------------------------------|\n"
+      for f in "$package/$class"/*.sh; do
+        method=$(basename "$f"  | sed 's/\.sh//')
+        brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
+        row="# |[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"
+        rows+="$row\n"
+      done
+    elif [ "$placeHolder" = "parent" ]; then
+      # Count the number of parent directory until apash root dir
+      # Then loop on the directory to rebuild the path with relative path
+      # for each directory.
+      # apash / commons-lang / ...
+      rootPackage=${package/src\/*\/fr\/hastec\//}
+      count=$(echo "$rootPackage" | tr -cd "$/" | wc -c)
+      row="# "
+      IFS="/"
+      for dir in $rootPackage; do
+        parentDir="../"
+        for ((i=0; i < count; i++)); do parentDir+="../"; done
+        row+="[$dir]($parentDir$dir.md) / "
+        ((count--))
+      done
       rows+="$row\n"
-    done
-    rows+="# <!-- $class.${placeHolder}End -->\n"
-  elif [ "${placeHolder}" = "parent" ]; then
-    parentDir=""
-    while IFS=/ read -r $dir; do
-      row+="$parentDir/$dir"
-      parentDir+="../"
-    done <<< "$(echo "$package"| rev)"
-  fi
-  sed -i "/$class.${placeHolder}Begin/,/$class.${placeHolder}End/c\ 
-  $rows
-  " "$placeHolders"
-  done <<< "$@"
+    fi
+    rows+="# <!-- $class.${placeHolder}End -->"
+    sed -i "/$class.${placeHolder}Begin/,/$class.${placeHolder}End/c\
+    $rows
+    " "$p"
+  done <<< "$placeHolders"
 }
 
 replacePlaceHolders summaryTable
