@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+# <!-- @package -->
+# @file apash.sh
+# @brief Translation from most of the apache libraries for shell.
+# @description
+#     Provides highly reusable utility methods.
+#
+# ### Method Summary
+# <!-- apash.summaryTableBegin -->
+# | Methods                  | Brief                                 |
+# |--------------------------|---------------------------------------|
+# |[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
+# <!-- apash.summaryTableEnd -->
+
+
 # Declaration of global variables
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
