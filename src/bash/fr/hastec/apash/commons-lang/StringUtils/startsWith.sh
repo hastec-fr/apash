@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.startsWith
 # @brief Check if a CharSequence starts with a specified prefix.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+#
+# Method description #########################################################
+# @description
 # @example
 #    if StringUtils.startsWith "" ""        ; then echo "true"; else echo "false"; # true
 #    if StringUtils.startsWith "abcd" ""    ; then echo "true"; else echo "false"; # true

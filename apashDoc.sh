@@ -3,12 +3,12 @@
 # @arg1: PlaceHolder
 replacePlaceHolders() {
   placeHolder=$1
-  placeHolders=$(grep -rl "\.${placeHolder}" --include \*.sh --exclude generateDoc.sh)
+  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude generateDoc.sh)
 
   while read -r p; do
     class=$(basename "$p" | sed 's/\.sh//')
     package=$(dirname "$p")
-    rows="# <!-- $class.${placeHolder}Begin -->\n"
+    rows="# <!-- apash.${placeHolder}Begin -->\n"
 
     if [ "${placeHolder}" = "summaryTable" ]; then
       # For each script contains in the corresponding package directory
@@ -26,20 +26,26 @@ replacePlaceHolders() {
       # Then loop on the directory to rebuild the path with relative path
       # for each directory.
       # apash / commons-lang / ...
-      rootPackage=${package/src\/*\/fr\/hastec\//}
-      count=$(echo "$rootPackage" | tr -cd "$/" | wc -c)
-      row="# "
-      IFS="/"
-      for dir in $rootPackage; do
-        parentDir="../"
-        for ((i=0; i < count; i++)); do parentDir+="../"; done
-        row+="[$dir]($parentDir$dir.md) / "
-        ((count--))
-      done
+      rootPackage=${package/src\/*\/fr\/hastec/}
+
+      # If it's the root package src/fr/hastec then just display None.
+      if [ -z "$rootPackage" ]; then
+        row="# None."
+      else
+        count=$(echo "$rootPackage" | tr -cd "$/" | wc -c)
+        row="# "
+        IFS="/"
+        for dir in $rootPackage; do
+          parentDir="../"
+          for ((i=0; i < count; i++)); do parentDir+="../"; done
+          row+="[$dir]($parentDir$dir.md) / "
+          ((count--))
+        done
+      fi
       rows+="$row\n"
     fi
-    rows+="# <!-- $class.${placeHolder}End -->"
-    sed -i "/$class.${placeHolder}Begin/,/$class.${placeHolder}End/c\
+    rows+="# <!-- apash.${placeHolder}End -->"
+    sed -i "/apash.${placeHolder}Begin/,/apash.${placeHolder}End/c\
     $rows
     " "$p"
   done <<< "$placeHolders"

@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.split
 # @brief Splits the provided text into an array.
-#
 # @description Splits the provided text into an array. Default separator is " "
 # The separator is not included in the returned String array.
 # Adjacent separators are NOT treated as one separator.
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # true
 #    if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # true

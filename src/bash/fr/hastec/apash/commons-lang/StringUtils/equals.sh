@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.equals
 # @brief Compares two string, returning true if they represent equal sequences of characters.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    if StringUtils.equals "" ""       ; then echo "true"; else echo "false"; # true
 #    if StringUtils.equals "abc" "abc" ; then echo "true"; else echo "false"; # true

@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.endsWith
 # @brief Check if a string ends with a specified suffix.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    if StringUtils.endsWith "" ""        ; then echo "true"; else echo "false"; # true
 #    if StringUtils.endsWith "abcd" ""    ; then echo "true"; else echo "false"; # true

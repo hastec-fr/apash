@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.trim
 # @brief Remove whitespaces characters from both ends of the input string.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    StringUtils.trim ""                 # return ""
 #    StringUtils.trim "     "            # return ""

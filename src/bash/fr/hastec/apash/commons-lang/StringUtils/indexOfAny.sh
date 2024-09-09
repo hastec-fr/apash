@@ -3,8 +3,21 @@
 # Dependencies #####################################
 import fr.hastec.apash.commons-lang.StringUtils.indexOf
 
+# File description ###########################################################
 # @name StringUtils.indexOfAny
-# @brief  Search a string to find the first index of any character in the given set of characters.
+# @brief Search a string to find the first index of any character in the given set of characters.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #                        StringUtils.indexOfAny ""                 # -1
 #    arr=("")          ; StringUtils.indexOfAny ""           arr   #  0

@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.indexOf
 # @brief Finds the first index of a substring occurence within another string.
+# @description <!-- -->
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    StringUtils.indexOf ""         ""   #  0
 #    StringUtils.indexOf "aabaabaa" ""   #  0

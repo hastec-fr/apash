@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 
+# File description ###########################################################
 # @name StringUtils.substring
 # @brief Gets a substring from the specified String.
+#
+# ### Authors:
+# * Benjamin VARGIN
+#
+# ### Parents
+# <!-- apash.parentBegin -->
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
 # @example
 #    StringUtils.trim ""                 # return ""
 #    StringUtils.trim "     "            # return ""
