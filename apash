@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+export APASH_VERSION="0.1.0-snapshot"
+APASH_FUNCTION_SUCCESS=0
+APASH_FUNCTION_FAILURE=1
+
+# Source must be done out of function
+APASH_ACTION_SOURCE=false
+APASH_ACTION_RELOAD=false
+
+show_help(){
+  echo "toto"
+}
+
+# @see https://mywiki.wooledge.org/BashFAQ/035
+parseArguments(){
+    while :; do
+        case $1 in
+            # Show helps
+            -h|-\?|--help)
+                show_help
+                exit $APASH_FUNCTION_SUCCESS
+                ;;
+
+            --doc)
+                generateDoc
+                ;;
+
+            --source)
+                APASH_ACTION_SOURCE=true
+                ;;
+
+            # Reload libraries
+            --reload)
+                APASH_ACTION_RELOAD=true
+                ;;
+
+            # Execute tests
+            --test)
+                bats -T --print-output-on-failure --trace -r test
+                ;;
+            
+            # Show the version of the scipts
+            --version)
+                echo "$APASH_VERSION"
+                exit $APASH_FUNCTION_SUCCESS
+                ;;
+
+            # End of all options.
+            --)             
+                shift
+                break
+                ;;
+
+            # Display error message on unknown option
+            -?*)
+                printf 'WARN: Unknown option: %s\n' "$1" >&2
+                exit $APASH_FUNCTION_FAILURE
+                ;;
+            
+            # Stop parsing
+            *)               # Default case: No more options, so break out of the loop.
+                break
+        esac
+        shift
+    done
+}
+
+parseArguments "$@"
+
+# Use POSIX operation as much as possible.
+[ "$APASH_ACTION_SOURCE" = "true" ] && . "src/bash/fr/hastec/apash.sh"
+if [ "$APASH_ACTION_RELOAD" = "true" ]; then
+    for lib in "${!APASH_LIBRARIES[@]}"; do 
+    # shellcheck disable=SC1090
+    . "$lib"
+    done
+fi
