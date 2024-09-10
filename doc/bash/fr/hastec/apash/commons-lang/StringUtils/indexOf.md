@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.indexOf
 
 Finds the first index of a substring occurence within another string.
@@ -51,4 +60,7 @@ StringUtils.indexOf "aabaabaa" "mn" # -1
 #### See also
 
 * [StringUtils](../StringUtils.md)
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

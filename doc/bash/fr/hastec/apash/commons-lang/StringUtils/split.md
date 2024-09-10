@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.split
 
 Splits the provided text into an array.
@@ -46,4 +55,7 @@ if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # fal
 #### Output on stderr
 
 * None
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

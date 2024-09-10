@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.containsOnly
 
 Checks if the CharSequence contains only certain characters.
@@ -49,4 +58,7 @@ string returns false.
 #### Output on stderr
 
 * None
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

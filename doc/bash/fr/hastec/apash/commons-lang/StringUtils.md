@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils
 
 Operations on String considering null as empty string
@@ -28,4 +37,7 @@ This implementation do reference to the [java apache implementation](http://comm
 |[trim](StringUtils/trim.md)|Remove whitespaces characters from both ends of the input string.|
 <!-- apash.summaryTableEnd -->
 
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

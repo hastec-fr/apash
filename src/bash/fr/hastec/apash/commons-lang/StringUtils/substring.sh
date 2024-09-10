@@ -3,7 +3,7 @@
 # File description ###########################################################
 # @name StringUtils.substring
 # @brief Gets a substring from the specified String.
-#
+# @description
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -14,10 +14,16 @@
 
 # Method description #########################################################
 # @description
+# Gets a substring from the specified String. The first character correspond
+# to the index 0. Negative index are possible, in this case, it counts from the end.
+# Any index minus 0 will be considered as 0 and any index over the length of the string
+# will be considered as the length of the string.
 # @example
-#    StringUtils.trim ""                 # return ""
-#    StringUtils.trim "     "            # return ""
-#    StringUtils.trim "  Hello  World  " # return "Hello  World"
+#    StringUtils.substring ""              # return ""
+#    StringUtils.substring "abc"  0   2    # return "ab"
+#    StringUtils.substring "abc" -2  -1    # return "b"
+#    StringUtils.substring "abc" -4   2    # return "ab"
+#    StringUtils.substring "abc"  2   6    # return "c"
 #
 # @arg $1 the String to get the substring from
 # @arg $2 the position to start from, negative means count back from the end of the String by this many characters

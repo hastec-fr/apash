@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.indexOfAny
 
 Search a string to find the first index of any character in the given set of characters.
@@ -52,4 +61,7 @@ arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
 
 * [indexOf](indexOf.md)
 * [StringUtils](../StringUtils.md)
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

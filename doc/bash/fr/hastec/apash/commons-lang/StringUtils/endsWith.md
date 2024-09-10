@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.endsWith
 
 Check if a string ends with a specified suffix.
@@ -51,4 +60,7 @@ if StringUtils.endsWith ""     "c"   ; then echo "true"; else echo "false"; # fa
 #### See also
 
 * [StringUtils](../StringUtils.md)
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

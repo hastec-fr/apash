@@ -1,6 +1,25 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.substring
 
 Gets a substring from the specified String.
+
+## Overview
+
+### Authors:
+* Benjamin VARGIN
+
+### Parents
+<!-- apash.parentBegin -->
+[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.parentEnd -->
 
 ## Index
 
@@ -8,12 +27,18 @@ Gets a substring from the specified String.
 
 ### StringUtils.substring
 
+Gets a substring from the specified String. The first character correspond
+to the index 0. Negative index are possible, in this case, it counts from the end.
+Any index minus 0 will be considered as 0 and any index over the length of the string
+will be considered as the length of the string.
+
 #### Example
 
 ```bash
-StringUtils.trim ""                 # return ""
-StringUtils.trim "     "            # return ""
-StringUtils.trim "  Hello  World  " # return "Hello  World"
+StringUtils.substring ""              # return ""
+StringUtils.substring "abc"  0   2    # return "ab"
+StringUtils.substring "abc" -2  -1    # return "b"
+StringUtils.substring "abc" -4   2    # return "ab"
 ```
 
 #### Arguments
@@ -34,4 +59,7 @@ StringUtils.trim "  Hello  World  " # return "Hello  World"
 #### Output on stderr
 
 * None
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

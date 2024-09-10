@@ -141,14 +141,32 @@ apash.doc() {
   apash.substitutePlaceHolders summaryTable
   apash.substitutePlaceHolders parent
 
+  export APASH_DOC_HEADER='
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="{{apash-logo}}"/>
+  </a>
+
+  # Apash
+</div>
+'
+
+  export APASH_DOC_FOOTER='
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+'
+
+
   # Generate individuals scripts documents
   find "$APASH_ROOT_DIR/src" -type f -name "*.sh" -exec bash -c '
     file_path="$(dirname "$1")"
     file_name="$(basename "$1")"
     doc_path="$(echo $file_path | sed "s|$APASH_ROOT_DIR/src|$APASH_ROOT_DIR/doc|1")"
     doc_name="${file_name%.sh}.md"
+    root_relative_dir="../$(echo "$file_path" | sed "s|.*/src/||1" | sed "s|[^/]*|..|g")"
     mkdir -p "$doc_path"
-    shdoc < "$file_path/$file_name" > "$doc_path/$doc_name"
+    echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|$root_relative_dir/assets/apash-logo.svg|1" > "$doc_path/$doc_name"
+    shdoc < "$file_path/$file_name" >> "$doc_path/$doc_name"
+    echo "$APASH_DOC_FOOTER" >> "$doc_path/$doc_name"
   ' shell {} \;
 }
 

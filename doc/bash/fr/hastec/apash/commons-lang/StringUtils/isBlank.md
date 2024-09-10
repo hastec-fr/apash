@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # StringUtils.isBlank
 
 Checks if a string contains only whitespaces characters or is empty or not existing.
@@ -48,4 +57,7 @@ if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # fal
 #### See also
 
 * [StringUtils](../StringUtils.md)
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

@@ -1,3 +1,12 @@
+
+<div align="center" id="apash-top">
+  <a href="https://github.com/hastec-fr/apash">
+    <img alt="apash-logo" src="../../../../../assets/apash-logo.svg"/>
+  </a>
+
+  # Apash
+</div>
+
 # commons-lang
 
 Provides highly reusable utility methods.
@@ -19,4 +28,7 @@ This implementation do reference to the [java apache implementation](http://comm
 |[StringUtils](commons-lang/StringUtils.md)|Operations on String considering null as empty string|
 <!-- apash.summaryTableEnd -->
 
+
+
+  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 

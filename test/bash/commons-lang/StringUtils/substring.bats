@@ -22,6 +22,9 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.substring
   run StringUtils.substring "abc" 0 2
   [ "$output" = "ab" ]
 
+  run StringUtils.substring "abc" 0 -1
+  [ "$output" = "ab" ]
+
   run StringUtils.substring "abc" 2 4
   [ "$output" = "c" ]
 
@@ -30,6 +33,9 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.substring
 
   run StringUtils.substring "abc" -4 2
   [ "$output" = "ab" ]
+
+  run StringUtils.substring "abc" 2 6
+  [ "$output" = "c" ]
 }
 
 @test "substring returns empty when the indexes are equal" {
