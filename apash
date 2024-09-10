@@ -13,6 +13,7 @@ APASH_ACTION_SOURCE=false
 APASH_ACTION_RELOAD=false
 APASH_ACTION_DOC=false
 APASH_EXIT_REQUIRED=false
+APASH_IS_SOURCED=false
 
 
 # Helps ######################################################################
@@ -269,22 +270,39 @@ parseApashAction(){
     esac
 }
 
-# Action execution ###########################################################
+chechApashSourced() {
+  # Check if the script is being sourced
+  case "$0" in
+      -sh|-dash|-bash|-ksh)
+          APASH_IS_SOURCED=true
+          ;;
+      *)
+          APASH_IS_SOURCED=false
+          ;;
+  esac
+}
 
 # Main #######################################################################
+chechApashSourced
+
 # Source main apash script if no argument has been passed.
 if [ $# -eq 0 ]; then
   # shellcheck source=src/bash/fr/hastec/apash.sh
   . "src/bash/fr/hastec/apash.sh"
-  return
+  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
 fi
 
 parseApashArguments "$@"
 shift "$APASH_NB_ARGS"
+if [ "$APASH_EXIT_REQUIRED" = "true" ]; then
+  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
+fi
+
 parseApashAction "$@"
 shift
-
-[ "$APASH_EXIT_REQUIRED" = true ] && return
+if [ "$APASH_EXIT_REQUIRED" = "true" ]; then
+  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
+fi
 
 # Use POSIX operation as much as possible.
 # Sourcing action must be done in main flow instead of function.

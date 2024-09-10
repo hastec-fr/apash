@@ -5,7 +5,8 @@
 # @brief Splits the provided text into an array.
 # @description Splits the provided text into an array. Default separator is " "
 # The separator is not included in the returned String array.
-# Adjacent separators are NOT treated as one separator.
+# Adjacent separators are treated as one separator. Leading and tailing separators
+# are not considered.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -38,14 +39,24 @@ StringUtils.split() {
   local currentString=""
   inArray=()
 
+  # Remove starting delimiters
+  inString=${inString##+("$inDelimiter")}
+
+  # Remove tailing delimiters
+  inString=${inString%%+("$inDelimiter")}
+
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do
     # Check if the next chars correspond to delimiter
     if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
       inArray+=("$currentString")
       currentString=""
-      # Skip the number of chars corresponding to the delimiter.
-      i=$((i + ${#inDelimiter} - 1))
+      while [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; do
+        # Skip the number of chars corresponding to the delimiter.
+        i=$((i + ${#inDelimiter}))
+      done
+      # Compense the last increment realize by for loop
+      i=$((i - 1))
       continue
     fi
     currentString+=${inString:$i:1}

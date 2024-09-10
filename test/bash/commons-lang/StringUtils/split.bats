@@ -7,6 +7,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.split
 
 # split #######################################
 @test "split returns an empty array when the input string is empty " {
+  local myArray=()
   StringUtils.split myArray "" ""
   [ "${#myArray[@]}" -eq 0 ]
 
@@ -47,17 +48,27 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.split
 }
 
 @test "split returns item even when adjacent delimiter are encountered" {
+  local myArray=()
   StringUtils.split myArray "ab::cd:ef" ":"
-  [ "${#myArray[@]}" -eq 4  ]
+  [ "${#myArray[@]}" -eq 3  ]
   [ "${myArray[0]}" == "ab" ]
-  [ "${myArray[1]}" == ""   ]
-  [ "${myArray[2]}" == "cd" ]
-  [ "${myArray[3]}" == "ef" ]
+  [ "${myArray[1]}" == "cd" ]
+  [ "${myArray[2]}" == "ef" ]
 
   StringUtils.split myArray $'ab\n\ncd\nef' $'\n'
-  [ "${#myArray[@]}" -eq 4  ]
+  [ "${#myArray[@]}" -eq 3  ]
   [ "${myArray[0]}" == "ab" ]
-  [ "${myArray[1]}" == ""   ]
-  [ "${myArray[2]}" == "cd" ]
-  [ "${myArray[3]}" == "ef" ]
+  [ "${myArray[1]}" == "cd" ]
+  [ "${myArray[2]}" == "ef" ]
+
+  StringUtils.split myArray "::ab::cd:::ef::" ":"
+  [ "${#myArray[@]}" -eq 3  ]
+  [ "${myArray[0]}" == "ab" ]
+  [ "${myArray[1]}" == "cd" ]
+  [ "${myArray[2]}" == "ef" ]
+
+  StringUtils.split myArray "abab::cd:ab:ef::ab" "ab"
+  [ "${#myArray[@]}" -eq 2  ]
+  [ "${myArray[0]}" == "::cd" ]
+  [ "${myArray[1]}" == "ef" ]
 }
