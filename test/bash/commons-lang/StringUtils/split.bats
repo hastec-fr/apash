@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.split
+apash.import fr.hastec.apash.commons-lang.StringUtils.split
 
 # source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/commons-lang/StringUtils.sh
 

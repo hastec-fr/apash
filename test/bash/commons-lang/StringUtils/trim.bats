@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.trim
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 # Trim ########################################
 @test "trim returns string without leading and tailing whitespaces but preserve middle spaces" {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.indexOfAny
+apash.import fr.hastec.apash.commons-lang.StringUtils.indexOfAny
 
 # indexOfAny ########################################
 @test "indexOfAny returns -1 when no arguments " {

@@ -20,9 +20,7 @@
 # Declaration of global variables
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
-
-declare -A APASH_LIBRARIES
-export APASH_LIBRARIES
+export APASH_LIBRARIES=""
 
 APASH_BASH_DIR="$(realpath "$( dirname -- "${BASH_SOURCE[0]}" )/../../")"
 export APASH_BASH_DIR
@@ -30,19 +28,33 @@ export APASH_BASH_DIR
 APASH_ROOT_DIR="$(realpath "$APASH_BASH_DIR/../../")"
 export APASH_ROOT_DIR
 
-import(){
+apash.import(){
   local lib
   local libs=()
 
+  # OLD_IFS="$IFS"
+  # IFS=":"
+  # libs=($APASH_LIBRARIES)
+  # IFS="$OLD_IFS"
+
   for l in "$@"; do
-    locations="$APASH_BASH_DIR/${l//./\/}"
-    if [ -d "$locations" ]; then
-      locations="$locations/*.sh"
-      for lib in $locations; do
+    location="$APASH_BASH_DIR/${l//./\/}"
+    # Import package
+    if [ -d "$location" ]; then
+      location="$location/*.sh"
+      for lib in $location; do
         libs+=("$lib")
       done
-    elif [ -r "$locations.sh" ]; then
-      libs+=("$locations.sh")
+    
+    # Import a single class or method
+    elif [ -r "$location.sh" ]; then
+      libs+=("$location.sh")
+
+    # Import a file terminating by .sh
+    elif [ -r "${location//\/sh/}.sh" ]; then
+      libs+=("${location//\/sh/}.sh")
+    
+    # The library connot be imported
     else
       echo "WARNING: Unknown library: $l" >&2
       continue
@@ -51,18 +63,29 @@ import(){
 
   for lib in "${libs[@]}"; do
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
-    if [[ ! -v ${APASH_LIBRARIES["$lib"]} ]]; then
+
+    if [[ ":$APASH_LIBRARIES:" != *":$lib:"* ]]; then
+      APASH_LIBRARIES+=":$lib"
       # shellcheck disable=SC1090
       source "$lib"
-      APASH_LIBRARIES["$lib"]=true
     fi
+    # echo "tata"
+    # [[ ! -v APASH_LIBRARIES["$lib"] ]] && echo "To load"
+    # if [[ ! -v APASH_LIBRARIES["$lib"] ]]; then
+    #   echo "tete"
+    #   APASH_LIBRARIES["$lib"]=true
+    #   echo "titi"
+    #   # shellcheck disable=SC1090
+    #   source "$lib"
+    #   echo "toto"
+    # fi
   done
 }
 
 
 
 # @arg1: PlaceHolder
-replacePlaceHolders() {
+apash.substitutePlaceHolders() {
   placeHolder=$1
   placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude generateDoc.sh)
 
@@ -114,9 +137,9 @@ replacePlaceHolders() {
   done <<< "$placeHolders"
 }
 
-generateDoc() {
-  replacePlaceHolders summaryTable
-  replacePlaceHolders parent
+apash.doc() {
+  apash.substitutePlaceHolders summaryTable
+  apash.substitutePlaceHolders parent
 
   # Generate individuals scripts documents
   find "$APASH_ROOT_DIR/src" -type f -name "*.sh" -exec bash -c '
@@ -129,6 +152,6 @@ generateDoc() {
   ' shell {} \;
 }
 
-export -f import
-export -f replacePlaceHolders
-export -f generateDoc
+export -f apash.import
+export -f apash.substitutePlaceHolders
+export -f apash.doc

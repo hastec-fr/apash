@@ -1,78 +1,307 @@
 #!/usr/bin/env bash
 
+
+# Problem about sourcing from a function
+# @see https://unix.stackexchange.com/questions/151889/why-does-bashs-source-command-behave-differently-when-called-from-a-function
 export APASH_VERSION="0.1.0-snapshot"
-APASH_FUNCTION_SUCCESS=0
-APASH_FUNCTION_FAILURE=1
+
+# Command line counters
+APASH_NB_ARGS=0
 
 # Source must be done out of function
 APASH_ACTION_SOURCE=false
 APASH_ACTION_RELOAD=false
+APASH_ACTION_DOC=false
+APASH_EXIT_REQUIRED=false
 
-show_help(){
-  echo "toto"
+
+# Helps ######################################################################
+showApashHelp(){
+  cat << EOF
+  Usage: ${0##*/} [-h|--help] [--version] ACTION [ACTION_ARGS]
+
+  Apash command line wrapping actions for enabling features, generating
+  documentation or executing tests.
+  
+      -h|--help|-?      display this help and exit.
+      --version         display the current version of apash and exit.
+
+  ACTIONS:
+      doc               Generate the documentation relative to apash.
+                        Prerequisite: shdoc is avaiable.
+
+      source            Source the apash root script for current shell.
+                        Take care that this current script is sourced too.
+      
+      test              Execute the set of unitary tests.
+
+  GETTING STARTED:
+    First, source apash by using the source action or not passing any args:
+        $ . apash       # Symbol "$" is the prompt and dot is important !
+    
+    Thereafter, libraries can be imported and used as following:
+        $ apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
+        $ StringUtils.indexOf "Gooood Morning" "M"
+        # Result: 7
+EOF
 }
 
+showApashSourceHelp(){
+  cat << EOF
+  Usage: ${0##*/} source [-h] [--reload]
+
+  Source the main root script. It implies that it reset the list of 
+  libraries already sourced.
+  
+      -h|--help|-?      display this help and exit.
+
+      --reload          Source again files which have been already sourced
+                        except the main root script.                        
+EOF
+}
+
+showApashTestHelp(){
+  cat << EOF
+  Usage: ${0##*/} test [-h]
+
+  Execute unitary tests contained in the test directory.
+  
+      -h|--help|-?      display this help and exit.
+
+  PREREQUISITES: Bats-Core must be installed.
+  Example:
+  # Install basher
+  $ curl -s \
+    "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" \
+    | bash
+  
+  # Install Bats
+  $ basher install bats-core/bats-core
+
+  # Open another terminal again to ensure that environment is well reloaded.
+EOF
+}
+
+showApashDocHelp(){
+  cat << EOF
+  Usage: ${0##*/} doc [-h]
+
+  Generate the documentation (in markdown format) based on the comments.
+  
+      -h|--help|-?      display this help and exit.
+
+  PREREQUISITES: shdoc must be installed.
+  Example:
+  # Install basher
+  $ curl -s \
+    "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" \
+    | bash
+  
+  # Install shdoc
+  $ basher install reconquest/shdoc
+
+  # Open another terminal again to ensure that environment is well reloaded.
+EOF
+}
+
+# Parsing Arguments ##########################################################
 # @see https://mywiki.wooledge.org/BashFAQ/035
-parseArguments(){
-    while :; do
-        case $1 in
-            # Show helps
-            -h|-\?|--help)
-                show_help
-                exit $APASH_FUNCTION_SUCCESS
-                ;;
+parseApashArguments(){
+  while :; do
+    # Check if the argument is still an option
+    case $1 in
+      "-"*) ;;
+        *) break ;;
+    esac
 
-            --doc)
-                generateDoc
-                ;;
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        show_help
+        APASH_EXIT_REQUIRED=true && return        
+        ;;
 
-            --source)
-                APASH_ACTION_SOURCE=true
-                ;;
+      # Show the version of the scipts
+      --version)
+        echo "$APASH_VERSION"
+        APASH_EXIT_REQUIRED=true && return
+        ;;
 
-            # Reload libraries
-            --reload)
-                APASH_ACTION_RELOAD=true
-                ;;
+      # End of all options.
+      --)             
+        shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
+        break
+        ;;
 
-            # Execute tests
-            --test)
-                bats -T --print-output-on-failure --trace -r test
-                ;;
-            
-            # Show the version of the scipts
-            --version)
-                echo "$APASH_VERSION"
-                exit $APASH_FUNCTION_SUCCESS
-                ;;
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
 
-            # End of all options.
-            --)             
-                shift
-                break
-                ;;
-
-            # Display error message on unknown option
-            -?*)
-                printf 'WARN: Unknown option: %s\n' "$1" >&2
-                exit $APASH_FUNCTION_FAILURE
-                ;;
-            
-            # Stop parsing
-            *)               # Default case: No more options, so break out of the loop.
-                break
-        esac
-        shift
-    done
+      # Stop parsing
+      *)               # Default case: No more options, so break out of the loop.
+        break
+    esac
+    shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
+  done
 }
 
-parseArguments "$@"
+parseApashSourceArgs() {
+  while :; do
+
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        showApashSourceHelp
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      --reload)
+        APASH_ACTION_RELOAD=true        
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+}
+
+parseApashTestArgs() {
+  while :; do
+
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        showApashTestHelp
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+}
+
+parseApashDocArgs() {
+  while :; do
+
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        showApashDocHelp
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+}
+
+
+parseApashAction(){
+    case $1 in
+      doc)
+        APASH_ACTION_DOC=true
+        shift
+        parseApashDocArgs "$@"
+        ;;
+
+      source)
+        APASH_ACTION_SOURCE=true
+        shift
+        parseApashSourceArgs "$@"
+        ;;
+
+      test)
+        APASH_ACTION_TEST=true
+        shift
+        parseApashTestArgs "$@"
+        ;;
+
+      -?*)
+        printf 'WARN: Unknown action: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+    esac
+}
+
+# Action execution ###########################################################
+
+# Main #######################################################################
+# Source main apash script if no argument has been passed.
+if [ $# -eq 0 ]; then
+  # shellcheck source=src/bash/fr/hastec/apash.sh
+  . "src/bash/fr/hastec/apash.sh"
+  return
+fi
+
+parseApashArguments "$@"
+shift "$APASH_NB_ARGS"
+parseApashAction "$@"
+shift
+
+[ "$APASH_EXIT_REQUIRED" = true ] && return
 
 # Use POSIX operation as much as possible.
-[ "$APASH_ACTION_SOURCE" = "true" ] && . "src/bash/fr/hastec/apash.sh"
-if [ "$APASH_ACTION_RELOAD" = "true" ]; then
-    for lib in "${!APASH_LIBRARIES[@]}"; do 
+# Sourcing action must be done in main flow instead of function.
+if [ "$APASH_ACTION_RELOAD" = "true"  ]; then
+  for lib in "${!APASH_LIBRARIES[@]}"; do
     # shellcheck disable=SC1090
     . "$lib"
-    done
+  done
+
+# If no argument is provided, consider source action
+elif  [ "$APASH_ACTION_SOURCE" = "true" ]; then
+  . "src/bash/fr/hastec/apash.sh"
+
+elif [ "$APASH_ACTION_TEST" = "true" ]; then
+  bats -T --print-output-on-failure --trace -r test
+
+elif [ "$APASH_ACTION_DOC" = "true" ]; then
+  apash.doc
+
 fi

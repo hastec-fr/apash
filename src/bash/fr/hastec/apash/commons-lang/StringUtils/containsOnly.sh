@@ -36,7 +36,6 @@
 # @exitcode 1 Otherwise.
 #
 StringUtils.containsOnly(){
-  set -x
   local inString=$1
   local inSequence=$2
 

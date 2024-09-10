@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-import fr.hastec.apash.commons-lang.StringUtils.indexOf
+apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
 
 # File description ###########################################################
 # @name StringUtils.indexOfAny

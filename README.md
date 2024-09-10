@@ -1,6 +1,6 @@
 
 <div align="center"  id="apash-top">
-  <img src="assets/apash-logo.svg" ="center" />
+  <img src="assets/apash-logo.svg" />
 
   # Apash
   Apache's Programs As SHell<br>  
@@ -39,13 +39,24 @@ Clone or download the Apash project, then source the main library (or add it to 
 ```bash
 source "hastec-fr/apash/apashSource.sh"
 ```
+
+### <a id="dependencies" ></a> Dependencies
+Some prerequisite could be required if you want to contribute to the project.
+For Testing purpose, you need to install [bats-core](https://github.com/bats-core/bats-core).
+```bash
+basher install "bats-core/bats-core"
+```
+For Documentation purpose, you need to install [shdoc](https://github.com/reconquest/shdoc).
+```bash
+basher install "reconquest/shdoc"
+```
 <div align="right">[ <a href="#apash-logo">↑ Back to top ↑</a> ]</div>
 
 ## <a id="quick-start" ></a>⚡️ Quick start
 Once Apash is installed, you can easily use the function by importing the package you desire by using command "import" with the name of the package.
 ```bash
 # Java style to import all methods from StringUtils
-import fr.hastec.apash.commons-lang.StringUtils
+apash.import "fr.hastec.apash.commons-lang.StringUtils"
 StringUtils.substring "Hello World" 0 4
 ```
 Do you see the 🔥Hell🔥 ? It's just the beginning.<br/>
@@ -53,7 +64,7 @@ If it's not the case, lets have a look to the troubleshooting section.
 
 ```bash
 # Import only a single method
-import fr.hastec.apash.commons-lang.StringUtils.indexOf
+apash.import "fr.hastec.apash.commons-lang.StringUtils.indexOf"
 StringUtils.indexOf "Gooood Morning" "M"
 # result: 7 (yes because it start from index 0 ^^)
 ```
@@ -64,19 +75,38 @@ source fr/hastec/apash/commons-lang/StringUtils.sh
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## <a id="features" ></a> ✨ Features
-String
-
-<div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
-
 ## <a id="documentation" ></a> 📖 Documentation
 Apash is auto documented using the project [shdoc](https://github.com/reconquest/shdoc). Each file contains an header following the formalism of shdoc in order to generate the corresponding markdown file (.md) in the doc directory.<br>
-Let's [explore it](doc/bash/fr/hastec/apash.md) !!
+Let's [explore the features](doc/bash/fr/hastec/apash.md) !!
+
+To generate the documentation, you need to install the tool [shdoc](https://github.com/reconquest/shdoc) (ref. [dependencies](#dependencies)). Once installed, generate the documentation from the root project directory with the main apash command.
+```bash
+  apash doc
+```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+
+## <a id="tests" ></a> 🧪 Tests
+Apash tests are realized with the tool [bats-core](https://github.com/bats-core/bats-core) (ref. [dependencies](#dependencies)). Once installed, launch the campaign of tests from the root project directory.
+```bash
+  apash test
+```
+<div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+
+## <a id="tests" ></a> ✨ Tips
+### Naming
+If you don't like the long name, you can create your own aliases (as usually).
+```bash
+  alias import="apash.import"
+  alias trim="StringUtils.trim"
+```
+Just keep in mind, that aliases are usefull for your prompt but (depending of the shell) they cannot be exported naturally. By example for bash, you should source again the alias from subscript or activate the shell option (on your own):
+```
+  shopt -s expand_aliases
+```
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
-The concept with import function is that "." from package replace "/" and it allows to source all sources from a package. In addition, it prevents cycling re-loading of librairies by keeping in mind which source has been loaded inside the hashmap $APASH_LIBRARIES. To see which library is loaded, use:
+The "import" function replace "." from packages by "/" and it allows to source all sources from a package. In addition, it prevents cycling re-loading of librairies by keeping in mind which library has been loaded inside the hashmap named **$APASH_LIBRARIES**. To see which library is loaded, use:
 ```bash
   for l in ${!APASH_LIBRARIES[@]}; do echo $l ;done  
 ```

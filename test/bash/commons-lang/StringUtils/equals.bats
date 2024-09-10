@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.equals
+apash.import fr.hastec.apash.commons-lang.StringUtils.equals
 
 # equals #########################################
 @test "equals succeed without argument" {

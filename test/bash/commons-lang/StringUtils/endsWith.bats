@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.endsWith
+apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 
 # endsWith ####################################
 @test "endsWith succeed when the two arguments are empty" {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-import fr.hastec.apash.commons-lang.StringUtils.isBlank
+apash.import fr.hastec.apash.commons-lang.StringUtils.isBlank
 
 # isBlank ########################################
 @test "isBlank succeed without argument" {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-import fr.hastec.apash.commons-lang.StringUtils.trim
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 # File description ###########################################################
 # @name StringUtils.isBlank
