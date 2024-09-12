@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # File description ###########################################################
-# @name StringUtils.split
-# @brief Splits the provided text into an array.
-# @description Splits the provided text into an array. Default separator is " "
-# The separator is not included in the returned String array.
-# Adjacent separators are treated as one separator. Leading and tailing separators
-# are not considered.
+# @name StringUtils.splitPreserveAllTokens
+# @brief Splits the provided text into an array preserving all tokens.
+# @description Splits the provided text into an array.eparators specified, 
+# preserving all tokens, including empty tokens created by adjacent separators.
+# The separator is not included in the returned String array. 
+# Adjacent separators are treated as separators for empty tokens
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -19,12 +19,12 @@
 # Method description #########################################################
 # @description
 # @example
-#    StringUtils.split myArray ""  ""                    # []
-#    StringUtils.split myArray ""  ":"                   # []
-#    StringUtils.split myArray "ab:cd:ef" ""             # ["ab:cd:ef"]
-#    StringUtils.split myArray "::ab::cd:::ef::" ":"     # ["ab", "cd", "ef"]
-#    StringUtils.split myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "cd", "ef"]
-#    StringUtils.split myArray "abab::cd:ab:ef::ab" "ab" # ["::cd:", ":ef::"]
+#    StringUtils.splitPreserveAllTokens myArray ""  ""                    # []
+#    StringUtils.splitPreserveAllTokens myArray ""  ":"                   # []
+#    StringUtils.splitPreserveAllTokens myArray "ab:cd:ef" ""             # ["ab:cd:ef"]
+#    StringUtils.splitPreserveAllTokens myArray "::ab::cd:ef::" ":"       # ["", "", "ab", "", "cd", "ef", ""]
+#    StringUtils.splitPreserveAllTokens myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "", "cd", "ef"]
+#    StringUtils.splitPreserveAllTokens myArray "abab::cd:ab:ef::ab" "ab" # ["", "", "::cd:", ":ef::", ""]
 #
 # @arg $1 string[] The result array which will contains tokens.
 # @arg $2 string The string to split.
@@ -33,23 +33,15 @@
 # @stdout None
 # @stderr None
 #
-# @warning: Not optimized, but looks functional.
+# @warning: Not optimized, but looks functional. 
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
-StringUtils.split() {
+StringUtils.splitPreserveAllTokens() {
   local -n inArray="$1" || return "$APASH_FUNCTION_FAILURE"
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""
-
   inArray=()
-
-  # Remove starting delimiters
-  
-  inString=${inString##+("$inDelimiter")}
-
-  # Remove tailing delimiters
-  inString=${inString%%+("$inDelimiter")}
 
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do
@@ -57,12 +49,10 @@ StringUtils.split() {
     if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
       inArray+=("$currentString")
       currentString=""
-      while [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; do
-        # Skip the number of chars corresponding to the delimiter.
-        i=$((i + ${#inDelimiter}))
-      done
-      # Compense the last increment realize by for loop
-      i=$((i - 1))
+      i=$((i + ${#inDelimiter}-1))
+
+      # If delimiter is at the end, then add an empty token
+      [[ i -eq $((${#inString}-1)) ]] && inArray+=("")
       continue
     fi
     currentString+=${inString:$i:1}

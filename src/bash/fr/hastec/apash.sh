@@ -31,6 +31,8 @@ export APASH_ROOT_DIR
 apash.import(){
   local lib
   local libs=()
+  local forceFlag=false
+  [ "$1" = "-f" ] && forceFlag=true && shift
 
   # OLD_IFS="$IFS"
   # IFS=":"
@@ -63,22 +65,15 @@ apash.import(){
 
   for lib in "${libs[@]}"; do
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
-
+    
     if [[ ":$APASH_LIBRARIES:" != *":$lib:"* ]]; then
       APASH_LIBRARIES+=":$lib"
       # shellcheck disable=SC1090
       source "$lib"
+    elif [[ $forceFlag = true ]]; then
+      # shellcheck disable=SC1090
+      source "$lib"
     fi
-    # echo "tata"
-    # [[ ! -v APASH_LIBRARIES["$lib"] ]] && echo "To load"
-    # if [[ ! -v APASH_LIBRARIES["$lib"] ]]; then
-    #   echo "tete"
-    #   APASH_LIBRARIES["$lib"]=true
-    #   echo "titi"
-    #   # shellcheck disable=SC1090
-    #   source "$lib"
-    #   echo "toto"
-    # fi
   done
 }
 

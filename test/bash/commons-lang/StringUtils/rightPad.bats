@@ -1,0 +1,53 @@
+#!/usr/bin/env bats
+
+source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+apash.import fr.hastec.apash.commons-lang.StringUtils.rightPad
+
+# rightPad #####################################
+@test "rightPad returns an empty string when the number to pad is empty " {
+  run StringUtils.rightPad "" "" ""
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.rightPad "" "a" " "
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.rightPad "" "-1" "z"
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.rightPad "" "1.2" "z"
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+}
+
+@test "rightPad returns string with necessary suffix " {
+  run StringUtils.rightPad ""  "3"   "z"
+  [ "$output" == "zzz"  ]
+  
+  run StringUtils.rightPad "bat"  "5"   "yz"
+  [ "$output" == "batyz"  ]
+
+  run StringUtils.rightPad "bat"  "8"   "yz"
+  [ "$output" == "batyzyzy"  ]
+
+  run StringUtils.rightPad "bat"  "5"   "abcdefg"
+  [ "$output" == "batab"  ]
+
+  run StringUtils.rightPad ""  "1"  "yz"
+  [ "$output" == "y" ]
+}
+
+@test "rightPad returns the original string when this string is longer than required size" {
+  run StringUtils.rightPad "bat"  "3"  "yz"
+  [ "$output" == "bat" ]
+
+  run StringUtils.rightPad ""  "0"  "yz"
+  [ "$output" == "" ]
+}
+
+@test "rightPad returns string with necessary suffix set to space when the pad string is empty" {
+  run StringUtils.rightPad "bat"  "5"   "" 
+  [ "$output" == "bat  " ]
+}

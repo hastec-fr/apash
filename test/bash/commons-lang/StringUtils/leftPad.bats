@@ -1,0 +1,53 @@
+#!/usr/bin/env bats
+
+source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+apash.import fr.hastec.apash.commons-lang.StringUtils.leftPad
+
+# leftPad #####################################
+@test "leftPad returns an empty string when the number to pad is empty " {
+  run StringUtils.leftPad "" "" ""
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.leftPad "" "a" " "
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.leftPad "" "-1" "z"
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+
+  run StringUtils.leftPad "" "1.2" "z"
+  [ "$status" -eq 1  ]
+  [ "$output" == ""  ]
+}
+
+@test "leftPad returns string with necessary prefix " {
+  run StringUtils.leftPad ""  "3"   "z"
+  [ "$output" == "zzz"  ]
+  
+  run StringUtils.leftPad "bat"  "5"   "yz"
+  [ "$output" == "yzbat"  ]
+
+  run StringUtils.leftPad "bat"  "8"   "yz"
+  [ "$output" == "yzyzybat"  ]
+
+  run StringUtils.leftPad "bat"  "5"   "abcdefg"
+  [ "$output" == "abbat"  ]
+
+  run StringUtils.leftPad ""  "1"  "yz"
+  [ "$output" == "y" ]
+}
+
+@test "leftPad returns the original string when this string is longer than required size" {
+  run StringUtils.leftPad "bat"  "3"  "yz"
+  [ "$output" == "bat" ]
+
+  run StringUtils.leftPad ""  "0"  "yz"
+  [ "$output" == "" ] 
+}
+
+@test "leftPad returns string with necessary prefix set to space when the pad string is empty" {
+  run StringUtils.leftPad "bat"  "5"   "" 
+  [ "$output" == "  bat" ]
+}
