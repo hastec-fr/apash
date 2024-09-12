@@ -18,6 +18,7 @@ Again we re-invent again these features 😅 by trying to looks like Apache's li
 - [Documentation](#documentation)
 - [Troubleshooting](#troubleshooting)
 - [license](#license)
+- [Explore API](doc/bash/fr/hastec/apash.md)
 
 ## <a id="quick-start" ></a>📦 Installation
 As other shell projects, there are unfortunately no standard way to install Apash. But here the main's one:

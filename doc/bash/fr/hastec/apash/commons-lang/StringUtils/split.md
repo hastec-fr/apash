@@ -15,7 +15,8 @@ Splits the provided text into an array.
 
 Splits the provided text into an array. Default separator is " "
 The separator is not included in the returned String array.
-Adjacent separators are NOT treated as one separator.
+Adjacent separators are treated as one separator. Leading and tailing separators
+are not considered.
 
 ### Authors:
 * Benjamin VARGIN
@@ -34,19 +35,24 @@ Adjacent separators are NOT treated as one separator.
 #### Example
 
 ```bash
-if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # true
-if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # true
-if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # false
+StringUtils.split myArray ""  ""                    # []
+StringUtils.split myArray ""  ":"                   # []
+StringUtils.split myArray "ab:cd:ef" ""             # ["ab:cd:ef"]
+StringUtils.split myArray "::ab::cd:::ef::" ":"     # ["ab", "cd", "ef"]
+StringUtils.split myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "cd", "ef"]
+StringUtils.split myArray "abab::cd:ab:ef::ab" "ab" # ["::cd:", ":ef::"]
 ```
 
 #### Arguments
 
-* **$1** (string): Input string to evaluate
+* **$1** (string[]): The result array which will contains tokens.
+* **$2** (string): The string to split.
+* **$3** (string): The delimiter (can be a sequance of characters).
 
 #### Exit codes
 
-* **0**: If no argument or an agurment of length 0 is passed.
-* **1**: If the argument with at lead one character (even space) is passed.
+* **0**: When result array exists.
+* **1**: When input array does not exists.
 
 #### Output on stdout
 

@@ -5,15 +5,19 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 
 # endsWith ####################################
 @test "endsWith succeed when the two arguments are empty" {
-  run StringUtils.endsWith
+  StringUtils.endsWith
 }
 
 @test "endsWith succeed with empty arguments" {
-  run StringUtils.endsWith "" ""
+  StringUtils.endsWith "" ""
 }
 
 @test "endsWith succeed when suffix is empty" {
-  run StringUtils.endsWith "abcd" ""
+  StringUtils.endsWith "abcd" ""
+}
+
+@test "endsWith succeed when suffix match with the end of the string" {
+  StringUtils.endsWith "abcd" "cd"
 }
 
 @test "endsWith failed when suffix does not match with the end of the string" {
@@ -24,10 +28,6 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 @test "endsWith failed when suffix (longer) does not match with the end of the string" {
   run StringUtils.endsWith "abcd" "acd"
   [ "$status" -eq 1 ]
-}
-
-@test "endsWith succeed when suffix match with the end of the string" {
-  run StringUtils.endsWith "abcd" "cd"
 }
 
 @test "endsWith failed when suffix is not empty but the string is empty" {

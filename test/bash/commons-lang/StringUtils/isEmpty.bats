@@ -5,11 +5,11 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isEmpty
 
 # isEmpty ########################################
 @test "isEmpty succeed without argument" {
-  run StringUtils.isEmpty
+  StringUtils.isEmpty
 }
 
 @test "isEmpty succeed with an empty argument" {
-  run StringUtils.isEmpty ""
+  StringUtils.isEmpty ""
 }
 
 @test "isEmpty failed with a blank argument" {

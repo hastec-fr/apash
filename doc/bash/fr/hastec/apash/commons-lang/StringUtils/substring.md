@@ -13,6 +13,10 @@ Gets a substring from the specified String.
 
 ## Overview
 
+Gets a substring from the specified String. The first character correspond
+to the index 0. Negative index are possible, in this case, it counts from the end.
+Any index minus 0 will be considered as 0 and any index over the length of the string
+will be considered as the length of the string.
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,11 +31,6 @@ Gets a substring from the specified String.
 
 ### StringUtils.substring
 
-Gets a substring from the specified String. The first character correspond
-to the index 0. Negative index are possible, in this case, it counts from the end.
-Any index minus 0 will be considered as 0 and any index over the length of the string
-will be considered as the length of the string.
-
 #### Example
 
 ```bash
@@ -39,6 +38,7 @@ StringUtils.substring ""              # return ""
 StringUtils.substring "abc"  0   2    # return "ab"
 StringUtils.substring "abc" -2  -1    # return "b"
 StringUtils.substring "abc" -4   2    # return "ab"
+StringUtils.substring "abc"  2   6    # return "c"
 ```
 
 #### Arguments

@@ -40,14 +40,14 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.leftPad
 }
 
 @test "leftPad returns the original string when this string is longer than required size" {
-  run StringUtils.leftPad "bat"  "3"  "yz"
+  StringUtils.leftPad "bat"  "3"  "yz"
   [ "$output" == "bat" ]
 
-  run StringUtils.leftPad ""  "0"  "yz"
+  StringUtils.leftPad ""  "0"  "yz"
   [ "$output" == "" ] 
 }
 
 @test "leftPad returns string with necessary prefix set to space when the pad string is empty" {
-  run StringUtils.leftPad "bat"  "5"   "" 
+  StringUtils.leftPad "bat"  "5"   "" 
   [ "$output" == "  bat" ]
 }

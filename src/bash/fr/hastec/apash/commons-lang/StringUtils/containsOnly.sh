@@ -39,6 +39,9 @@ StringUtils.containsOnly(){
   local inString=$1
   local inSequence=$2
 
+  # Returns true if input string is empty.
+  [[ -z $inString ]] && return "$APASH_FUNCTION_SUCCESS"
+
   # Fail when input string is not empty but sequence is.
   [[ -n $inString && -z $inSequence ]] && return "$APASH_FUNCTION_FAILURE"
 

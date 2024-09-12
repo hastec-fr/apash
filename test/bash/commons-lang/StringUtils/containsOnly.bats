@@ -6,22 +6,26 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.containsOnly
 
 # containsOnly ################################
 @test "containsOnly succeed without arguments" {
-  run StringUtils.containsOnly
+  StringUtils.containsOnly
 }
 
 @test "containsOnly succeed with empty input string" {
-  run StringUtils.containsOnly ""
-  run StringUtils.containsOnly "" ""
-  run StringUtils.containsOnly "" "abc"
+  StringUtils.containsOnly ""
+
+  StringUtils.containsOnly "" ""
+
+  StringUtils.containsOnly "" "abc"
+}
+
+@test "containsOnly succeed when string contains only provided characters" {
+  StringUtils.containsOnly "abab" "abc"
+
+  StringUtils.containsOnly "a[b" "a[bc"
 }
 
 @test "containsOnly failed when inputs string is not null but charsequence is" {
   run StringUtils.containsOnly "abc" ""
   [ "$status" -eq 1 ]
-}
-
-@test "containsOnly succeed when string contains only provided characters" {
-  run StringUtils.containsOnly "abab" "abc"
 }
 
 @test "containsOnly failed when string does not contains only provided characters" {
@@ -30,8 +34,6 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.containsOnly
 
   run StringUtils.containsOnly "abz" "abc"
   [ "$status" -eq 1 ]
-
-  run StringUtils.containsOnly "a[b" "a[bc"
 
   run StringUtils.containsOnly "a[bd" "a[bc"
   [ "$status" -eq 1 ]

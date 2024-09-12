@@ -7,48 +7,48 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.remove
 
 # remove ######################################
 @test "remove returns an empty string when the input string is empty " {
-  StringUtils.remove "" ""
+  run StringUtils.remove "" ""
   [ "$output" == ""  ]
 
-  StringUtils.remove "" ":"
+  run StringUtils.remove "" ":"
   [ "$output" == ""  ]
 }
 
 @test "remove returns the full string if the substring to remove is empty " {
-  StringUtils.remove "queued" ""
+  run StringUtils.remove "queued" ""
   [ "$output" == "queued"  ]
   
-  StringUtils.remove $'ab:cd:\nef' ""
+  run StringUtils.remove $'ab:cd:\nef' ""
   [ "$output"  == $'ab:cd:\nef'  ]
 }
 
 @test "remove returns the string without occurence of the substring to remove " {
-  StringUtils.remove "ab:cd:ef" ":"
+  run StringUtils.remove "ab:cd:ef" ":"
   [ "$output" == "abcdef" ]
 
-  StringUtils.remove "abab::cd:ab:ef::ab" "ab"
+  run StringUtils.remove "abab::cd:ab:ef::ab" "ab"
   [ "$output" == "::cd::ef::" ]
 
-  StringUtils.remove $'ab: cd:\nef gh:\nij ' $'\n'
+  run StringUtils.remove $'ab: cd:\nef gh:\nij ' $'\n'
   [ "$output" == "ab: cd:ef gh:ij " ]
 
-  StringUtils.remove "queued" "ue"
+  run StringUtils.remove "queued" "ue"
   [ "$output" == "qd" ]
 
-  StringUtils.remove "/path/to/delete" "to/"
+  run StringUtils.remove "/path/to/delete" "to/"
   [ "$output" == "/path/delete" ]
 
-  StringUtils.remove "((var(to)delete)" "(to"
+  run StringUtils.remove "((var(to)delete)" "(to"
   [ "$output" == "((var)delete)" ]
 }
 
 @test "remove returns the orginal string if no occurence of the substring occurs" {
-  StringUtils.remove "queued" "zz"
+  run StringUtils.remove "queued" "zz"
   [ "$output" == "queued" ]
 
-  StringUtils.remove "queued" "queued_"
+  run StringUtils.remove "queued" "queued_"
   [ "$output" == "queued" ]
 
-  StringUtils.remove $'que\nued' "queued"
+  run StringUtils.remove $'que\nued' "queued"
   [ "$output" == $'que\nued' ]
 }
