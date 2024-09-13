@@ -27,9 +27,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 }
 
 @test "isDigits returns true when the string has only digits characters" {
-  run NumberUtils.isDigits "123"
+  NumberUtils.isDigits "123"
   
-  run NumberUtils.isDigits "000"
+  NumberUtils.isDigits "000"
 
-  run NumberUtils.isDigits "1"  
+  NumberUtils.isDigits "1"  
 }
