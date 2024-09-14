@@ -4,7 +4,7 @@
 
   # Apash
   Apache's Programs As SHell<br>
-  !! WORK IN PROGRESS !!  
+  !! WORK IN PROGRESS (installation not working for the moment) !!  
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 </div>
 
