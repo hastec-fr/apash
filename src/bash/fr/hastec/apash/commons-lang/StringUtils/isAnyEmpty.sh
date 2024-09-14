@@ -25,7 +25,7 @@
 #    StringUtils.isAnyEmpty " "       "bar"  # false
 #    StringUtils.isAnyEmpty "foo"     "bar"  # false
 #
-# @arg $* string Input strings to evaluate
+# @arg $1 string... Input strings to evaluate
 #
 # @stdout None
 # @stderr None

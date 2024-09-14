@@ -13,7 +13,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [lang](../../lang.md) / [Math](../Math.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################

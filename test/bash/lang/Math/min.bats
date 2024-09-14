@@ -46,6 +46,9 @@ apash.import fr.hastec.apash.lang.Math.min
   run Math.min "-.123" "0.123"
   [ "$output" = "-.123" ]
 
-  run Math.min "000" "0"
-  [ "$output" = "0" ]
+    run Math.min ".123" "0.123"
+  [ "$output" = ".123" ]
+
+  run Math.min "000" "0" 
+  [ "$output" = "000" ]
 }

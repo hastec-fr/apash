@@ -63,7 +63,7 @@ StringUtils.rotate() {
     indexFrom=$((${#inString}-nbChars))
     outString="${inString:$indexFrom}${inString:0:$indexFrom}"
   else
-    nbChars=$(NumberUtils.abs "$nbChars")
+    nbChars=$(Math.abs "$nbChars")
     outString="${inString:$nbChars}${inString:0:$nbChars}"
   fi
 

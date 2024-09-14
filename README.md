@@ -9,7 +9,7 @@
 
 ## 👀 Introduction
 Bash and more generally shells are popular command-line and scripting languages that are widely used on Unix-like operating systems, including Linux and macOS. Nervetheless, it always happen to reinvent basic operations like split, trim... by ourself. 
-Again we re-invent again these features 😅 by trying to looks like Apache's libraries realized in JAVA to simplify their usage especially for people doing DevOps.
+Again we re-invent again these features 😅 by trying to looks like Apache's libraries realized in JAVA to simplify their usage in shell, especially for people doing DevOps.
 
 ## Table of contents
 - [Installation](#installation)

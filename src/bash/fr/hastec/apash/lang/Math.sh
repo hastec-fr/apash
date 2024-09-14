@@ -10,15 +10,16 @@
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../.md) / [apash](../apash.md) / 
+# [](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 
 # <!-- apash.parentEnd -->
 #
 # ### Method Summary
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
-# |[NumberUtils](commons-lang/NumberUtils.md)|Operations on Numeric values.|
-# |[StringUtils](commons-lang/StringUtils.md)|Operations on String considering null as empty string|
+# |[abs](Math/abs.md)|Checks whether the given String is a parsable number, then return without minus sign (absolute value).|
+# |[max](Math/max.md)|Returns the greater of two number values.|
+# |[min](Math/min.md)|Returns the smaller of two number values.|
 # <!-- apash.summaryTableEnd -->
 
 

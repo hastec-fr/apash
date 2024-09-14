@@ -7,7 +7,7 @@
   # Apash
 </div>
 
-# StringUtils.isDigits
+# NumberUtils.isDigits
 
 Checks whether the String contains only digit characters.
 
@@ -33,19 +33,19 @@ Because these character are not digits.
 #### Example
 
 ```bash
-StringUtils.isDigits ""     # false
-StringUtils.isDigits "a"    # false
-StringUtils.isDigits "a12"  # false
-StringUtils.isDigits "-12"  # false
-StringUtils.isDigits "1.2"  # false
-StringUtils.isDigits " 12"  # false
-StringUtils.isDigits "123"  # true
-StringUtils.isDigits "000"  # true
+NumberUtils.isDigits ""      # false
+NumberUtils.isDigits "a"     # false
+NumberUtils.isDigits "a12"   # false
+NumberUtils.isDigits "-12"   # true
+NumberUtils.isDigits "1.2"   # false
+NumberUtils.isDigits " 12"   # false
+NumberUtils.isDigits "123"   # true
+NumberUtils.isDigits "000"   # true
 ```
 
 #### Arguments
 
-* **$1** (number): The number to analyse.
+* **$1** (number): The number to analyze.
 
 #### Exit codes
 

@@ -25,6 +25,8 @@ This implementation do reference to the [java apache implementation](https://com
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 |[isDigits](NumberUtils/isDigits.md)|Checks whether the String contains only digit characters.|
+|[isInteger](NumberUtils/isInteger.md)|Checks whether the String contains has the form of a valid integer.|
+|[isParsable](NumberUtils/isParsable.md)|Checks whether the given String is a parsable number.|
 <!-- apash.summaryTableEnd -->
 
 
