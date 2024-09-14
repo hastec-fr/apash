@@ -288,7 +288,7 @@ chechApashSourced
 # Source main apash script if no argument has been passed.
 if [ $# -eq 0 ]; then
   # shellcheck source=src/bash/fr/hastec/apash.sh
-  . "src/bash/fr/hastec/apash.sh"
+  . "${BASH_SOURCE[0]}/src/bash/fr/hastec/apash.sh"
   [ "$APASH_IS_SOURCED" = "true" ] && return || exit
 fi
 
@@ -314,7 +314,7 @@ if [ "$APASH_ACTION_RELOAD" = "true"  ]; then
 
 # If no argument is provided, consider source action
 elif  [ "$APASH_ACTION_SOURCE" = "true" ]; then
-  . "src/bash/fr/hastec/apash.sh"
+  . "${BASH_SOURCE[0]}/src/bash/fr/hastec/apash.sh"
 
 elif [ "$APASH_ACTION_TEST" = "true" ]; then
   bats -T --print-output-on-failure --trace -r test
