@@ -3,7 +3,8 @@
   <img src="assets/apash-logo.svg" />
 
   # Apash
-  Apache's Programs As SHell<br>  
+  Apache's Programs As SHell<br>
+  !! WORK IN PROGRESS !!  
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 </div>
 
@@ -127,6 +128,6 @@ Three ways to reload a libraries:
 Meanwhile the project [Amber](https://github.com/amber-lang/amber) becomes operation,
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## <a id="license" ></a> 📃 license
+## <a id="license" ></a> 📃 License
 Apash is free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
