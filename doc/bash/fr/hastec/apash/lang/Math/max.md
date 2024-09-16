@@ -57,7 +57,6 @@ Math.max  "000"    "0"      # 000
 
 * Returns the smaller of two number values.
   In case of equality, the first number format is returned.
-  Multiple 000 are reduced to 0.
 
 #### Output on stderr
 
