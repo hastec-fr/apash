@@ -1,7 +1,7 @@
 
-<div align="center" id="apash-top">
-  <a href="https://github.com/hastec-fr/apash">
-    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+<div align='center' id='apash-top'>
+  <a href='https://github.com/hastec-fr/apash'>
+    <img alt='apash-logo' src='../../../../../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
@@ -40,7 +40,7 @@ Math.max  "1"      "-1"     # 1
 Math.max  "-2"     "-3"     # -2
 Math.max  "0.123"  ".099"   # 0.123
 Math.max  "-.123"  "0.123"  # -0.123
-Math.max  "000"    "0"      # 0
+Math.max  "000"    "0"      # 000
 ```
 
 #### Arguments
@@ -64,5 +64,5 @@ Math.max  "000"    "0"      # 0
 * None.
 
 
-  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+  <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

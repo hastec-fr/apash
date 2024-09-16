@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-
-# Problem about sourcing from a function
-# @see https://unix.stackexchange.com/questions/151889/why-does-bashs-source-command-behave-differently-when-called-from-a-function
 export APASH_VERSION="0.1.0-snapshot"
 
 # Command line counters
@@ -10,11 +7,11 @@ APASH_NB_ARGS=0
 
 # Source must be done out of function
 APASH_ACTION_SOURCE=false
-APASH_ACTION_RELOAD=false
 APASH_ACTION_DOC=false
 APASH_EXIT_REQUIRED=false
 APASH_IS_SOURCED=false
-
+APASH_SHELL=""
+APASH_HOME_DIR=""
 
 # Helps ######################################################################
 showApashHelp(){
@@ -49,15 +46,13 @@ EOF
 
 showApashSourceHelp(){
   cat << EOF
-  Usage: ${0##*/} source [-h] [--reload]
+  Usage: ${0##*/} source [-h]
 
   Source the main root script. It implies that it reset the list of 
   libraries already sourced.
   
       -h|--help|-?      display this help and exit.
 
-      --reload          Source again files which have been already sourced
-                        except the main root script.                        
 EOF
 }
 
@@ -156,10 +151,6 @@ parseApashSourceArgs() {
       -h|-\?|--help)
         showApashSourceHelp
         APASH_EXIT_REQUIRED=true && return
-        ;;
-
-      --reload)
-        APASH_ACTION_RELOAD=true        
         ;;
 
       # End of all options.
@@ -270,56 +261,82 @@ parseApashAction(){
     esac
 }
 
-chechApashSourced() {
-  # Check if the script is being sourced
-  case "$0" in
-      -sh|-dash|-bash|-ksh)
-          APASH_IS_SOURCED=true
-          ;;
-      *)
-          APASH_IS_SOURCED=false
-          ;;
-  esac
+# Execute apash command
+# Embedded flow to prevent usage of exit statement
+# which quit the current session in case of sourcing.
+executeApashCommand(){
+  # If the current shell is not identified, then exit.
+  if [ "$APASH_SHELL" = "Unknown" ]; then
+    echo "Not supported shell for the moment." >&2
+    return
+  fi
+
+  # Source main apash script if no argument has been passed.
+  # Take in consideration basher include (bash "hastec-fr/apash" "apash")
+  if [ $# -eq 0 ] || { [ $APASH_IS_SOURCED = true ] && [ "$1" = "hastec-fr/apash" ] && [ "$2" = "apash" ] ;}; then
+    # shellcheck disable=SC1091
+    . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
+    [ "$APASH_IS_SOURCED" = "true" ] && return
+  fi
+
+  parseApashArguments "$@"
+  shift "$APASH_NB_ARGS"
+  [ "$APASH_EXIT_REQUIRED" = "true" ] && return
+
+  parseApashAction "$@"
+  shift
+  [ "$APASH_EXIT_REQUIRED" = "true" ] && return
+
+  # Use POSIX operation as much as possible.
+  # Sourcing action must be done in main flow instead of function.
+  if [ "$APASH_ACTION_SOURCE" = "true" ]; then
+    # shellcheck disable=SC1091
+    . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
+
+  elif [ "$APASH_ACTION_TEST" = "true" ]; then
+    bats -T --print-output-on-failure --trace -r test
+
+  elif [ "$APASH_ACTION_DOC" = "true" ]; then
+    ! declare -F "apash.import" && echo "Apash must be sourced first" >&2 && return
+    apash.import "fr.hastec.apashDoc"
+    apash.doc
+  fi
 }
 
 # Main #######################################################################
-chechApashSourced
-
-# Source main apash script if no argument has been passed.
-if [ $# -eq 0 ]; then
-  # shellcheck source=src/bash/fr/hastec/apash.sh
-  . "${BASH_SOURCE[0]}/src/bash/fr/hastec/apash.sh"
-  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
+##############################################################################
+# Primary checks prefered in the main than
+# embedeed in a function
+##############################################################################
+# Check if the script is being sourced
+if [ "$0" = "${0##*/}" ]; then
+  APASH_IS_SOURCED="true"
+else
+  APASH_IS_SOURCED="false"
 fi
 
-parseApashArguments "$@"
-shift "$APASH_NB_ARGS"
-if [ "$APASH_EXIT_REQUIRED" = "true" ]; then
-  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
+# If already set in env, then skip calculation
+# Get the type of shell (only bash for the moment)
+if [ -z "$APASH_SHELL" ];then
+  if [ -n "$BASH_VERSION" ]; then
+    APASH_SHELL="bash"
+  # elif [ -n "$ZSH_VERSION" ]; then
+  #   echo "Running in Zsh"
+  # elif [ -n "$KSH_VERSION" ]; then
+  #   echo "Running in Ksh"
+  else
+    APASH_SHELL="Unknown"
+  fi
 fi
 
-parseApashAction "$@"
-shift
-if [ "$APASH_EXIT_REQUIRED" = "true" ]; then
-  [ "$APASH_IS_SOURCED" = "true" ] && return || exit
+# Calculat potential apash home directory if not determined.
+if [ -z "$APASH_HOME_DIR" ]; then
+  if [ "$APASH_SHELL" = "bash" ]; then
+    APASH_HOME_DIR=$(dirname "$(realpath "$(command -v -- "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")")
+  else
+    APASH_HOME_DIR="$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )"
+  fi
 fi
+export APASH_HOME_DIR
 
-# Use POSIX operation as much as possible.
-# Sourcing action must be done in main flow instead of function.
-if [ "$APASH_ACTION_RELOAD" = "true"  ]; then
-  for lib in "${!APASH_LIBRARIES[@]}"; do
-    # shellcheck disable=SC1090
-    . "$lib"
-  done
-
-# If no argument is provided, consider source action
-elif  [ "$APASH_ACTION_SOURCE" = "true" ]; then
-  . "${BASH_SOURCE[0]}/src/bash/fr/hastec/apash.sh"
-
-elif [ "$APASH_ACTION_TEST" = "true" ]; then
-  bats -T --print-output-on-failure --trace -r test
-
-elif [ "$APASH_ACTION_DOC" = "true" ]; then
-  apash.doc
-
-fi
+executeApashCommand "$@"

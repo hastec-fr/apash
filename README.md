@@ -4,7 +4,6 @@
 
   # Apash
   Apache's Programs As SHell<br>
-  !! WORK IN PROGRESS (installation not working for the moment) !!  
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 </div>
 
@@ -32,14 +31,16 @@ curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | 
 # Install Apash
 basher install "hastec-fr/apash"
 
-# Source the main apash script (or add it to your profile and relogin)
-source "$HOME/.basher/cellar/packages/hastec-fr/apashSource.sh"
+# Add the following line to your .bashrc file (and open a new terminal) 
+# or use it directly in the prompt to activate it for the current session.
+include "hastec-fr/apash" "apash"
 ```
 
 ### Raw
-Clone or download the Apash project, then source the main library (or add it to your profile and relogin).
+Clone or download the Apash project, then source the main script 
+or add it to your profile and open a new terminal.
 ```bash
-source "hastec-fr/apash/apashSource.sh"
+source "hastec-fr/apash/apash"
 ```
 
 ### <a id="dependencies" ></a> Dependencies
@@ -108,25 +109,13 @@ Just keep in mind, that aliases are usefull for your prompt but (depending of th
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
-The "import" function replace "." from packages by "/" and it allows to source all sources from a package. In addition, it prevents cycling re-loading of librairies by keeping in mind which library has been loaded inside the hashmap named **$APASH_LIBRARIES**. To see which library is loaded, use:
+The "import" function replace "." from packages by "/" and it allows to source all scripts from a directory. In addition, it prevents cycling import of re-loading librairies.
+
+It's possible to fore the reload of a libraries (but not recursively to prevent cycling dependencies).
 ```bash
-  for l in ${!APASH_LIBRARIES[@]}; do echo $l ;done  
-```
-Three ways to reload a libraries:
-```bash
-  # Reload libraries (ReSource)
-  apachSource -reload
-
-  # ${!APASH_LIBRARIES[<PathToLib>]}=false
-  APASH_LIBRARIES["$HOME/.basher/cellar/packages/hastec-fr/fr/hastec/apash/commons-lang/StringUtils/trim.sh"]=false
-
-  # Or simply unset completly the hashmap (but you'll need to re-import libraries)
-  declare -A APASH_LIBRARIES
-```
- 
-
-Meanwhile the project [Amber](https://github.com/amber-lang/amber) becomes operation,
-<div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+  # Reload libraries (Re-Source)
+  apash.import -f path.to.the.library
+``` 
 
 ## <a id="license" ></a> 📃 License
 Apash is free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.

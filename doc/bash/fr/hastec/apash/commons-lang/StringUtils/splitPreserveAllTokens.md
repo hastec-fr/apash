@@ -1,7 +1,7 @@
 
-<div align="center" id="apash-top">
-  <a href="https://github.com/hastec-fr/apash">
-    <img alt="apash-logo" src="../../../../../../../assets/apash-logo.svg"/>
+<div align='center' id='apash-top'>
+  <a href='https://github.com/hastec-fr/apash'>
+    <img alt='apash-logo' src='../../../../../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
@@ -63,5 +63,5 @@ StringUtils.splitPreserveAllTokens myArray "abab::cd:ab:ef::ab" "ab" # ["", "", 
 * None
 
 
-  <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
+  <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

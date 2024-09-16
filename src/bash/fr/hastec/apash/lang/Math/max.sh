@@ -28,7 +28,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #    Math.max  "-2"     "-3"     # -2
 #    Math.max  "0.123"  ".099"   # 0.123
 #    Math.max  "-.123"  "0.123"  # -0.123
-#    Math.max  "000"    "0"      # 0
+#    Math.max  "000"    "0"      # 000
 #
 # @arg $1 number The first number to compare.
 # @arg $2 number The second number to compare.
