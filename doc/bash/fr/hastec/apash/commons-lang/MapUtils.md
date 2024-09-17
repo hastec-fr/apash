@@ -7,25 +7,27 @@
   # Apash
 </div>
 
-# Array
+# MapUtils
 
-Contains methods for performing basic numeric operations
+Operations on maps.
 
 ## Overview
 
-This package contains various methods for manipulating arrays.
-This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html).
+This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/MapUtils.html)
+### WARNING
+Contrary Java implementation methods are generally modifying directly the input map given by reference.
 
 ### Parents
 <!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [util](../util.md) / 
+[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
 <!-- apash.parentEnd -->
+
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[sort](Array/sort.md)|Sorts the specified array into ascending natural order.|
+|[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 <!-- apash.summaryTableEnd -->
 
 

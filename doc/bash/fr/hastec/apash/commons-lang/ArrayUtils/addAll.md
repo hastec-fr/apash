@@ -23,9 +23,9 @@ Adds given elements at the end of an array.
 
 ## Index
 
-* [ArrayUtils.addFirst](#arrayutilsaddfirst)
+* [ArrayUtils.addAll](#arrayutilsaddall)
 
-### ArrayUtils.addFirst
+### ArrayUtils.addAll
 
 #### Example
 

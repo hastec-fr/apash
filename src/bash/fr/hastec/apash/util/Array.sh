@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # <!-- @package -->
-# @name Math
+# @name Array
 # @brief Contains methods for performing basic numeric operations
 #         
 # @description
-# Such as the elementary exponential, logarithm, square root, and trigonometric functions.
-# This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Math.html).
+# This package contains various methods for manipulating arrays.
+# This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html).
 #
 # ### Parents
 # <!-- apash.parentBegin -->
