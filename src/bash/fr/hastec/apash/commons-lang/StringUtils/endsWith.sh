@@ -16,11 +16,11 @@
 # Method description #########################################################
 # @description
 # @example
-#    if StringUtils.endsWith "" ""        ; then echo "true"; else echo "false"; # true
-#    if StringUtils.endsWith "abcd" ""    ; then echo "true"; else echo "false"; # true
-#    if StringUtils.endsWith "abcd" "cd"  ; then echo "true"; else echo "false"; # true
-#    if StringUtils.endsWith "abcd" "bd"  ; then echo "true"; else echo "false"; # false
-#    if StringUtils.endsWith ""     "c"   ; then echo "true"; else echo "false"; # false
+#    StringUtils.endsWith "" ""        # true
+#    StringUtils.endsWith "abcd" ""    # true
+#    StringUtils.endsWith "abcd" "cd"  # true
+#    StringUtils.endsWith "abcd" "bd"  # false
+#    StringUtils.endsWith ""     "c"   # false
 #
 # @arg $1 string Input string to check.
 # @arg $2 string The suffix to find.

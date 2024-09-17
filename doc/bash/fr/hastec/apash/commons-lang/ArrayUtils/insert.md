@@ -28,10 +28,20 @@ Inserts elements into an array at the given index (starting from zero).
 ### ArrayUtils.insert
 
 #### Example
-
 ```bash
 ArrayUtils.insert  ""       ""          # failure
 ArrayUtils.insert  "myVar"  "a"         # failure
+
+declare -A myMap
+ArrayUtils.insert  "myMap"  "a"         # failure
+
+ioArray=()
+ArrayUtils.insert  "0"           "ioArray"              # failure
+ArrayUtils.insert  "0"           "ioArray"  "a"         # ("a")
+ArrayUtils.insert  "${#ioArray}" "ioArray"  "b" ""      # ("a" "b" "")
+ArrayUtils.insert  "2"           "ioArray"  "c" "d"     # ("a" "b" "c" "d" "")
+ArrayUtils.insert  "1"           "ioArray"  "foo bar"   # ("a" "foo bar" "b" "c" "d" "")
+ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar" "b" "c" "d" "")
 ```
 
 #### Arguments

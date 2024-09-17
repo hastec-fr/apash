@@ -24,7 +24,8 @@ apash.import fr.hastec.apash.util.Array.sort
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.removeAll  ""       ""          # failure
 #    ArrayUtils.removeAll  "myVar"  "0"         # failure
 #
@@ -44,6 +45,7 @@ apash.import fr.hastec.apash.util.Array.sort
 #    ArrayUtils.removeAll  "myArray"  "4"       # failure - (a)
 #    ArrayUtils.removeAll  "myArray"  "0"       # ()
 #    ArrayUtils.removeAll  "myArray"  "0"       # failure - ()
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 number... The indexes of the array to remove.

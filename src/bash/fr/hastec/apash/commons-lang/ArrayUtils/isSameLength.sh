@@ -19,7 +19,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.isSameLength ""        ""         # false
 #    ArrayUtils.isSameLength "myVar"   "myVar"    # false
 #
@@ -37,6 +38,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    myArray1=("a")
 #    myArray2=("a" "b")
 #    ArrayUtils.isSameLength "myArray"  "myArray2" # false
+# ```
 #
 # @arg $1 ref(string[]) The first array to compare.
 # @arg $2 ref(string[]) The second array to compare.

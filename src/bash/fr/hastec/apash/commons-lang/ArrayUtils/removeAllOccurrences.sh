@@ -22,7 +22,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeAll
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myArray=("a" "b" "a" "c" "" "d")
 #    ArrayUtils.removeAllOccurrences  "myArray"            # failure
 #    ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ("b" "c" "" "d")
@@ -32,6 +33,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeAll
 #    myArray=("a")
 #    ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 #    ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 string The value to remove from the array.

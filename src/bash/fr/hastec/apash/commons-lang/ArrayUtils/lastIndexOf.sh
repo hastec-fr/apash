@@ -22,16 +22,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myIndexes=()
 #    ArrayUtils.lastIndexOf  ""       ""         # failure - ""
 #    ArrayUtils.lastIndexOf  "myVar"  "a"        # failure - ""
 #
 #    declare -A myMap
 #    ArrayUtils.lastIndexOf  "myMap"  "a"        # failure - ""
-#
-#    myArray=("a" "b" )
-#    
 #
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.lastIndexOf  "myArray" "b"       # ("4")
@@ -44,6 +42,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    ArrayUtils.lastIndexOf  "myArray" "a" "3"   # -1
 #    ArrayUtils.lastIndexOf  "myArray" "a" "-1"  # 0
 #    ArrayUtils.lastIndexOf  "myArray" ""        # -1
+#  ```
 #
 # @arg $1 ref(string[]) Name of the array to check.
 # @arg $2 string Value to find.

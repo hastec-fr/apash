@@ -28,10 +28,21 @@ Check if the input name is an map or not.
 ### MapUtils.isMap
 
 #### Example
-
 ```bash
 MapUtils.isMap  ""          # false
 MapUtils.isMap  "myVar"     # false
+
+declare -a myArray
+MapUtils.isMap  "myArray"   # false
+
+myArray=()
+MapUtils.isMap  "myArray"   # false
+
+declare -A myMap
+MapUtils.isMap   "myMap"    # true
+
+myMap={}
+MapUtils.isMap   "myMap"    # true
 ```
 
 #### Arguments

@@ -19,9 +19,9 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 # Method description #########################################################
 # @description
 # @example
-#    if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # true
-#    if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # true
-#    if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # false
+#    StringUtils.isBlank ""            # true
+#    StringUtils.isBlank "     "       # true
+#    StringUtils.isBlank "Hello World" # false
 #
 # @arg $1 string The string to check.
 #

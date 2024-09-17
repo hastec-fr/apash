@@ -19,7 +19,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.insert  ""       ""          # failure
 #    ArrayUtils.insert  "myVar"  "a"         # failure
 #
@@ -33,6 +34,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #    ArrayUtils.insert  "2"           "ioArray"  "c" "d"     # ("a" "b" "c" "d" "")
 #    ArrayUtils.insert  "1"           "ioArray"  "foo bar"   # ("a" "foo bar" "b" "c" "d" "")
 #    ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar" "b" "c" "d" "")
+# ```
 #
 # @arg $1 number Positive index of the array to insert values.
 # @arg $2 ref(string[]) Name of the array to modify.

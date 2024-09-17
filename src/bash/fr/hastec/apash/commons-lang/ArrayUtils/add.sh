@@ -18,12 +18,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
-#    ArrayUtils.add  ""       ""          # failure
-#    ArrayUtils.add  "myVar"  "a"         # failure
+# #### Example
+# ```bash
+#    ArrayUtils.add  ""       ""            # failure
+#    ArrayUtils.add  "myVar"  "a"           # failure
 #
 #    declare -A myMap
-#    ArrayUtils.add  "myMap"  "a"         # failure
+#    ArrayUtils.add  "myMap"  "a"           # failure
 #
 #    myArray=()
 #    ArrayUtils.add  "myArray"              # failure
@@ -32,6 +33,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.add  "myArray"  ""          # ("a" "b" "")
 #    ArrayUtils.add  "myArray"  "foo bar"   # ("a" "b" "" "foo bar")
 #    ArrayUtils.add  "myArray"  "c" "d"     # failure
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 string Value to add at the end of the array.

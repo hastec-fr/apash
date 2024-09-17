@@ -20,7 +20,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myIndexes=()
 #    ArrayUtils.indexesOf "myIndexes" ""       ""     # failure - ()
 #    ArrayUtils.indexesOf "myIndexes" "myVar"  "a"    # failure - ()
@@ -36,6 +37,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "c"       # ()
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "a" "3"   # ()
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "a" "-1"  # (0)
+# ```
 #
 # @arg $1 ref(number[]) Name of the output array getting result indexes.
 # @arg $2 ref(string[]) Name of the array to check.

@@ -28,9 +28,26 @@ Copy an array into another array using references.
 ### ArrayUtils.clone
 
 #### Example
-
 ```bash
 ArrayUtils.clone  ""       ""               # failure
+
+declare -A myMap
+ArrayUtils.addFirst  "myMap"  "a"           # failure
+
+declare -a myClone
+ArrayUtils.clone  "myVar"  "myClone"        # failure
+
+myArray=()
+myClone=("a")
+ArrayUtils.clone     "myArray"  "myClone"   # myClone=()
+
+myArray=("a" "b" "" "c")
+myClone=("d" "e" "f")
+ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
+
+myArray=("a" "b" "" "c")
+myClone=()
+ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
 ```
 
 #### Arguments

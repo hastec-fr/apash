@@ -28,10 +28,20 @@ Adds a given element at the end of an array.
 ### ArrayUtils.add
 
 #### Example
-
 ```bash
-ArrayUtils.add  ""       ""          # failure
-ArrayUtils.add  "myVar"  "a"         # failure
+ArrayUtils.add  ""       ""            # failure
+ArrayUtils.add  "myVar"  "a"           # failure
+
+declare -A myMap
+ArrayUtils.add  "myMap"  "a"           # failure
+
+myArray=()
+ArrayUtils.add  "myArray"              # failure
+ArrayUtils.add  "myArray"  "a"         # ("a")
+ArrayUtils.add  "myArray"  "b"         # ("a" "b")
+ArrayUtils.add  "myArray"  ""          # ("a" "b" "")
+ArrayUtils.add  "myArray"  "foo bar"   # ("a" "b" "" "foo bar")
+ArrayUtils.add  "myArray"  "c" "d"     # failure
 ```
 
 #### Arguments

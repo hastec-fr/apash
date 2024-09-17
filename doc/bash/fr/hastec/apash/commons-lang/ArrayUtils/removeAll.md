@@ -30,10 +30,26 @@ All remaining elements are shifted to the left.
 ### ArrayUtils.removeAll
 
 #### Example
-
 ```bash
 ArrayUtils.removeAll  ""       ""          # failure
 ArrayUtils.removeAll  "myVar"  "0"         # failure
+
+declare -A myMap
+ArrayUtils.removeAll  "myMap"  "0"         # failure
+
+myArray=("a" "b" "c" "" "d")
+ArrayUtils.removeAll  "myArray"            # failure
+ArrayUtils.removeAll  "myArray"  "4"       # ("a" "b" "c" "")
+ArrayUtils.removeAll  "myArray"  "0" "2"   # ("b" "")
+ArrayUtils.removeAll  "myArray"  "-1"      # failure - ("b" "")
+
+myArray=("a" "b" "c" "" "d")
+ArrayUtils.removeAll  "myArray"  "1" "1"   # ("a" "c" "" "d")
+
+myArray=("a")
+ArrayUtils.removeAll  "myArray"  "4"       # failure - (a)
+ArrayUtils.removeAll  "myArray"  "0"       # ()
+ArrayUtils.removeAll  "myArray"  "0"       # failure - ()
 ```
 
 #### Arguments

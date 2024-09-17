@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.getLength  ""             # failure - ""
 #    ArrayUtils.getLength  "myVar"        # failure - ""
 #
@@ -30,6 +31,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 #    myArray=()
 #    ArrayUtils.getLength  "myArray"      # "0"
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to get length.
 #

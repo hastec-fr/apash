@@ -19,7 +19,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.get  ""       ""            # failure - ""
 #    ArrayUtils.get  "myVar"  "a"           # failure - ""
 #
@@ -33,6 +34,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    ArrayUtils.get  "myArray"  "-1"        # failure - ""
 #    ArrayUtils.get  "myArray"  "-1" " "    # " "
 #    ArrayUtils.get  "myArray"  "5"  "foo"  # "foo"
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to get value.
 # @arg $2 string Index of the array.

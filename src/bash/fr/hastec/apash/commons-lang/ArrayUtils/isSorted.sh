@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.isSorted ""         # false
 #    ArrayUtils.isSorted "myVar"    # false
 #
@@ -42,6 +43,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #   
 #    myArray=("" "1")
 #    ArrayUtils.isSorted "myArray"  # true
+# ```
 #
 # @arg $1 ref(string[]) The array to check.
 #

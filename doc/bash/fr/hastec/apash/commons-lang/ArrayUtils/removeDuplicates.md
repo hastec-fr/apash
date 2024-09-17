@@ -30,10 +30,15 @@ All remaining elements are shifted to the left.
 ### ArrayUtils.removeDuplicates
 
 #### Example
-
 ```bash
 myArray=("a" "b" "a" "c")
 ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c")
+
+myArray=()
+ArrayUtils.removeDuplicates  "myArray"    # ()
+
+myArray=("a" "b" "c" "d")
+ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c" "d")
 ```
 
 #### Arguments

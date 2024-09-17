@@ -28,10 +28,21 @@ Sorts the specified array into ascending natural order.
 ### Array.sort
 
 #### Example
-
 ```bash
 myArray=("a" "b" "c")
 Array.sort "myArray"  # ("a" "b" "c")
+
+myArray=("a" "c" "b")
+Array.sort "myArray"  # ("a" "b" "c")
+
+myArray=("beta-20" "beta-10" "beta-1")
+Array.sort "myArray"  # ("beta-1" "beta-10" "beta-20")
+
+myArray=("1" "a" "2" "3")
+Array.sort "myArray"  # ("1" "2" "3" "a")
+
+myArray=("1" "")
+Array.sort "myArray"  # ("" "1")
 ```
 
 #### Arguments

@@ -16,9 +16,9 @@
 # Method description #########################################################
 # @description
 # @example
-#    if StringUtils.equals "" ""       ; then echo "true"; else echo "false"; # true
-#    if StringUtils.equals "abc" "abc" ; then echo "true"; else echo "false"; # true
-#    if StringUtils.equals "abc" "abcd"; then echo "true"; else echo "false"; # false
+#    StringUtils.equals "" ""        # true
+#    StringUtils.equals "abc" "abc"  # true
+#    StringUtils.equals "abc" "abcd" # false
 #
 # @arg $1 string First string to compare.
 # @arg $2 string Second string to compare.

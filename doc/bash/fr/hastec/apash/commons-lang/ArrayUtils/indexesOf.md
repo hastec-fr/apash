@@ -29,11 +29,22 @@ A negative startIndex is treated as zero. A startIndex larger than the array len
 ### ArrayUtils.indexesOf
 
 #### Example
-
 ```bash
 myIndexes=()
 ArrayUtils.indexesOf "myIndexes" ""       ""     # failure - ()
 ArrayUtils.indexesOf "myIndexes" "myVar"  "a"    # failure - ()
+
+declare -A myMap
+ArrayUtils.indexesOf "myIndexes" "myMap"  "a"    # failure - ()
+
+myArray=("a" "b" "" "c" "b")
+ArrayUtils.indexesOf "myIndexes" "myArray" "b"   # ("1" "4")
+
+myIndexes=(1 2)
+myArray=("a" "b")
+ArrayUtils.indexesOf "myIndexes" "myArray" "c"       # ()
+ArrayUtils.indexesOf "myIndexes" "myArray" "a" "3"   # ()
+ArrayUtils.indexesOf "myIndexes" "myArray" "a" "-1"  # (0)
 ```
 
 #### Arguments

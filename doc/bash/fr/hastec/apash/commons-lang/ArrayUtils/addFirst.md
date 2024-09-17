@@ -28,10 +28,20 @@ Adds given elements at the beginning of an array.
 ### ArrayUtils.addFirst
 
 #### Example
-
 ```bash
 ArrayUtils.addFirst  ""       ""          # failure
 ArrayUtils.addFirst  "myVar"  "a"         # failure
+
+declare -A myMap
+ArrayUtils.addFirst  "myMap"  "a"         # failure
+
+myArray=()
+ArrayUtils.addFirst  "myArray"              # failure
+ArrayUtils.addFirst  "myArray"  "a"         # ("a")
+ArrayUtils.addFirst  "myArray"  "b"         # ("b" "a")
+ArrayUtils.addFirst  "myArray"  ""          # ("" "a" "b")
+ArrayUtils.addFirst  "myArray"  "c" "d"     # failure
+ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
 ```
 
 #### Arguments

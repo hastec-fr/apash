@@ -15,7 +15,8 @@
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    MapUtils.isMap  ""          # false
 #    MapUtils.isMap  "myVar"     # false
 #
@@ -30,7 +31,7 @@
 #
 #    myMap={}
 #    MapUtils.isMap   "myMap"    # true
-#
+# ```
 #
 # @arg $1 string Name of the hashmap.
 #

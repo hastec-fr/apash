@@ -30,10 +30,24 @@ All subsequent elements are shifted to the left (subtracts one from their indice
 ### ArrayUtils.remove
 
 #### Example
-
 ```bash
 ArrayUtils.remove  ""       ""          # failure
 ArrayUtils.remove  "myVar"  "a"         # failure
+
+declare -A myMap
+ArrayUtils.remove  "myMap"  "a"         # failure
+
+myArray=("a" "b" "c" "" "d")
+ArrayUtils.remove  "myArray"            # failure
+ArrayUtils.remove  "myArray"  "4"       # ("a" "b" "c" "")
+ArrayUtils.remove  "myArray"  "2"       # ("a" "b" "")
+ArrayUtils.remove  "myArray"  "0"       # ("b" "")
+ArrayUtils.remove  "myArray"  "-1"      # failure - ("b" "")
+
+myArray=("a")
+ArrayUtils.remove  "myArray"  "4"       # failure - (a)
+ArrayUtils.remove  "myArray"  "0"       # ()
+ArrayUtils.remove  "myArray"  "0"       # failure - ()
 ```
 
 #### Arguments

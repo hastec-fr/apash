@@ -32,9 +32,9 @@ Checks if a string contains only whitespaces characters or is empty or not exist
 #### Example
 
 ```bash
-if StringUtils.isBlank ""           ; then echo "true"; else echo "false"; # true
-if StringUtils.isBlank "     "      ; then echo "true"; else echo "false"; # true
-if StringUtils.isBlank "Hello World"; then echo "true"; else echo "false"; # false
+StringUtils.isBlank ""            # true
+StringUtils.isBlank "     "       # true
+StringUtils.isBlank "Hello World" # false
 ```
 
 #### Arguments

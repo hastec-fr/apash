@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.isNotEmpty ""              # false
 #    ArrayUtils.isNotEmpty "myVar"         # false
 #
@@ -33,6 +34,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 #    myArray=("")
 #    ArrayUtils.isNotEmpty "myArray"       # true 
+# ```
 #
 # @arg $1 ref(string[]) The array to check.
 #

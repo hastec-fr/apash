@@ -28,10 +28,24 @@ Checks whether two arrays are the same length, return false if it's not an array
 ### ArrayUtils.isSameLength
 
 #### Example
-
 ```bash
 ArrayUtils.isSameLength ""        ""         # false
 ArrayUtils.isSameLength "myVar"   "myVar"    # false
+
+declare -A myMap
+ArrayUtils.isSameLength "myMap"    "myMap    # false
+
+myArray=()
+ArrayUtils.isSameLength "myArray"  "myArray" # true
+ArrayUtils.isSameLength "myArray"  ""        # false
+
+myArray1=("a")
+myArray2=("b")
+ArrayUtils.isSameLength "myArray1" "myArray2" # true
+
+myArray1=("a")
+myArray2=("a" "b")
+ArrayUtils.isSameLength "myArray"  "myArray2" # false
 ```
 
 #### Arguments

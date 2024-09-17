@@ -21,7 +21,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myArray=("a" "b" "a" "c")
 #    ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c")
 #
@@ -30,6 +31,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 #
 #    myArray=("a" "b" "c" "d")
 #    ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c" "d")
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 #

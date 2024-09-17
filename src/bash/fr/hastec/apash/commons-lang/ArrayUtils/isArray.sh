@@ -15,7 +15,8 @@
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.isArray  ""          # false
 #    ArrayUtils.isArray  "myVar"     # false
 #
@@ -30,6 +31,7 @@
 #
 #    myMap=(["foo"]="bar")
 #    ArrayUtils.isArray   "myMap"    # false
+# ```
 #
 # @arg $1 string Name of the array.
 #

@@ -28,10 +28,18 @@ Returns the length of the specified array.
 ### ArrayUtils.getLength
 
 #### Example
-
 ```bash
 ArrayUtils.getLength  ""             # failure - ""
 ArrayUtils.getLength  "myVar"        # failure - ""
+
+declare -A myMap
+ArrayUtils.getLength  "myMap"        # failure - ""
+
+myArray=("a" "b" "" "c")
+ArrayUtils.getLength  "myArray"      # "4"
+
+myArray=()
+ArrayUtils.getLength  "myArray"      # "0"
 ```
 
 #### Arguments

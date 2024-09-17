@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.clone  ""       ""               # failure
 #
 #    declare -A myMap
@@ -38,6 +39,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    myArray=("a" "b" "" "c")
 #    myClone=()
 #    ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 ref(string[]) Name of the array which will receive the clone 

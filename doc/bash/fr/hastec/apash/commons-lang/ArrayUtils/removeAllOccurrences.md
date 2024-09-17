@@ -31,13 +31,16 @@ If the array doesn't contains such an element, no elements are removed from the 
 ### ArrayUtils.removeAllOccurrences
 
 #### Example
-
 ```bash
 myArray=("a" "b" "a" "c" "" "d")
 ArrayUtils.removeAllOccurrences  "myArray"            # failure
 ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ("b" "c" "" "d")
 ArrayUtils.removeAllOccurrences  "myArray"  ""        # ("b" "c" "d")
 ArrayUtils.removeAllOccurrences  "myArray"  "e"       # ("b" "c" "d")
+
+myArray=("a")
+ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
+ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 ```
 
 #### Arguments

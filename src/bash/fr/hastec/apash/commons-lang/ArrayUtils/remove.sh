@@ -21,7 +21,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.remove  ""       ""          # failure
 #    ArrayUtils.remove  "myVar"  "a"         # failure
 #
@@ -39,6 +40,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 #    ArrayUtils.remove  "myArray"  "4"       # failure - (a)
 #    ArrayUtils.remove  "myArray"  "0"       # ()
 #    ArrayUtils.remove  "myArray"  "0"       # failure - ()
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 number The index of the array to remove.

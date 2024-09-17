@@ -28,10 +28,30 @@ This method checks whether the provided array is sorted according to natural ord
 ### ArrayUtils.isSorted
 
 #### Example
-
 ```bash
 ArrayUtils.isSorted ""         # false
 ArrayUtils.isSorted "myVar"    # false
+
+declare -A myMap
+ArrayUtils.isSorted "myMap"    # false
+
+myArray=()
+ArrayUtils.isSorted "myArray"  # true
+
+myArray=("a" "b" "c")
+ArrayUtils.isSorted "myArray"  # true
+
+myArray=("a" "c" "b")
+ArrayUtils.isSorted "myArray"  # false
+
+myArray=("beta-1" "beta-10" "beta-20")
+ArrayUtils.isSorted "myArray"  # true
+
+myArray=("1" "a")
+ArrayUtils.isSorted "myArray"  # true
+
+myArray=("" "1")
+ArrayUtils.isSorted "myArray"  # true
 ```
 
 #### Arguments

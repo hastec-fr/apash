@@ -32,9 +32,9 @@ Compares two string, returning true if they represent equal sequences of charact
 #### Example
 
 ```bash
-if StringUtils.equals "" ""       ; then echo "true"; else echo "false"; # true
-if StringUtils.equals "abc" "abc" ; then echo "true"; else echo "false"; # true
-if StringUtils.equals "abc" "abcd"; then echo "true"; else echo "false"; # false
+StringUtils.equals "" ""        # true
+StringUtils.equals "abc" "abc"  # true
+StringUtils.equals "abc" "abcd" # false
 ```
 
 #### Arguments

@@ -31,9 +31,9 @@ Checks if a string is empty ("") or not existing.
 #### Example
 
 ```bash
-if StringUtils.isEmpty ""           ; then echo "true"; else echo "false"; # true
-if StringUtils.isEmpty "     "      ; then echo "true"; else echo "false"; # false
-if StringUtils.isEmpty "Hello World"; then echo "true"; else echo "false"; # false
+StringUtils.isEmpty ""            # true
+StringUtils.isEmpty "     "       # false
+StringUtils.isEmpty "Hello World" # false
 ```
 
 #### Arguments

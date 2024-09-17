@@ -28,10 +28,19 @@ Adds given elements at the end of an array.
 ### ArrayUtils.contains
 
 #### Example
-
 ```bash
 ArrayUtils.contains  ""       ""          # false
 ArrayUtils.contains  "myVar"  "a"         # false
+
+declare -A myMap
+ArrayUtils.contains  "myMap"  "a"         # false
+
+myArray=("a" "b" "" "c")
+ArrayUtils.contains  "myArray"              # false
+ArrayUtils.contains  "myArray"  "d"         # false
+ArrayUtils.contains  "myArray"  ""          # true
+ArrayUtils.contains  "myArray"  "b"         # true
+ArrayUtils.contains  "myArray"  "a b"       # false
 ```
 
 #### Arguments

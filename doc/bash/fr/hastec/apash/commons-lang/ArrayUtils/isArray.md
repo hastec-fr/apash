@@ -28,10 +28,21 @@ Check if the input name is an array or not.
 ### ArrayUtils.isArray
 
 #### Example
-
 ```bash
 ArrayUtils.isArray  ""          # false
 ArrayUtils.isArray  "myVar"     # false
+
+declare -a myArray
+ArrayUtils.isArray  "myArray"   # true
+
+myArray=()
+ArrayUtils.isArray  "myArray"   # true
+
+declare -A myMap
+ArrayUtils.isArray   "myMap"    # false
+
+myMap=(["foo"]="bar")
+ArrayUtils.isArray   "myMap"    # false
 ```
 
 #### Arguments

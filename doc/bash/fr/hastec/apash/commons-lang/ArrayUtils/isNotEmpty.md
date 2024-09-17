@@ -28,10 +28,21 @@ Checks if an array exist and has at least one element.
 ### ArrayUtils.isNotEmpty
 
 #### Example
-
 ```bash
 ArrayUtils.isNotEmpty ""              # false
 ArrayUtils.isNotEmpty "myVar"         # false
+
+declare -A myMap
+ArrayUtils.isNotEmpty "myMap"         # false
+
+myArray=()
+ArrayUtils.isNotEmpty "myArray"       # false
+
+myArray=("a")
+ArrayUtils.isNotEmpty "myArray"       # true 
+
+myArray=("")
+ArrayUtils.isNotEmpty "myArray"       # true 
 ```
 
 #### Arguments

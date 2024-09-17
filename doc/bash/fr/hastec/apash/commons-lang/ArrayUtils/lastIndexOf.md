@@ -29,11 +29,25 @@ A negative startIndex is treated as zero. A startIndex larger than the array len
 ### ArrayUtils.lastIndexOf
 
 #### Example
-
 ```bash
 myIndexes=()
 ArrayUtils.lastIndexOf  ""       ""         # failure - ""
 ArrayUtils.lastIndexOf  "myVar"  "a"        # failure - ""
+
+declare -A myMap
+ArrayUtils.lastIndexOf  "myMap"  "a"        # failure - ""
+
+myArray=("a" "b" "" "c" "b")
+ArrayUtils.lastIndexOf  "myArray" "b"       # ("4")
+ArrayUtils.lastIndexOf  "myArray" ""        # ("2")
+ArrayUtils.lastIndexOf  "myArray"           # failure - ""
+
+myIndexes=(1 2)
+myArray=("a" "b")
+ArrayUtils.lastIndexOf  "myArray" "c"       # -1
+ArrayUtils.lastIndexOf  "myArray" "a" "3"   # -1
+ArrayUtils.lastIndexOf  "myArray" "a" "-1"  # 0
+ArrayUtils.lastIndexOf  "myArray" ""        # -1
 ```
 
 #### Arguments

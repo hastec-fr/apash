@@ -28,10 +28,20 @@ Gets the nTh element of an array or a default value if the index is out of bound
 ### ArrayUtils.get
 
 #### Example
-
 ```bash
 ArrayUtils.get  ""       ""            # failure - ""
 ArrayUtils.get  "myVar"  "a"           # failure - ""
+
+declare -A myMap
+ArrayUtils.get  "myMap"  "a"           # failure - ""
+
+myArray=("a" "b" "" "c")
+ArrayUtils.get  "myArray"              # failure - ""
+ArrayUtils.get  "myArray"  "0"         # "a"
+ArrayUtils.get  "myArray"  "3"         # "c"
+ArrayUtils.get  "myArray"  "-1"        # failure - ""
+ArrayUtils.get  "myArray"  "-1" " "    # " "
+ArrayUtils.get  "myArray"  "5"  "foo"  # "foo"
 ```
 
 #### Arguments

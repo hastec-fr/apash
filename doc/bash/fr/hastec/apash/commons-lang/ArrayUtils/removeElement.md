@@ -31,7 +31,6 @@ If the array doesn't contains such an element, no elements are removed from the 
 ### ArrayUtils.removeElement
 
 #### Example
-
 ```bash
 myArray=("a" "b" "a" "c" "" "d")
 ArrayUtils.removeElement  "myArray"            # failure
@@ -39,6 +38,10 @@ ArrayUtils.removeElement  "myArray"  "a"       # ("b" "a" "c" "" "d")
 ArrayUtils.removeElement  "myArray"  "a"       # ("b" "c" "" "d")
 ArrayUtils.removeElement  "myArray"  ""        # ("b" "c" "d")
 ArrayUtils.removeElement  "myArray"  "e"       # ("b" "c" "d")
+
+myArray=("a")
+ArrayUtils.removeElement  "myArray"  "a"       # ()
+ArrayUtils.removeElement  "myArray"  "a"       # ()
 ```
 
 #### Arguments

@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.addFirst  ""       ""          # failure
 #    ArrayUtils.addFirst  "myVar"  "a"         # failure
 #
@@ -32,6 +33,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.addFirst  "myArray"  ""          # ("" "a" "b")
 #    ArrayUtils.addFirst  "myArray"  "c" "d"     # failure
 #    ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 # @arg $2 string Value to add at the beginning of the array.

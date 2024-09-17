@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myArray=("a" "b" "c")
 #    Array.sort "myArray"  # ("a" "b" "c")
 #
@@ -33,6 +34,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #   
 #    myArray=("1" "")
 #    Array.sort "myArray"  # ("" "1")
+# ```
 #
 # @arg $1 ref(string[]) The array to sort.
 #

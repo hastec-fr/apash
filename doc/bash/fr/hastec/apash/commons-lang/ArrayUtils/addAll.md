@@ -28,10 +28,19 @@ Adds given elements at the end of an array.
 ### ArrayUtils.addAll
 
 #### Example
-
 ```bash
-ArrayUtils.addAll  ""       ""          # failure
-ArrayUtils.addAll  "myVar"  "a"         # failure
+ArrayUtils.addAll  ""       ""            # failure
+ArrayUtils.addAll  "myVar"  "a"           # failure
+
+declare -A myMap
+ArrayUtils.addAll  "myMap"  "a"           # failure
+
+myArray=()
+ArrayUtils.addAll  "myArray"              # failure
+ArrayUtils.addAll  "myArray"  "a"         # ("a")
+ArrayUtils.addAll  "myArray"  "b" ""      # ("a" "b" "")
+ArrayUtils.addAll  "myArray"  "c" "d"     # ("a" "b" "" "c" "d")
+ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 ```
 
 #### Arguments

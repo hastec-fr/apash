@@ -28,10 +28,20 @@ Returns whether a given array can safely be accessed at the given index.
 ### ArrayUtils.isArrayIndexValid
 
 #### Example
-
 ```bash
 ArrayUtils.isArrayIndexValid ""       ""     # false
 ArrayUtils.isArrayIndexValid "myVar"  "a"    # false
+
+declare -A myMap
+ArrayUtils.isArrayIndexValid "myMap"  "a"    # false
+
+myArray=("a" "b" "" "c" "b")
+ArrayUtils.isArrayIndexValid "myArray" "1"                  # true
+ArrayUtils.isArrayIndexValid "myArray" "${#myArray}"        # false
+ArrayUtils.isArrayIndexValid "myArray" "$((${#myArray}-1))" # true
+ArrayUtils.isArrayIndexValid "myArray" "-1"                 # false
+ArrayUtils.isArrayIndexValid "myArray" "5"                  # false
+ArrayUtils.isArrayIndexValid "myArray"                      # false
 ```
 
 #### Arguments

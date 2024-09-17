@@ -22,7 +22,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    myIndexes=()
 #    ArrayUtils.indexOf  ""       ""         # failure - ""
 #    ArrayUtils.indexOf  "myVar"  "a"        # failure - ""
@@ -44,6 +45,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    ArrayUtils.indexOf  "myArray" "a" "3"   # -1
 #    ArrayUtils.indexOf  "myArray" "a" "-1"  # 0
 #    ArrayUtils.indexOf  "myArray" ""        # -1
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to check.
 # @arg $2 string Value to find.

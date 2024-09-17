@@ -18,7 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
-# @example
+# #### Example
+# ```bash
 #    ArrayUtils.contains  ""       ""          # false
 #    ArrayUtils.contains  "myVar"  "a"         # false
 #
@@ -31,6 +32,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.contains  "myArray"  ""          # true
 #    ArrayUtils.contains  "myArray"  "b"         # true
 #    ArrayUtils.contains  "myArray"  "a b"       # false
+# ```
 #
 # @arg $1 ref(string[]) Name of the array to check.
 # @arg $2 string Value to find in the array.
