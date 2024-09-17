@@ -32,11 +32,11 @@ Check if a string ends with a specified suffix.
 #### Example
 
 ```bash
-if StringUtils.endsWith "" ""        ; then echo "true"; else echo "false"; # true
-if StringUtils.endsWith "abcd" ""    ; then echo "true"; else echo "false"; # true
-if StringUtils.endsWith "abcd" "cd"  ; then echo "true"; else echo "false"; # true
-if StringUtils.endsWith "abcd" "bd"  ; then echo "true"; else echo "false"; # false
-if StringUtils.endsWith ""     "c"   ; then echo "true"; else echo "false"; # false
+StringUtils.endsWith "" ""        # true
+StringUtils.endsWith "abcd" ""    # true
+StringUtils.endsWith "abcd" "cd"  # true
+StringUtils.endsWith "abcd" "bd"  # false
+StringUtils.endsWith ""     "c"   # false
 ```
 
 #### Arguments

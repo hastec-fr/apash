@@ -34,11 +34,11 @@ Method description #########################################################
 #### Example
 
 ```bash
-if StringUtils.startsWith "" ""        ; then echo "true"; else echo "false"; # true
-if StringUtils.startsWith "abcd" ""    ; then echo "true"; else echo "false"; # true
-if StringUtils.startsWith "abcd" "ab"  ; then echo "true"; else echo "false"; # true
-if StringUtils.startsWith "abcd" "abd" ; then echo "true"; else echo "false"; # false
-if StringUtils.startsWith ""     "a"   ; then echo "true"; else echo "false"; # false
+StringUtils.startsWith "" ""         # true
+StringUtils.startsWith "abcd" ""     # true
+StringUtils.startsWith "abcd" "ab"   # true
+StringUtils.startsWith "abcd" "abd"  # false
+StringUtils.startsWith ""     "a"    # false
 ```
 
 #### Arguments

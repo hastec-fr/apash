@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.lang.Math.max
 
-# min #########################################
+# max #########################################
 @test "max returns empty value when at least one input is not parsable " {
   run Math.max
   [ "$status" -eq 1 ]
@@ -27,7 +27,7 @@ apash.import fr.hastec.apash.lang.Math.max
 }
 
 
-@test "min returns the smaller of two number values." {
+@test "max returns the greater value of two number." {
   run Math.max "0" "1"
   [ "$output" = "1" ]
 

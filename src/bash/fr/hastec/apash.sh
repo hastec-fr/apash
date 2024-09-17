@@ -15,6 +15,7 @@
 # |--------------------------|---------------------------------------|
 # |[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
 # |[lang](apash/lang.md)|Provides methods that are fundamental to the design script. |
+# |[util](apash/util.md)|Provides miscellaneous utility.|
 # <!-- apash.summaryTableEnd -->
  
 

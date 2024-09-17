@@ -25,6 +25,8 @@ This implementation do reference to the [java apache implementation](http://comm
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
+|[ArrayUtils](commons-lang/ArrayUtils.md)|Operations on arrays.|
+|[MapUtils](commons-lang/MapUtils.md)|Operations on maps.|
 |[NumberUtils](commons-lang/NumberUtils.md)|Operations on Numeric values.|
 |[StringUtils](commons-lang/StringUtils.md)|Operations on String considering null as empty string|
 <!-- apash.summaryTableEnd -->

@@ -16,9 +16,9 @@
 # Method description #########################################################
 # @description
 # @example
-#    StringUtils.trim ""                 # return ""
-#    StringUtils.trim "     "            # return ""
-#    StringUtils.trim "  Hello  World  " # return "Hello  World"
+#    StringUtils.trim ""                 # ""
+#    StringUtils.trim "     "            # ""
+#    StringUtils.trim "  Hello  World  " # "Hello  World"
 #
 # @arg $1 string Input string to trim.
 #

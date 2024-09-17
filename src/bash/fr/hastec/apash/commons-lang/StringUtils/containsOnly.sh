@@ -19,12 +19,12 @@
 # Method description #########################################################
 # @description
 # @example
-#    if StringUtils.constainsOnly ""     ""    ; then echo "true"; else echo "false"; # true
-#    if StringUtils.constainsOnly ""     "ab"  ; then echo "true"; else echo "false"; # true
-#    if StringUtils.constainsOnly "ab"   ""    ; then echo "true"; else echo "false"; # false
-#    if StringUtils.constainsOnly "abab" "abc" ; then echo "true"; else echo "false"; # true
-#    if StringUtils.constainsOnly "ab1"  "abc" ; then echo "true"; else echo "false"; # false
-#    if StringUtils.constainsOnly "abz"  "abc" ; then echo "true"; else echo "false"; # false
+#    StringUtils.constainsOnly ""     ""     # true
+#    StringUtils.constainsOnly ""     "ab"   # true
+#    StringUtils.constainsOnly "ab"   ""     # false
+#    StringUtils.constainsOnly "abab" "abc"  # true
+#    StringUtils.constainsOnly "ab1"  "abc"  # false
+#    StringUtils.constainsOnly "abz"  "abc"  # false
 # 
 # @arg $1 string The string to check.
 # @arg $2 string The sequence of characters which should compose the input string.

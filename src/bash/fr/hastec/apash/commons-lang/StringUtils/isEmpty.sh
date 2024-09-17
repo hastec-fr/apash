@@ -15,9 +15,9 @@
 # <!-- apash.parentEnd -->
 #
 # @example
-#    if StringUtils.isEmpty ""           ; then echo "true"; else echo "false"; # true
-#    if StringUtils.isEmpty "     "      ; then echo "true"; else echo "false"; # false
-#    if StringUtils.isEmpty "Hello World"; then echo "true"; else echo "false"; # false
+#    StringUtils.isEmpty ""            # true
+#    StringUtils.isEmpty "     "       # false
+#    StringUtils.isEmpty "Hello World" # false
 #
 # @arg $1 string Input string to evaluate
 #

@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 # @brief Returns the greater of two number values.
 # @description
 # If the arguments have the same value, the result is that same value
-# but the first number format is returned. Multiple 000 are reduced to 0.
+# but the first number format is returned.
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -33,9 +33,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 # @arg $1 number The first number to compare.
 # @arg $2 number The second number to compare.
 #
-# @stdout Returns the smaller of two number values.
+# @stdout Returns the greater value of two number.
 #         In case of equality, the first number format is returned.
-#         Multiple 000 are reduced to 0.
 # @stderr None.
 #
 # @exitcode 0 When the input strings is a parsable number.

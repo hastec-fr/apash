@@ -32,9 +32,9 @@ Remove whitespaces characters from both ends of the input string.
 #### Example
 
 ```bash
-StringUtils.trim ""                 # return ""
-StringUtils.trim "     "            # return ""
-StringUtils.trim "  Hello  World  " # return "Hello  World"
+StringUtils.trim ""                 # ""
+StringUtils.trim "     "            # ""
+StringUtils.trim "  Hello  World  " # "Hello  World"
 ```
 
 #### Arguments
