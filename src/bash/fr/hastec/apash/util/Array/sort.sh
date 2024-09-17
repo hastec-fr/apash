@@ -13,7 +13,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [lang](../../lang.md) / [Math](../Math.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Array](../Array.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################

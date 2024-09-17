@@ -61,16 +61,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 @test "indexOf returns ArrayUtils_INDEX_NOT_FOUND when value is not present" {
   myArray=("a" "b")
   run ArrayUtils.indexOf "myArray" "c"
-  [ "$status" -eq 1   ]
+  [ "$status" -eq 0   ]
   [ "$output" = "-1"  ]
 
   myArray=("a" "b")
   run ArrayUtils.indexOf "myArray" "a" "3"
-  [ "$status" -eq 1   ]
+  [ "$status" -eq 0   ]
   [ "$output" = "-1"  ]
 
   myArray=("a" "b")
   run ArrayUtils.indexOf "myArray" ""
-  [ "$status" -eq 1   ]
+  [ "$status" -eq 0   ]
   [ "$output" = "-1"  ]
 }

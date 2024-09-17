@@ -16,6 +16,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[ArrayUtils](commons-lang/ArrayUtils.md)|Operations on arrays.|
 # |[NumberUtils](commons-lang/NumberUtils.md)|Operations on Numeric values.|
 # |[StringUtils](commons-lang/StringUtils.md)|Operations on String considering null as empty string|
 # <!-- apash.summaryTableEnd -->

@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.util.Array.sort
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [lang](../../lang.md) / [Math](../Math.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################

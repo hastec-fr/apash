@@ -13,7 +13,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [lang](../../lang.md) / [Math](../Math.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################
@@ -41,12 +41,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @see For adding element in the middle of an array, please check insert method.
 # @exitcode 0 When first argument is an array and at least one value is provided.
 # @exitcode 1 Otherwise.
-ArrayUtils.addFirst() {
+ArrayUtils.addAll() {
   local inArrayRef="$1"
   local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
   ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -eq 1 ] && return "$APASH_FUNCTION_FAILURE"
   shift
+  [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
 
   for inValue in "$@"; do
     inArray+=("$inValue") ||  return "$APASH_FUNCTION_FAILURE"

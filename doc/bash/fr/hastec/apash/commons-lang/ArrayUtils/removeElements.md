@@ -1,0 +1,64 @@
+
+<div align='center' id='apash-top'>
+  <a href='https://github.com/hastec-fr/apash'>
+    <img alt='apash-logo' src='../../../../../../../assets/apash-logo.svg'/>
+  </a>
+
+  # Apash
+</div>
+
+# ArrayUtils.removeElements
+
+Removes the first occurrence of the specified element from the specified array.
+
+## Overview
+
+All subsequent elements are shifted to the left (subtracts one from their indices). 
+If the array doesn't contains such an element, no elements are removed from the array.
+
+### Authors:
+* Benjamin VARGIN
+
+### Parents
+<!-- apash.parentBegin -->
+[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.parentEnd -->
+
+## Index
+
+* [ArrayUtils.removeElements](#arrayutilsremoveelements)
+
+### ArrayUtils.removeElements
+
+#### Example
+
+```bash
+myArray=("a" "b" "a" "c" "" "d")
+ArrayUtils.removeElements  "myArray"            # failure
+ArrayUtils.removeElements  "myArray"  "a"       # ("b" "a" "c" "" "d")
+ArrayUtils.removeElements  "myArray"  "a"       # ("b" "c" "" "d")
+ArrayUtils.removeElements  "myArray"  ""        # ("b" "c" "d")
+ArrayUtils.removeElements  "myArray"  "e"       # ("b" "c" "d")
+```
+
+#### Arguments
+
+* **$1** (ref(string[])): Name of the array to modify.
+* **$2** (string...): List of first occurence of the value to remove from the array.
+
+#### Exit codes
+
+* **0**: When all occurences have been removed from the array.
+* **1**: Otherwise.
+
+#### Output on stdout
+
+* None.
+
+#### Output on stderr
+
+* None.
+
+
+  <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
+

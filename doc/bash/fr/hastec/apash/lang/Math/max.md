@@ -14,7 +14,7 @@ Returns the greater of two number values.
 ## Overview
 
 If the arguments have the same value, the result is that same value
-but the first number format is returned. Multiple 000 are reduced to 0.
+but the first number format is returned.
 ### Authors:
 * Benjamin VARGIN
 
@@ -55,7 +55,7 @@ Math.max  "000"    "0"      # 000
 
 #### Output on stdout
 
-* Returns the smaller of two number values.
+* Returns the greater value of two number.
   In case of equality, the first number format is returned.
 
 #### Output on stderr
