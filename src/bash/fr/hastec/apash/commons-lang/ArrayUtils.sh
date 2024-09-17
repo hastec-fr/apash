@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# shellcheck disable=SC2034
 # <!-- @class -->
 # @name ArrayUtils
 # @brief Operations on arrays.
@@ -23,8 +23,7 @@
 # |[isParsable](NumberUtils/isParsable.md)|Checks whether the given String is a parsable number.|
 # <!-- apash.summaryTableEnd -->
 
-
-
+ArrayUtils_INDEX_NOT_FOUND="-1"
 
 
 

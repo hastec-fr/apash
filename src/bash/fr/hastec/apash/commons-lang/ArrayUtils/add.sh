@@ -43,11 +43,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When first argument is an array and the value is not an embedded array or map.
 # @exitcode 1 Otherwise.
 ArrayUtils.add() {
-  local inArrayRef="$1"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  local ioArrayRef="$1"
+  local -n inArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   local inValue="$2"
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
   
   inArray+=("$inValue") && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
