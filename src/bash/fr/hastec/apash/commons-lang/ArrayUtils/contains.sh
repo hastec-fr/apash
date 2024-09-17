@@ -20,11 +20,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @description
 # #### Example
 # ```bash
-#    ArrayUtils.contains  ""       ""          # false
-#    ArrayUtils.contains  "myVar"  "a"         # false
+#    ArrayUtils.contains  ""       ""            # false
+#    ArrayUtils.contains  "myVar"  "a"           # false
 #
 #    declare -A myMap
-#    ArrayUtils.contains  "myMap"  "a"         # false
+#    ArrayUtils.contains  "myMap"  "a"           # false
 #
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.contains  "myArray"              # false
