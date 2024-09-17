@@ -43,6 +43,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 ArrayUtils.contains() {
   local inArrayRef="$1"
   local inValue="$2"
+  local value=""
   local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
   ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"

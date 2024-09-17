@@ -20,7 +20,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # Method description #########################################################
 # @description
 # @example
-#    myIndexes=()
 #    ArrayUtils.isArrayIndexValid ""       ""     # false
 #    ArrayUtils.isArrayIndexValid "myVar"  "a"    # false
 #

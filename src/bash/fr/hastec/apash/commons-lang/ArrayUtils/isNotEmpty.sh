@@ -19,7 +19,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # Method description #########################################################
 # @description
 # @example
-#    myIndexes=()
 #    ArrayUtils.isNotEmpty ""              # false
 #    ArrayUtils.isNotEmpty "myVar"         # false
 #
