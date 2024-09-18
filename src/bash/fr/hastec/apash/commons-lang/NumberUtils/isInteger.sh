@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Dependencies #####################################
+apash.import fr.hastec.apash.lang.Integer.sh
+
 # File description ###########################################################
 # @name NumberUtils.isInteger
 # @brief Checks whether the String contains has the form of a valid integer.
@@ -34,11 +37,13 @@
 # @stderr None.
 #
 # @exitcode 0 When the input string is an integer.
-# @exitcode 1 When the input string contains characters other than digits and a minus before.
+# @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 32bits Integer.
 NumberUtils.isInteger() {
   local inNumber="$1"
 
-  [[ $inNumber =~ ^-?[0-9]+$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ ! $inNumber =~ ^-?[0-9]+$ ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $inNumber -gt $Integer_MAX_VALUE ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $inNumber -lt $Integer_MIN_VALUE ]] && return "$APASH_FUNCTION_FAILURE"
   
-  return "$APASH_FUNCTION_FAILURE"
+  return "$APASH_FUNCTION_SUCCESS"
 }
