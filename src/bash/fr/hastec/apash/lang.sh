@@ -16,6 +16,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[Integer](lang/Integer.md)|Contains related information about Integers.|
 # |[Math](lang/Math.md)|Contains methods for performing basic numeric operations|
 # <!-- apash.summaryTableEnd -->
 

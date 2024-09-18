@@ -17,7 +17,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
-# |[sort](Array/sort.md)|Sorts the specified array into ascending natural order.|
+# |[nextInt](Random/nextInt.md)|Returns a pseudorandomly chosen int value.|
 # <!-- apash.summaryTableEnd -->
 
 

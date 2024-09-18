@@ -17,7 +17,9 @@ apash.substitutePlaceHolders() {
       # Create a line where the method is the name of the script without .sh and its brief content.
       rows+="# | Methods                  | Brief                                 |\n"
       rows+="# |--------------------------|---------------------------------------|\n"
+
       for f in "$package/$class"/*.sh; do
+        [[ ! -r $f ]] && continue
         method=$(basename "$f"  | sed 's/\.sh//')
         brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
         row="# |[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"

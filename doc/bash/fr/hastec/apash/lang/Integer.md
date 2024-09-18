@@ -1,31 +1,29 @@
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
-    <img alt='apash-logo' src='../../../../../assets/apash-logo.svg'/>
+    <img alt='apash-logo' src='../../../../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
 </div>
 
-# util
+# Math
 
-Provides miscellaneous utility.
+Contains related information about Integers.
 
 ## Overview
 
-This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html).
+This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html).
 
 ### Parents
 <!-- apash.parentBegin -->
-[](../../.md) / [apash](../apash.md) / 
+[](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 
 <!-- apash.parentEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[Array](util/Array.md)|Contains methods for performing basic numeric operations|
-|[Random](util/Random.md)|Contains methods for generating numbers|
 <!-- apash.summaryTableEnd -->
 
 

@@ -52,7 +52,7 @@ NumberUtils.isInteger "000"  # true
 #### Exit codes
 
 * **0**: When the input string is an integer.
-* **1**: When the input string contains characters other than digits and a minus before.
+* **1**: When the input string contains characters other than digits and a minus before, or is out of bound from 32bits Integer.
 
 #### Output on stdout
 

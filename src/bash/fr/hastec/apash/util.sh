@@ -16,6 +16,7 @@
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
 # |[Array](util/Array.md)|Contains methods for performing basic numeric operations|
+# |[Random](util/Random.md)|Contains methods for generating numbers|
 # <!-- apash.summaryTableEnd -->
 
 

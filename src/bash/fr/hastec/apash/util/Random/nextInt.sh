@@ -14,7 +14,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Array](../Array.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Random](../Random.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################

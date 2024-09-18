@@ -50,6 +50,12 @@ Contrary Java implementation methods are generally modifying directly the input 
 |[removeDuplicates](ArrayUtils/removeDuplicates.md)|Removes elements which are present multiple times in the array.|
 |[removeElement](ArrayUtils/removeElement.md)|Removes the first occurrence of the specified element from the specified array.|
 |[removeElements](ArrayUtils/removeElements.md)|Removes the first occurrence of the specified element from the specified array.|
+|[reverse](ArrayUtils/reverse.md)|Reverses the order of the given array in the given range.|
+|[shift](ArrayUtils/shift.md)|Shifts the order of a series of elements in the given array.|
+|[shuffle](ArrayUtils/shuffle.md)|Randomly permutes the elements of the specified array randomness.|
+|[subarray](ArrayUtils/subarray.md)|Produces a new array containing the elements between the start and end indices.|
+|[swap](ArrayUtils/swap.md)|Swaps a series of elements in the given array.|
+|[toArray](ArrayUtils/toArray.md)|Create an array based on list of arguments|
 <!-- apash.summaryTableEnd -->
 
 
