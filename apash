@@ -294,7 +294,7 @@ executeApashCommand(){
     . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
 
   elif [ "$APASH_ACTION_TEST" = "true" ]; then
-    bats -T --print-output-on-failure --trace -r test
+    bats -T --print-output-on-failure -r test
 
   elif [ "$APASH_ACTION_DOC" = "true" ]; then
     ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
