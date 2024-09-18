@@ -2,7 +2,7 @@
 
 # <!-- @package -->
 # @name apash
-# @brief Translation from most of the apache libraries for shell.
+# @brief Translation for shell scripts of some apache libraries.
 # @description
 #     Provides highly reusable utility methods.
 #

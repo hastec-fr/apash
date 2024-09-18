@@ -9,7 +9,7 @@
 
 # apash
 
-Translation from most of the apache libraries for shell.
+Translation for shell scripts of some apache libraries.
 
 ## Overview
 

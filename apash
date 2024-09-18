@@ -297,7 +297,7 @@ executeApashCommand(){
     bats -T --print-output-on-failure --trace -r test
 
   elif [ "$APASH_ACTION_DOC" = "true" ]; then
-    ! declare -F "apash.import" && echo "Apash must be sourced first" >&2 && return
+    ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
     apash.import "fr.hastec.apashDoc"
     apash.doc
   fi

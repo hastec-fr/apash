@@ -56,8 +56,9 @@ Random.nextInt() {
 
   [[ $minValue -gt $maxValue ]] && return "$APASH_FUNCTION_FAILURE"
 
-  # Generate a random number within the range
-  echo $(( RANDOM * (maxValue - minValue + 1) / 32768 + minValue ))
+  # Generate a random number within the range (maxValue is excluded)
+  # echo $(( RANDOM * (maxValue - minValue + 1) / 32768 + minValue ))
+  echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue ))
 
   return "$APASH_FUNCTION_SUCCESS"
 }
