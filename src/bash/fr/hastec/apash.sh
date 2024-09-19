@@ -23,14 +23,12 @@
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
 
-APASH_BASH_DIR="$APASH_HOME_DIR/src/bash"
-export APASH_BASH_DIR
-
 apash.import(){
   local lib
   local libs=()
   local forceFlag=false
   local location=""
+  local APASH_BASH_DIR="$APASH_HOME_DIR/src/bash"
   [ "$1" = "-f" ] && forceFlag=true && shift
 
   for l in "$@"; do

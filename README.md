@@ -8,8 +8,14 @@
 </div>
 
 ## 👀 Introduction
-Bash and more generally shells are popular command-line and scripting languages that are widely used on Unix-like operating systems, including Linux and macOS. Nervetheless, it always happen to reinvent basic operations like split, trim... by ourself. 
-Again we re-invent again these features 😅 by trying to looks like Apache's libraries realized in JAVA to simplify their usage in shell, especially for people doing DevOps.
+Bash and more generally shells are popular command-line and scripting languages that are widely used on Unix-like operating systems, including Linux and macOS. Nervetheless, it always happen to rewrite basic operations like split, trim... by ourself.
+Apash is a set of these operations by simplifying their interface. It's **inspired** from [Apache's libraries](https://commons.apache.org/) realized in JAVA.
+Note that even if I wish, Apash is not acutally a [project of the Apache Foundation](https://apache.org/index.html#projects-list).
+Let's stop talking and open the shell !
+```bash
+StringUtils.rightPad "Enjoy" 7 "!"
+# Enjoy!!
+```
 
 ## Table of contents
 - [Installation](#installation)
@@ -21,9 +27,10 @@ Again we re-invent again these features 😅 by trying to looks like Apache's li
 - [Explore API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
-As other shell projects, there are unfortunately no standard way to install Apash. But here the main's one:
-### [Basher](https://www.basher.it/) 
-It's a package manager for bash which helps you quickly to install, uninstall and update bash packages (available on github) from the command line.
+As other shell projects, unfortunately there is no standard way to install Apash. But here are the main ones:
+
+### Basher
+[Basher](https://www.basher.it/) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
 ```bash
 # Install Basher 
 curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | bash
@@ -31,16 +38,25 @@ curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | 
 # Install Apash
 basher install "hastec-fr/apash"
 
-# Add the following line to your .bashrc file (and open a new terminal) 
-# or use it directly in the prompt to activate it for the current session.
-include "hastec-fr/apash" "apash"
+# Execute post installation action
+"$HOME/.basher/cellar/bin/apash" init --post-install
+
+# Open a new terminal to use apash
+apash --version
+# 0.1.0
+```
+
+### By Script
+```bash
+# Install Apash
+curl -s "https://raw.githubusercontent.com/hastec-fr/apash/master/install.sh" | bash
 ```
 
 ### Raw
-Clone or download the Apash project, then source the main script 
-or add it to your profile and open a new terminal.
+Clone or download the Apash project, execute the post installation action.
+to add sourcing to your profile. Then open a new terminal to ensure that environnment is loaded.
 ```bash
-source "hastec-fr/apash/apash"
+apash init --post-install
 ```
 
 ### <a id="dependencies" ></a> Dependencies
