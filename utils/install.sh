@@ -15,7 +15,7 @@ git version >/dev/null 2>&1 || die "git is not installed on this machine"
 
 ## install the project on ~/.apash
 echo ". Download apash code to ~/.apash"
-git clone https://github.com/hastec-fe/apash.git ~/.apash 2> /dev/null
+git clone https://github.com/hastec-fr/apash.git ~/.apash 2> /dev/null
 
 ## now check what shell is running
 shell_type=$(basename "$SHELL")
