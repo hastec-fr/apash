@@ -23,7 +23,8 @@ StringUtils.rightPad "Enjoy" 7 "!"
 - [Features](#features)
 - [Documentation](#documentation)
 - [Troubleshooting](#troubleshooting)
-- [license](#license)
+- [Maintenance](#maintenance)
+- [License](#license)
 - [Explore API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
@@ -115,6 +116,13 @@ Apash tests are realized with the tool [bats-core](https://github.com/bats-core/
 ```bash
   apash test
 ```
+You can also override the bats options and choose specific tests as in this 
+example:
+```bash
+# Prototype: apash test [-h] [--bats-options options] [--] [test paths]
+apash test --bats-options "-t --print-output-on-failure" $APASH_HOME_DIR/test/bash/lang/Math/*.bats
+```
+Note that bats options are in a single argument.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="tests" ></a> ✨ Tips
@@ -131,14 +139,45 @@ Just keep in mind, that aliases are usefull for your prompt but (depending of th
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
-The "import" function replace "." from packages by "/" and it allows to source all scripts from a directory. In addition, it prevents cycling import of re-loading librairies.
+The "apash.import" function replace "." from packages by "/" and allows to source all scripts from a directory. 
+In addition, it prevents cycling import of re-loading librairies.
 
-It's possible to fore the reload of a libraries (but not recursively to prevent cycling dependencies).
+It's possible to force the unitary reload of a libraries.
 ```bash
   # Reload libraries (Re-Source)
   apash.import -f path.to.the.library
-``` 
+```
+
+## <a id="maintenance" ></a> 🛠 Maintenance
+
+### Upgrade
+The lastest version from github is pulled.
+#### <ins>Basher</ins>
+```bash
+basher upgrade hastec-fr/apash
+```
+#### <ins>Others</ins>
+```bash
+"$APASH_HOME_DIR/utils/uninstall.sh"
+```
+
+### Uninstall
+It removes recursively the directory $APASH_HOME_DIR and lines in startup script (.bashrc).
+### <ins>Basher</ins>
+```bash
+basher uninstall hastec-fr/apash
+```
+Then remove the lines with #apashInstallTag from your profile.
+```bash
+# Example:
+sed -i '/apashInstallTag/d' "$HOME/.bashrc"
+```
+
+### <ins>Others</ins>
+```bash
+"$APASH_HOME_DIR/utils/uninstall.sh"
+```
 
 ## <a id="license" ></a> 📃 License
-Apash is free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
+Apash is a free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
