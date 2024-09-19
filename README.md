@@ -29,37 +29,43 @@ StringUtils.rightPad "Enjoy" 7 "!"
 ## <a id="quick-start" ></a>📦 Installation
 As other shell projects, unfortunately there is no standard way to install Apash. But here are the main ones:
 
-### Basher
+### <ins>Basher</ins>
 [Basher](https://www.basher.it/) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
+#### Install Basher 
 ```bash
-# Install Basher 
 curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | bash
+```
 
-# Install Apash
+#### Install Apash:
+```bash
 basher install "hastec-fr/apash"
+```
 
-# Execute post installation action
+#### Execute post installation action:
+```bash
 "$HOME/.basher/cellar/bin/apash" init --post-install
+```
 
-# Open a new terminal to use apash
+#### Open a new terminal to use apash:
+```bash
 apash --version
 # 0.1.0
 ```
 
-### By Script
+### <ins>By Script</ins>
+Modify the URL in consequence if you want a particular version, here it's for the head of the main branch:
 ```bash
-# Install Apash
-curl -s "https://raw.githubusercontent.com/hastec-fr/apash/master/install.sh" | bash
+curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
 ```
 
-### Raw
+### <ins>Raw</ins>
 Clone or download the Apash project, execute the post installation action.
 to add sourcing to your profile. Then open a new terminal to ensure that environnment is loaded.
 ```bash
 apash init --post-install
 ```
 
-### <a id="dependencies" ></a> Dependencies
+### <a id="dependencies" ></a> <ins>Dependencies</ins>
 Some prerequisite could be required if you want to contribute to the project.
 For Testing purpose, you need to install [bats-core](https://github.com/bats-core/bats-core).
 ```bash
