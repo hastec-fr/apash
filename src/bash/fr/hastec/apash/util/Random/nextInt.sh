@@ -14,7 +14,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Array](../Array.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Random](../Random.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################
@@ -56,8 +56,9 @@ Random.nextInt() {
 
   [[ $minValue -gt $maxValue ]] && return "$APASH_FUNCTION_FAILURE"
 
-  # Generate a random number within the range
-  echo $(( RANDOM * (maxValue - minValue + 1) / 32768 + minValue ))
+  # Generate a random number within the range (maxValue is excluded)
+  # echo $(( RANDOM * (maxValue - minValue + 1) / 32768 + minValue ))
+  echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue ))
 
   return "$APASH_FUNCTION_SUCCESS"
 }

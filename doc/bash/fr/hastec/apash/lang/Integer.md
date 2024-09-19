@@ -1,30 +1,29 @@
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
-    <img alt='apash-logo' src='../../../../assets/apash-logo.svg'/>
+    <img alt='apash-logo' src='../../../../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
 </div>
 
-# apash
+# Math
 
-Translation for shell scripts of some apache libraries.
+Contains related information about Integers.
 
 ## Overview
 
-Provides highly reusable utility methods.
+This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html).
 
 ### Parents
-[Main page](../../../../README.md)
+<!-- apash.parentBegin -->
+[](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 
+<!-- apash.parentEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
-|[lang](apash/lang.md)|Provides methods that are fundamental to the design script. |
-|[util](apash/util.md)|Provides miscellaneous utility.|
 <!-- apash.summaryTableEnd -->
 
 

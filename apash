@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 export APASH_VERSION="0.1.0-snapshot"
 
 # Command line counters
@@ -8,6 +7,10 @@ APASH_NB_ARGS=0
 # Source must be done out of function
 APASH_ACTION_SOURCE=false
 APASH_ACTION_DOC=false
+APASH_ACTION_TEST=false
+APASH_ACTION_INIT=false
+APASH_INIT_POST_INSTALL=false
+
 APASH_EXIT_REQUIRED=false
 APASH_IS_SOURCED=false
 APASH_SHELL=""
@@ -97,6 +100,22 @@ showApashDocHelp(){
   $ basher install reconquest/shdoc
 
   # Open another terminal again to ensure that environment is well reloaded.
+EOF
+}
+
+showApashInitHelp(){
+  cat << EOF
+  Usage: ${0##*/} init [-h] [--post-install]
+
+  Add necessary line to startup script for apash usage
+  
+      -h|--help|-?      display this help and exit.
+      --post-install    Add necessary lines in startup script
+
+  Example:
+  $ apash init --post-install
+  Lines added to the startup up script \$HOME/.bashrc with tag apashInstallTag   
+  Open another terminal again to ensure that environment is well reloaded.
 EOF
 }
 
@@ -233,6 +252,39 @@ parseApashDocArgs() {
   done
 }
 
+parseApashInitArgs() {
+  while :; do
+
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        showApashInitHelp
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      --post-install)
+        APASH_INIT_POST_INSTALL=true
+        ;;
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        APASH_EXIT_REQUIRED=true && return
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+}
+
 
 parseApashAction(){
     case $1 in
@@ -240,6 +292,12 @@ parseApashAction(){
         APASH_ACTION_DOC=true
         shift
         parseApashDocArgs "$@"
+        ;;
+
+      init)
+        APASH_ACTION_INIT=true
+        shift
+        parseApashInitArgs "$@"
         ;;
 
       source)
@@ -259,6 +317,30 @@ parseApashAction(){
         APASH_EXIT_REQUIRED=true && return
         ;;
     esac
+}
+
+# Add necessary instruction to startup script for apash usage.
+executePostInstall(){  
+  local startup_script=""
+  local apash_keyword="apashInstallTag"
+  case "$APASH_SHELL" in
+    bash) startup_script="$HOME/.bashrc" ;;
+    zsh)  startup_script="$HOME/.zshrc"  ;;
+    sh)   startup_script="$HOME/.profile";;
+    *)    startup_script="" ;   ;;
+  esac
+
+  [ ! -w "$startup_script" ] && echo "Startup Script cannot be edited: $startup_script" >&2 && return
+
+  if ! grep -q "$apash_keyword" "$startup_script" ; then
+    (
+      echo "export APASH_HOME_DIR=\"$APASH_HOME_DIR\"   ##$apash_keyword"
+      echo "export PATH=\"\$PATH:\$APASH_HOME_DIR\"    ##$apash_keyword"
+      echo ". \"\$APASH_HOME_DIR/apash\"              ##$apash_keyword"
+    ) >> "$startup_script"
+  else
+    echo "The apash install tags are already present in $startup_script."
+  fi
 }
 
 # Execute apash command
@@ -294,10 +376,13 @@ executeApashCommand(){
     . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
 
   elif [ "$APASH_ACTION_TEST" = "true" ]; then
-    bats -T --print-output-on-failure --trace -r test
+    bats -T --print-output-on-failure -r test
+
+  elif [ "$APASH_ACTION_INIT" = "true" ] && [ "$APASH_INIT_POST_INSTALL" = "true" ] ; then
+    executePostInstall
 
   elif [ "$APASH_ACTION_DOC" = "true" ]; then
-    ! declare -F "apash.import" && echo "Apash must be sourced first" >&2 && return
+    ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
     apash.import "fr.hastec.apashDoc"
     apash.doc
   fi
@@ -316,20 +401,12 @@ else
 fi
 
 # If already set in env, then skip calculation
-# Get the type of shell (only bash for the moment)
+# Get the type of shell (only bash supported for the moment)
 if [ -z "$APASH_SHELL" ];then
-  if [ -n "$BASH_VERSION" ]; then
-    APASH_SHELL="bash"
-  # elif [ -n "$ZSH_VERSION" ]; then
-  #   echo "Running in Zsh"
-  # elif [ -n "$KSH_VERSION" ]; then
-  #   echo "Running in Ksh"
-  else
-    APASH_SHELL="Unknown"
-  fi
+  APASH_SHELL=$(basename "$SHELL")
 fi
 
-# Calculat potential apash home directory if not determined.
+# Calculate potential apash home directory if not determined.
 if [ -z "$APASH_HOME_DIR" ]; then
   if [ "$APASH_SHELL" = "bash" ]; then
     APASH_HOME_DIR=$(dirname "$(realpath "$(command -v -- "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")")
