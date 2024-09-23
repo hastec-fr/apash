@@ -32,7 +32,7 @@ APASH_VERSION="0.1.0-snapshot"
 #             3.|-> Execute related subactions
 #
 #   This source is not essential thereafter, because the main concept is to
-#   load other script as librairies ready to use. So "source then forget".
+#   load other scripts as librairy ready to use (Source then forget).
 #   
 #   Note: POSIX operations as much as possible in this script.
 #
@@ -294,7 +294,7 @@ executeApashTest(){
   # Split word intentionnaly the bats options.
   if [ $# -eq 0 ]; then
     # shellcheck disable=SC2086
-    bats $APASH_TEST_BATS_OPTIONS test
+    bats $APASH_TEST_BATS_OPTIONS "$APASH_HOME_DIR/test"
   else
     # shellcheck disable=SC2086
     bats $APASH_TEST_BATS_OPTIONS "$@"
