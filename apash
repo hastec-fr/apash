@@ -39,6 +39,7 @@ APASH_VERSION="0.1.0-snapshot"
 # Command-line flags #########################################################
 APASH_NB_ARGS=0                  # Number of argument before the action.
 APASH_INIT_POST_INSTALL=false    # Init suboption.
+APASH_SOURCE_ALL=false           # Source subtoption.
 
 # Test suboption overriding bats options.
 APASH_TEST_BATS_OPTIONS=" -T --print-output-on-failure -r "
@@ -280,8 +281,14 @@ executeApashInit(){
 
 executeApashSource(){
   parseApashSourceArgs "$@" || return
+    
   # shellcheck disable=SC1091
   . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
+  if [ $APASH_SOURCE_ALL = "true" ]; then
+    while IFS= read -r -d '' file; do
+      apash.import "$file"
+    done < <(find "$APASH_HOME_DIR/src/bash" -name "*.sh" ! -name "apash.sh" ! -name "apashDoc.sh" -print0)
+  fi
 }
 
 executeApashTest(){  
@@ -373,6 +380,10 @@ parseApashSourceArgs() {
       -h|-\?|--help)
         showApashSourceHelp
         return $APASH_EXIT_REQUIRED
+        ;;
+
+      -a|--all)
+        APASH_SOURCE_ALL=true
         ;;
 
       # End of all options.
