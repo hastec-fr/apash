@@ -8,7 +8,7 @@ die() {
 }
 
 ## stop if apash is already installed
-[[ -d "$HOME/.apash" ]] && die "basher is already installed on [$HOME/.apash]"
+[[ -d "$HOME/.apash" ]] && die "apash is already installed on [$HOME/.apash]"
 
 ## stop if git is not installed
 git version >/dev/null 2>&1 || die "git is not installed on this machine"
