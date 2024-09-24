@@ -10,11 +10,13 @@
 ## 👀 Introduction
 Bash and more generally shells are popular command-line and scripting languages that are widely used on Unix-like operating systems, including Linux and macOS. Nervetheless, it always happen to rewrite basic operations like split, trim... by ourself.
 Apash is a set of these operations by simplifying their interface. It's **inspired** from [Apache's libraries](https://commons.apache.org/) realized in JAVA.
-Note that even if I wish, Apash is not acutally a [project of the Apache Foundation](https://apache.org/index.html#projects-list).
+
+## Disclaimer
+Note that even if it's a wish, Apash is not a [project of the Apache Foundation](https://apache.org/index.html#projects-list).<br/>
 Let's stop talking and open the shell !
 ```bash
-StringUtils.rightPad "Enjoy" 7 "!"
-# Enjoy!!
+StringUtils.rightPad "123" 6 "!"
+# 123!!!
 ```
 
 ## Table of contents
@@ -22,8 +24,11 @@ StringUtils.rightPad "Enjoy" 7 "!"
 - [Quick Start](#️quick-start)
 - [Features](#features)
 - [Documentation](#documentation)
+- [Container](#container)
+- [Compatibility](#compatibility)
 - [Troubleshooting](#troubleshooting)
-- [license](#license)
+- [Maintenance](#maintenance)
+- [License](#license)
 - [Explore API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
@@ -59,10 +64,15 @@ curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils
 ```
 
 ### <ins>Raw</ins>
-Clone or download the Apash project, execute the post installation action.
-to add sourcing to your profile. Then open a new terminal to ensure that environnment is loaded.
+Clone or download the [Apash project](https://github.com/hastec-fr/apash), execute the post installation action to add apash sourcing to your startup script file ($HOME/.bashrc).
 ```bash
+git clone "https://github.com/hastec-fr/apash.git"
+cd apash
+
+# Post installation action:
 apash init --post-install
+
+# Then open a new terminal to ensure that environnment is re-loaded.
 ```
 
 ### <a id="dependencies" ></a> <ins>Dependencies</ins>
@@ -115,6 +125,13 @@ Apash tests are realized with the tool [bats-core](https://github.com/bats-core/
 ```bash
   apash test
 ```
+You can also override the bats options and choose specific tests as in this 
+example:
+```bash
+# Prototype: apash test [-h] [--bats-options options] [--] [test paths]
+apash test --bats-options "-t --print-output-on-failure" $APASH_HOME_DIR/test/bash/lang/Math/*.bats
+```
+Note that bats options are in a single argument.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="tests" ></a> ✨ Tips
@@ -129,16 +146,115 @@ Just keep in mind, that aliases are usefull for your prompt but (depending of th
   shopt -s expand_aliases
 ```
 
+## <a id="container" ></a> 🐳 Container
+### One shot
+If you don't want to install apash but test it quickly, you can pull its container on [docker hub](https://hub.docker.com/r/hastec/apash)
+```bash
+docker run --rm hastec/apash:0.1.0-snapshot '
+apash.import "fr.hastec.apash.commons-lang.StringUtils"
+StringUtils.reverse "Never odd or even!"
+'
+```
+Result:
+```
+!neve ro ddo reveN
+```
+<br/><br/>
+If you don't like to import yourself the command, then use the image with all script pre-loaded:
+```bash
+docker run --rm hastec/apash-full:0.1.0-snapshot 'StringUtils.upperCase "Please, speak louder !!"'
+```
+Result:
+```
+PLEASE, SPEAK LOUDER !!
+```
+<br/><br/>
+Finally, if you want to test a script, use the light or full image and mount the script as volume.
+Take care to provide an absolute host path (not relative).
+```bash
+cat <<EOF > ./test.sh
+apash.import "fr.hastec.apash.commons-lang.StringUtils.abbreviate"
+StringUtils.abbreviate "Thanks to abbreviate this long description which does not lead anywhere except to pretend that this function could have a use case." 15
+EOF
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+```
+Result:
+```
+Thanks to ab...
+```
+
+### Interactive shell
+Use the default command of the container to get an interactive prompt.
+```bash
+docker run --rm -it hastec/apash:0.1.0-snapshot
+apash:bash-5.2 $ echo $BASH_VERSION
+# 5.2.32(1)-release
+```
+
+### Non Regression
+Modify your apash installation and test non regression using containers.
+```bash
+# From root apash workspace directory ($APASH_HOME_DIR)
+docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
+docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
+```
+
+## <a id="compatibility" ></a> ✅ Compatibility
+A more complete list of compatibility will be dressed.
+Currently it has been tested for bash version 5.2 and require bc to be installed.
+
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
-The "import" function replace "." from packages by "/" and it allows to source all scripts from a directory. In addition, it prevents cycling import of re-loading librairies.
+The "apash.import" function replace "." from packages by "/" and allows to source all scripts from a directory. 
+In addition, it prevents cycling import of re-loading librairies.
 
-It's possible to fore the reload of a libraries (but not recursively to prevent cycling dependencies).
+It's possible to force the unitary reload of a libraries.
 ```bash
   # Reload libraries (Re-Source)
   apash.import -f path.to.the.library
-``` 
+```
+### I launch apash with a container but my script is seen as a directory
+Double check that the bind mount has an absolute path (not a relative one which does not work everywhere)
+```bash
+# Example of issue:
+docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+# bash: line 1: ./test.sh: Is a directory
+
+# docker run --rm -v "/absolute/path/to/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1. ./test.sh
+# For pseudo relative path, you can use the $PWD variable
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1. ./test.sh
+```
+
+## <a id="maintenance" ></a> 🛠 Maintenance
+
+### Upgrade
+The lastest version from github is pulled.
+#### <ins>Basher</ins>
+```bash
+basher upgrade hastec-fr/apash
+```
+#### <ins>Others</ins>
+```bash
+"$APASH_HOME_DIR/utils/uninstall.sh"
+```
+
+### Uninstall
+It removes recursively the directory $APASH_HOME_DIR and lines in startup script (.bashrc).
+### <ins>Basher</ins>
+```bash
+basher uninstall hastec-fr/apash
+```
+Then remove the lines with #apashInstallTag from your profile.
+```bash
+# Example:
+sed -i '/apashInstallTag/d' "$HOME/.bashrc"
+```
+
+### <ins>Others</ins>
+```bash
+"$APASH_HOME_DIR/utils/uninstall.sh"
+```
 
 ## <a id="license" ></a> 📃 License
-Apash is free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
+Apash is a free and open-source software licensed under the [_Apache License Version 2.0_](https://www.apache.org/licenses/LICENSE-2.0.txt) License. Please see the LICENSE.txt file for details.
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>

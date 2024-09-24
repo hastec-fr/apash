@@ -48,6 +48,17 @@ apash.import(){
     elif [ -r "${location//\/sh/}.sh" ]; then
       libs+=("${location//\/sh/}.sh")
     
+    # Check if raw value is a package
+    elif [ -d "$l" ]; then
+      location="$l/*.sh"
+      for lib in $location; do
+        libs+=("$lib")
+      done
+    
+    # Import the raw file path
+    elif [ -r "$l" ]; then
+      libs+=("$l")
+    
     # The library connot be imported
     else
       echo "WARNING: Unknown library: '$l' - '$location'" >&2
