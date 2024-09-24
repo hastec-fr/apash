@@ -8,7 +8,7 @@ die() {
 }
 
 ## stop if apash is already installed
-[[ -d "$HOME/.apash" ]] && die "basher is already installed on [$HOME/.apash]"
+[[ -d "$HOME/.apash" ]] && die "apash is already installed on [$HOME/.apash]"
 
 ## stop if git is not installed
 git version >/dev/null 2>&1 || die "git is not installed on this machine"
@@ -36,7 +36,7 @@ apash_keyword="apashInstallTag"
 echo ". Add apash initialisation to [$startup_script]"
 
 ## now add the apash initialisation lines to the user's startup script
-echo ". Add basher initialisation to [$startup_script]"
+echo ". Add apash initialisation to [$startup_script]"
 if [[ "$startup_type" == "simple" ]]; then
   (
     echo "export APASH_HOME_DIR=\"\$HOME/.apash\"   ##$apash_keyword"
