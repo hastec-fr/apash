@@ -10,7 +10,9 @@
 ## 👀 Introduction
 Bash and more generally shells are popular command-line and scripting languages that are widely used on Unix-like operating systems, including Linux and macOS. Nervetheless, it always happen to rewrite basic operations like split, trim... by ourself.
 Apash is a set of these operations by simplifying their interface. It's **inspired** from [Apache's libraries](https://commons.apache.org/) realized in JAVA.
-Note that even if I wish, Apash is not acutally a [project of the Apache Foundation](https://apache.org/index.html#projects-list).
+
+## Disclaimer
+Note that even if it's a wish, Apash is not a [project of the Apache Foundation](https://apache.org/index.html#projects-list).<br/>
 Let's stop talking and open the shell !
 ```bash
 StringUtils.rightPad "123" 6 "!"
