@@ -1,6 +1,8 @@
-# docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
-# docker run --rm -it --name apash-dev hastec/apash:0.1.0
+# docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
+# docker run --rm -it hastec/apash:0.1.0-snapshot
 FROM docker.io/bash:5.2.32
+
+LABEL maintainer="Benjamin Vargin"
 
 RUN apk update && \
     apk add --no-cache curl git shadow
@@ -14,12 +16,13 @@ SHELL ["/usr/local/bin/bash", "-c"]
 
 RUN git clone -b HASTEC_DEV_0.1.0 https://github.com/hastec-fr/apash.git /home/apash/.apash && \
     cat <<EOF > $HOME/.bashrc
-[ -n "\$APASH_SHELL" ] && return         # Prevent recursive sourcing
-export APASH_SHELL="bash"                ##apashInstallTag
-export APASH_HOME_DIR="\$HOME/.apash"    ##apashInstallTag
-export PATH="\$PATH:\$APASH_HOME_DIR"    ##apashInstallTag
-. "\$APASH_HOME_DIR/apash" source        ##apashInstallTag
-unset BASH_ENV                           # Prevent recursive sourcing
+[ -n "\$APASH_SHELL" ] && return           # Prevent recursive sourcing (basher init)
+export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
+export APASH_SHELL="bash"                        ##apashInstallTag
+export APASH_HOME_DIR="\$HOME/.apash"            ##apashInstallTag
+export PATH=".:\$PATH:\$APASH_HOME_DIR"          ##apashInstallTag
+. "\$APASH_HOME_DIR/apash" source                ##apashInstallTag
+unset BASH_ENV                                   # Prevent recursive sourcing (basher init)
 EOF
 
 ADD apash /home/apash/.apash/apash
@@ -37,5 +40,5 @@ ENV BASH_ENV="/home/apash/.bashrc"
 # Define bash as default binary execution
 ENTRYPOINT [ "bash", "-c" ]
 
-# Define default command for passing unitary tests.
-CMD [ "apash test" ]
+# By default create an interactive prompt
+CMD [ "bash" ]
