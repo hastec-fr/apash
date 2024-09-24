@@ -36,7 +36,7 @@ apash_keyword="apashInstallTag"
 echo ". Add apash initialisation to [$startup_script]"
 
 ## now add the apash initialisation lines to the user's startup script
-echo ". Add basher initialisation to [$startup_script]"
+echo ". Add apash initialisation to [$startup_script]"
 if [[ "$startup_type" == "simple" ]]; then
   (
     echo "export APASH_HOME_DIR=\"\$HOME/.apash\"   ##$apash_keyword"
