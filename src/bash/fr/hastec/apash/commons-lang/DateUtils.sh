@@ -20,6 +20,12 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[add](DateUtils/add.md)|Adds a number of specified unity to a date returning a new date.|
+# |[addDays](DateUtils/addDays.md)|Adds a number of days to a date returning a new object.|
+# |[addHours](DateUtils/addHours.md)|Adds a number of hours to a date returning a new date.|
+# |[addMinutes](DateUtils/addMinutes.md)|Adds a number of hours to a date returning a new date.|
+# |[addMonths](DateUtils/addMonths.md)|Adds a number of hours to a date returning a new date.|
+# |[isDate](DateUtils/isDate.md)|Check if the input string has an UTC valid format (used accross all apash date functions)|
 # <!-- apash.summaryTableEnd -->
 
 DateUtils_UTC_FORMAT="+%FT%T.%3N%z"

@@ -16,7 +16,7 @@ SHELL ["/usr/local/bin/bash", "-c"]
 
 RUN git clone -b HASTEC_DEV_0.1.0 https://github.com/hastec-fr/apash.git /home/apash/.apash && \
     cat <<EOF > $HOME/.bashrc
-[ -n "\$APASH_SHELL" ] && return           # Prevent recursive sourcing (basher init)
+[ -n "\$APASH_SHELL" ] && return                 # Prevent recursive sourcing (basher init)
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
 export APASH_SHELL="bash"                        ##apashInstallTag
 export APASH_HOME_DIR="\$HOME/.apash"            ##apashInstallTag

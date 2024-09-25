@@ -22,4 +22,4 @@
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
 
-source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
+source "$APASH_HOME_DIR/src/zsh/fr/hastec/apash.import"
