@@ -179,9 +179,7 @@ executeApashCommand(){
   fi
 
   # Source main apash script if no argument has been passed.
-  # Take in consideration basher include (bash "hastec-fr/apash" "apash")
-  if [ $# -eq 0 ] || { [ $APASH_SOURCE_REQUIRED = true ] \
-  && [ "$1" = "hastec-fr/apash" ] && [ "$2" = "apash" ] ;}; then
+  if [ $# -eq 0 ]; then
     # shellcheck disable=SC1091
     . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh" && return
   fi
@@ -475,13 +473,6 @@ executePostInstall(){
 ##############################################################################
 # Primary checks prefered in the main flow than embedded in a function
 ##############################################################################
-# Check if the script is being sourced
-if [ "$0" = "${0##*/}" ]; then
-  APASH_SOURCE_REQUIRED="true"
-else
-  APASH_SOURCE_REQUIRED="false"
-fi
-
 # If already set in env, then skip calculation
 # Get the type of shell (only bash supported for the moment)
 if [ -z "$APASH_SHELL" ];then

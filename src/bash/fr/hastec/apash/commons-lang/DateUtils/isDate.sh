@@ -19,10 +19,10 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 # Method description #########################################################
 # @description
 # @example
-#    DateUtils.isDate ""                          # false
-#    DateUtils.isDate "20240914"                  # false
-#    DateUtils.isDate "2024-09-14T10:30"          # false
-#    DateUtils.isDate "2022-03-15T14:30:45.123Z"  # true
+#    DateUtils.isDate ""                              # false
+#    DateUtils.isDate "20240914"                      # false
+#    DateUtils.isDate "2024-09-14T10:30"              # false
+#    DateUtils.isDate "2022-03-15T14:30:45.123+0000"  # true
 #
 # @arg $1 The date in UTC format
 # @arg $2 The amount to add, may be negative. [Default=0]
@@ -34,6 +34,9 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 # @exitcode 1 Otherwise.
 DateUtils.isDate() {
   local inDate="$1"
-  [[ "$inDate" == "$(date -u -d "$inDate" "$DateUtils_UTC_FORMAT")" ]] && return "$APASH_FUNCTION_SUCCESS"
+  local datePattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\+[0-9]{4}$"
+
+  [[ ! $inDate =~ $datePattern ]] && return "$APASH_FUNCTION_FAILURE"
+  date -d "$inDate" > /dev/null 2>&1 && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

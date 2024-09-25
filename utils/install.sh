@@ -30,10 +30,8 @@ esac
 ## startup script should exist already
 [[ -n "$startup_script" && ! -f "$startup_script" ]] && die "startup script [$startup_script] does not exist"
 
-## basher_keyword will allow us to remove the lines upon uninstall
+## apash_keyword will allow us to remove the lines upon uninstall
 apash_keyword="apashInstallTag"
-
-echo ". Add apash initialisation to [$startup_script]"
 
 ## now add the apash initialisation lines to the user's startup script
 echo ". Add apash initialisation to [$startup_script]"

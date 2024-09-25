@@ -20,15 +20,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 # Method description #########################################################
 # @description
 # @example
-#    DateUtils.addDays "" ""     # failure - ""
-#    DateUtils.addDays "0" ""    # failure - ""
-#    DateUtils.addDays "1" "1"   # 0
-#    DateUtils.addDays "0" "2"   # -2
-#    DateUtils.addDays "2" "0"   # 2
-#    DateUtils.addDays "1.2" "1" # failure - ""
+#    DateUtils.addDays ""                               ""    # failure - ""
+#    DateUtils.addDays "0"                              ""    # failure - ""
+#    DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "1"   # 2022-03-15T14:30:45.123+0200
+#    DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "-1"  # 2022-03-13T14:30:45.123+0200
+#    DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "1.2" # failure - ""
 #
 # @arg $1 The date in UTC format
-# @arg $2 The amount to add, may be negative. [Default=0]
+# @arg $2 The amount of dayd to add, may be negative. [Default=0]
 #
 # @stdout The new Date with the amount added.
 # @stderr None.
@@ -38,10 +37,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 DateUtils.addDays() {
   local inDate="$1"
   local inAmount="${2:-0}"
-
-  DateUtils.isDate "$inDate" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inAmount" || return "$APASH_FUNCTION_FAILURE"
-
-  date -u -d "$inDate + $inAmount day" "$DateUtils_UTC_FORMAT" && return "$APASH_FUNCTION_SUCCESS"  
+  DateUtils.add "$inDate" "$inAmount" "days" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
