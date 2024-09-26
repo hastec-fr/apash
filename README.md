@@ -206,6 +206,63 @@ docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
 A more complete list of compatibility will be dressed.
 Currently it has been tested for bash version 5.2 and require bc to be installed.
 
+## <a id="container" ></a> 🐳 Container
+### One shot
+If you don't want to install apash but test it quickly, you can pull its container on [docker hub](https://hub.docker.com/r/hastec/apash)
+```bash
+docker run --rm hastec/apash:0.1.0-snapshot '
+apash.import "fr.hastec.apash.commons-lang.StringUtils"
+StringUtils.reverse "Never odd or even!"
+'
+```
+Result:
+```
+!neve ro ddo reveN
+```
+<br/><br/>
+If you don't like to import yourself the command, then use the image with all script pre-loaded:
+```bash
+docker run --rm hastec/apash-full:0.1.0-snapshot 'StringUtils.upperCase "Please, speak louder !!"'
+```
+Result:
+```
+PLEASE, SPEAK LOUDER !!
+```
+<br/><br/>
+Finally, if you want to test a script, use the light or full image and mount the script as volume.
+Take care to provide an absolute host path (not relative).
+```bash
+cat <<EOF > ./test.sh
+apash.import "fr.hastec.apash.commons-lang.StringUtils.abbreviate"
+StringUtils.abbreviate "Thanks to abbreviate this long description which does not lead anywhere except to pretend that this function could have a use case." 15
+EOF
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+```
+Result:
+```
+Thanks to ab...
+```
+
+### Interactive shell
+Use the default command of the container to get an interactive prompt.
+```bash
+docker run --rm -it hastec/apash:0.1.0-snapshot
+apash:bash-5.2 $ echo $BASH_VERSION
+# 5.2.32(1)-release
+```
+
+### Non Regression
+Modify your apash installation and test non regression using containers.
+```bash
+# From root apash workspace directory ($APASH_HOME_DIR)
+docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
+docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
+```
+
+## <a id="compatibility" ></a> ✅ Compatibility
+A more complete list of compatibility will be dressed.
+Currently it has been tested for bash version 5.2 and require bc to be installed.
+
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
 The "apash.import" function replace "." from packages by "/" and allows to source all scripts from a directory. 
