@@ -4,8 +4,13 @@ FROM docker.io/bash:5.2.32
 
 LABEL maintainer="Benjamin Vargin"
 
+# Dependencies:
+# - curl:      download apash installer
+# - git:       download apash
+# - shadow:    Initially for chsh (no more used @todo check if it can be removed).
+# - coreutils: The alpine date does not accept UTC time format. This package bring it.
 RUN apk update && \
-    apk add --no-cache curl git shadow
+    apk add --no-cache curl git shadow coreutils tzdata
 
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
@@ -16,7 +21,7 @@ SHELL ["/usr/local/bin/bash", "-c"]
 
 RUN git clone -b HASTEC_DEV_0.1.0 https://github.com/hastec-fr/apash.git /home/apash/.apash && \
     cat <<EOF > $HOME/.bashrc
-[ -n "\$APASH_SHELL" ] && return           # Prevent recursive sourcing (basher init)
+[ -n "\$APASH_SHELL" ] && return                 # Prevent recursive sourcing (basher init)
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
 export APASH_SHELL="bash"                        ##apashInstallTag
 export APASH_HOME_DIR="\$HOME/.apash"            ##apashInstallTag

@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/$APASH_SHELL/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.lowerCase
 
 # lowerCase #####################################

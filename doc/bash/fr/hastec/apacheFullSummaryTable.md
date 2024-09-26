@@ -39,6 +39,13 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [swap](apash/commons-lang/ArrayUtils/swap.md) | Swaps a series of elements in the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [toArray](apash/commons-lang/ArrayUtils/toArray.md) | Create an array based on list of arguments |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) | Operations on arrays. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [add](apash/commons-lang/DateUtils/add.md) | Adds a number of specified unity to a date returning a new date. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addDays](apash/commons-lang/DateUtils/addDays.md) | Adds a number of days to a date returning a new object. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addHours](apash/commons-lang/DateUtils/addHours.md) | Adds a number of hours to a date returning a new date. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addMinutes](apash/commons-lang/DateUtils/addMinutes.md) | Adds a number of hours to a date returning a new date. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addMonths](apash/commons-lang/DateUtils/addMonths.md) | Adds a number of hours to a date returning a new date. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [isDate](apash/commons-lang/DateUtils/isDate.md) | Check if the input string has an UTC valid format (used accross all apash date functions) |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) | Operations on dates. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [MapUtils](apash/commons-lang/MapUtils.md) / [isMap](apash/commons-lang/MapUtils/isMap.md) | Check if the input name is an map or not. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [MapUtils](apash/commons-lang/MapUtils.md) | Operations on maps. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [compare](apash/commons-lang/NumberUtils/compare.md) | Compares to values numerically (substration) |
@@ -86,7 +93,6 @@
 | [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) | Contains methods for generating numbers |
 | [apash](apash.md) / [util](apash/util.md) | Provides miscellaneous utility. |
 | [apash](apash.md) | Translation for shell scripts of some apache libraries. |
-| [apashDoc](apashDoc.md) | Generate apash documentation |
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

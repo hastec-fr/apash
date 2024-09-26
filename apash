@@ -46,7 +46,6 @@ APASH_TEST_BATS_OPTIONS=" -T --print-output-on-failure -r "
 
 # Calculated flags
 APASH_EXIT_REQUIRED=false        # Flag set to true when an issue occurs.
-APASH_SOURCE_REQUIRED=false           # Flag set to true when apash is sourced. 
 
 APASH_EXIT_REQUIRED=1
 APASH_FUNCTION_SUCCESS=0
@@ -173,15 +172,13 @@ EOF
 #    which quit the current session in case of sourcing.
 executeApashCommand(){
   # If the current shell is not identified, then exit.
-  if [ "$APASH_SHELL" = "Unknown" ]; then
+  if [ "$APASH_SHELL" != "bash" ] && [ "$APASH_SHELL" != "zsh" ]; then
     echo "Not supported shell for the moment." >&2
     return
   fi
 
   # Source main apash script if no argument has been passed.
-  # Take in consideration basher include (bash "hastec-fr/apash" "apash")
-  if [ $# -eq 0 ] || { [ $APASH_SOURCE_REQUIRED = true ] \
-  && [ "$1" = "hastec-fr/apash" ] && [ "$2" = "apash" ] ;}; then
+  if [ $# -eq 0 ]; then
     # shellcheck disable=SC1091
     . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh" && return
   fi
@@ -270,7 +267,7 @@ executeApashAction(){
 executeApashDoc(){
     parseApashDocArgs "$@" || return
     ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
-    apash.import "fr.hastec.apashDoc"
+    apash.import "fr/hastec/apash.doc"
     apash.doc
 }
 
@@ -454,7 +451,6 @@ executePostInstall(){
   case "$APASH_SHELL" in
     bash) startup_script="$HOME/.bashrc" ;;
     zsh)  startup_script="$HOME/.zshrc"  ;;
-    sh)   startup_script="$HOME/.profile";;
     *)    startup_script="" ;   ;;
   esac
 
@@ -475,17 +471,14 @@ executePostInstall(){
 ##############################################################################
 # Primary checks prefered in the main flow than embedded in a function
 ##############################################################################
-# Check if the script is being sourced
-if [ "$0" = "${0##*/}" ]; then
-  APASH_SOURCE_REQUIRED="true"
-else
-  APASH_SOURCE_REQUIRED="false"
-fi
-
 # If already set in env, then skip calculation
 # Get the type of shell (only bash supported for the moment)
 if [ -z "$APASH_SHELL" ];then
-  APASH_SHELL=$(basename "$SHELL")
+  if [ -n "$BASH_VERSION" ]; then    
+    APASH_SHELL="bash"
+  elif [ -n "$ZSH_VERSION" ]; then
+    APASH_SHELL="zsh"
+  fi
 fi
 export APASH_SHELL
 
