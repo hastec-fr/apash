@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.DateUtils.sh
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.DateUtils.add
 
 # File description ###########################################################
 # @name DateUtils.addDays

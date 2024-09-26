@@ -52,13 +52,32 @@ apash.import fr.hastec.apash.commons-lang.DateUtils
   [ "$status" -eq 0 ]
   [ "$output" = "2025-04-01T14:30:45.123+0200"  ]
 
-  # Summer Time (correct with +24h but different with +1 day ?)
-  run DateUtils.addDays "2024-03-30T02:30:00.123+0100" 1
-  [ "$status" -eq 0 ]
-  [ "$output" = "2024-03-31T04:30:00.123+0200"  ]
+}
 
-  # Winter Time  
-  run DateUtils.addDays "2024-10-28T03:30:00.123+0200" 1
+@test "addDays return the date during Summer daylight saving" {
+  export TZ="Europe/Paris"
+  # Summer Time 
+  # @todo: mail sent to GNU, because result is not the expected one ?
+  # run DateUtils.addDays "2024-03-30T02:30:00.123+0100" 1
+  # [ "$status" -eq 0 ]
+  # [ "$output" = "2024-03-31T04:30:00.123+0200"  ]
+  # [ "$output" = "2024-03-31T03:30:00.123+0200"  ]  # expectation
+
+  run DateUtils.addDays "2024-03-31T03:30:00.123+0200" -1
   [ "$status" -eq 0 ]
-  [ "$output" = "2024-10-29T02:30:00.123+0100"  ]
+  [ "$output" = "2024-03-30T02:30:00.123+0100"  ]
+}
+
+@test "addDays return the date during Winter daylight saving" {
+  export TZ="Europe/Paris"
+  # Winter Time  
+  run DateUtils.addDays "2023-10-28T03:30:00.123+0200" 1
+  [ "$status" -eq 0 ]
+  [ "$output" = "2023-10-29T02:30:00.123+0100"  ]
+
+  # @todo: the reverse operation does not look to change the TZ, should be reported to GNU.
+  # run DateUtils.addDays "2023-10-29T03:30:00.123+0200" -1
+  # [ "$status" -eq 0 ]
+  # [ "$output" = "2023-10-28T03:30:00.123+0200"  ] 
+  # [ "$output" = "2023-10-28T03:30:00.123+0100"  ] # expectation
 }

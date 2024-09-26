@@ -4,8 +4,13 @@ FROM docker.io/bash:5.2.32
 
 LABEL maintainer="Benjamin Vargin"
 
+# Dependencies:
+# - curl:      download apash installer
+# - git:       download apash
+# - shadow:    Initially for chsh (no more used @todo check if it can be removed).
+# - coreutils: The alpine date does not accept UTC time format. This package bring it.
 RUN apk update && \
-    apk add --no-cache curl git shadow
+    apk add --no-cache curl git shadow coreutils tzdata
 
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash

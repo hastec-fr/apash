@@ -48,13 +48,30 @@ apash.import fr.hastec.apash.commons-lang.DateUtils
   [ "$status" -eq 0 ]
   [ "$output" = "2023-04-01T14:00:00.123+0200"  ]
 
-  # Summer Time (Looks to add the missing hours)
+}
+
+@test "addDays return the date during Summer daylight saving" {
+  export TZ="Europe/Paris"
+  # Summer Time 
   run DateUtils.addMonths "2024-03-01T14:00:00.123+0100" 1 
   [ "$status" -eq 0 ]
   [ "$output" = "2024-04-01T15:00:00.123+0200"  ]
 
+  run DateUtils.addMonths "2024-04-01T15:00:00.123+0200" -1
+  [ "$status" -eq 0 ]
+  [ "$output" = "2024-03-01T14:00:00.123+0100"  ]
+}
+
+
+@test "addDays return the date during Winter daylight saving" {
+  export TZ="Europe/Paris"
   # Winter Time  
   run DateUtils.addMonths "2024-10-01T14:00:00.123+0200" 1
   [ "$status" -eq 0 ]
   [ "$output" = "2024-11-01T13:00:00.123+0100"  ]
+
+  run DateUtils.addMonths "2024-11-01T13:00:00.123+0100" -1
+  [ "$status" -eq 0 ]
+  [ "$output" = "2024-10-01T14:00:00.123+0200"  ]
 }
+
