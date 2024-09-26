@@ -32,9 +32,15 @@ StringUtils.rightPad "123" 6 "!"
 - [Explore API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
-As other shell projects, unfortunately there is no standard way to install Apash. But here are the main ones:
+As other shell projects, unfortunately there is no standard way to install Apash. But below are the main ones.
 
-### <ins>By Script</ins>
+### <ins>Pre-requisites</ins>
+Install curl and git to facilitate the installation. Adapt the command with your package manager
+```bash
+sudo apt install curl git
+```
+
+### <ins>Intallation by Script</ins>
 Modify the URL in consequence if you want a particular version, here it's for the head of the main branch:
 ```bash
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
@@ -45,7 +51,7 @@ apash --version
 # 0.1.0
 ```
 
-### <ins>Basher</ins>
+### <ins>Installation with Basher</ins>
 [Basher](https://www.basher.it/) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
 #### Install Basher 
 ```bash
@@ -64,7 +70,7 @@ basher install "hastec-fr/apash"
 
 
 
-### <ins>Raw</ins>
+### <ins>Raw Installation</ins>
 Clone or download the [Apash project](https://github.com/hastec-fr/apash), execute the post installation action to add apash sourcing to your startup script file ($HOME/.bashrc).
 ```bash
 git clone "https://github.com/hastec-fr/apash.git"
