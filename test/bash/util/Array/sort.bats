@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.util.Array.sort
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run Array.sort "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

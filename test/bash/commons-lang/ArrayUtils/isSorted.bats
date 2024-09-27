@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isSorted
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.isSorted "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

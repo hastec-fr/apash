@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="bar")
+  local -A myMap=(["foo"]="bar")
   run ArrayUtils.isArray "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

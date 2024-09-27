@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isEmpty
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.isEmpty "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

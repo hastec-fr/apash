@@ -35,6 +35,7 @@
 # |[isSameLength](ArrayUtils/isSameLength.md)|Checks whether two arrays are the same length, return false if it's not an array.|
 # |[isSorted](ArrayUtils/isSorted.md)|This method checks whether the provided array is sorted according to natural ordering.|
 # |[lastIndexOf](ArrayUtils/lastIndexOf.md)|Finds the last index of the given value in the array starting at the given index.|
+# |[nullToEmpty](ArrayUtils/nullToEmpty.md)|Defensive programming technique to change a null reference to an empty Array|
 # |[remove](ArrayUtils/remove.md)|Removes the element at the specified position from the specified array.|
 # |[removeAll](ArrayUtils/removeAll.md)|Removes the elements at the specified positions from the specified array.|
 # |[removeAllOccurrences](ArrayUtils/removeAllOccurrences.md)|Removes the occurrences of the specified element from the specified array.|

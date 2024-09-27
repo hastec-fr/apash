@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="bar")
+  local -A myMap=(["foo"]="bar")
   run ArrayUtils.getLength "myMap" "0"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

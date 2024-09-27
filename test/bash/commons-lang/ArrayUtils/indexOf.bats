@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.indexOf "myMap" "a"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
