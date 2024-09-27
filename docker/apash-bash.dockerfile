@@ -1,5 +1,6 @@
 # docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
 # docker run --rm -it hastec/apash:0.1.0-snapshot
+# docker push docker.io/hastec/apash:0.1.0-snapshot
 FROM docker.io/bash:5.2.32
 
 LABEL maintainer="Benjamin Vargin"
