@@ -44,10 +44,6 @@ BashUtils.isVariableNameValid() {
   # If there is a single _, it does not
   [ "$varName" = "_" ] && return "$APASH_FUNCTION_FAILURE"
 
-  # Check if the name is a reserved keyword
-  local reservedKeywords=("if" "then" "else" "elif" "fi" "case" "esac" "for" "while" "until" "do" "done" "function" "return" "exit" "break" "continue" "in" "declare" "typeset" "local" "readonly" "export" "unset")
-  [[ " ${reservedKeywords[*]} " =~ " ${varName} " ]] && return "$APASH_FUNCTION_FAILURE"
-
   # Restrict locally name to ASCII letters (prevent issue on accents by example)
   local LC_COLLATE=C
   [[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] && return "$APASH_FUNCTION_SUCCESS"
