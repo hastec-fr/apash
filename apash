@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-APASH_VERSION="0.1.0-snapshot"
+APASH_VERSION="0.1.0"
 
 ##############################################################################
 # @name apash

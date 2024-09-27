@@ -28,7 +28,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Troubleshooting](#troubleshooting)
 - [Maintenance](#maintenance)
 - [License](#license)
-- [Explore API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
+- [Explore the API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
 As other shell projects, unfortunately there is no standard way to install Apash. But below are the main ones.
@@ -163,7 +163,7 @@ Just keep in mind, that aliases are usefull for your prompt but (depending of th
 ### One shot
 If you don't want to install apash but test it quickly, you can pull its container on [docker hub](https://hub.docker.com/r/hastec/apash)
 ```bash
-docker run --rm hastec/apash:0.1.0-snapshot '
+docker run --rm hastec/apash:0.1.0 '
 apash.import "fr.hastec.apash.commons-lang.StringUtils"
 StringUtils.reverse "Never odd or even!"
 '
@@ -175,7 +175,7 @@ Result:
 <br/><br/>
 If you don't like to import yourself the command, then use the image with all script pre-loaded:
 ```bash
-docker run --rm hastec/apash-full:0.1.0-snapshot 'StringUtils.upperCase "Please, speak louder !!"'
+docker run --rm hastec/apash:0.1.0-full 'StringUtils.upperCase "Please, speak louder !!"'
 ```
 Result:
 ```
@@ -189,7 +189,7 @@ cat <<EOF > ./test.sh
 apash.import "fr.hastec.apash.commons-lang.StringUtils.abbreviate"
 StringUtils.abbreviate "Thanks to abbreviate this long description which does not lead anywhere except to pretend that this function could have a use case." 15
 EOF
-docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0 ./test.sh
 ```
 Result:
 ```
@@ -199,7 +199,7 @@ Thanks to ab...
 ### Interactive shell
 Use the default command of the container to get an interactive prompt.
 ```bash
-docker run --rm -it hastec/apash:0.1.0-snapshot
+docker run --rm -it hastec/apash:0.1.0
 apash:bash-5.2 $ echo $BASH_VERSION
 # 5.2.32(1)-release
 ```
@@ -208,8 +208,8 @@ apash:bash-5.2 $ echo $BASH_VERSION
 Modify your apash installation and test non regression using containers.
 ```bash
 # From root apash workspace directory ($APASH_HOME_DIR)
-docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
-docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
+docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
+docker run --rm hastec/apash:0.1.0 'apash test'
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
@@ -221,7 +221,7 @@ Currently it has been tested for bash version 5.2 and require bc to be installed
 ### One shot
 If you don't want to install apash but test it quickly, you can pull its container on [docker hub](https://hub.docker.com/r/hastec/apash)
 ```bash
-docker run --rm hastec/apash:0.1.0-snapshot '
+docker run --rm hastec/apash:0.1.0 '
 apash.import "fr.hastec.apash.commons-lang.StringUtils"
 StringUtils.reverse "Never odd or even!"
 '
@@ -233,7 +233,7 @@ Result:
 <br/><br/>
 If you don't like to import yourself the command, then use the image with all script pre-loaded:
 ```bash
-docker run --rm hastec/apash-full:0.1.0-snapshot 'StringUtils.upperCase "Please, speak louder !!"'
+docker run --rm hastec/apash:0.1.0-full 'StringUtils.upperCase "Please, speak louder !!"'
 ```
 Result:
 ```
@@ -247,7 +247,7 @@ cat <<EOF > ./test.sh
 apash.import "fr.hastec.apash.commons-lang.StringUtils.abbreviate"
 StringUtils.abbreviate "Thanks to abbreviate this long description which does not lead anywhere except to pretend that this function could have a use case." 15
 EOF
-docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0 ./test.sh
 ```
 Result:
 ```
@@ -257,7 +257,7 @@ Thanks to ab...
 ### Interactive shell
 Use the default command of the container to get an interactive prompt.
 ```bash
-docker run --rm -it hastec/apash:0.1.0-snapshot
+docker run --rm -it hastec/apash:0.1.0
 apash:bash-5.2 $ echo $BASH_VERSION
 # 5.2.32(1)-release
 ```
@@ -266,8 +266,8 @@ apash:bash-5.2 $ echo $BASH_VERSION
 Modify your apash installation and test non regression using containers.
 ```bash
 # From root apash workspace directory ($APASH_HOME_DIR)
-docker build -t docker.io/hastec/apash:0.1.0-snapshot -f ./docker/apash-bash.dockerfile .
-docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
+docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
+docker run --rm hastec/apash:0.1.0 'apash test'
 ```
 
 ## <a id="compatibility" ></a> ✅ Compatibility
@@ -288,7 +288,7 @@ It's possible to force the unitary reload of a libraries.
 Double check that the bind mount has an absolute path (not a relative one which does not work everywhere)
 ```bash
 # Example of issue:
-docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapshot ./test.sh
+docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0 ./test.sh
 # bash: line 1: ./test.sh: Is a directory
 
 # docker run --rm -v "/absolute/path/to/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1. ./test.sh
