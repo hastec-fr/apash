@@ -37,7 +37,7 @@ StringUtils.reverse() {
   if BashUtils.isCommandValid "rev"; then
     echo "$inString" | rev && return "$APASH_FUNCTION_SUCCESS"
   else
-    echo "WARNING - Degraded mode (rev command not found)" >&2
+    [ "$APASH_WARNING_DEGRADED" != "disabled" ] && echo "WARNING - Degraded mode (rev command not found)" >&2
     # Loop through the string in reverse order
     for (( i=${#inString}-1; i>=0; i-- )); do
         reversed_string="$reversed_string${inString:$i:1}"

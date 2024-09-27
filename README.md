@@ -51,7 +51,7 @@ apash --version
 ```
 
 ### <ins>Installation with Basher</ins>
-[Basher](https://www.basher.it/) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
+[Basher](https://www.basher.it/) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line (does not look compliant with "Git Bash").
 #### Install Basher 
 ```bash
 curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | bash
@@ -66,8 +66,6 @@ basher install "hastec-fr/apash"
 ```bash
 "$HOME/.basher/cellar/bin/apash" init --post-install
 ```
-
-
 
 ### <ins>Raw Installation</ins>
 Clone or download the [Apash project](https://github.com/hastec-fr/apash), execute the post installation action to add apash sourcing to your startup script file ($HOME/.bashrc).
@@ -87,6 +85,14 @@ For Testing purpose, you need to install [bats-core](https://github.com/bats-cor
 ```bash
 basher install "bats-core/bats-core"
 ```
+If you're using Git Bash, prefer the [bast-core](https://bats-core.readthedocs.io/en/stable/installation.html#windows-installing-bats-from-source-via-git-bash) installation guide:
+Check out a copy of the Bats repository and install it to $HOME. This will place the bats executable in $HOME/bin, which should already be in $PATH.
+```bash
+git clone https://github.com/bats-core/bats-core.git
+cd bats-core
+./install.sh $HOME
+```
+
 For Documentation purpose, you need to install [shdoc](https://github.com/reconquest/shdoc).
 ```bash
 basher install "reconquest/shdoc"
@@ -266,7 +272,7 @@ docker run --rm hastec/apash:0.1.0-snapshot 'apash test'
 
 ## <a id="compatibility" ></a> ✅ Compatibility
 A more complete list of compatibility will be dressed.
-Currently it has been tested for bash version 5.2 and require bc to be installed.
+Currently it has been tested for bash version 5.2.
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account
@@ -289,6 +295,20 @@ docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.1.0-snapsho
 # For pseudo relative path, you can use the $PWD variable
 docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.1. ./test.sh
 ```
+
+### Dates issues
+When tests are ran with Git Bash, functions on dates are failing because Git bash does not look to [handle natively Time zones](https://stackoverflow.com/questions/77303732/git-bash-date-command-ignoring-tz-env).
+
+If you're playing with days around the change of daylight saving, you could have some troubles. Please refer to the [GNU core FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#The-date-command-is-not-working-right_002e).
+
+
+### Warnings appears
+Some Apash Warnings could appears if you do not have a particular command (like "bc" or "rev").
+In this case, another way is implemented but notify that the main way of work is not followed and so it is preferred to install the missing command. You can disabled these warning it by exporting the following variable.
+```bash
+  export APASH_WARNING_DEGRADED="disabled"
+```
+
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="maintenance" ></a> 🛠 Maintenance

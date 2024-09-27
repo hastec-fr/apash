@@ -15,6 +15,8 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
+# |[isCommandValid1](BashUtils/isCommandValid1.md)||
 # |[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid|
 # <!-- apash.summaryTableEnd -->
 
