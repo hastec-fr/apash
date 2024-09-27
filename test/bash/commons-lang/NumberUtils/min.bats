@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.--separate-stderr NumberUtils.min
+apash.import fr.hastec.apash.commons-lang.NumberUtils.min
 
 setup_file(){
   bats_require_minimum_version 1.5.0
