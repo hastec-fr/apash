@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Dependencies #####################################
+apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
+
 # File description ###########################################################
 # @name StringUtils.reverse
 # @brief Reverses a string.
@@ -29,8 +32,18 @@
 # @exitcode 1 Otherwise.
 StringUtils.reverse() {
   local inString="$1"
+  local i
 
-  echo "$inString" | rev && return "$APASH_FUNCTION_SUCCESS"
+  if BashUtils.isCommandValid "rev"; then
+    echo "$inString" | rev && return "$APASH_FUNCTION_SUCCESS"
+  else
+    echo "WARNING - Degraded mode (rev command not found)" >&2
+    # Loop through the string in reverse order
+    for (( i=${#inString}-1; i>=0; i-- )); do
+        reversed_string="$reversed_string${inString:$i:1}"
+    done
+    echo "$reversed_string" && return "$APASH_FUNCTION_SUCCESS"
+  fi
 
   return "$APASH_FUNCTION_FAILURE"
 }

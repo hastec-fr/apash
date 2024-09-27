@@ -15,8 +15,8 @@ die() {
 git version >/dev/null 2>&1 || die "git is not installed on this machine"
 
 ## install the project on ~/.apash
-echo ". Download apash code to ~/.apash"
-git clone https://github.com/hastec-fr/apash.git ~/.apash 2> /dev/null
+echo ". Download apash code to $HOME/.apash"
+git clone https://github.com/hastec-fr/apash.git "$HOME/.apash" 2> /dev/null
 
 ## now check what shell is running
 if [ -n "$BASH_VERSION" ]; then    
@@ -31,8 +31,11 @@ zsh)   startup_script="$HOME/.zshrc"  ;;
 *)     startup_script=""              ;;
 esac
 
-## startup script should exist already
-[[ -n "$startup_script" && ! -f "$startup_script" ]] && die "startup script [$startup_script] does not exist"
+## startup script should exist already, if not then remove new cloned directory
+if [[ -n "$startup_script" && ! -f "$startup_script" ]]; then
+  rm -r "$HOME/.apash"
+  die "startup script [$startup_script] does not exist"
+fi
 
 ## apash_keyword will allow us to remove the lines upon uninstall
 apash_keyword="apashInstallTag"
