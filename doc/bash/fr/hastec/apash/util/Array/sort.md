@@ -13,6 +13,8 @@ Sorts the specified array into ascending natural order.
 
 ## Overview
 
+Non array reference will be transformed to empty array.
+
 ### Authors:
 * Benjamin VARGIN
 

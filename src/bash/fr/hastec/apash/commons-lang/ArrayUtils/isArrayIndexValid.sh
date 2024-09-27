@@ -45,10 +45,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # @exitcode 0 Whether the given index is safely-accessible in the given array.
 # @exitcode 1 Otherwise.
 ArrayUtils.isArrayIndexValid() {
-  local inArrayRef="$1"
+  local inArrayName="$1"
   local inIndex="$2"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isDigits "$inIndex" || return "$APASH_FUNCTION_FAILURE"
   [[ $inIndex -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"

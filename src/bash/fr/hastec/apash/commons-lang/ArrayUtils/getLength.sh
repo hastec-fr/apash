@@ -41,9 +41,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When input array reference exists.
 # @exitcode 1 Otherwise.
 ArrayUtils.getLength() {
-  local inArrayRef="$1"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  local inArrayName="$1"
+  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   echo "${#inArray[@]}" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"

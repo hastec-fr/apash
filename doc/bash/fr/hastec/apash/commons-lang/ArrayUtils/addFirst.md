@@ -13,6 +13,7 @@ Adds given elements at the beginning of an array.
 
 ## Overview
 
+Non array reference will be transformed to empty array.
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,10 +31,10 @@ Adds given elements at the beginning of an array.
 #### Example
 ```bash
 ArrayUtils.addFirst  ""       ""          # failure
-ArrayUtils.addFirst  "myVar"  "a"         # failure
+ArrayUtils.addFirst  "myVar"  "a"         # ("a")
 
 declare -A myMap
-ArrayUtils.addFirst  "myMap"  "a"         # failure
+ArrayUtils.addFirst  "myMap"  "a"         # ("a")
 
 myArray=()
 ArrayUtils.addFirst  "myArray"              # failure

@@ -13,27 +13,25 @@ apash.import fr.hastec.apash.util.Array.sort
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  run Array.sort "myVar"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
-
   run Array.sort " "
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
+ 
+}
 
-  run Array.sort "myArray"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+@test "sort transform the wrong reference to empty array " {
+  unset myArray
+  Array.sort "myArray"
+  [ "${#myArray[@]}" -eq 0 ]
 
   declare -A myMap
-  run Array.sort "myMap"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+  Array.sort "myMap"
+  [ "${#myMap[@]}" -eq 0 ]
 
+  unset myMap
   local -A myMap=(["foo"]="a")
-  run Array.sort "myMap"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+  Array.sort "myMap"
+  [ "${#myMap[@]}" -eq 0 ]
 }
 
 @test "sort succeed when the reference is an array" {

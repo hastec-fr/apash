@@ -13,6 +13,8 @@ Adds given elements at the end of an array.
 
 ## Overview
 
+Non array reference will be transformed to empty array.
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,10 +32,10 @@ Adds given elements at the end of an array.
 #### Example
 ```bash
 ArrayUtils.addAll  ""       ""            # failure
-ArrayUtils.addAll  "myVar"  "a"           # failure
+ArrayUtils.addAll  "myVar"  "a"           # ("a")
 
 declare -A myMap
-ArrayUtils.addAll  "myMap"  "a"           # failure
+ArrayUtils.addAll  "myMap"  "a"           # ("a")
 
 myArray=()
 ArrayUtils.addAll  "myArray"              # failure

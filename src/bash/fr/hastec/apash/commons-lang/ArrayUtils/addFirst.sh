@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # File description ###########################################################
 # @name ArrayUtils.addFirst
 # @brief Adds given elements at the beginning of an array.
 #
 # @description
+#   Non array reference will be transformed to empty array.
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -21,10 +22,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # #### Example
 # ```bash
 #    ArrayUtils.addFirst  ""       ""          # failure
-#    ArrayUtils.addFirst  "myVar"  "a"         # failure
+#    ArrayUtils.addFirst  "myVar"  "a"         # ("a")
 #
 #    declare -A myMap
-#    ArrayUtils.addFirst  "myMap"  "a"         # failure
+#    ArrayUtils.addFirst  "myMap"  "a"         # ("a")
 #
 #    myArray=()
 #    ArrayUtils.addFirst  "myArray"              # failure
@@ -45,10 +46,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When first argument is an array and a value must be added.
 # @exitcode 1 When none or more than 1 value must be added.
 ArrayUtils.addFirst() {
-  local inArrayRef="$1"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local inArrayName="$1"
+  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n inArray="$inArrayName"
   local inValue="$2"
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
   
   inArray=("$inValue" "${inArray[@]}")
