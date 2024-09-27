@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
+# Dependencies #####################################
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+
 # File description ###########################################################
 # @name StringUtils.split
 # @brief Splits the provided text into an array.
-# @description Splits the provided text into an array. Default separator is " "
-# The separator is not included in the returned String array.
-# Adjacent separators are treated as one separator. Leading and tailing separators
-# are not considered.
+# @description 
+#   Non array reference will be transformed to empty array.
+#   Splits the provided text into an array. Default separator is " "
+#   The separator is not included in the returned String array.
+#   Adjacent separators are treated as one separator. Leading and tailing separators
+#   are not considered.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -37,7 +42,10 @@
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
 StringUtils.split() {
-  local -n inArray="$1" || return "$APASH_FUNCTION_FAILURE"
+  local inArrayName="$1"
+  ArrayUtils.nullToEmpty  "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+
+  local -n inArray="$inArrayName"
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""

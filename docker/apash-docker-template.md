@@ -7,8 +7,8 @@
 [Apash Docker Maintainers](https://github.com/hastec-fr/apash)
 
 # Supported tags and respective Dockerfile links
-- [0.1.0-snapshot](https://hub.docker.com/layers/hastec/apash/0.1.0-snapshot/images/sha256-7a1e1698b6028e18de731f4f80f3066ee3eb4f2a539590ed7e5a5527d2113115?context=explore)
-- [0.1.0-full-snapshot](https://hub.docker.com/layers/hastec/apash/0.1.0-full-snapshot/images/sha256-d03cd010a6efbac72fe2c5b2dc3d3f3ce55c503a4748738109a88b9bed556348?context=explore)
+- [0.1.0-snapshot](https://hub.docker.com/layers/hastec/apash/0.1.0-snapshot/images/sha256-b294c11472576b1b1596103d55dc19e424e4bcc3130385806a00af7143a3c1c3?context=explore)
+- [0.1.0-full-snapshot](https://hub.docker.com/layers/hastec/apash/0.1.0-full-snapshot/images/sha256-5581aadebe8de4a4d7de961d136a85d8c46ad6c718cef97ac2e1015ddb2df685?context=explore)
 
 # What is Apash ?
 Apash is an open source set of bash functions reproducing famous [Apache's commons interface](https://commons.apache.org/) realized in JAVA.<br/>

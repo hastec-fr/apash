@@ -13,6 +13,7 @@ Splits the provided text into an array.
 
 ## Overview
 
+Non array reference will be transformed to empty array.
 Splits the provided text into an array. Default separator is " "
 The separator is not included in the returned String array.
 Adjacent separators are treated as one separator. Leading and tailing separators

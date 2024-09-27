@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.shift
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.shift "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="bar")
+  local -A myMap=(["foo"]="bar")
   run ArrayUtils.contains "myMap" "a"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

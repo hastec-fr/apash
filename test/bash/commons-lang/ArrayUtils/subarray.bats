@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.subarray "myMap" "myArray" "0" "1"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

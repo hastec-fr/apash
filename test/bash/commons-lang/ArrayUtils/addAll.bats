@@ -20,20 +20,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addAll
   run ArrayUtils.addAll " "
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
-
-  run ArrayUtils.addAll "myArray" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
-
-  declare -A myMap
-  run ArrayUtils.addAll "myMap" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
-
-  local myMap=(["foo"]="bar")
-  run ArrayUtils.addAll "myMap" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
 }
 
 @test "addAll succeed when reference is an array and at least 1 one value is provided" {
@@ -71,6 +57,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addAll
   [ "${myArray[1]}" == "b"  ]
   [ "${myArray[2]}" == "c"  ]
   [ "${myArray[3]}" == "d"  ]
+}
+
+@test "addAll succeed and force input transformation" {
+  unset myArray
+  ArrayUtils.addAll "myArray" "a"
+  [ "${#myArray[@]}" -eq 1  ]
+  [ "${myArray[0]}" == "a"  ]
+
+  declare -A myMap
+  ArrayUtils.addAll "myMap" "a"
+  [ "${#myMap[@]}" -eq 1  ]
+  [ "${myMap[0]}" == "a"  ]
+
+  local -A myMap=(["foo"]="bar")
+  ArrayUtils.addAll "myMap" "a"
+  [ "${#myMap[@]}" -eq 1  ]
+  [ "${myMap[0]}" == "a"  ]
 }
 
 @test "addAll fails when no value is provided" {

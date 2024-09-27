@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.shuffle
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.shuffle "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

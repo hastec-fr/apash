@@ -53,9 +53,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 True Whether the array is sorted according to natural ordering.
 # @exitcode 1 Otherwise.
 ArrayUtils.isSorted() {
-  local inArrayRef="$1"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  local inArrayName="$1"
+  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   for (( i=0; i<${#inArray[@]}-1; i++ )); do
     [[ "${inArray[i]}" > "${inArray[i+1]}" ]] && return "$APASH_FUNCTION_FAILURE"

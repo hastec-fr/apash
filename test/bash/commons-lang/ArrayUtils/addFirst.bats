@@ -21,19 +21,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  run ArrayUtils.addFirst "myArray" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+}
+
+@test "addFirst succeed and force input transformation" {
+  unset myArray
+  ArrayUtils.addFirst "myArray" "a"
+  [ "${#myArray[@]}" -eq 1  ]
+  [ "${myArray[0]}" == "a"  ]
 
   declare -A myMap
-  run ArrayUtils.addFirst "myMap" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+  ArrayUtils.addFirst "myMap" "a"
+  [ "${#myMap[@]}" -eq 1  ]
+  [ "${myMap[0]}" == "a"  ]
 
-  local myMap=(["foo"]="bar")
-  run ArrayUtils.addFirst "myMap" "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
+  local -A myMap=(["foo"]="bar")
+  ArrayUtils.addFirst "myMap" "a"
+  [ "${#myMap[@]}" -eq 1  ]
+  [ "${myMap[0]}" == "a"  ]
 }
 
 @test "addFirst succeed when reference is an array and a value is declared" {

@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # File description ###########################################################
 # @name Array.sort
 # @brief Sorts the specified array into ascending natural order.
 #
 # @description
+#   Non array reference will be transformed to empty array.
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -44,9 +46,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 True Whether the array is sorted according to natural ordering.
 # @exitcode 1 Otherwise.
 Array.sort() {
-  local inArrayRef="$1"
-  local -n inArray="$inArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  local inArrayName="$1"
+  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n inArray="$inArrayName"
 
   [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_SUCCESS"
   readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) &&  return "$APASH_FUNCTION_SUCCESS"

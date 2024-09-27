@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.isArrayIndexValid "myMap" "a"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

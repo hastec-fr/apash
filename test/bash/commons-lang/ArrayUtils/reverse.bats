@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.reverse
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  local myMap=(["foo"]="a")
+  local -A myMap=(["foo"]="a")
   run ArrayUtils.reverse "myMap"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

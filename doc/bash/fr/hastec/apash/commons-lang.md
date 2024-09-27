@@ -26,6 +26,7 @@ This implementation do reference to the [java apache implementation](http://comm
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 |[ArrayUtils](commons-lang/ArrayUtils.md)|Operations on arrays.|
+|[BashUtils](commons-lang/BashUtils.md)|Operations arround Bash languages|
 |[DateUtils](commons-lang/DateUtils.md)|Operations on dates.|
 |[MapUtils](commons-lang/MapUtils.md)|Operations on maps.|
 |[NumberUtils](commons-lang/NumberUtils.md)|Operations on Numeric values.|

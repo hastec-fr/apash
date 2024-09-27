@@ -26,6 +26,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [isSameLength](apash/commons-lang/ArrayUtils/isSameLength.md) | Checks whether two arrays are the same length, return false if it's not an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [isSorted](apash/commons-lang/ArrayUtils/isSorted.md) | This method checks whether the provided array is sorted according to natural ordering. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [lastIndexOf](apash/commons-lang/ArrayUtils/lastIndexOf.md) | Finds the last index of the given value in the array starting at the given index. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [nullToEmpty](apash/commons-lang/ArrayUtils/nullToEmpty.md) | Defensive programming technique to change a null reference to an empty Array |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [remove](apash/commons-lang/ArrayUtils/remove.md) | Removes the element at the specified position from the specified array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [removeAll](apash/commons-lang/ArrayUtils/removeAll.md) | Removes the elements at the specified positions from the specified array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [removeAllOccurrences](apash/commons-lang/ArrayUtils/removeAllOccurrences.md) | Removes the occurrences of the specified element from the specified array. |
@@ -39,6 +40,8 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [swap](apash/commons-lang/ArrayUtils/swap.md) | Swaps a series of elements in the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [toArray](apash/commons-lang/ArrayUtils/toArray.md) | Create an array based on list of arguments |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) | Operations on arrays. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariableNameValid](apash/commons-lang/BashUtils/isVariableNameValid.md) | Defensive programming technique to check that a variable name is valid |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) | Operations arround Bash languages |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [add](apash/commons-lang/DateUtils/add.md) | Adds a number of specified unity to a date returning a new date. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addDays](apash/commons-lang/DateUtils/addDays.md) | Adds a number of days to a date returning a new object. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addHours](apash/commons-lang/DateUtils/addHours.md) | Adds a number of hours to a date returning a new date. |
@@ -92,6 +95,9 @@
 | [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) / [nextInt](apash/util/Random/nextInt.md) | Returns a pseudorandomly chosen int value. |
 | [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) | Contains methods for generating numbers |
 | [apash](apash.md) / [util](apash/util.md) | Provides miscellaneous utility. |
+| [apash](apash.md) | Translation for shell scripts of some apache libraries. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [upperCase](apash/commons-lang/StringUtils/upperCase.md) | Converts a String to upper case. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) | Operations on String considering null as empty string |
 | [apash](apash.md) | Translation for shell scripts of some apache libraries. |
 
 

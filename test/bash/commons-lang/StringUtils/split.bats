@@ -61,9 +61,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.split
   [ "${myArray[1]}" == "cd" ]
   [ "${myArray[2]}" == "ef" ]
 
-  # @TODO:
-  # Skip for the moment, different behavior 
-  # between bats and bash
+  # @todo: Skip for the moment, ticket bats-core
   # StringUtils.split myArray "::ab::cd:::ef::" ":"
   # [ "${#myArray[@]}" -eq 3  ]
   # [ "${myArray[0]}" == "ab" ]
