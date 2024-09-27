@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
+apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 
 # File description ###########################################################
 # @name Math.max
@@ -48,11 +49,20 @@ Math.max() {
   NumberUtils.isParsable "$inNum1" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isParsable "$inNum2" || return "$APASH_FUNCTION_FAILURE"
 
-  max=$(echo "if ($inNum1 < $inNum2) 0 else 1" | bc -lq)
-  if [[ $max -eq 1 ]]; then
-    echo "$inNum1" && return "$APASH_FUNCTION_SUCCESS"
+  if BashUtils.isCommandValid "bc"; then
+    max=$(echo "if ($inNum1 < $inNum2) 0 else 1" | bc -lq)
+    if [[ $max -eq 1 ]]; then
+      echo "$inNum1" && return "$APASH_FUNCTION_SUCCESS"
+    else
+      echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
+    fi
   else
-    echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
+    echo "WARNING - Degraded mode (bc command not found)" >&2
+    if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 < inNum2)}'; then
+      echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
+    else
+      echo "$inNum1" && return "$APASH_FUNCTION_SUCCESS"
+    fi
   fi
 
   return "$APASH_FUNCTION_FAILURE"
