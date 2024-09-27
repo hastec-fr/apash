@@ -9,7 +9,9 @@ die() {
 ## stop if apash is not installed
 [[ -d "$HOME/.apash" ]] || die "apash doesn't seem to be installed on [$HOME/.apash]"
 echo ". Remove apash code"
-[ -d "$HOME/.apash" ] && rm -fr "$HOME/.apash"
+if [ -d "$HOME/.apash" ]; then
+  rm -fr "$HOME/.apash" || die "apash cannot be removed [$HOME/.apash]"
+fi
 
 ## now check what shell is running
 shell_type=$(basename "$SHELL")
