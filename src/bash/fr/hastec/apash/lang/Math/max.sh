@@ -45,7 +45,7 @@ Math.max() {
   local inNum2="$2"
   local max
 
-  # @TODO: Change the isParsable with isNumber
+  # @todo: Change the isParsable with isNumber
   NumberUtils.isParsable "$inNum1" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isParsable "$inNum2" || return "$APASH_FUNCTION_FAILURE"
 
