@@ -46,4 +46,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
   run ArrayUtils.getLength "myArray"
   [ "$status" -eq 0  ]
   [ "$output" = "0"  ]
+
+  myArray=("a" "b" "" "c")
+  myArray[9223372036854775807]=z
+  run ArrayUtils.getLength "myArray"
+  [ "$status" -eq 0  ]
+  [ "$output" = "5"  ]
 }

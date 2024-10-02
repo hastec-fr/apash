@@ -20,16 +20,18 @@ apash.import fr.hastec.apash.lang.Integer.sh
 # Method description #########################################################
 # @description
 # @example
-#    NumberUtils.isInteger ""     # false
-#    NumberUtils.isInteger "a"    # false
-#    NumberUtils.isInteger "a12"  # false
-#    NumberUtils.isInteger "-12"  # false
-#    NumberUtils.isInteger "--12" # false
-#    NumberUtils.isInteger "1-2"  # false
-#    NumberUtils.isInteger "1.2"  # false
-#    NumberUtils.isInteger " 12"  # false
-#    NumberUtils.isInteger "123"  # true
-#    NumberUtils.isInteger "000"  # true
+#    NumberUtils.isInteger ""             # false
+#    NumberUtils.isInteger "a"            # false
+#    NumberUtils.isInteger "a12"          # false
+#    NumberUtils.isInteger "-12"          # true
+#    NumberUtils.isInteger "--12"         # false
+#    NumberUtils.isInteger "1-2"          # false
+#    NumberUtils.isInteger "1.2"          # false
+#    NumberUtils.isInteger " 12"          # false
+#    NumberUtils.isInteger "123"          # true
+#    NumberUtils.isInteger "000"          # true
+#    NumberUtils.isInteger "2147483647"   # true
+#    NumberUtils.isInteger "-2147483648"  # true
 #
 # @arg $1 number The number to analyze.
 #

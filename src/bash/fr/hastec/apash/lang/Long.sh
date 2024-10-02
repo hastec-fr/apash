@@ -3,11 +3,12 @@
 
 # <!-- @package -->
 # @name Lang
-# @brief Contains related information about Integers.
+# @brief Contains related information about Long int.
 #         
 # @description
-# This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html).
-# It refers to a 32 bits Integer.
+# It refers to a 64 bits integer.
+# The maximum positive long int is the maximum index that an array could have.
+# Bash uses a long as index for 64 bits systems.
 #
 # ### Parents
 # <!-- apash.parentBegin -->
@@ -19,6 +20,5 @@
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
 # <!-- apash.summaryTableEnd -->
-Integer_MIN_VALUE=-2147483648
-Integer_MAX_VALUE=2147483647
-
+Long_MIN_VALUE=-9223372036854775808
+Long_MAX_VALUE=9223372036854775807
