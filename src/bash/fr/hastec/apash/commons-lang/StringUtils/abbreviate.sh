@@ -12,7 +12,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # @description
 # This will turn "Now is the time for all good men" into "Now is the time for..."
 # !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
-# Tansalted the function from
+# Translated the function from
 # [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
 # ### Authors:
 # * Benjamin VARGIN
