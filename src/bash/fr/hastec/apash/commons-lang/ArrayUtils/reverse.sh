@@ -2,7 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
 # @name ArrayUtils.reverse
@@ -56,8 +56,8 @@ ArrayUtils.reverse() {
   local inEndIndex="${3:-$((${#inArray[@]}))}"
   local swap=""
 
-  NumberUtils.isInteger "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
   [[ "$inStartIndex" -ge ${#inArray[@]}-1 ]] && return "$APASH_FUNCTION_SUCCESS"
   [[ "$inEndIndex"   -le 0 ]] && return "$APASH_FUNCTION_SUCCESS"

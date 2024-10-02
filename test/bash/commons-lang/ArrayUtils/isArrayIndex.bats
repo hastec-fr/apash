@@ -2,6 +2,7 @@
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+apash.import fr.hastec.apash.lang.Long
 
 # min #########################################
 @test "isArrayIndex fails when the inputs is not a positive long number" {
@@ -31,7 +32,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
   [ "$status" -eq 0  ]
   [ "$output" = ""   ]
 
-  run ArrayUtils.isArrayIndex 9223372036854775807
+  run ArrayUtils.isArrayIndex "$Long_MAX_VALUE"
   [ "$status" -eq 0  ]
   [ "$output" = ""   ]
 }

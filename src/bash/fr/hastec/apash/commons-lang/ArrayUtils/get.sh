@@ -2,7 +2,8 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
 # @name ArrayUtils.get
@@ -32,6 +33,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    ArrayUtils.get  "myArray"  "0"         # "a"
 #    ArrayUtils.get  "myArray"  "3"         # "c"
 #    ArrayUtils.get  "myArray"  "-1"        # failure - ""
+#    ArrayUtils.get  "myArray"  "a" " "     # " "
 #    ArrayUtils.get  "myArray"  "-1" " "    # " "
 #    ArrayUtils.get  "myArray"  "5"  "foo"  # "foo"
 # ```
@@ -50,15 +52,18 @@ ArrayUtils.get() {
   local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   local inIndex="$2"
   local inDefaultValue="$3"
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inIndex" || return "$APASH_FUNCTION_FAILURE"
-
-  [[ (inIndex -lt 0 || inIndex -ge ${#inArray[@]}) && $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
+  local lastIndex
   
-  if [[ inIndex -lt 0 || inIndex -ge ${#inArray[@]} ]]; then
+  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
+  if ! ArrayUtils.isArrayIndex "$inIndex"; then
+    [[ $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
     echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
-  else
-    echo "${inArray[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"
   fi
+
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  [[ inIndex -gt $lastIndex && $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ inIndex -gt $lastIndex ]] && echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
+
+  echo "${inArray[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

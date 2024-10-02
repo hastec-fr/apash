@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
 # @name NumberUtils.compare
@@ -38,8 +38,8 @@ NumberUtils.compare() {
   local inNumber1="$1"
   local inNumber2="$2"
 
-  NumberUtils.isInteger "$inNumber1" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inNumber2" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inNumber1" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inNumber2" || return "$APASH_FUNCTION_FAILURE"
 
   echo $((inNumber1 - inNumber2)) && return "$APASH_FUNCTION_SUCCESS"
   

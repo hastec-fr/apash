@@ -3,7 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
 # @name ArrayUtils.shift
@@ -63,9 +63,9 @@ ArrayUtils.shift() {
   local distance=0
   local distance_offset=0
 
-  NumberUtils.isInteger "$inOffset"     || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inOffset"     || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
   [[ "$inStartIndex" -ge ${#inArray[@]}-1 ]] && return "$APASH_FUNCTION_SUCCESS"
   [[ "$inEndIndex"   -le 0 ]] && return "$APASH_FUNCTION_SUCCESS"

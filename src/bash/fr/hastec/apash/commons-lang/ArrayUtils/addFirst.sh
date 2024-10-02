@@ -53,6 +53,6 @@ ArrayUtils.addFirst() {
 
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
   
-  inArray=("$inValue" "${inArray[@]}")
+  inArray=("$inValue" "${inArray[@]}") || return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

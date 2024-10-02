@@ -2,9 +2,6 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
-
 
 # File description ###########################################################
 # @name ArrayUtils.getLastIndex

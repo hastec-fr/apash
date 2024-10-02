@@ -52,6 +52,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isSameLength
   run ArrayUtils.isSameLength "myArray1" "myArray2"
   [ "$status" -eq 0  ]
   [ "$output" = ""   ]
+
+  myArray1=("a")
+  myArray2=("a" "b")
+  myArray1[10]=z
+  run ArrayUtils.isSameLength "myArray1" "myArray2"
+  [ "$status" -eq 0  ]
+  [ "$output" = ""   ]
 }
 
 @test "isSameLength fails when the input arrays does not have the same length" {

@@ -2,9 +2,10 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
-# @name ArrayUtils.isSameLength
+# @name ArrayUtils.isSameLastIndex
 # @brief Checks whether two arrays are the same length, return false if it's not an array.
 #
 #
@@ -21,28 +22,28 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @description
 # #### Example
 # ```bash
-#    ArrayUtils.isSameLength ""        ""         # false
-#    ArrayUtils.isSameLength "myVar"   "myVar"    # false
+#    ArrayUtils.isSameLastIndex ""        ""          # false
+#    ArrayUtils.isSameLastIndex "myVar"   "myVar"     # false
 #
 #    declare -A myMap
-#    ArrayUtils.isSameLength "myMap"    "myMap    # false
+#    ArrayUtils.isSameLastIndex "myMap"    "myMap     # false
 #
 #    myArray=()
-#    ArrayUtils.isSameLength "myArray"  "myArray" # true
-#    ArrayUtils.isSameLength "myArray"  ""        # false
+#    ArrayUtils.isSameLastIndex "myArray"  "myArray"  # true
+#    ArrayUtils.isSameLastIndex "myArray"  ""         # false
 #
 #    myArray1=("a")
 #    myArray2=("b")
-#    ArrayUtils.isSameLength "myArray1" "myArray2" # true
+#    ArrayUtils.isSameLastIndex "myArray1" "myArray2" # true
 #
 #    myArray1=("a")
 #    myArray2=("a" "b")
-#    ArrayUtils.isSameLength "myArray"  "myArray2" # false
+#    ArrayUtils.isSameLastIndex "myArray"  "myArray2" # false
 #
 #    myArray1=("a")
 #    myArray2=("a" "b")
 #    myArray1[10]=z
-#    ArrayUtils.isSameLength "myArray"  "myArray2" # true
+#    ArrayUtils.isSameLength "myArray"  "myArray2"    # false
 # ```
 #
 # @arg $1 ref(string[]) The first array to compare.
@@ -53,13 +54,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # @exitcode 0 True if length of arrays matches.
 # @exitcode 1 Otherwise.
-ArrayUtils.isSameLength() {
+ArrayUtils.isSameLastIndex() {
   local inArrayRef1="$1"
   local inArrayRef2="$2"
-  local -n inArray1="$inArrayRef1" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  local -n inArray2="$inArrayRef2" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  ArrayUtils.isArray "$inArrayRef1" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayRef2" || return "$APASH_FUNCTION_FAILURE"
-  [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+  local lastIndex1
+  local lastIndex2
+  lastIndex1=$(ArrayUtils.getLastIndex "$inArrayRef1") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex2=$(ArrayUtils.getLastIndex "$inArrayRef2") || return "$APASH_FUNCTION_FAILURE"
+  [[ $lastIndex1 -ne $lastIndex2 ]] && return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

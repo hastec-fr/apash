@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 
 # File description ###########################################################
 # @name ArrayUtils.addAll
@@ -52,6 +53,9 @@ ArrayUtils.addAll() {
 
   shift
   [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+
+  # Return failure if the number of element exceed the bounds.
+  ArrayUtils.isArrayIndex $((${#inArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
 
   for inValue in "$@"; do
     inArray+=("$inValue") ||  return "$APASH_FUNCTION_FAILURE"

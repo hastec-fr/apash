@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
 apash.import fr.hastec.apash.commons-lang.StringUtils.isEmpty
 apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
@@ -50,8 +50,8 @@ StringUtils.abbreviate() {
   local inMarker="${4:-...}"
   local offset=$inOffset
 
-  NumberUtils.isInteger "$inMaxWidth" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inOffset"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inMaxWidth" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inOffset"   || return "$APASH_FUNCTION_FAILURE"
 
   # echo "Par ici 1"
   if (! StringUtils.isEmpty "$inString") && [[ $inMarker = "" && $inMaxWidth -gt 0 ]]; then

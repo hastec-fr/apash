@@ -2,7 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.lang.Math.min
 
 # File description ###########################################################
@@ -69,9 +69,9 @@ ArrayUtils.swap() {
   local i=0
   local swap=""
 
-  NumberUtils.isInteger "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inLen"        || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inLen"        || return "$APASH_FUNCTION_FAILURE"
 
   [[ "$inStartIndex" -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"
   [[ "$inEndIndex"   -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"

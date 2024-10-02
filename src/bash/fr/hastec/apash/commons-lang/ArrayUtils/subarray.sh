@@ -2,7 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
 # @name ArrayUtils.subarray
@@ -64,8 +64,8 @@ ArrayUtils.subarray() {
 
   ArrayUtils.isArray "$ioSubArrayRef"   || return "$APASH_FUNCTION_FAILURE"
   ArrayUtils.isArray "$ioArrayRef"      || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
   local -n subArray="$ioSubArrayRef"
   local -n inArray="$ioArrayRef"

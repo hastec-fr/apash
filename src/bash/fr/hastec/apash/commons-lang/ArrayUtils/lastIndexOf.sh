@@ -3,7 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
+apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 
 # File description ###########################################################
@@ -59,7 +59,7 @@ ArrayUtils.lastIndexOf() {
   local inStart="${3:-0}"
   local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$inStart" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
   
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"

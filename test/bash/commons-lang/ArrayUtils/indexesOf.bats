@@ -38,6 +38,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexesOf
 }
 
 @test "indexesOf succeed when references are arrays" {
+  unset myIndexes
+  local myArray=("a" "b" "" "c" "b")
+  ArrayUtils.indexesOf "myIndexes" "myArray" "a"
+  [ "${#myIndexes[@]}" -eq 1  ]
+  [ "${myIndexes[0]}" == "0"  ]
+
   local myIndexes=()
   local myArray=("a" "b" "" "c" "b")
   ArrayUtils.indexesOf "myIndexes" "myArray" "b"

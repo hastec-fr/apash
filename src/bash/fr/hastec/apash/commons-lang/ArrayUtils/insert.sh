@@ -2,7 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 
 # File description ###########################################################
 # @name ArrayUtils.insert
@@ -50,7 +50,7 @@ ArrayUtils.insert() {
   local ioArrayRef="$2"
   local -n ioArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
   ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isDigits "$inIndex" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArrayIndex "$inIndex" || return "$APASH_FUNCTION_FAILURE"
 
   shift 2  
   [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
