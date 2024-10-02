@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
-# TODO: CANNOT USE IT FOR THE MOMENT DUE TO BATS (Not accepting paramete extensions)
+# @todo: CANNOT USE IT FOR THE MOMENT. Raised an issue to Bats project (Not accepting parameter extensions)
+# https://github.com/bats-core/bats-core/issues/988
 
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.remove
