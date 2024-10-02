@@ -72,7 +72,7 @@ ArrayUtils.removeAll() {
   ArrayUtils.removeDuplicates "indexes" || return "$APASH_FUNCTION_FAILURE"
   Array.sort "indexes" || return "$APASH_FUNCTION_FAILURE"
     
-  # @Todo: operation on array could fail in the middle. It must be handled.
+  # @todo: operation on array could fail in the middle. It must be handled.
   for ((i=${#indexes[@]}-1; i >= 0; i--)); do
     ArrayUtils.remove "$ioArrayRef" "${indexes[i]}" || return "$APASH_FUNCTION_FAILURE"
   done

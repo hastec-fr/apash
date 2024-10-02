@@ -75,7 +75,10 @@ apash.import fr.hastec.apash.commons-lang.DateUtils
   [ "$status" -eq 0 ]
   [ "$output" = "2023-10-29T02:30:00.123+0100"  ]
 
-  # @todo: the reverse operation does not look to change the TZ, should be reported to GNU.
+  # The reverse operation does not look to change the TZ, has been reported to GNU.
+  # Answer: The bug is known, only a workaround available (anchoring at 12:00) until more global change on 
+  # date time management.
+  # https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#The-date-command-is-not-working-right_002e
   # run DateUtils.addDays "2023-10-29T03:30:00.123+0200" -1
   # [ "$status" -eq 0 ]
   # [ "$output" = "2023-10-28T03:30:00.123+0200"  ] 
