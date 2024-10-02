@@ -23,7 +23,7 @@ apash.import fr.hastec.apash.lang.Integer.sh
 #    NumberUtils.isInteger ""     # false
 #    NumberUtils.isInteger "a"    # false
 #    NumberUtils.isInteger "a12"  # false
-#    NumberUtils.isInteger "-12"  # false
+#    NumberUtils.isInteger "-12"  # true
 #    NumberUtils.isInteger "--12" # false
 #    NumberUtils.isInteger "1-2"  # false
 #    NumberUtils.isInteger "1.2"  # false

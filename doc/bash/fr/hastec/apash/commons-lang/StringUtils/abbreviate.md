@@ -15,7 +15,7 @@ Abbreviates a String using ellipses.
 
 This will turn "Now is the time for all good men" into "Now is the time for..."
 !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
-To be honest, I don't understand this logic ;D, so I have transalted the function from
+Translated function from
 [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
 ### Authors:
 * Benjamin VARGIN
