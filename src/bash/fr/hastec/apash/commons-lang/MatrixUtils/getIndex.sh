@@ -21,8 +21,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
-#    MatrixUtils.create myMatrix 3
+#    MatrixUtils.create myMatrix 3 3
 #    MatrixUtils.getIndex "myMatrix" 0 1  # 1
+#    MatrixUtils.getIndex "myMatrix" 1 0  # 3
+#    MatrixUtils.getIndex "myMatrix" 1    # 3
 #    MatrixUtils.getIndex "myMatrix" 1 2  # 6
 #    MatrixUtils.getIndex "myMatrix" 2 1  # 8  
 #    MatrixUtils.getIndex "myMatrix" 1 4  # 8  - The second index can be overflowed.
@@ -52,6 +54,13 @@ MatrixUtils.getIndex() {
   # If more indexes are provided than dimension present in the matrix, then fails
   [[ ${#indexes[@]} -gt ${#matrixDim[@]} ]] && return "$APASH_FUNCTION_FAILURE"
 
+  # Add the index 0 for each missing dimensions
+  if [[ ${#indexes[@]} -lt ${#matrixDim[@]} ]]; then
+    for ((i=${#indexes[@]}; i < ${#matrixDim[@]}; i++)); do
+      indexes[i]=0
+    done
+  fi
+
   # Sum dimension (@todo: protect overflow)
   offset=${matrixDim[-1]}
   for ((i=${#matrixDim[@]}-2; i > 0; i--)); do
@@ -67,3 +76,4 @@ MatrixUtils.getIndex() {
   echo "$cellIndex" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
+

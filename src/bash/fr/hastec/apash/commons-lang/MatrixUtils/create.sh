@@ -56,5 +56,5 @@ MatrixUtils.create() {
     (( "${matrixDim}[$nbDim]=$dim" ))
     nbDim=$((nbDim+1))
   done
-  return "$APASH_FUNCTION_FAILURE"
+  return "$APASH_FUNCTION_SUCCESS"
 }
