@@ -24,24 +24,24 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.subarray    "myArray"                 # failure - ""
-#    ArrayUtils.subarray    "myArray"  "0"            # failure - ""
-#    ArrayUtils.subarray    "myArray"  "0" "2"        # ("a" "b" "c")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"                 # failure - ""
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "0"            # failure - ""
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "0" "2"        # mySubArray=("a" "b" "c")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.subarray    "myArray"  "1" "2"        # ("b" "c")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "1" "2"        # mySubArray=("b" "c")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.subarray    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "0" "2" "2"    # mySubArray=("c" "d" "a" "b")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.subarray    "myArray"  "0" "2" "0"    # ("a" "b" "c" "d")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "0" "2" "0"    # mySubArray=("a" "b" "c" "d")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.subarray    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b" "e")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "0" "2" "2"    # mySubArray=("c" "d" "a" "b" "e")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.subarray    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
+#    ArrayUtils.subarray  "mySubArray"  "myArray"  "1" "3"  "3"   # mySubArray=("a" "d" "e" "b" "c")
 #
 # ```
 #
