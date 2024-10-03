@@ -6,6 +6,7 @@
 # @description
 #     Bash does not accept multi-dimensionals arrays.
 #     The purpose of the MatrixUtil is to simulate it with a one dimensional array
+#     Negative indexes are not supported for the moment.
 #
 # ### Parents
 # <!-- apash.parentBegin -->

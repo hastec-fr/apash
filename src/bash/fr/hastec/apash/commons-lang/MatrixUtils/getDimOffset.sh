@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # ```
 #
 # @arg $1 ref(string[]) Name of the matrix.
-# @arg $2 number... The index at each dimension.
+# @arg $2 number... The index per dimension.
 #
 # @stdout None.
 # @stderr None.
@@ -48,6 +48,7 @@ MatrixUtils.getDimOffset() {
   local dimOffset=0
   local -i i
 
+  # Initiliaze the first time with the first dimension then multiply it by the others.
   for ((i=${#indexes[@]}; i < ${#matrixDim[@]}; i++ )); do
     [[ $dimOffset -gt 0 ]] && dimOffset=$((dimOffset * matrixDim[i])) || dimOffset=${matrixDim[i]}
   done

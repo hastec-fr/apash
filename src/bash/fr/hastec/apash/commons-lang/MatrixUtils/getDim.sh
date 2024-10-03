@@ -9,10 +9,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 
 # File description ###########################################################
 # @name MatrixUtils.getDim
-# @brief Return the corresponding array according to virtual dimensions
+# @brief Return the corresponding array according to virtual dimensions.
 #
 # @description
-# The simple case on a two dimensional array is to retreive a complete row.
+# The simple case on a two dimensional array is to retreive a row.
 # For more dimensions, it returns an array containing all sub dimensions
 # of the current offset.
 #
@@ -36,12 +36,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 # ```
 #
 # @arg $1 ref(string[]) Name of the matrix.
-# @arg $2 number... The index at each dimension.
+# @arg $2 number... The index per dimension.
 #
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
-# @exitcode 0 When the array is created.
+# @exitcode 0 When the subarray is returned.
 # @exitcode 1 Otherwise.
 MatrixUtils.getDim() {
   local inArrayName="$1"
