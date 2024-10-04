@@ -22,6 +22,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 
 # Method description #########################################################
 # @description
+# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    MatrixUtils.isMatrix  "myMatrix"  # false

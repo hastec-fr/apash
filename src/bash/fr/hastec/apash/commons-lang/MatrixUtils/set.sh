@@ -19,6 +19,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 # Method description #########################################################
 # @description
+# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
@@ -45,7 +46,7 @@ MatrixUtils.set() {
   local -i cellIndex=0
   shift 2
   
-  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@" || return "$APASH_FUNCTION_FAILURE") 
+  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
   matrix[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

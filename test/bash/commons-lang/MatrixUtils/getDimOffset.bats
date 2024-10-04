@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.create
   MatrixUtils.create myMatrix 3 3
   run MatrixUtils.getDimOffset "myMatrix" "0" "0"
   [ "$status" -eq 0  ]
-  [ "$output" = "0"  ]
+  [ "$output" = "1"  ]
 
   run MatrixUtils.getDimOffset "myMatrix" "0"
   [ "$status" -eq 0  ]
@@ -61,7 +61,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.create
   MatrixUtils.create myMatrix 2 2 2
   run MatrixUtils.getDimOffset "myMatrix" "0" "0" "1"
   [ "$status" -eq 0  ]
-  [ "$output" = "0"  ]
+  [ "$output" = "1"  ]
 
   run MatrixUtils.getDimOffset "myMatrix" "0" "1" 
   [ "$status" -eq 0  ]

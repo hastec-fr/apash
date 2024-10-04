@@ -19,6 +19,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 # Method description #########################################################
 # @description
+# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    # Use matrix representation of:

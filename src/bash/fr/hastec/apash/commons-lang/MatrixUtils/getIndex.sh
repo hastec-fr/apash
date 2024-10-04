@@ -20,6 +20,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 
 # Method description #########################################################
 # @description
+# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)

@@ -12,6 +12,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # @brief Display each virtual indexes of the matrix.
 #
 # @description
+# ⚠️ It is an experimental function.
 # ### Authors:
 # * Benjamin VARGIN
 #
