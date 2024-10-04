@@ -30,8 +30,8 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 #    MatrixUtils.getIndex "myMatrix" 1    # 3
 #    MatrixUtils.getIndex "myMatrix" 1 2  # 5
 #    MatrixUtils.getIndex "myMatrix" 2 1  # 7
-#    MatrixUtils.getIndex "myMatrix" 1 4  # failure - Out of bound 
-#    MatrixUtils.getIndex "myMatrix" 3 1  # failure - Out of bound even if the array has more elements.
+#    MatrixUtils.getIndex "myMatrix" 1 4  # failure - Out of bounds 
+#    MatrixUtils.getIndex "myMatrix" 3 1  # failure - Out of bounds even if the array has more elements.
 # ```
 #
 # @arg $1 ref(string[]) Name of the matrix.

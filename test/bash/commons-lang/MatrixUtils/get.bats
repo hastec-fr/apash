@@ -86,7 +86,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.create
   [ "$output" = "3" ]
 }
 
-@test "get fails when indexes are out of bound" {
+@test "get fails when indexes are out of bounds" {
   local myMatrix=("1" "2" "3" "4" "5" "6" "7" "8" "9")
   MatrixUtils.create myMatrix 2 2 2
   run MatrixUtils.get myMatrix 0 2 1

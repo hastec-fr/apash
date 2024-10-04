@@ -82,7 +82,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.create
   [ "${myMatrix[8]}" = "9" ]
 }
 
-@test "set fails when indexes are out of bound" {
+@test "set fails when indexes are out of bounds" {
   local myMatrix=("1" "2" "3" "4" "5" "6" "7" "8" "9")
   MatrixUtils.create myMatrix 3 3
   run MatrixUtils.set myMatrix a 3 0

@@ -24,6 +24,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 
 # Method description #########################################################
 # @description
+# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    MatrixUtils.create  "myMatrix" 3    # failure; does not create array with 1 dimension
