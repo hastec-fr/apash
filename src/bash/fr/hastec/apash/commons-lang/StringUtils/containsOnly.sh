@@ -29,7 +29,7 @@
 # @arg $1 string The string to check.
 # @arg $2 string The sequence of characters which should compose the input string.
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 True if the input string contains only provided characters.

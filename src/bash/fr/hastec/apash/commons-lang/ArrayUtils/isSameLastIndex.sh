@@ -20,6 +20,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
+# | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.isSameLastIndex ""        ""          # false
@@ -46,21 +52,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #    ArrayUtils.isSameLength "myArray"  "myArray2"    # false
 # ```
 #
-# @arg $1 ref(string[]) The first array to compare.
-# @arg $2 ref(string[]) The second array to compare.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 True if length of arrays matches.
 # @exitcode 1 Otherwise.
 ArrayUtils.isSameLastIndex() {
-  local inArrayRef1="$1"
-  local inArrayRef2="$2"
+  local inArrayName1="$1"
+  local inArrayName2="$2"
   local lastIndex1
   local lastIndex2
-  lastIndex1=$(ArrayUtils.getLastIndex "$inArrayRef1") || return "$APASH_FUNCTION_FAILURE"
-  lastIndex2=$(ArrayUtils.getLastIndex "$inArrayRef2") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex1=$(ArrayUtils.getLastIndex "$inArrayName1") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex2=$(ArrayUtils.getLastIndex "$inArrayName2") || return "$APASH_FUNCTION_FAILURE"
   [[ $lastIndex1 -ne $lastIndex2 ]] && return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

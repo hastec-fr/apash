@@ -20,6 +20,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
+# | $2     | inIndex        | string        | in       |            | Index of the array.                  |
+# | $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.get  ""       ""            # failure - ""
@@ -37,10 +44,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #    ArrayUtils.get  "myArray"  "-1" " "    # " "
 #    ArrayUtils.get  "myArray"  "5"  "foo"  # "foo"
 # ```
-#
-# @arg $1 ref(string[]) Name of the array to get value.
-# @arg $2 string Index of the array.
-# @arg $3 string [Optional] Default value if index is out of bounds (default: " ").
 #
 # @stdout The nTh element of an array or a default value if the index is out of bounds (and default value is explicitly declared).
 # @stderr None.

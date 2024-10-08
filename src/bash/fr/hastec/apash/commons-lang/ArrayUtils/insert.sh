@@ -19,6 +19,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
+# | $2     | ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
+# | ${@:3} | inValues       | string...    | in       |            | Values to insert at the indicated index.      |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.insert  ""       ""          # failure
@@ -36,20 +43,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 #    ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar" "b" "c" "d" "")
 # ```
 #
-# @arg $1 number Positive index of the array to insert values.
-# @arg $2 ref(string[]) Name of the array to modify.
-# @arg $3 string... Values to insert at the indicated index.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When all elements are inserted.
 # @exitcode 1 When the index is not a positive number or reference is not an array or there are no value to insert.
 ArrayUtils.insert() {
   local inIndex="$1"
-  local ioArrayRef="$2"
-  local -n ioArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  local ioArrayName="$2"
+  local -n ioArray="$ioArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
+  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   ArrayUtils.isArrayIndex "$inIndex" || return "$APASH_FUNCTION_FAILURE"
 
   shift 2  

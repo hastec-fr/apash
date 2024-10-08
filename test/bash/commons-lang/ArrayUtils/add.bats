@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.add
 
-# min #########################################
+
 @test "add fails when the input name does not refere to an array" {
   run ArrayUtils.add
   [ "$status" -eq 1 ]
@@ -13,15 +13,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.add
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  run ArrayUtils.add "a"
-  [ "$status" -eq 1 ]
-  [ "$output" = ""  ]
-
   run ArrayUtils.add " "
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
-  run ArrayUtils.add "myArray" "a"
+  myVar="test"
+  run ArrayUtils.add "myVar" "a"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 
@@ -37,6 +34,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.add
 }
 
 @test "add succeed when reference is an array and value is a string" {
+  unset myArray
+  ArrayUtils.add "myArray" "a"
+  [ "${#myArray[@]}" -eq 1  ]
+  [ "${myArray[0]}" == "a"  ]
+
   local myArray=()
   ArrayUtils.add "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]

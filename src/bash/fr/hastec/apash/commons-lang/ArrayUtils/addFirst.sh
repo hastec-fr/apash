@@ -8,7 +8,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @brief Adds given elements at the beginning of an array.
 #
 # @description
-#   Non array reference will be transformed to empty array.
+#   The array is automatically created if the variable is not declared.
+#   Existing variables or maps are not overriden and the function fails.
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -19,9 +21,17 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+# | ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
+#
 # #### Example
 # ```bash
 #    ArrayUtils.addFirst  ""       ""          # failure
+#
+#    myVar="test"
 #    ArrayUtils.addFirst  "myVar"  "a"         # ("a")
 #
 #    declare -A myMap
@@ -36,23 +46,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #    ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 string Value to add at the beginning of the array.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check insert method.
+# @see For adding element in the middle of an array, please check [insert](./insert.md) method.
+#
 # @exitcode 0 When first argument is an array and a value must be added.
 # @exitcode 1 When none or more than 1 value must be added.
 ArrayUtils.addFirst() {
-  local inArrayName="$1"
-  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayName"
+  local ioArrayName="$1"
+  ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n ioArray="$ioArrayName"
   local inValue="$2"
 
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
   
-  inArray=("$inValue" "${inArray[@]}") || return "$APASH_FUNCTION_FAILURE"
+  ioArray=("$inValue" "${ioArray[@]}") || return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

@@ -18,6 +18,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $2     | inValue        | string        | in       |            | Value to find in the array.          |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.contains  ""       ""            # false
@@ -34,10 +40,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.contains  "myArray"  "a b"       # false
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to check.
-# @arg $2 string Value to find in the array.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array and a value to find is provided.

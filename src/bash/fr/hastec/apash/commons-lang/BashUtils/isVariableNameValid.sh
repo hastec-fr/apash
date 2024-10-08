@@ -33,7 +33,7 @@
 #
 # @arg $1 string Name to analyse
 #
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the name is correct.

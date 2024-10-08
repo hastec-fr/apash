@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # File description ###########################################################
 # @name ArrayUtils.add
 # @brief Adds a given element at the end of an array.
 #
 # @description
+#   The array is automatically created if the variable is not declared.
+#   Existing variables or maps are not overriden and the function fails.
+#
+# ### Since :
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -18,15 +24,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #  | varName        | Type          | in/out   | Default    | Description                          |
+# |----|----------------|---------------|----------|------------|--------------------------------------|
+# | $1 | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+# | $2 | inValue        | string        | in       |            | Value to add at the end of the array.|
+#
 # #### Example
 # ```bash
-#    ArrayUtils.add  ""       ""            # failure
-#    ArrayUtils.add  "myVar"  "a"           # failure
-#
-#    declare -A myMap
-#    ArrayUtils.add  "myMap"  "a"           # failure
-#
-#    myArray=()
 #    ArrayUtils.add  "myArray"              # failure
 #    ArrayUtils.add  "myArray"  "a"         # ("a")
 #    ArrayUtils.add  "myArray"  "b"         # ("a" "b")
@@ -35,21 +40,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.add  "myArray"  "c" "d"     # failure
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 string Value to add at the end of the array.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check insert method.
+# @see For adding element in the middle of an array, please check [insert](./insert.md) method.
+#
 # @exitcode 0 When first argument is an array and the value is not an embedded array or map.
 # @exitcode 1 Otherwise.
 ArrayUtils.add() {
-  local ioArrayRef="$1"
-  local -n inArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  local ioArrayName="$1"
+  ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n inArray="$ioArrayName"
   local inValue="$2"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"  
   
   inArray+=("$inValue") && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"

@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isEmpty
 
-# min #########################################
+
 @test "isEmpty fails when the input do not refere to an array" {
   run ArrayUtils.isEmpty
   [ "$status" -eq 1 ]

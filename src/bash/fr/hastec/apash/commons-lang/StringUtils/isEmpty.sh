@@ -21,7 +21,7 @@
 #
 # @arg $1 string Input string to evaluate
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If no argument or an agurment of length 0 is passed.

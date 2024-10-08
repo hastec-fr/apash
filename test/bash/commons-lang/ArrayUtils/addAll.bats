@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.addAll
 
-# min #########################################
+
 @test "addAll fails when the input name does not refere to an array" {
   run ArrayUtils.addAll
   [ "$status" -eq 1 ]
@@ -18,6 +18,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addAll
   [ "$output" = ""  ]
 
   run ArrayUtils.addAll " "
+  [ "$status" -eq 1 ]
+  [ "$output" = ""  ]
+
+  declare -A myMap
+  run ArrayUtils.addAll "myMap" "a"
+  [ "$status" -eq 1 ]
+  [ "$output" = ""  ]
+
+  local -A myMap=(["foo"]="bar")
+  run ArrayUtils.addAll "myMap" "a"
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
 }
@@ -65,15 +75,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addAll
   [ "${#myArray[@]}" -eq 1  ]
   [ "${myArray[0]}" == "a"  ]
 
-  declare -A myMap
-  ArrayUtils.addAll "myMap" "a"
-  [ "${#myMap[@]}" -eq 1  ]
-  [ "${myMap[0]}" == "a"  ]
 
-  local -A myMap=(["foo"]="bar")
-  ArrayUtils.addAll "myMap" "a"
-  [ "${#myMap[@]}" -eq 1  ]
-  [ "${myMap[0]}" == "a"  ]
 }
 
 @test "addAll fails when no value is provided" {

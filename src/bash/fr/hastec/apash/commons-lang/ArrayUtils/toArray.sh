@@ -20,6 +20,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
+# | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
+#
 # #### Example
 # ```bash
 #    myArray=()
@@ -29,22 +35,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.toArray    "myArray"  "a" "2" "b"      # ("a" "2" "b")
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to toArray. [Default: N/A]
-# @arg $2 string... Elements to add to the array [Default: N/A]
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When list of argument are pushed to the array.
 # @exitcode 1 When the input is not an array.
 ArrayUtils.toArray() {
-  local ioArrayRef="$1"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$ioArrayRef"
+  local ioArrayName="$1"
+  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n ioArray="$ioArrayName"
   shift
 
   # shellcheck disable=SC2034
-  inArray=("$@")
+  ioArray=("$@")
 
   return "$APASH_FUNCTION_SUCCESS"
 }

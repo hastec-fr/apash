@@ -20,6 +20,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+#
 # #### Example
 # ```bash
 #    myIndexes=()
@@ -29,6 +34,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    declare -A myMap
 #    ArrayUtils.getLastIndex  "myMap"          # failure - ""
 #
+#    myArray=()
+#    ArrayUtils.getLastIndex  "myArray"        # ""
+#
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.getLastIndex  "myArray"        # 4
 #
@@ -37,9 +45,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #   
 #  ```
 #
-# @arg $1 ref(string[]) Name of the array to check.
-#
-# @stdout The last index of the array
+# @stdout The last index of the array.
 # @stderr None.
 #
 # @exitcode 0 When input array references exist.

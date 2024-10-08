@@ -24,7 +24,7 @@
 #
 # @arg $1 string The string to evaluate
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If the input string contains only unicode letters

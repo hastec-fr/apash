@@ -9,7 +9,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @brief Removes the element at the specified position from the specified array.
 #
 # @description
-# All subsequent elements are shifted to the left (subtracts one from their indices).
+#   All subsequent elements are shifted to the left (subtracts one from their indices).
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -21,6 +21,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        | 
+# | $2     | inIndex        | number        | in       |            |  The index of the array to remove.   |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.remove  ""       ""          # failure
@@ -42,22 +48,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 #    ArrayUtils.remove  "myArray"  "0"       # failure - ()
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 number The index of the array to remove.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array and the index is valid.
 # @exitcode 1 Otherwise.
 ArrayUtils.remove() {
-  local ioArrayRef="$1"
-  local -n inArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  local ioArrayName="$1"
+  local -n ioArray="$ioArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   local inIndex="$2"
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArrayIndexValid "$ioArrayRef" "$inIndex"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || return "$APASH_FUNCTION_FAILURE"
   
-  inArray=("${inArray[@]:0:inIndex}" "${inArray[@]:inIndex+1}") && return "$APASH_FUNCTION_SUCCESS"
+  ioArray=("${ioArray[@]:0:inIndex}" "${ioArray[@]:inIndex+1}") && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

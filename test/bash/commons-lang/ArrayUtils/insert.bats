@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.insert
 
-# min #########################################
+
 @test "insert fails when the input name does not refere to an array or index is not a number" {
   run ArrayUtils.insert
   [ "$status" -eq 1 ]

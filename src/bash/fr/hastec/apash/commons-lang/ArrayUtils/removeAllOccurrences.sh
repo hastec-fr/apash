@@ -9,8 +9,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeAll
 # @brief Removes the occurrences of the specified element from the specified array.
 #
 # @description
-# All subsequent elements are shifted to the left (subtracts one from their indices). 
-# If the array doesn't contains such an element, no elements are removed from the array.
+#   All subsequent elements are shifted to the left (subtracts one from their indices). 
+#   If the array doesn't contains such an element, no elements are removed from the array.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -22,6 +22,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeAll
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+# | $2     | inValue        | string        | in       |            |  The value to remove from the array. |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "a" "c" "" "d")
@@ -35,10 +41,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeAll
 #    ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 string The value to remove from the array.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When all arguments are removed from the array.

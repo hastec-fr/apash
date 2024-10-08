@@ -20,6 +20,11 @@ apash.import fr.hastec.apash.util.Random.nextInt
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")

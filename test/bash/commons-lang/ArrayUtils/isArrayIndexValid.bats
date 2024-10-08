@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 
-# min #########################################
+
 @test "isArrayIndexValid fails when the inputs do not refere to an array or index not provided" {
   run ArrayUtils.isArrayIndexValid
   [ "$status" -eq 1 ]

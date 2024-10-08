@@ -10,7 +10,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @brief Finds the indices of the given value in the array starting at the given index.
 #
 # @description
-# A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty
+#   A negative startIndex is treated as zero. 
+#   A startIndex larger than the array length will return an empty.
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -21,6 +23,15 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
+# | $2     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $3     | inValue        | string        | in       |            | Value to find.                       |
+# | $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+#
+#
 # #### Example
 # ```bash
 #    myIndexes=()
@@ -40,26 +51,21 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "a" "-1"  # (0)
 # ```
 #
-# @arg $1 ref(number[]) Name of the output array getting result indexes.
-# @arg $2 ref(string[]) Name of the array to check.
-# @arg $3 string Value to find.
-# @arg $4 number The index to start searching at.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When input array references exist.
 # @exitcode 1 Otherwise.
 ArrayUtils.indexesOf() {
-  local outIndexesRef="$1"
-  ArrayUtils.nullToEmpty "$outIndexesRef" || return "$APASH_FUNCTION_FAILURE"
+  local outIndexesName="$1"
+  ArrayUtils.nullToEmpty "$outIndexesName" || return "$APASH_FUNCTION_FAILURE"
 
-  local inArrayRef="$2"
+  local inArrayName="$2"
   local inValue="$3"
   local inStart="${4:-0}"
-  local -n outIndexes="$outIndexesRef"         || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayRef" 2> /dev/null  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayRef"             || return "$APASH_FUNCTION_FAILURE"
+  local -n outIndexes="$outIndexesName"         || return "$APASH_FUNCTION_FAILURE"
+  local -n inArray="$inArrayName" 2> /dev/null  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName"             || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStart"                || return "$APASH_FUNCTION_FAILURE"
   # Reset the indexes array
   outIndexes=()

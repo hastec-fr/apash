@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.shift
 
-# min #########################################
+
 @test "shift fails when the input does not refer to an array" {
   run ArrayUtils.shift
   [ "$status" -eq 1 ]

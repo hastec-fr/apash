@@ -18,6 +18,7 @@
 # |[compare](NumberUtils/compare.md)|Compares to values numerically (substration)|
 # |[isDigits](NumberUtils/isDigits.md)|Checks whether the String contains only digit characters.|
 # |[isInteger](NumberUtils/isInteger.md)|Checks whether the String contains has the form of a valid integer.|
+# |[isLong](NumberUtils/isLong.md)|Checks whether the String contains has the form of a valid integer.|
 # |[isParsable](NumberUtils/isParsable.md)|Checks whether the given String is a parsable number.|
 # |[max](NumberUtils/max.md)|Returns the greater value of a list of numbers.|
 # |[min](NumberUtils/min.md)|Returns the smaller value of a list of numbers.|

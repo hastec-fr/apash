@@ -9,7 +9,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # @brief Removes elements which are present multiple times in the array.
 #
 # @description
-# All remaining elements are shifted to the left.
+#   All remaining elements are shifted to the left.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -21,6 +21,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "a" "c")
@@ -35,25 +40,25 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 #
 # @arg $1 ref(string[]) Name of the array to modify.
 #
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array.
 # @exitcode 1 Otherwise.
 ArrayUtils.removeDuplicates() {
   local ioArrayRef="$1"
-  local -n inArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+  local -n ioArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
 
-  for value in "${inArray[@]}"; do
+  for value in "${ioArray[@]}"; do
     echo "ICI: $value"
   done
 
   local uniqueArray=()
-  for value in "${inArray[@]}"; do
+  for value in "${ioArray[@]}"; do
     ArrayUtils.contains "uniqueArray" "$value" || uniqueArray+=("$value") 
   done
 
-  inArray=("${uniqueArray[@]}")
+  ioArray=("${uniqueArray[@]}")
   return "$APASH_FUNCTION_SUCCESS"
 }

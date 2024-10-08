@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
-# min #########################################
+
 @test "isArray fails when the input name does not refere an array" {
   run ArrayUtils.isArray
   [ "$status" -eq 1 ]

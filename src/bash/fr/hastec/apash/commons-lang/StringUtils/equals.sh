@@ -23,7 +23,7 @@
 # @arg $1 string First string to compare.
 # @arg $2 string Second string to compare.
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If the string are equal (case-sensitive), or both empty.

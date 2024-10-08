@@ -3,15 +3,15 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
+apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 
 # File description ###########################################################
 # @name ArrayUtils.nullToEmpty
 # @brief Defensive programming technique to change a null reference to an empty Array
 #
 # @description
-#   The reference is transformed in any case in empty array.
-#   Use the mathematic expression which accept dynamic name on left assignement 
-#   to do the trick without using eval. Then flush the array.
+#   Only non referred variables are automatically transformed to emptyArray.
+#   If array already exists, then nothing is done.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -23,37 +23,48 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array if exists.        |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.nullToEmpty  ""                # failure
+#
+#    myVar=test
 #    ArrayUtils.nullToEmpty  "myVar"           # myVar=()
 #
 #    declare -A myMap
-#    ArrayUtils.nullToEmpty  "myMap"           # myVar=()
+#    ArrayUtils.nullToEmpty  "myMap"           # failure
+#
+#    ArrayUtils.nullToEmpty  "myUndefVar"      # myUndefVar=()
 #
 #    myArray=()
-#    ArrayUtils.nullToEmpty  "myArray"         # myArray()
+#    ArrayUtils.nullToEmpty  "myArray"         # myArray=()
 #
 #    myArray=("a" "b" "c")
 #    ArrayUtils.nullToEmpty  "myArray"  "a"    # myArray=("a" "b" "c")
 # ```
 #
-# @arg $1 ref(string[]) Name of the array if exists.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check insert method.
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
 ArrayUtils.nullToEmpty() {
-  # Return failure if 
   local inArrayName="$1"
-  BashUtils.isVariableNameValid "$inArrayName" || return "$APASH_FUNCTION_FAILURE"  
-  local -n ioArrayRef="$inArrayName" 2> /dev/null && ArrayUtils.isArray "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
-  unset "$inArrayName"
+  BashUtils.isVariableNameValid "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
+
+  # Fails if the variable is declared and not an array
+  BashUtils.isDeclared "$inArrayName" && return "$APASH_FUNCTION_FAILURE"
+
+  # The input name is not a variable, then create it as an array.
   (( "${inArrayName}[0]=1" )) || return "$APASH_FUNCTION_FAILURE"
-  local -n outArrayRef="${inArrayName}"
-  outArrayRef=() && return "$APASH_FUNCTION_SUCCESS"
+  local -n outArray="${inArrayName}"
+  # shellcheck disable=SC2034
+  outArray=() && return "$APASH_FUNCTION_SUCCESS"
+  
   return "$APASH_FUNCTION_FAILURE"
 }

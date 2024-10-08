@@ -9,7 +9,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # @brief Adds given elements at the end of an array.
 #
 # @description
-#   Non array reference will be transformed to empty array.
+#   The array is automatically created if the variable is not declared.
+#   Existing variables or maps are not overriden and the function fails.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -21,13 +22,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.          |
+# | ${@:2} | inValues       | string...    | in       |            | Values to add at the end of the array.|
+#
 # #### Example
 # ```bash
 #    ArrayUtils.addAll  ""       ""            # failure
-#    ArrayUtils.addAll  "myVar"  "a"           # ("a")
+#    
+#    myVar="test"
+#    ArrayUtils.addAll  "myVar"  "a"           # failure
 #
 #    declare -A myMap
-#    ArrayUtils.addAll  "myMap"  "a"           # ("a")
+#    ArrayUtils.addAll  "myMap"  "a"           # failure
 #
 #    myArray=()
 #    ArrayUtils.addAll  "myArray"              # failure
@@ -37,28 +46,25 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 #    ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 string... Values to add at the end of the array.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check insert method.
+# @see For adding element in the middle of an array, please check [insert](./insert.md) method.
+#
 # @exitcode 0 When first argument is an array and at least one value is provided.
 # @exitcode 1 Otherwise.
 ArrayUtils.addAll() {
-  local inArrayName="$1"
-  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayName"
-
+  local ioArrayName="$1"
+  ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local -n ioArray="$ioArrayName"
   shift
   [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
 
-  # Return failure if the number of element exceed the bounds.
-  ArrayUtils.isArrayIndex $((${#inArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
+  # Return failure if the number of elements exceed the bounds.
+  ArrayUtils.isArrayIndex $((${#ioArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
 
-  for inValue in "$@"; do
-    inArray+=("$inValue") ||  return "$APASH_FUNCTION_FAILURE"
-  done
+  # Add values at the end of the array
+  ioArray+=("$@")
+
   return "$APASH_FUNCTION_SUCCESS"
 }

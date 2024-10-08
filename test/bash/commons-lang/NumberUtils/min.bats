@@ -7,7 +7,7 @@ setup_file(){
   bats_require_minimum_version 1.5.0
 }
 
-# min #########################################
+
 @test "min returns empty value when at least one input is not parsable " {
   run --separate-stderr NumberUtils.min
   [ "$status" -eq 1 ]

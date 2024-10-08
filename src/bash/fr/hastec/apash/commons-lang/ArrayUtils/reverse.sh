@@ -21,6 +21,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to reverse.       |
+# | $2 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+# | $3 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "" "d")
@@ -38,10 +45,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.reverse  "myVar" "1" "4"   #  myArray=("a" "" "c" "b" "d")
 #
 # ```
-#
-# @arg $1 ref(string[]) Name of the array to reverse.
-# @arg $2 number The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. [Default:0]
-# @arg $3 number The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. [Default: ${#Array.length}]
 #
 # @stdout None.
 # @stderr None.

@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 
-# min #########################################
+
 @test "isMap fails when the input name does not refere a map" {
   run MapUtils.isMap
   [ "$status" -eq 1 ]

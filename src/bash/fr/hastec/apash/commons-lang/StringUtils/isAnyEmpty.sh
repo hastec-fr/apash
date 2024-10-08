@@ -27,7 +27,7 @@
 #
 # @arg $1 string... Input strings to evaluate
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If at least one element is empty, or no element provided.

@@ -21,6 +21,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
+# | $2     | inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
+# | $3     | inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
+# | $4     | inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
@@ -45,11 +53,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to subarray. [Default: N/A]
-# @arg $2 ref(string[]) Name of the original array. [Default: N/A]
-# @arg $2 number The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.
-# @arg $3 number The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array
-#
 # @stdout None.
 # @stderr None.
 #
@@ -57,18 +60,18 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 0 When the subarray is extracted.
 # @exitcode 1 When the input is not an array or the indexes are not integers.
 ArrayUtils.subarray() {
-  local ioSubArrayRef="$1"
-  local ioArrayRef="$2"
+  local outSubArrayName="$1"
+  local inArrayName="$2"
   local inStartIndex="$3"
   local inEndIndex="$4"
 
-  ArrayUtils.isArray "$ioSubArrayRef"   || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$ioArrayRef"      || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$outSubArrayName"   || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName"      || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
-  local -n subArray="$ioSubArrayRef"
-  local -n inArray="$ioArrayRef"
+  local -n subArray="$outSubArrayName"
+  local -n inArray="$inArrayName"
   subArray=()
 
   [[ $inStartIndex -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"

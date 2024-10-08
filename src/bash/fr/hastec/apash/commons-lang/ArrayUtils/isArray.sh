@@ -14,7 +14,12 @@
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################
-# @description
+# @description*
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inVarName      | string        | in       |            | Name of the array.                   |
+# 
 # #### Example
 # ```bash
 #    ArrayUtils.isArray  ""          # false
@@ -33,14 +38,13 @@
 #    ArrayUtils.isArray   "myMap"    # false
 # ```
 #
-# @arg $1 string Name of the array.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 Whe the corresponding variable is an array.
 # @exitcode 1 Otherwise.
 ArrayUtils.isArray() {
-   declare -p "$1" 2> /dev/null | grep -q 'declare -a' && return "$APASH_FUNCTION_SUCCESS"
+   local inVarName="$1"
+   declare -p "$inVarName" 2> /dev/null | grep -q 'declare -a' && return "$APASH_FUNCTION_SUCCESS"
    return "$APASH_FUNCTION_FAILURE"
 }

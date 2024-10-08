@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.get
 
-# min #########################################
+
 @test "contains fails when the input name does not refere to an array" {
   run ArrayUtils.get
   [ "$status" -eq 1 ]

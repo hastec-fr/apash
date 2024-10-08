@@ -9,8 +9,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # @description
 #   Take care that the length of an array does not correspond to its last index.
-#   Array indexes are set to Long_MAX_VALUE (9223372036854775807). Setting
-#   this value does not mean that the length is 9223372036854775807.
+#   Array indexes are set to Long_MAX_VALUE (9223372036854775807).
+#   Setting this value does not mean that the length is 9223372036854775807.
 #   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
 #
 # ### Authors:
@@ -21,9 +21,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 # <!-- apash.parentEnd -->
 #
-
+#
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.getLength  ""             # failure - ""
@@ -41,8 +46,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    myArray=()
 #    ArrayUtils.getLength  "myArray"      # 0
 # ```
-#
-# @arg $1 ref(string[]) Name of the array to get length.
 #
 # @stdout The length of the array, or empty if it's not an array or does not exists.
 # @stderr None.

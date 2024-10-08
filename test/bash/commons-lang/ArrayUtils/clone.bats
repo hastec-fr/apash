@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# min #########################################
+
 @test "clone fails when the input name does not refere to an array" {
   run ArrayUtils.clone
   [ "$status" -eq 1 ]

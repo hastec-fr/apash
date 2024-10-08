@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 
-# min #########################################
+
 @test "indexOf fails when the inputs do not refere to an array" {
   run ArrayUtils.indexOf
   [ "$status" -eq 1 ]

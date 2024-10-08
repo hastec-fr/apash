@@ -12,7 +12,7 @@ apash.import fr.hastec.apash.util.Array.sort
 # @brief Removes the elements at the specified positions from the specified array.
 #
 # @description
-# All remaining elements are shifted to the left.
+#   All remaining elements are shifted to the left.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -24,6 +24,12 @@ apash.import fr.hastec.apash.util.Array.sort
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+# | ${@:2} | inIndexes      | numbers...    | in       |            |  The indexes of the array to remove. |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.removeAll  ""       ""          # failure
@@ -47,10 +53,7 @@ apash.import fr.hastec.apash.util.Array.sort
 #    ArrayUtils.removeAll  "myArray"  "0"       # failure - ()
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to modify.
-# @arg $2 number... The indexes of the array to remove.
-#
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array and all indexes are valid numbers.

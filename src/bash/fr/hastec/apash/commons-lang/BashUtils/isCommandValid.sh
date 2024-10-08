@@ -24,7 +24,7 @@
 #
 # @arg $1 string Command to analyse
 #
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the command name is correct.

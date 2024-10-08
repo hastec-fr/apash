@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isSameLastIndex
 
-# min #########################################
+
 @test "isSameLastIndex fails when the input do not refere to an array" {
   run ArrayUtils.isSameLastIndex
   [ "$status" -eq 1 ]

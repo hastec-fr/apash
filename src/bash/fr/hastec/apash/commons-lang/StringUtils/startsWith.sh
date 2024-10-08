@@ -25,7 +25,7 @@
 # @arg $1 string Input string to check
 # @arg $2 the prefix to find
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If the string starts with the prefix

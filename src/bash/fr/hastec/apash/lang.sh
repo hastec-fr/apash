@@ -17,6 +17,7 @@
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
 # |[Integer](lang/Integer.md)|Contains related information about Integers.|
+# |[Long](lang/Long.md)|Contains related information about Long int.|
 # |[Math](lang/Math.md)|Contains methods for performing basic numeric operations|
 # <!-- apash.summaryTableEnd -->
 

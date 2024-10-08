@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 
-# min #########################################
+
 @test "isVariableNameValid fails when the input name is not a valid variable name" {
   run BashUtils.isVariableNameValid
   [ "$status" -eq 1 ]

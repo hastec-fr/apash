@@ -22,6 +22,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inIndex        | number        | in       |            | The index number to analyse          |
+# 
 # #### Example
 # ```bash
 #    ArrayUtils.isArrayIndex "0"                    # true
@@ -33,8 +38,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.isArrayIndex "a"                    # false
 #    ArrayUtils.isArrayIndex                        # false
 # ```
-#
-# @arg $1 number The number to analyze
 #
 # @stdout None.
 # @stderr None.

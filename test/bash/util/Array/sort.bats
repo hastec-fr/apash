@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.util.Array.sort
 
-# min #########################################
+
 @test "sort fails when the input do not refer to an array" {
   run Array.sort
   [ "$status" -eq 1 ]
@@ -17,22 +17,22 @@ apash.import fr.hastec.apash.util.Array.sort
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
  
+  declare -A myMap
+  [ "$status" -eq 1 ]
+  [ "$output" = ""  ]
+
+  local -A myMap=(["foo"]="a")
+  run Array.sort "myMap"
+  [ "$status" -eq 1 ]
+  [ "$output" = ""  ]
 }
 
 @test "sort transform the wrong reference to empty array " {
   unset myArray
   Array.sort "myArray"
   [ "${#myArray[@]}" -eq 0 ]
-
-  declare -A myMap
-  Array.sort "myMap"
-  [ "${#myMap[@]}" -eq 0 ]
-
-  unset myMap
-  local -A myMap=(["foo"]="a")
-  Array.sort "myMap"
-  [ "${#myMap[@]}" -eq 0 ]
 }
+
 
 @test "sort succeed when the reference is an array" {
   local myArray=()

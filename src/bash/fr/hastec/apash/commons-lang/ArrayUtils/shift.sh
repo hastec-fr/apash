@@ -22,6 +22,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
+# | $2 ?   | inStartIndex   | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
+# | $3 ?   | inEndIndex     | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+# | $4 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "" "d")
@@ -41,11 +49,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.shift    "myArray"  "-1"              # ("b" "c" "" "d" "a")
 #
 # ```
-#
-# @arg $1 ref(string[]) Name of the array to shift.
-# @arg $2 number The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. [Default:0]
-# @arg $3 number The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. [Default:0]
-# @arg $4 number The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. [Default: ${#Array.length}]
 #
 # @stdout None.
 # @stderr None.

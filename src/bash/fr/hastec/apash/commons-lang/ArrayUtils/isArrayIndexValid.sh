@@ -19,6 +19,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            | The array to inspect                 |
+# | $2     | inIndex        | number        | in       |            | The index of the array to be inspected.  |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.isArrayIndexValid ""       ""     # false
@@ -35,9 +41,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #    ArrayUtils.isArrayIndexValid "myArray" "5"                  # false
 #    ArrayUtils.isArrayIndexValid "myArray"                      # false
 # ```
-#
-# @arg $1 ref(string[]) The array to inspect.
-# @arg $2 number The index of the array to be inspected.
 #
 # @stdout None.
 # @stderr None.

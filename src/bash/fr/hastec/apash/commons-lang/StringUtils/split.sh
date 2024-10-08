@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @arg $2 string The string to split.
 # @arg $3 string The delimiter (can be a sequance of characters).
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @warning: Not optimized, but looks functional.

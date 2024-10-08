@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isSorted
 
-# min #########################################
+
 @test "isSorted fails when the input do not refer to an array" {
   run ArrayUtils.isSorted
   [ "$status" -eq 1 ]

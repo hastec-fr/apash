@@ -25,7 +25,7 @@
 # @arg $1 string Input string to check.
 # @arg $2 string The suffix to find.
 #
-# @stdout None
+# @stdout None.
 # @stderr None
 #
 # @exitcode 0 If the string ends with the suffix.

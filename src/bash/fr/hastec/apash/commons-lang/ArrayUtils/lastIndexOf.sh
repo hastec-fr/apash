@@ -22,6 +22,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to check.         |
+# | $2     | inValue        | string        | in       |            |  Value to find.                      |
+# | $3 ?   | inStart        | number        | in       | 0          |  The index to start searching at .   |
+#
 # #### Example
 # ```bash
 #    myIndexes=()
@@ -43,10 +50,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.lastIndexOf  "myArray" "a" "-1"  # 0
 #    ArrayUtils.lastIndexOf  "myArray" ""        # -1
 #  ```
-#
-# @arg $1 ref(string[]) Name of the array to check.
-# @arg $2 string Value to find.
-# @arg $3 number (Optional) The index to start searching at [Default=0].
 #
 # @stdout The last index of the value within the array, ArrayUtils_INDEX_NOT_FOUND (-1) if not found.
 # @stderr None.

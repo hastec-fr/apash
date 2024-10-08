@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeElements
 
-# min #########################################
+
 @test "removeElements fails when the input does not refer to an array" {
   run ArrayUtils.removeElements
   [ "$status" -eq 1 ]
