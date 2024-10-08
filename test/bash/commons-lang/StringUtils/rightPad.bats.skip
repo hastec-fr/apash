@@ -1,9 +1,12 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.StringUtils.rightPad
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.StringUtils.rightPad
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
-# rightPad #####################################
 @test "rightPad returns an empty string when the number to pad is empty " {
   run StringUtils.rightPad "" "" ""
   [ "$status" -eq 1  ]

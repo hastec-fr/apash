@@ -1,8 +1,11 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeElement
-
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeElement
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
 @test "removeElement fails when the input does not refer to an array" {
   run ArrayUtils.removeElement

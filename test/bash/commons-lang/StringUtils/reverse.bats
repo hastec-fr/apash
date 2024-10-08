@@ -1,13 +1,16 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.StringUtils.reverse
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.StringUtils.reverse
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
 setup_file(){
   bats_require_minimum_version 1.5.0
 }
 
-# equals #########################################
 @test "reverse returns empty string input string is empty)" {
   run --separate-stderr StringUtils.reverse
   [ "$status" = 0  ]

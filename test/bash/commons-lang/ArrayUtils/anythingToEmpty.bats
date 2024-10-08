@@ -1,8 +1,11 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.anythingToEmpty
-
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.anythingToEmpty
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
 @test "anythingToEmpty fails when the input name is not a valid variable name" {
   run ArrayUtils.anythingToEmpty

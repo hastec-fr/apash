@@ -1,8 +1,12 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.util.Random.nextInt
-apash.import fr.hastec.apash.commons-lang.NumberUtils
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.util.Random.nextInt
+  apash.import fr.hastec.apash.commons-lang.NumberUtils
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
 @test "nextInt succeed and return integer between bound" {
   myInt=$(Random.nextInt)

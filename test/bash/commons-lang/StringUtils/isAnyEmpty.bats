@@ -3,7 +3,7 @@
 source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 
-# isEmpty ########################################
+
 @test "isAnyEmpty succeed without argument" {
   StringUtils.isAnyEmpty
 }

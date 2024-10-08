@@ -1,10 +1,13 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
-apash.import fr.hastec.apash.lang.Long
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
+  apash.import fr.hastec.apash.lang.Long
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
-# remove ######################################
 @test "isLong returns false when the input number is empty " {
   run NumberUtils.isLong
   [ "$status" -eq 1 ]

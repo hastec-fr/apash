@@ -131,6 +131,18 @@ showApashSourceHelp(){
 EOF
 }
 
+showApashMinifyHelp(){
+  cat << EOF
+  Usage: ${0##*/} minify [-h]
+
+  Minify all scripts into a single file ready to source.
+  All apash.imports are removed.
+
+      -h|--help|-?      display this help and exit.
+
+EOF
+}
+
 showApashTestHelp(){
   cat << EOF
   Usage: ${0##*/} test [-h] [--bats-options options] [--] [test paths]
@@ -246,6 +258,10 @@ executeApashAction(){
     init)
       executeApashInit "$@"
       ;;
+    
+    minify)
+      executeApashMinify "$@"
+      ;;
 
     source)
       executeApashSource "$@"
@@ -276,6 +292,13 @@ executeApashInit(){
   [ $APASH_INIT_POST_INSTALL = "true" ] && executePostInstall
 }
 
+executeApashMinify(){
+  parseApashMinifyArgs "$@" || return
+  ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
+  apash.import "fr/hastec/apash.minify"
+  apash.minify
+}
+
 executeApashSource(){
   parseApashSourceArgs "$@" || return
     
@@ -292,14 +315,16 @@ executeApashTest(){
   APASH_NB_ARGS="0"
   parseApashTestArgs "$@" || return
   shift $APASH_NB_ARGS
+  APASH_BATS_FILES=("$@")
+  [ $# -eq 0 ] && APASH_BATS_FILES=("$APASH_HOME_DIR/test")
   
   # Split word intentionnaly the bats options.
-  if [ $# -eq 0 ]; then
+  if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     # shellcheck disable=SC2086
-    bats $APASH_TEST_BATS_OPTIONS "$APASH_HOME_DIR/test"
+    APASH_TEST_MINIFIED=true bats $APASH_TEST_BATS_OPTIONS "${APASH_BATS_FILES[@]}"
   else
     # shellcheck disable=SC2086
-    bats $APASH_TEST_BATS_OPTIONS "$@"
+    bats $APASH_TEST_BATS_OPTIONS "${APASH_BATS_FILES[@]}"
   fi
 }
 
@@ -345,6 +370,37 @@ parseApashDocArgs() {
       # Show helps
       -h|-\?|--help)
         showApashDocHelp
+        return $APASH_EXIT_REQUIRED
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        return $APASH_EXIT_REQUIRED
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+  return $APASH_FUNCTION_SUCCESS
+}
+
+parseApashMinifyArgs() {
+  while :; do
+
+    case $1 in
+      # Show helps
+      -h|-\?|--help)
+        showApashMinifyHelp
         return $APASH_EXIT_REQUIRED
         ;;
 
@@ -419,6 +475,10 @@ parseApashTestArgs() {
           APASH_TEST_BATS_OPTIONS="$2"
           shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
         fi
+        ;;
+
+      -mn|--minified)
+        APASH_TEST_MINIFIED="true"
         ;;
 
       # End of all options.

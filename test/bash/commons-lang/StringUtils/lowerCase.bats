@@ -1,9 +1,12 @@
 #!/usr/bin/env bats
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/$APASH_SHELL/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.StringUtils.lowerCase
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/$APASH_SHELL/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.StringUtils.lowerCase
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
-# lowerCase #####################################
 @test "lowerCase returns an empty string when input string is empty " {
   run StringUtils.lowerCase "" "" ""
   [ "$output" == ""  ]  

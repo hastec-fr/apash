@@ -1,12 +1,12 @@
 #!/usr/bin/env bats
 
-# @todo: CANNOT USE IT FOR THE MOMENT. Raised an issue to Bats project (Not accepting parameter extensions)
-# https://github.com/bats-core/bats-core/issues/988
+if [ "$APASH_TEST_MINIFIED" != "true" ]; then
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
+  apash.import fr.hastec.apash.commons-lang.StringUtils.replace
+else
+  source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
+fi
 
-source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-apash.import fr.hastec.apash.commons-lang.StringUtils.replace
-
-# remove ######################################
 @test "replace returns an empty string when the input string is empty " {
   run StringUtils.replace "" "" ""
   [ "$output" == ""  ]
