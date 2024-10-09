@@ -8,10 +8,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # File description ###########################################################
 # @name ArrayUtils.indexesOf
 # @brief Finds the indices of the given value in the array starting at the given index.
-#
 # @description
 #   A negative startIndex is treated as zero. 
 #   A startIndex larger than the array length will return an empty.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

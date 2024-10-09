@@ -7,11 +7,14 @@
   # Apash
 </div>
 
-# DateUtils.addHours
+# DateUtils.add
 
-Adds a number of specified unity to a date returning a new date.
+Adds a number of specified unity to a date, returning a new date.
 
 ## Overview
+
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -27,6 +30,13 @@ Adds a number of specified unity to a date returning a new date.
 
 ### DateUtils.add
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inDate         | date          | in       |            | The date in UTC format.               |
+| $2     | inAmount       | number        | in       |            | The amount of unity to add, may be negative. |
+| $3     | inType         | string        | in       |            | The type of unity to add to the date.        |
+
 #### Example
 
 ```bash
@@ -39,12 +49,6 @@ DateUtils.add "2022-03-14T14:30:45.123+0200"   "-1"     "hours" # 2022-03-14T13:
 DateUtils.add "2022-03-14T14:30:45.123+0200"   "1.2"    "hour"  # failure - ""
 ```
 
-#### Arguments
-
-* **$1** (The): date in UTC format
-* **$2** (The): amount of hours to add, may be negative. [Default=0]
-* **$3** (The): type of unity to add to the date. [Default=N/A]
-
 #### Exit codes
 
 * **0**: When are using the correct format of date and integer.
@@ -52,7 +56,7 @@ DateUtils.add "2022-03-14T14:30:45.123+0200"   "1.2"    "hour"  # failure - ""
 
 #### Output on stdout
 
-* The new Date with the amount added.
+* The new Date with the added amount.
 
 #### Output on stderr
 

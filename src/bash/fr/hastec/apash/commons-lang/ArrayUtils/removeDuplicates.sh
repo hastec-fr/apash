@@ -7,9 +7,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # File description ###########################################################
 # @name ArrayUtils.removeDuplicates
 # @brief Removes elements which are present multiple times in the array.
-#
 # @description
 #   All remaining elements are shifted to the left.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

@@ -13,7 +13,8 @@ Remove whitespaces characters from both ends of the input string.
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -28,6 +29,11 @@ Remove whitespaces characters from both ends of the input string.
 * [StringUtils.trim](#stringutilstrim)
 
 ### StringUtils.trim
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to trim.                   |
 
 #### Example
 

@@ -4,11 +4,13 @@
 # <!-- @package -->
 # @name Lang
 # @brief Contains related information about Long int.
-#         
 # @description
-# It refers to a 64 bits integer.
-# The maximum positive long int is the maximum index that an array could have.
-# Bash uses a long as index for 64 bits systems.
+#   It refers to a 64 bits integer.
+#   The maximum positive long int is the maximum index that an array could have.
+#   Bash uses a long as index for 64 bits systems.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Parents
 # <!-- apash.parentBegin -->

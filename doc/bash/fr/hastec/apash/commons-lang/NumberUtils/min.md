@@ -15,6 +15,10 @@ Returns the smaller value of a list of numbers.
 
 If the arguments have the same value, the result is that same value
 but the first number format is returned.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -29,6 +33,11 @@ but the first number format is returned.
 
 ### NumberUtils.min
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
+
 #### Example
 
 ```bash
@@ -42,10 +51,6 @@ NumberUtils.min  "0.123"  ".099"   "-1"     # -1
 NumberUtils.min  "-.123"  "-0.123"  ".123"  # -.123
 NumberUtils.min  "000"    "0"      "00"     # 000
 ```
-
-#### Arguments
-
-* **$1** (string...): List of number to evaluate.
 
 #### Exit codes
 

@@ -13,6 +13,12 @@ Adds a given element at the end of an array.
 
 ## Overview
 
+The array is automatically created if the variable is not declared.
+Existing variables or maps are not overriden and the function fails.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,15 +33,14 @@ Adds a given element at the end of an array.
 
 ### ArrayUtils.add
 
+#### Arguments
+| #  | varName        | Type          | in/out   | Default    | Description                          |
+|----|----------------|---------------|----------|------------|--------------------------------------|
+| $1 | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+| $2 | inValue        | string        | in       |            | Value to add at the end of the array.|
+
 #### Example
 ```bash
-ArrayUtils.add  ""       ""            # failure
-ArrayUtils.add  "myVar"  "a"           # failure
-
-declare -A myMap
-ArrayUtils.add  "myMap"  "a"           # failure
-
-myArray=()
 ArrayUtils.add  "myArray"              # failure
 ArrayUtils.add  "myArray"  "a"         # ("a")
 ArrayUtils.add  "myArray"  "b"         # ("a" "b")
@@ -44,11 +49,6 @@ ArrayUtils.add  "myArray"  "foo bar"   # ("a" "b" "" "foo bar")
 ArrayUtils.add  "myArray"  "c" "d"     # failure
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (string): Value to add at the end of the array.
-
 #### Exit codes
 
 * **0**: When first argument is an array and the value is not an embedded array or map.
@@ -56,7 +56,7 @@ ArrayUtils.add  "myArray"  "c" "d"     # failure
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
@@ -64,7 +64,7 @@ ArrayUtils.add  "myArray"  "c" "d"     # failure
 
 #### See also
 
-* [For adding element in the middle of an array, please check insert method.](#for-adding-element-in-the-middle-of-an-array-please-check-insert-method)
+* For adding element in the middle of an array, please check [insert](./insert.md) method.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

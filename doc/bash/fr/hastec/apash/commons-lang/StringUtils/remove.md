@@ -16,6 +16,9 @@ Removes all occurrences of a substring from within the source string.
 An empty ("") source string will return the empty string.
 An empty ("") remove string will return the source string.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,6 +33,12 @@ An empty ("") remove string will return the source string.
 
 ### StringUtils.remove
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to modify.                 |
+| $2     | inSubstring    | string        | in       |            | The substring to remove within the input string. |
+
 #### Example
 
 ```bash
@@ -41,11 +50,6 @@ StringUtils.remove "abab::cd:ab:ef::ab" "ab"     # "::cd::ef::"
 StringUtils.remove "queued"             "zz"     # "queued"
 ```
 
-#### Arguments
-
-* **$1** (string): The string to modify.
-* **$2** (string): The substring to remove within the input string.
-
 #### Exit codes
 
 * **0**: When result is displayed.
@@ -53,11 +57,11 @@ StringUtils.remove "queued"             "zz"     # "queued"
 
 #### Output on stdout
 
-* the substring with the string removed if found
+* The substring with the string removed if found.
 
 #### Output on stderr
 
-* None
+* None.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

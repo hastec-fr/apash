@@ -13,7 +13,11 @@ Adds given elements at the end of an array.
 
 ## Overview
 
-Non array reference will be transformed to empty array.
+The array is automatically created if the variable is not declared.
+Existing variables or maps are not overriden and the function fails.
+
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,13 +33,21 @@ Non array reference will be transformed to empty array.
 
 ### ArrayUtils.addAll
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.          |
+| ${@:2} | inValues       | string...     | in       |            | Values to add at the end of the array.|
+
 #### Example
 ```bash
 ArrayUtils.addAll  ""       ""            # failure
-ArrayUtils.addAll  "myVar"  "a"           # ("a")
+
+myVar="test"
+ArrayUtils.addAll  "myVar"  "a"           # failure
 
 declare -A myMap
-ArrayUtils.addAll  "myMap"  "a"           # ("a")
+ArrayUtils.addAll  "myMap"  "a"           # failure
 
 myArray=()
 ArrayUtils.addAll  "myArray"              # failure
@@ -45,11 +57,6 @@ ArrayUtils.addAll  "myArray"  "c" "d"     # ("a" "b" "" "c" "d")
 ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (string...): Values to add at the end of the array.
-
 #### Exit codes
 
 * **0**: When first argument is an array and at least one value is provided.
@@ -57,7 +64,7 @@ ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
@@ -65,7 +72,7 @@ ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 
 #### See also
 
-* [For adding element in the middle of an array, please check insert method.](#for-adding-element-in-the-middle-of-an-array-please-check-insert-method)
+* For adding element in the middle of an array, please check [insert](./insert.md) method.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

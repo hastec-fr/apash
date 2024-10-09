@@ -13,6 +13,9 @@ Checks if an array exist and has at least one element.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ Checks if an array exist and has at least one element.
 * [ArrayUtils.isNotEmpty](#arrayutilsisnotempty)
 
 ### ArrayUtils.isNotEmpty
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 
 #### Example
 ```bash
@@ -44,10 +52,6 @@ ArrayUtils.isNotEmpty "myArray"       # true
 myArray=("")
 ArrayUtils.isNotEmpty "myArray"       # true 
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The array to check.
 
 #### Exit codes
 

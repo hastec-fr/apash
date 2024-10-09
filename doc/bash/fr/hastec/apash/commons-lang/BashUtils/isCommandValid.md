@@ -13,6 +13,9 @@ Defensive programming technique to check that a variable name is valid
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,16 +30,17 @@ Defensive programming technique to check that a variable name is valid
 
 ### BashUtils.isCommandValid
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | commandName    | string        | in       |            | Command to analyse                    |
+
 #### Example
 ```bash
 BashUtils.isCommandValid  ""                # false
 BashUtils.isCommandValid  "apashnotexist"   # false
 BashUtils.isCommandValid  "command"         # true
 ```
-
-#### Arguments
-
-* **$1** (string): Command to analyse
 
 #### Exit codes
 
@@ -45,7 +49,7 @@ BashUtils.isCommandValid  "command"         # true
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

@@ -7,8 +7,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # File description ###########################################################
 # @name ArrayUtils.isArrayIndexValid
 # @brief Returns whether a given array can safely be accessed at the given index.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

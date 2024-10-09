@@ -7,9 +7,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # File description ###########################################################
 # @name ArrayUtils.reverse
 # @brief Reverses the order of the given array in the given range.
-#
 # @description
 # This method does nothing for non existing array.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

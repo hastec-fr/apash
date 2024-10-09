@@ -9,10 +9,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 # File description ###########################################################
 # @name ArrayUtils.removeElement
 # @brief Removes the first occurrence of the specified element from the specified array.
-#
 # @description
 #   All subsequent elements are shifted to the left (subtracts one from their indices). 
 #   If the array doesn't contains such an element, no elements are removed from the array.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

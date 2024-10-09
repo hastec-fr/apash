@@ -4,7 +4,10 @@
 # @name StringUtils
 # @brief Operations arround Bash languages
 # @description
-#     No corresponding implementation in Apache library
+#   No corresponding implementation in Apache library
+#
+# ### Since:
+# 0.1.0
 #
 # ### Parents
 # <!-- apash.parentBegin -->
@@ -16,7 +19,6 @@
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
 # |[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
-# |[isCommandValid1](BashUtils/isCommandValid1.md)||
 # |[isDeclared](BashUtils/isDeclared.md)|Defensive programming technique to check that a variable is declared.|
 # |[isVariable](BashUtils/isVariable.md)|Defensive programming technique to check that a variable exists.|
 # |[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid|

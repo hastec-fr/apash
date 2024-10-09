@@ -13,6 +13,9 @@ Randomly permutes the elements of the specified array randomness.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ Randomly permutes the elements of the specified array randomness.
 * [ArrayUtils.shuffle](#arrayutilsshuffle)
 
 ### ArrayUtils.shuffle
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default         | Description                          |
+|--------|----------------|---------------|----------|-----------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
 
 #### Example
 ```bash

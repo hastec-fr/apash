@@ -15,6 +15,9 @@ Translation for shell scripts of some apache libraries.
 
 Provides highly reusable utility methods.
 
+### Since:
+0.1.0
+
 ### Parents
 [Main page](../../../../README.md)
 

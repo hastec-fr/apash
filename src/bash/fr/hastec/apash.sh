@@ -6,6 +6,9 @@
 # @description
 #     Provides highly reusable utility methods.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Parents
 # [Main page](../../../../README.md)
 #

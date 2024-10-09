@@ -10,9 +10,11 @@ apash.import fr.hastec.apash.util.Array.sort
 # File description ###########################################################
 # @name ArrayUtils.removeAll
 # @brief Removes the elements at the specified positions from the specified array.
-#
 # @description
 #   All remaining elements are shifted to the left.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

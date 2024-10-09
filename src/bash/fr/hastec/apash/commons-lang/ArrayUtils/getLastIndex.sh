@@ -6,9 +6,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # File description ###########################################################
 # @name ArrayUtils.getLastIndex
 # @brief Return the last index of the given array.
-#
 # @description
 #   Empty string is returned if the array is empty.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

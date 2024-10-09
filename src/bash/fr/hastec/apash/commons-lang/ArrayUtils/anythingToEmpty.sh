@@ -7,10 +7,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 # File description ###########################################################
 # @name ArrayUtils.anythingToEmpty
 # @brief Create an array even if the variable named was already declared.
-#
 # @description
 #   The reference is transformed in any case in an empty array (even if it's a map or a variable).
 #   Existing arrays are reinitialized.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

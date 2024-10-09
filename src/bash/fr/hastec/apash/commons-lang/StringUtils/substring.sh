@@ -9,6 +9,9 @@
 #   Any index minus 0 will be considered as 0 and any index over the length of the string
 #   will be considered as the length of the string.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

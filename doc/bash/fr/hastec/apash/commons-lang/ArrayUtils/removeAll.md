@@ -15,6 +15,9 @@ Removes the elements at the specified positions from the specified array.
 
 All remaining elements are shifted to the left.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,12 @@ All remaining elements are shifted to the left.
 * [ArrayUtils.removeAll](#arrayutilsremoveall)
 
 ### ArrayUtils.removeAll
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+| ${@:2} | inIndexes      | numbers...    | in       |            |  The indexes of the array to remove. |
 
 #### Example
 ```bash
@@ -52,11 +61,6 @@ ArrayUtils.removeAll  "myArray"  "0"       # ()
 ArrayUtils.removeAll  "myArray"  "0"       # failure - ()
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (number...): The indexes of the array to remove.
-
 #### Exit codes
 
 * **0**: When first argument is an array and all indexes are valid numbers.
@@ -64,7 +68,7 @@ ArrayUtils.removeAll  "myArray"  "0"       # failure - ()
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

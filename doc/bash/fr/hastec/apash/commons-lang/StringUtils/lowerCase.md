@@ -13,6 +13,9 @@ Converts a String to lower case.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,11 @@ Converts a String to lower case.
 
 ### StringUtils.lowerCase
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to lower case.             |
+
 #### Example
 
 ```bash
@@ -40,7 +48,7 @@ StringUtils.upperCase "CRÈME BRÛLÉE"  # "crème brûlée"
 
 #### Arguments
 
-* **$1** (string): The string to lower case
+* $1 string
 
 #### Exit codes
 

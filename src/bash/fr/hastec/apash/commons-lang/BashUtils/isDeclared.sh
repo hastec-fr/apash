@@ -3,9 +3,11 @@
 # File description ###########################################################
 # @name BashUtils.isDeclared
 # @brief Defensive programming technique to check that a variable is declared.
-#
 # @description
-# Arrays and Maps are considered as declared too.
+#   Arrays and Maps are considered as declared too.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

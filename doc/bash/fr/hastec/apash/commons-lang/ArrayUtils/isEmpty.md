@@ -13,6 +13,9 @@ Checks if an array exist and is empty.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ Checks if an array exist and is empty.
 * [ArrayUtils.isEmpty](#arrayutilsisempty)
 
 ### ArrayUtils.isEmpty
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 
 #### Example
 ```bash
@@ -44,10 +52,6 @@ ArrayUtils.isEmpty "myArray"       # false
 myArray=("")
 ArrayUtils.isEmpty "myArray"       # false
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The array to check.
 
 #### Exit codes
 

@@ -13,7 +13,8 @@ Search a string to find the first index of any character in the given set of cha
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,6 +30,11 @@ Search a string to find the first index of any character in the given set of cha
 
 ### StringUtils.indexOfAny
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+
 #### Example
 
 ```bash
@@ -38,10 +44,6 @@ arr=("a")         ; StringUtils.indexOfAny ""           arr   # -1
 arr=("cd" "ab" )  ; StringUtils.indexOfAny "zzabyycdxx" arr   #  2
 arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
 ```
-
-#### Arguments
-
-* **$1** (string): The string to check.
 
 #### Exit codes
 

@@ -16,6 +16,9 @@ Checks whether the given String is a parsable number.
 Parsable numbers include those Strings having potential minus in front,
 only digits and a potential ".". Hexadecimal and scientific notations are not considered parsable
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -29,6 +32,11 @@ only digits and a potential ".". Hexadecimal and scientific notations are not co
 * [NumberUtils.isParsable](#numberutilsisparsable)
 
 ### NumberUtils.isParsable
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNumber       | number        | in       |            | The number to check.                  |
 
 #### Example
 
@@ -46,10 +54,6 @@ NumberUtils.isParsable  "000"    # true
 NumberUtils.isParsable  "1."     # false
 NumberUtils.isParsable  ".1"     # true
 ```
-
-#### Arguments
-
-* **$1** (number): The number to analyze.
 
 #### Exit codes
 

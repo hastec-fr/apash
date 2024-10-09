@@ -14,6 +14,10 @@ Check if the input string has an UTC valid format (used accross all apash date f
 ## Overview
 
 Let the date command trying to parse the value.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +32,11 @@ Let the date command trying to parse the value.
 
 ### DateUtils.isDate
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inDate         | date          | in       |            | The date to check                     |
+
 #### Example
 
 ```bash
@@ -36,11 +45,6 @@ DateUtils.isDate "20240914"                      # false
 DateUtils.isDate "2024-09-14T10:30"              # false
 DateUtils.isDate "2022-03-15T14:30:45.123+0000"  # true
 ```
-
-#### Arguments
-
-* **$1** (The): date in UTC format
-* **$2** (The): amount to add, may be negative. [Default=0]
 
 #### Exit codes
 

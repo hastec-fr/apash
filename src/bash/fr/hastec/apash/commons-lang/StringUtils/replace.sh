@@ -5,6 +5,9 @@
 # @brief Replaces all occurrences of a String within another String.
 # @description
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

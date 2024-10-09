@@ -13,6 +13,9 @@ Check if the input name is an array or not.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,12 @@ Check if the input name is an array or not.
 * [ArrayUtils.isArray](#arrayutilsisarray)
 
 ### ArrayUtils.isArray
+
+*
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inVarName      | string        | in       |            | Name of the array.                   |
 
 #### Example
 ```bash
@@ -44,10 +53,6 @@ ArrayUtils.isArray   "myMap"    # false
 myMap=(["foo"]="bar")
 ArrayUtils.isArray   "myMap"    # false
 ```
-
-#### Arguments
-
-* **$1** (string): Name of the array.
 
 #### Exit codes
 

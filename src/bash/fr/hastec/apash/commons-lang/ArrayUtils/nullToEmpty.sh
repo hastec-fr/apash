@@ -13,6 +13,9 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 #   Only non referred variables are automatically transformed to emptyArray.
 #   If array already exists, then nothing is done.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -17,6 +17,9 @@ Rotate (circular shift) a string of shift characters
 * If shift < 0, left circular shift (ex : ABCDEF => BCDEFA)
 * Empty shift are considered as 0
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -31,6 +34,12 @@ Rotate (circular shift) a string of shift characters
 
 ### StringUtils.rotate
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to rotate.                 |
+| $2 ?   | inNbChars      | number        | in       | 0          | Number of time to shift.              |
+
 #### Example
 
 ```bash
@@ -43,11 +52,6 @@ StringUtils.rotate "abcdefg"   "-7"    # "abcdefg"
 StringUtils.rotate "abcdefg"   "9"     # "fgabcde"
 StringUtils.rotate "abcdefg"   "-9"    # "cdefgab"
 ```
-
-#### Arguments
-
-* **$1** (string): The string to rotate.
-* **$2** (number): Number of time to shift.
 
 #### Exit codes
 

@@ -15,6 +15,9 @@ Shifts the order of a series of elements in the given array.
 
 This method does nothing for non existing array.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,14 @@ This method does nothing for non existing array.
 * [ArrayUtils.shift](#arrayutilsshift)
 
 ### ArrayUtils.shift
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default         | Description                          |
+|--------|----------------|---------------|----------|-----------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
+| $2 ?   | inStartIndex   | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
+| $3 ?   | inEndIndex     | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+| $4 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 
 #### Example
 ```bash
@@ -48,13 +59,6 @@ myArray=("a" "b" "c" "" "d")
 ArrayUtils.shift    "myArray"  "-1"              # ("b" "c" "" "d" "a")
 
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to shift.
-* **$2** (number): The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. [Default:0]
-* **$3** (number): The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. [Default:0]
-* **$4** (number): The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. [Default: ${#Array.length}]
 
 #### Exit codes
 

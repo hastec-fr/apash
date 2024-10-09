@@ -7,8 +7,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 # File description ###########################################################
 # @name Random.nextInt
 # @brief Returns a pseudorandomly chosen int value.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -9,9 +9,12 @@
 
 # DateUtils.addDays
 
-Adds a number of days to a date returning a new object.
+Adds a number of days to a date returning a new date.
 
 ## Overview
+
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -27,6 +30,12 @@ Adds a number of days to a date returning a new object.
 
 ### DateUtils.addDays
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inDate         | date          | in       |            | The date in UTC format.               |
+| $2 ?   | inAmount       | number        | in       | 0          | The amount of day to add, may be negative. |
+
 #### Example
 
 ```bash
@@ -37,11 +46,6 @@ DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "-1"  # 2022-03-13T14:30:45.1
 DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "1.2" # failure - ""
 ```
 
-#### Arguments
-
-* **$1** (The): date in UTC format
-* **$2** (The): amount of dayd to add, may be negative. [Default=0]
-
 #### Exit codes
 
 * **0**: When are using the correct format of date and integer.
@@ -49,7 +53,7 @@ DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "1.2" # failure - ""
 
 #### Output on stdout
 
-* The new Date with the amount added.
+* The new Date with the added amount of days.
 
 #### Output on stderr
 

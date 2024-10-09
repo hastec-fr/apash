@@ -6,9 +6,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # File description ###########################################################
 # @name ArrayUtils.toArray
 # @brief Create an array based on list of arguments
-#
 # @description
-# The toArray is stopped at the end of the array and as many as possible elements are toArrayped.
+#   The toArray is stopped at the end of the array and as many as possible elements are toArrayed.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

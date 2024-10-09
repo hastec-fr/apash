@@ -6,8 +6,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # File description ###########################################################
 # @name ArrayUtils.isEmpty
 # @brief Checks if an array exist and is empty.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -13,7 +13,8 @@ Check if a string ends with a specified suffix.
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,6 +30,12 @@ Check if a string ends with a specified suffix.
 
 ### StringUtils.endsWith
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | Input string to check.                |
+| $2     | inSuffix       | string        | in       |            | The suffix to find.                   |
+
 #### Example
 
 ```bash
@@ -39,11 +46,6 @@ StringUtils.endsWith "abcd" "bd"  # false
 StringUtils.endsWith ""     "c"   # false
 ```
 
-#### Arguments
-
-* **$1** (string): Input string to check.
-* **$2** (string): The suffix to find.
-
 #### Exit codes
 
 * **0**: If the string ends with the suffix.
@@ -51,11 +53,11 @@ StringUtils.endsWith ""     "c"   # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
-* None
+* None.
 
 #### See also
 

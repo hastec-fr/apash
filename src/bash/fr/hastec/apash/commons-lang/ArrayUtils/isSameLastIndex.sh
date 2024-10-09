@@ -7,9 +7,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # File description ###########################################################
 # @name ArrayUtils.isSameLastIndex
 # @brief Checks whether two arrays are the same length, return false if it's not an array.
-#
-#
 # @description
+#
+# ### Since:
+# 0.2.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -7,9 +7,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # File description ###########################################################
 # @name ArrayUtils.subarray
 # @brief Produces a new array containing the elements between the start and end indices.
-#
 # @description
-# The start index is inclusive, the end index exclusive. 
+#   The start index is inclusive, the end index exclusive. 
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

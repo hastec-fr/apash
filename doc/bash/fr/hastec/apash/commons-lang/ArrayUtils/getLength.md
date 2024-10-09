@@ -13,6 +13,14 @@ Returns the length of the specified array.
 
 ## Overview
 
+Take care that the length of an array does not correspond to its last index.
+Array indexes are set to Long_MAX_VALUE (9223372036854775807).
+Setting this value does not mean that the length is 9223372036854775807.
+If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -21,11 +29,19 @@ Returns the length of the specified array.
 [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.parentEnd -->
 
+
+Method description #########################################################
+
 ## Index
 
 * [ArrayUtils.getLength](#arrayutilsgetlength)
 
 ### ArrayUtils.getLength
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 
 #### Example
 ```bash
@@ -36,15 +52,14 @@ declare -A myMap
 ArrayUtils.getLength  "myMap"        # failure - ""
 
 myArray=("a" "b" "" "c")
-ArrayUtils.getLength  "myArray"      # "4"
+ArrayUtils.getLength  "myArray"      # 4
+
+myArray[9223372036854775807]=z
+ArrayUtils.getLength  "myArray"      # 5 ([0]="a" [1]="b" [2]="" [3]="c" [9223372036854775807]="z")
 
 myArray=()
-ArrayUtils.getLength  "myArray"      # "0"
+ArrayUtils.getLength  "myArray"      # 0
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to get length.
 
 #### Exit codes
 
@@ -58,6 +73,10 @@ ArrayUtils.getLength  "myArray"      # "0"
 #### Output on stderr
 
 * None.
+
+#### See also
+
+* [ArrayUtils.getLastIndex](./getLastIndex.md)
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

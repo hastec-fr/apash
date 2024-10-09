@@ -13,6 +13,9 @@ Compares to values numerically (substration)
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,12 @@ Compares to values numerically (substration)
 
 ### NumberUtils.compare
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNumber1      | number        | in       |            | The first number to compare.          |
+| $2     | inNumber2      | number        | in       |            | The second number to compare.         |
+
 #### Example
 
 ```bash
@@ -37,11 +46,6 @@ NumberUtils.compare "0" "2"   # -2
 NumberUtils.compare "2" "0"   # 2
 NumberUtils.compare "1.2" "1" # failure - ""
 ```
-
-#### Arguments
-
-* **$1** (the): first number to compare
-* **$2** (the): second number to compare
 
 #### Exit codes
 

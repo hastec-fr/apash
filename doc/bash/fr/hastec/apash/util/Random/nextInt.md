@@ -13,6 +13,9 @@ Returns a pseudorandomly chosen int value.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,17 +30,29 @@ Returns a pseudorandomly chosen int value.
 
 ### Random.nextInt
 
-#### Example
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | minValue       | number        | in       |            | The least value that can be returned. |
+| $2     | maxValue       | number        | in       |            | The upper bound (exclusive) for the returned value. |
 
+#### Example
 ```bash
 Random.nextInt
 Array.sort "myArray"  # ("a" "b" "c")
+
+myArray=("a" "c" "b")
+Array.sort "myArray"  # ("a" "b" "c")
+
+myArray=("beta-20" "beta-10" "beta-1")
+Array.sort "myArray"  # ("beta-1" "beta-10" "beta-20")
+
+myArray=("1" "a" "2" "3")
+Array.sort "myArray"  # ("1" "2" "3" "a")
+
+myArray=("1" "")
+Array.sort "myArray"  # ("" "1")
 ```
-
-#### Arguments
-
-* **$1** (number): The least value that can be returned. [Default: N/A]
-* **$2** (number): The upper bound (exclusive) for the returned value. [Default: N/A]
 
 #### Exit codes
 

@@ -10,10 +10,13 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # @name StringUtils.abbreviate
 # @brief Abbreviates a String using ellipses.
 # @description
-# This will turn "Now is the time for all good men" into "Now is the time for..."
-# !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
-# Translated the function from
-# [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
+#   This will turn "Now is the time for all good men" into "Now is the time for..."
+#   !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
+#   Translated the function from
+#   [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

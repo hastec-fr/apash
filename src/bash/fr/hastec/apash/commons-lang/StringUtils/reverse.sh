@@ -6,7 +6,11 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # File description ###########################################################
 # @name StringUtils.reverse
 # @brief Reverses a string.
-# @description 
+# @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -8,8 +8,11 @@ apash.import fr.hastec.apash.util.Random.nextInt
 # File description ###########################################################
 # @name ArrayUtils.shuffle
 # @brief Randomly permutes the elements of the specified array randomness.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

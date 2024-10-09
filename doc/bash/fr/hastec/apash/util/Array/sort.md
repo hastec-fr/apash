@@ -15,6 +15,9 @@ Sorts the specified array into ascending natural order.
 
 Non array reference will be transformed to empty array.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,11 @@ Non array reference will be transformed to empty array.
 * [Array.sort](#arraysort)
 
 ### Array.sort
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
 
 #### Example
 ```bash
@@ -46,10 +54,6 @@ Array.sort "myArray"  # ("1" "2" "3" "a")
 myArray=("1" "")
 Array.sort "myArray"  # ("" "1")
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The array to sort.
 
 #### Exit codes
 

@@ -8,8 +8,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # File description ###########################################################
 # @name ArrayUtils.get
 # @brief Gets the nTh element of an array or a default value if the index is out of bounds.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

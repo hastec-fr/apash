@@ -13,6 +13,9 @@ Adds a number of hours to a date returning a new date.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,12 @@ Adds a number of hours to a date returning a new date.
 
 ### DateUtils.addMonths
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inDate         | date          | in       |            | The date in UTC format.               |
+| $2 ?   | inAmount       | number        | in       | 0          | The amount of month to add, may be negative. |
+
 #### Example
 
 ```bash
@@ -38,11 +47,6 @@ DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "12"  # 2025-04-01T14:00:00
 DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "1.2" # failure - ""
 ```
 
-#### Arguments
-
-* **$1** (The): date in UTC format
-* **$2** (The): amount of month to add, may be negative. [Default=0]
-
 #### Exit codes
 
 * **0**: When are using the correct format of date and integer.
@@ -50,7 +54,7 @@ DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "1.2" # failure - ""
 
 #### Output on stdout
 
-* The new Date with the amount added.
+* The new Date with the added amount of month.
 
 #### Output on stderr
 

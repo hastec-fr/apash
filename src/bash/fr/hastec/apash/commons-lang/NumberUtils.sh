@@ -4,7 +4,10 @@
 # @name StringUtils
 # @brief Operations on Numeric values.
 # @description
-#     This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/math/NumberUtils.html)
+#   This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/math/NumberUtils.html)
+#
+# ### Since:
+# 0.1.0
 #
 # ### Parents
 # <!-- apash.parentBegin -->

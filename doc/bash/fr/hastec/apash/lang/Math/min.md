@@ -15,6 +15,10 @@ Returns the smaller of two number values.
 
 If the arguments have the same value, the result is that same value,
 The last input value format is returned.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -29,6 +33,12 @@ The last input value format is returned.
 
 ### Math.min
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNum1         | number        | in       |            | The first number to compare.          |
+| $2     | inNum2         | number        | in       |            | The second number to compare.         |
+
 #### Example
 
 ```bash
@@ -42,11 +52,6 @@ Math.min  "0.123"  ".099"   # 0.099
 Math.min  "-.123"  "0.123"  # -.123
 Math.min  "000"    "0"      # 000
 ```
-
-#### Arguments
-
-* **$1** (number): The first number to compare.
-* **$2** (number): The second number to compare.
 
 #### Exit codes
 

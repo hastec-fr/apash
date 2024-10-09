@@ -6,12 +6,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # File description ###########################################################
 # @name ArrayUtils.getLength
 # @brief Returns the length of the specified array.
-#
 # @description
 #   Take care that the length of an array does not correspond to its last index.
 #   Array indexes are set to Long_MAX_VALUE (9223372036854775807).
 #   Setting this value does not mean that the length is 9223372036854775807.
 #   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

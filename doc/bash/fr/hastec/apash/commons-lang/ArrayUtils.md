@@ -14,8 +14,12 @@ Operations on arrays.
 ## Overview
 
 This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html)
+
+### Since:
+0.1.0
+
 ### WARNING
-Contrary Java implementation methods are generally modifying directly the input array given by reference.
+Contrary to Java implementation, methods are generally modifying directly the input array given by reference.
 
 ### Parents
 <!-- apash.parentBegin -->
@@ -30,17 +34,22 @@ Contrary Java implementation methods are generally modifying directly the input 
 |[add](ArrayUtils/add.md)|Adds a given element at the end of an array.|
 |[addAll](ArrayUtils/addAll.md)|Adds given elements at the end of an array.|
 |[addFirst](ArrayUtils/addFirst.md)|Adds given elements at the beginning of an array.|
+|[anythingToEmpty](ArrayUtils/anythingToEmpty.md)|Create an array even if the variable named was already declared.|
 |[clone](ArrayUtils/clone.md)|Copy an array into another array using references.|
 |[contains](ArrayUtils/contains.md)|Adds given elements at the end of an array.|
 |[get](ArrayUtils/get.md)|Gets the nTh element of an array or a default value if the index is out of bounds.|
+|[getLastIndex](ArrayUtils/getLastIndex.md)|Return the last index of the given array.|
 |[getLength](ArrayUtils/getLength.md)|Returns the length of the specified array.|
 |[indexOf](ArrayUtils/indexOf.md)|Finds the first index of the given value in the array starting at the given index.|
 |[indexesOf](ArrayUtils/indexesOf.md)|Finds the indices of the given value in the array starting at the given index.|
+|[init](ArrayUtils/init.md)|Defensive programming technique initialize an array.|
 |[insert](ArrayUtils/insert.md)|Inserts elements into an array at the given index (starting from zero).|
 |[isArray](ArrayUtils/isArray.md)|Check if the input name is an array or not.|
+|[isArrayIndex](ArrayUtils/isArrayIndex.md)|Check if the given index is a long positive integer.|
 |[isArrayIndexValid](ArrayUtils/isArrayIndexValid.md)|Returns whether a given array can safely be accessed at the given index.|
 |[isEmpty](ArrayUtils/isEmpty.md)|Checks if an array exist and is empty.|
 |[isNotEmpty](ArrayUtils/isNotEmpty.md)|Checks if an array exist and has at least one element.|
+|[isSameLastIndex](ArrayUtils/isSameLastIndex.md)|Checks whether two arrays are the same length, return false if it's not an array.|
 |[isSameLength](ArrayUtils/isSameLength.md)|Checks whether two arrays are the same length, return false if it's not an array.|
 |[isSorted](ArrayUtils/isSorted.md)|This method checks whether the provided array is sorted according to natural ordering.|
 |[lastIndexOf](ArrayUtils/lastIndexOf.md)|Finds the last index of the given value in the array starting at the given index.|

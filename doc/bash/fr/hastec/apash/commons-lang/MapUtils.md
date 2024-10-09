@@ -17,6 +17,9 @@ This implementation do reference to the [java apache implementation](https://com
 ### WARNING
 Contrary Java implementation methods are generally modifying directly the input map given by reference.
 
+### Since:
+0.1.0
+
 ### Parents
 <!-- apash.parentBegin -->
 [](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 

@@ -13,6 +13,9 @@ Reverses a string.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,11 @@ Reverses a string.
 
 ### StringUtils.reverse
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to reverse.                |
+
 #### Example
 
 ```bash
@@ -35,10 +43,6 @@ StringUtils.reverse ""          # ""
 StringUtils.reverse "bat"       # "tab"
 StringUtils.reverse "bat man"   # "nam tab"
 ```
-
-#### Arguments
-
-* **$1** (string): The string to reverse.
 
 #### Exit codes
 

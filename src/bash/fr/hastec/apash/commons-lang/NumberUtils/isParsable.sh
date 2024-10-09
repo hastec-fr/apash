@@ -3,8 +3,12 @@
 # File description ###########################################################
 # @name NumberUtils.isParsable
 # @brief Checks whether the given String is a parsable number.
-# @description Parsable numbers include those Strings having potential minus in front,
-# only digits and a potential ".". Hexadecimal and scientific notations are not considered parsable
+# @description 
+#   Parsable numbers include those Strings having potential minus in front,
+#   only digits and a potential ".". Hexadecimal and scientific notations are not considered parsable
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

@@ -13,7 +13,8 @@ Checks if a string contains only whitespaces characters or is empty or not exist
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,6 +30,11 @@ Checks if a string contains only whitespaces characters or is empty or not exist
 
 ### StringUtils.isBlank
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+
 #### Example
 
 ```bash
@@ -36,10 +42,6 @@ StringUtils.isBlank ""            # true
 StringUtils.isBlank "     "       # true
 StringUtils.isBlank "Hello World" # false
 ```
-
-#### Arguments
-
-* **$1** (string): The string to check.
 
 #### Exit codes
 

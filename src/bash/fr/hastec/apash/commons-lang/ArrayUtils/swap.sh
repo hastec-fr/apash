@@ -8,11 +8,13 @@ apash.import fr.hastec.apash.lang.Math.min
 # File description ###########################################################
 # @name ArrayUtils.swap
 # @brief Swaps a series of elements in the given array.
-#
 # @description
 #   This method does nothing for non existing array.
 #   Negative indices are promoted to 0(zero).
 #   The swap is stopped at the end of the array and as many as possible elements are swapped.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

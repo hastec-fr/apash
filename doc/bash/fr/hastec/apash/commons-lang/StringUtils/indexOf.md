@@ -13,7 +13,8 @@ Finds the first index of a substring occurence within another string.
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,6 +30,12 @@ Finds the first index of a substring occurence within another string.
 
 ### StringUtils.indexOf
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+| $2     | inResearch     | string        | in       |            | The substring to find within the input string. |
+
 #### Example
 
 ```bash
@@ -38,11 +45,6 @@ StringUtils.indexOf "aabaabaa" "b"  #  2
 StringUtils.indexOf "aabaabaa" "ab" #  1
 StringUtils.indexOf "aabaabaa" "mn" # -1
 ```
-
-#### Arguments
-
-* **$1** (string): The string to check.
-* **$2** (string): The substring to find within the input string.
 
 #### Exit codes
 

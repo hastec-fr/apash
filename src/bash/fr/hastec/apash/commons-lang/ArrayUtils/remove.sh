@@ -7,9 +7,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # File description ###########################################################
 # @name ArrayUtils.remove
 # @brief Removes the element at the specified position from the specified array.
-#
 # @description
 #   All subsequent elements are shifted to the left (subtracts one from their indices).
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

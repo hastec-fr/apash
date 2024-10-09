@@ -7,7 +7,11 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 # @name DateUtils.isDate
 # @brief Check if the input string has an UTC valid format (used accross all apash date functions)
 # @description
-#     Let the date command trying to parse the value.
+#   Let the date command trying to parse the value.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

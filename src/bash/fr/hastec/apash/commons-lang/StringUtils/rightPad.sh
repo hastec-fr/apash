@@ -8,6 +8,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # @brief Right pad a string with a specified string.
 # @description 
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

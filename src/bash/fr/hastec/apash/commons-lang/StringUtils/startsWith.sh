@@ -3,7 +3,10 @@
 # File description ###########################################################
 # @name StringUtils.startsWith
 # @brief Check if a CharSequence starts with a specified prefix.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

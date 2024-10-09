@@ -7,8 +7,12 @@ apash.import fr.hastec.apash.lang.Math.max
 # @name NumberUtils.max
 # @brief Returns the greater value of a list of numbers.
 # @description
-# If the arguments have the same value, the result is that same value
-# but the first number format is returned.
+#   If the arguments have the same value, the result is that same value
+#   but the first number format is returned.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

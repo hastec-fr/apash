@@ -18,6 +18,9 @@ preserving all tokens, including empty tokens created by adjacent separators.
 The separator is not included in the returned String array. 
 Adjacent separators are treated as separators for empty tokens
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -32,6 +35,13 @@ Adjacent separators are treated as separators for empty tokens
 
 ### StringUtils.splitPreserveAllTokens
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+| $2     | inString       | string        | in       |            | The string to split.                             |
+| $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+
 #### Example
 
 ```bash
@@ -43,12 +53,6 @@ StringUtils.splitPreserveAllTokens myArray $'ab\n\ncd\nef' $'\n'     # ["ab", ""
 StringUtils.splitPreserveAllTokens myArray "abab::cd:ab:ef::ab" "ab" # ["", "", "::cd:", ":ef::", ""]
 ```
 
-#### Arguments
-
-* **$1** (string[]): The result array which will contains tokens.
-* **$2** (string): The string to split.
-* **$3** (string): The delimiter (can be a sequance of characters).
-
 #### Exit codes
 
 * **0**: When result array exists.
@@ -56,11 +60,11 @@ StringUtils.splitPreserveAllTokens myArray "abab::cd:ab:ef::ab" "ab" # ["", "", 
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
-* None
+* None.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

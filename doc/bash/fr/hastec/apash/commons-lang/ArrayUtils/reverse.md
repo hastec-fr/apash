@@ -15,6 +15,9 @@ Reverses the order of the given array in the given range.
 
 This method does nothing for non existing array.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,13 @@ This method does nothing for non existing array.
 * [ArrayUtils.reverse](#arrayutilsreverse)
 
 ### ArrayUtils.reverse
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default         | Description                          |
+|--------|----------------|---------------|----------|-----------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to reverse.       |
+| $2 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+| $3 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 
 #### Example
 ```bash
@@ -46,12 +56,6 @@ myArray=("a" "b" "c" "" "d")
 ArrayUtils.reverse  "myVar" "1" "4"   #  myArray=("a" "" "c" "b" "d")
 
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to reverse.
-* **$2** (number): The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. [Default:0]
-* **$3** (number): The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. [Default: ${#Array.length}]
 
 #### Exit codes
 

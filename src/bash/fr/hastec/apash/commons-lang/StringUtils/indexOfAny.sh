@@ -6,7 +6,10 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
 # File description ###########################################################
 # @name StringUtils.indexOfAny
 # @brief Search a string to find the first index of any character in the given set of characters.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

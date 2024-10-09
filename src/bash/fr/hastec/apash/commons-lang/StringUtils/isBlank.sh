@@ -6,7 +6,10 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 # File description ###########################################################
 # @name StringUtils.isBlank
 # @brief Checks if a string contains only whitespaces characters or is empty or not existing.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

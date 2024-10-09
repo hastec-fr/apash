@@ -13,6 +13,9 @@ Counts how many times the substring appears in the larger string.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,12 @@ Counts how many times the substring appears in the larger string.
 
 ### StringUtils.countMatches
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+| $2     | inSubstring    | string        | in       |            | The substring to count.               |
+
 #### Example
 
 ```bash
@@ -37,11 +46,6 @@ StringUtils.countMatches "abba"  "a"    # 2
 StringUtils.countMatches "abba"  "ab"   # 1
 StringUtils.countMatches "abba"  "xxx"  # 0
 ```
-
-#### Arguments
-
-* **$1** (string): The string to check.
-* **$2** (string): The substring to count.
 
 #### Exit codes
 

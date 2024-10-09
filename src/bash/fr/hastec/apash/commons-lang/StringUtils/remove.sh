@@ -7,6 +7,9 @@
 #   An empty ("") source string will return the empty string.
 #   An empty ("") remove string will return the source string.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

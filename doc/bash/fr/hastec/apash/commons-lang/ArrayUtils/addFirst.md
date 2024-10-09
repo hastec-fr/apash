@@ -13,7 +13,12 @@ Adds given elements at the beginning of an array.
 
 ## Overview
 
-Non array reference will be transformed to empty array.
+The array is automatically created if the variable is not declared.
+Existing variables or maps are not overriden and the function fails.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,9 +33,17 @@ Non array reference will be transformed to empty array.
 
 ### ArrayUtils.addFirst
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+| ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
+
 #### Example
 ```bash
 ArrayUtils.addFirst  ""       ""          # failure
+
+myVar="test"
 ArrayUtils.addFirst  "myVar"  "a"         # ("a")
 
 declare -A myMap
@@ -45,11 +58,6 @@ ArrayUtils.addFirst  "myArray"  "c" "d"     # failure
 ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (string): Value to add at the beginning of the array.
-
 #### Exit codes
 
 * **0**: When first argument is an array and a value must be added.
@@ -57,7 +65,7 @@ ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
@@ -65,7 +73,7 @@ ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
 
 #### See also
 
-* [For adding element in the middle of an array, please check insert method.](#for-adding-element-in-the-middle-of-an-array-please-check-insert-method)
+* For adding element in the middle of an array, please check [insert](./insert.md) method.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

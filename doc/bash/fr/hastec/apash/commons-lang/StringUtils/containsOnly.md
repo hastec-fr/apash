@@ -18,6 +18,9 @@ An empty input string returns always true.
 An empty sequence of character to search with a non empty input 
 string returns false.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -32,6 +35,12 @@ string returns false.
 
 ### StringUtils.containsOnly
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+| $2     | inSequence     | string        | in       |            | The sequence of characters which should compose the input string. |
+
 #### Example
 
 ```bash
@@ -42,22 +51,14 @@ string returns false.
    StringUtils.constainsOnly "ab1"  "abc"  # false
    StringUtils.constainsOnly "abz"  "abc"  # false
 
-@arg $1 string The string to check.
-@arg $2 string The sequence of characters which should compose the input string.
+@stdout None.
+@stderr None
 ```
 
 #### Exit codes
 
 * **0**: True if the input string contains only provided characters.
 * **1**: Otherwise.
-
-#### Output on stdout
-
-* None
-
-#### Output on stderr
-
-* None
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

@@ -7,8 +7,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # File description ###########################################################
 # @name ArrayUtils.clone
 # @brief Copy an array into another array using references.
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

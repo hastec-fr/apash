@@ -8,6 +8,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @brief Compares to values numerically (substration)
 # @description 
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

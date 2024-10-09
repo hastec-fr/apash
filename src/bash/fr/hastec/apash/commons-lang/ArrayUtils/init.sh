@@ -9,11 +9,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # File description ###########################################################
 # @name ArrayUtils.init
 # @brief Defensive programming technique initialize an array.
-#
 # @description
 #   The array is created if the variable is not declared.
 #   If it was an array, then reinitialize it.
 #   If it's an existing variable or map, just fail to protect overriding.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

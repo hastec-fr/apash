@@ -16,6 +16,9 @@ Contains methods for performing basic numeric operations
 Such as the elementary exponential, logarithm, square root, and trigonometric functions.
 This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Math.html).
 
+### Since:
+0.1.0
+
 ### Parents
 <!-- apash.parentBegin -->
 [](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 

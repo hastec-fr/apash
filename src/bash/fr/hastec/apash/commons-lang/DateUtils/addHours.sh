@@ -8,6 +8,9 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 # @brief Adds a number of hours to a date returning a new date.
 # @description 
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

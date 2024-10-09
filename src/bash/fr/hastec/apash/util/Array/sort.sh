@@ -9,6 +9,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @description
 #   Non array reference will be transformed to empty array.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

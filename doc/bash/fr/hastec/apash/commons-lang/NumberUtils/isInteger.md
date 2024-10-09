@@ -16,6 +16,9 @@ Checks whether the String contains has the form of a valid integer.
 So numbers with and "." will return false. Only numbers with 
 optional minus first and digits after are considered as valid.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,24 +33,27 @@ optional minus first and digits after are considered as valid.
 
 ### NumberUtils.isInteger
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNumber       | number        | in       |            | The number to check.                  |
+
 #### Example
 
 ```bash
-NumberUtils.isInteger ""     # false
-NumberUtils.isInteger "a"    # false
-NumberUtils.isInteger "a12"  # false
-NumberUtils.isInteger "-12"  # true
-NumberUtils.isInteger "--12" # false
-NumberUtils.isInteger "1-2"  # false
-NumberUtils.isInteger "1.2"  # false
-NumberUtils.isInteger " 12"  # false
-NumberUtils.isInteger "123"  # true
-NumberUtils.isInteger "000"  # true
+NumberUtils.isInteger ""             # false
+NumberUtils.isInteger "a"            # false
+NumberUtils.isInteger "a12"          # false
+NumberUtils.isInteger "-12"          # true
+NumberUtils.isInteger "--12"         # false
+NumberUtils.isInteger "1-2"          # false
+NumberUtils.isInteger "1.2"          # false
+NumberUtils.isInteger " 12"          # false
+NumberUtils.isInteger "123"          # true
+NumberUtils.isInteger "000"          # true
+NumberUtils.isInteger "2147483647"   # true
+NumberUtils.isInteger "-2147483648"  # true
 ```
-
-#### Arguments
-
-* **$1** (number): The number to analyze.
 
 #### Exit codes
 

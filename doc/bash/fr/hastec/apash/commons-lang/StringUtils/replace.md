@@ -13,6 +13,9 @@ Replaces all occurrences of a String within another String.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,13 @@ Replaces all occurrences of a String within another String.
 
 ### StringUtils.replace
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to modify.                 |
+| $2     | inSubstring    | string        | in       |            | The substring to search.              |
+| $3     | inReplacement  | string        | in       |            | The string which replaces the substring found. |
+
 #### Example
 
 ```bash
@@ -38,12 +48,6 @@ StringUtils.replace "aba"  "a"   ""   # "b"
 StringUtils.replace "aba"  "a"   "z"  # "zbz"
 StringUtils.replace "aba"  "z"   "x"  # "aba"
 ```
-
-#### Arguments
-
-* **$1** (string): The string to modify.
-* **$2** (string): The substring to search.
-* **$3** (string): The string which replaces the substring found.
 
 #### Exit codes
 

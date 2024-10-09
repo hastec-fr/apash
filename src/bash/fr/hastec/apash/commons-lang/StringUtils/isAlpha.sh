@@ -3,7 +3,12 @@
 # File description ###########################################################
 # @name StringUtils.isAlpha
 # @brief Checks if the input string contains only Unicode letters.
-# @description An empty string will return false.
+# @description 
+#   An empty string will return false.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

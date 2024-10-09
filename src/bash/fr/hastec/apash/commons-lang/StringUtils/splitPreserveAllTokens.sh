@@ -9,6 +9,9 @@
 #   The separator is not included in the returned String array. 
 #   Adjacent separators are treated as separators for empty tokens
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

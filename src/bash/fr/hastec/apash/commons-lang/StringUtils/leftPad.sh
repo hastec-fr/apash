@@ -6,7 +6,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # File description ###########################################################
 # @name StringUtils.leftPad
 # @brief Left pad a String with a specified String.
-# @description 
+# @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

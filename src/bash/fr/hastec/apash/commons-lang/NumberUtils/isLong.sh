@@ -7,8 +7,11 @@ apash.import fr.hastec.apash.lang.Long.sh
 # @name NumberUtils.isLong
 # @brief Checks whether the String contains has the form of a valid integer.
 # @description 
-# Numbers with and "." will return false. Only numbers with 
-# optional minus first and digits after are considered as valid.
+#   Numbers with and "." will return false. Only numbers with 
+#   optional minus first and digits after are considered as valid.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

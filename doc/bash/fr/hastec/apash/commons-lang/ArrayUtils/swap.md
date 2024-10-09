@@ -17,6 +17,9 @@ This method does nothing for non existing array.
 Negative indices are promoted to 0(zero).
 The swap is stopped at the end of the array and as many as possible elements are swapped.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,6 +33,14 @@ The swap is stopped at the end of the array and as many as possible elements are
 * [ArrayUtils.swap](#arrayutilsswap)
 
 ### ArrayUtils.swap
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default         | Description                          |
+|--------|----------------|---------------|----------|-----------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to swap.           |
+| $2     | inStartIndex   | number        | in       |                 | The index of the first element in the series to swap   |
+| $3     | inEndIndex     | number        | in       |                 | The index of the second element in the series to swap  |
+| $4     | inLen          | number        | in       | 1               | The number of elements to swap starting with the given indices. |
 
 #### Example
 ```bash
@@ -54,13 +65,6 @@ myArray=("a" "b" "c" "d" "e")
 ArrayUtils.swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
 
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to swap. [Default: N/A]
-* **$2** (number): The index of the first element in the series to swap [Default: N/A]
-* **$3** (number): The index of the second element in the series to swap [Default: N/A]
-* **$4** (number): The number of elements to swap starting with the given indices. [Default: 1]
 
 #### Exit codes
 

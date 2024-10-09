@@ -13,9 +13,16 @@ Checks if a string is empty ("") or not existing.
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
+
+### Parents
+<!-- apash.parentBegin -->
+[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.parentEnd -->
 
 ## Index
 
@@ -23,10 +30,10 @@ Checks if a string is empty ("") or not existing.
 
 ### StringUtils.isEmpty
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
 
 #### Example
 
@@ -36,10 +43,6 @@ StringUtils.isEmpty "     "       # false
 StringUtils.isEmpty "Hello World" # false
 ```
 
-#### Arguments
-
-* **$1** (string): Input string to evaluate
-
 #### Exit codes
 
 * **0**: If no argument or an agurment of length 0 is passed.
@@ -47,11 +50,11 @@ StringUtils.isEmpty "Hello World" # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
-* None
+* None.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

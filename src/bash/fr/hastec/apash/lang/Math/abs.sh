@@ -8,6 +8,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 # @brief Checks whether the given String is a parsable number, then return without minus sign (absolute value).
 # @description
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

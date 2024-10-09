@@ -12,6 +12,9 @@ apash.import fr.hastec.apash.lang.Math.abs
 #   * If shift < 0, left circular shift (ex : ABCDEF => BCDEFA)
 #   * Empty shift are considered as 0
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

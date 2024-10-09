@@ -3,7 +3,10 @@
 # File description ###########################################################
 # @name StringUtils.equals
 # @brief Compares two string, returning true if they represent equal sequences of characters.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

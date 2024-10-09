@@ -8,8 +8,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # @name Math.min
 # @brief Returns the smaller of two number values.
 # @description
-# If the arguments have the same value, the result is that same value,
-# The last input value format is returned.
+#   If the arguments have the same value, the result is that same value,
+#   The last input value format is returned.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

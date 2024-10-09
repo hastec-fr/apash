@@ -16,6 +16,9 @@ Checks whether the String contains only digit characters.
 So numbers with "-" and "." will return false.
 Because these character are not digits.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,6 +33,11 @@ Because these character are not digits.
 
 ### NumberUtils.isDigits
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNumber       | number        | in       |            | The number to check.                  |
+
 #### Example
 
 ```bash
@@ -42,10 +50,6 @@ NumberUtils.isDigits " 12"   # false
 NumberUtils.isDigits "123"   # true
 NumberUtils.isDigits "000"   # true
 ```
-
-#### Arguments
-
-* **$1** (number): The number to analyze.
 
 #### Exit codes
 

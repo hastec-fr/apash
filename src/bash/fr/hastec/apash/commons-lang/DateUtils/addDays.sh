@@ -6,7 +6,11 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 # File description ###########################################################
 # @name DateUtils.addDays
 # @brief Adds a number of days to a date returning a new date.
-# @description 
+# @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

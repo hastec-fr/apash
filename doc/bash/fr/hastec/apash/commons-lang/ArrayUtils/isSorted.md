@@ -13,6 +13,9 @@ This method checks whether the provided array is sorted according to natural ord
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ This method checks whether the provided array is sorted according to natural ord
 * [ArrayUtils.isSorted](#arrayutilsissorted)
 
 ### ArrayUtils.isSorted
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
 #### Example
 ```bash
@@ -53,10 +61,6 @@ ArrayUtils.isSorted "myArray"  # true
 myArray=("" "1")
 ArrayUtils.isSorted "myArray"  # true
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The array to check.
 
 #### Exit codes
 

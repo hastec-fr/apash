@@ -6,11 +6,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # File description ###########################################################
 # @name ArrayUtils.isArrayIndex
 # @brief Check if the given index is a long positive integer.
-#
 # @description
-# Mark bounds of an array for 64bits systems (from 0 to Long_MAX_VALUE).
-# This function does not return if the array has the index, for that please 
-# check the function isArrayIndexValid.
+#   Mark bounds of an array for 64bits systems (from 0 to Long_MAX_VALUE).
+#   This function does not return if the array has the index, for that please 
+#   check the function isArrayIndexValid.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN

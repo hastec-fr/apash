@@ -13,6 +13,9 @@ Check if the input name is an map or not.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ Check if the input name is an map or not.
 * [MapUtils.isMap](#maputilsismap)
 
 ### MapUtils.isMap
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inDate         | string        | in       |            | Name of the hashmap to check.         |
 
 #### Example
 ```bash
@@ -44,10 +52,6 @@ MapUtils.isMap   "myMap"    # true
 myMap={}
 MapUtils.isMap   "myMap"    # true
 ```
-
-#### Arguments
-
-* **$1** (string): Name of the hashmap.
 
 #### Exit codes
 

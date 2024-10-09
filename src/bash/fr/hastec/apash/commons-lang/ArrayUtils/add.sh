@@ -11,7 +11,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #   The array is automatically created if the variable is not declared.
 #   Existing variables or maps are not overriden and the function fails.
 #
-# ### Since :
+# ### Since:
 # 0.1.0
 #
 # ### Authors:

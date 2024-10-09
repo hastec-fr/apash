@@ -15,6 +15,9 @@ Produces a new array containing the elements between the start and end indices.
 
 The start index is inclusive, the end index exclusive. 
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,14 @@ The start index is inclusive, the end index exclusive.
 * [ArrayUtils.subarray](#arrayutilssubarray)
 
 ### ArrayUtils.subarray
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default         | Description                          |
+|--------|----------------|---------------|----------|-----------------|--------------------------------------|
+| $1     | outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
+| $2     | inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
+| $3     | inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
+| $4     | inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
 
 #### Example
 ```bash
@@ -52,12 +63,6 @@ myArray=("a" "b" "c" "d" "e")
 ArrayUtils.subarray  "mySubArray"  "myArray"  "1" "3"  "3"   # mySubArray=("a" "d" "e" "b" "c")
 
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to subarray. [Default: N/A]
-* **$2** (number): The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.
-* **$3** (number): The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array
 
 #### Exit codes
 

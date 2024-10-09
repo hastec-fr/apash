@@ -13,6 +13,9 @@ Copy an array into another array using references.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,12 @@ Copy an array into another array using references.
 * [ArrayUtils.clone](#arrayutilsclone)
 
 ### ArrayUtils.clone
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to clone.          |
+| $2     | outArrayName   | ref(string[]) | out      |            | Name of the array which will receive the clone.|
 
 #### Example
 ```bash
@@ -50,11 +59,6 @@ myClone=()
 ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (ref(string[])): Name of the array which will receive the clone
-
 #### Exit codes
 
 * **0**: When input arguments are arrays.
@@ -62,7 +66,7 @@ ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

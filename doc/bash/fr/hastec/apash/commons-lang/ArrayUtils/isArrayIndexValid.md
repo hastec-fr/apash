@@ -13,6 +13,9 @@ Returns whether a given array can safely be accessed at the given index.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,12 @@ Returns whether a given array can safely be accessed at the given index.
 * [ArrayUtils.isArrayIndexValid](#arrayutilsisarrayindexvalid)
 
 ### ArrayUtils.isArrayIndexValid
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | The array to inspect                 |
+| $2     | inIndex        | number        | in       |            | The index of the array to be inspected.  |
 
 #### Example
 ```bash
@@ -43,11 +52,6 @@ ArrayUtils.isArrayIndexValid "myArray" "-1"                 # false
 ArrayUtils.isArrayIndexValid "myArray" "5"                  # false
 ArrayUtils.isArrayIndexValid "myArray"                      # false
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The array to inspect.
-* **$2** (number): The index of the array to be inspected.
 
 #### Exit codes
 

@@ -6,14 +6,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # File description ###########################################################
 # @name ArrayUtils.isSameLength
 # @brief Checks whether two arrays are the same length, return false if it's not an array.
-#
-#
 # @description
-# #### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
-# | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -25,6 +21,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                          |
+# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
+# | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
+#
 # #### Example
 # ```bash
 #    ArrayUtils.isSameLength ""        ""         # false

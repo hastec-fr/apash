@@ -13,6 +13,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #   Adjacent separators are treated as one separator. Leading and tailing separators
 #   are not considered.
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

@@ -17,6 +17,10 @@ Gets a substring from the specified String. The first character correspond
 to the index 0. Negative index are possible, in this case, it counts from the end.
 Any index minus 0 will be considered as 0 and any index over the length of the string
 will be considered as the length of the string.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -31,6 +35,13 @@ will be considered as the length of the string.
 
 ### StringUtils.substring
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default     | Description                           |
+|--------|----------------|---------------|----------|-------------|---------------------------------------|
+| $1     | inString       | string        | in       |             | The String to get the substring from. |
+| $2 ?   | inPrefix       | string        | in       | 0           | The position to start from, negative means count back from the end of the String by this many characters. |
+| $3 ?   | inPrefix       | string        | in       | ${#inString}| The position to end at (exclusive), negative means count back from the end of the String by this many characters. |
+
 #### Example
 
 ```bash
@@ -40,12 +51,6 @@ StringUtils.substring "abc" -2  -1    # return "b"
 StringUtils.substring "abc" -4   2    # return "ab"
 StringUtils.substring "abc"  2   6    # return "c"
 ```
-
-#### Arguments
-
-* **$1** (the): String to get the substring from
-* **$2** (the): position to start from, negative means count back from the end of the String by this many characters
-* **$3** (the): position to end at (exclusive), negative means count back from the end of the String by this many characters
 
 #### Exit codes
 

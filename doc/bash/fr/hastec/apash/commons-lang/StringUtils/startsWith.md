@@ -13,7 +13,8 @@ Check if a CharSequence starts with a specified prefix.
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -30,6 +31,12 @@ Method description #########################################################
 * [StringUtils.startsWith](#stringutilsstartswith)
 
 ### StringUtils.startsWith
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to check.                  |
+| $2     | inPrefix       | string        | in       |            | The prefix to find.                   |
 
 #### Example
 
@@ -53,7 +60,7 @@ StringUtils.startsWith ""     "a"    # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

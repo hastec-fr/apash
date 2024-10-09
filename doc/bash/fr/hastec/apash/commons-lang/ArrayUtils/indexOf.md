@@ -14,6 +14,10 @@ Finds the first index of the given value in the array starting at the given inde
 ## Overview
 
 A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +32,13 @@ A negative startIndex is treated as zero. A startIndex larger than the array len
 
 ### ArrayUtils.indexOf
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+| $2     | inValue        | string        | in       |            | Value to find.                       |
+| $3 ?   | inValue        | number        | in       | 0          | The index to start searching at.     |
+
 #### Example
 ```bash
 myIndexes=()
@@ -38,7 +49,6 @@ declare -A myMap
 ArrayUtils.indexOf  "myMap"  "a"        # failure - ""
 
 myArray=("a" "b" )
-
 
 myArray=("a" "b" "" "c" "b")
 ArrayUtils.indexOf  "myArray" "b"       # ("1")
@@ -52,12 +62,6 @@ ArrayUtils.indexOf  "myArray" "a" "3"   # -1
 ArrayUtils.indexOf  "myArray" "a" "-1"  # 0
 ArrayUtils.indexOf  "myArray" ""        # -1
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to check.
-* **$2** (string): Value to find.
-* **$3** (number): (Optional) The index to start searching at [Default=0].
 
 #### Exit codes
 

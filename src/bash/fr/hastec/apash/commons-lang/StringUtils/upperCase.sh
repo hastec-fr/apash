@@ -5,6 +5,9 @@
 # @brief Converts a String to upper case.
 # @description 
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

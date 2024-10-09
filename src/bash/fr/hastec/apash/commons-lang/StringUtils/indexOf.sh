@@ -3,7 +3,10 @@
 # File description ###########################################################
 # @name StringUtils.indexOf
 # @brief Finds the first index of a substring occurence within another string.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

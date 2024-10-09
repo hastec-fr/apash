@@ -3,8 +3,11 @@
 # File description ###########################################################
 # @name BashUtils.isCommandValid
 # @brief Defensive programming technique to check that a variable name is valid
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

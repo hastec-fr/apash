@@ -13,6 +13,9 @@ Inserts elements into an array at the given index (starting from zero).
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,13 @@ Inserts elements into an array at the given index (starting from zero).
 * [ArrayUtils.insert](#arrayutilsinsert)
 
 ### ArrayUtils.insert
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
+| $2     | ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
+| ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 
 #### Example
 ```bash
@@ -44,12 +54,6 @@ ArrayUtils.insert  "1"           "ioArray"  "foo bar"   # ("a" "foo bar" "b" "c"
 ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar" "b" "c" "d" "")
 ```
 
-#### Arguments
-
-* **$1** (number): Positive index of the array to insert values.
-* **$2** (ref(string[])): Name of the array to modify.
-* **$3** (string...): Values to insert at the indicated index.
-
 #### Exit codes
 
 * **0**: When all elements are inserted.
@@ -57,7 +61,7 @@ ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

@@ -3,8 +3,12 @@
 # File description ###########################################################
 # @name NumberUtils.isDigits
 # @brief Checks whether the String contains only digit characters.
-# @description So numbers with "-" and "." will return false.
-# Because these character are not digits.
+# @description 
+#   So numbers with "-" and "." will return false.
+#   Because these character are not digits.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

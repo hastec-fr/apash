@@ -16,6 +16,9 @@ Removes the first occurrence of the specified element from the specified array.
 All subsequent elements are shifted to the left (subtracts one from their indices). 
 If the array doesn't contains such an element, no elements are removed from the array.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -29,6 +32,12 @@ If the array doesn't contains such an element, no elements are removed from the 
 * [ArrayUtils.removeElement](#arrayutilsremoveelement)
 
 ### ArrayUtils.removeElement
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+| $2     | inValue        | string        | in       |            |  The first occurence of the value to remove from the array.  |
 
 #### Example
 ```bash
@@ -44,11 +53,6 @@ ArrayUtils.removeElement  "myArray"  "a"       # ()
 ArrayUtils.removeElement  "myArray"  "a"       # ()
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (string): The first occurence of the value to remove from the array.
-
 #### Exit codes
 
 * **0**: When the first occurence is removed from the array.
@@ -56,7 +60,7 @@ ArrayUtils.removeElement  "myArray"  "a"       # ()
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

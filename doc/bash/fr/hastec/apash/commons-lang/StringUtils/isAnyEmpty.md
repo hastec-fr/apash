@@ -13,9 +13,16 @@ Checks if one of the input string is empty ("").
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
+
+### Parents
+<!-- apash.parentBegin -->
+[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.parentEnd -->
 
 ## Index
 
@@ -23,10 +30,10 @@ Checks if one of the input string is empty ("").
 
 ### StringUtils.isAnyEmpty
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| ${@:1} | inStrings      | string...     | in       |            | The strings to check.                 |
 
 #### Example
 
@@ -42,10 +49,6 @@ StringUtils.isAnyEmpty " "       "bar"  # false
 StringUtils.isAnyEmpty "foo"     "bar"  # false
 ```
 
-#### Arguments
-
-* **$1** (string...): Input strings to evaluate
-
 #### Exit codes
 
 * **0**: If at least one element is empty, or no element provided.
@@ -53,7 +56,7 @@ StringUtils.isAnyEmpty "foo"     "bar"  # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

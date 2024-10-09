@@ -13,6 +13,9 @@ Adds given elements at the end of an array.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,12 @@ Adds given elements at the end of an array.
 * [ArrayUtils.contains](#arrayutilscontains)
 
 ### ArrayUtils.contains
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+| $2     | inValue        | string        | in       |            | Value to find in the array.          |
 
 #### Example
 ```bash
@@ -43,11 +52,6 @@ ArrayUtils.contains  "myArray"  "b"         # true
 ArrayUtils.contains  "myArray"  "a b"       # false
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to check.
-* **$2** (string): Value to find in the array.
-
 #### Exit codes
 
 * **0**: When first argument is an array and a value to find is provided.
@@ -55,7 +59,7 @@ ArrayUtils.contains  "myArray"  "a b"       # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

@@ -7,8 +7,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # File description ###########################################################
 # @name ArrayUtils.insert
 # @brief Inserts elements into an array at the given index (starting from zero).
-#
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -24,7 +27,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
 # | $2     | ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
-# | ${@:3} | inValues       | string...    | in       |            | Values to insert at the indicated index.      |
+# | ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 #
 # #### Example
 # ```bash

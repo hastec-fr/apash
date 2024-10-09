@@ -8,8 +8,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # @name Math.max
 # @brief Returns the greater of two number values.
 # @description
-# If the arguments have the same value, the result is that same value
-# but the first number format is returned.
+#   If the arguments have the same value, the result is that same value
+#   but the first number format is returned.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

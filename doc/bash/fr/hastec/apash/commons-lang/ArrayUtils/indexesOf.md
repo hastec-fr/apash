@@ -13,7 +13,12 @@ Finds the indices of the given value in the array starting at the given index.
 
 ## Overview
 
-A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty
+A negative startIndex is treated as zero. 
+A startIndex larger than the array length will return an empty.
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +32,15 @@ A negative startIndex is treated as zero. A startIndex larger than the array len
 * [ArrayUtils.indexesOf](#arrayutilsindexesof)
 
 ### ArrayUtils.indexesOf
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
+| $2     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+| $3     | inValue        | string        | in       |            | Value to find.                       |
+| $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+
 
 #### Example
 ```bash
@@ -46,13 +60,6 @@ ArrayUtils.indexesOf "myIndexes" "myArray" "c"       # ()
 ArrayUtils.indexesOf "myIndexes" "myArray" "a" "3"   # ()
 ArrayUtils.indexesOf "myIndexes" "myArray" "a" "-1"  # (0)
 ```
-
-#### Arguments
-
-* **$1** (ref(number[])): Name of the output array getting result indexes.
-* **$2** (ref(string[])): Name of the array to check.
-* **$3** (string): Value to find.
-* **$4** (number): The index to start searching at.
 
 #### Exit codes
 

@@ -16,6 +16,9 @@ Removes the occurrences of the specified element from the specified array.
 All subsequent elements are shifted to the left (subtracts one from their indices). 
 If the array doesn't contains such an element, no elements are removed from the array.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -30,6 +33,12 @@ If the array doesn't contains such an element, no elements are removed from the 
 
 ### ArrayUtils.removeAllOccurrences
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+| $2     | inValue        | string        | in       |            |  The value to remove from the array. |
+
 #### Example
 ```bash
 myArray=("a" "b" "a" "c" "" "d")
@@ -43,11 +52,6 @@ ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 ```
 
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to modify.
-* **$2** (string): The value to remove from the array.
-
 #### Exit codes
 
 * **0**: When all arguments are removed from the array.
@@ -55,7 +59,7 @@ ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

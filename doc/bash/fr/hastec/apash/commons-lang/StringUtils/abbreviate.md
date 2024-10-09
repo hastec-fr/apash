@@ -17,6 +17,10 @@ This will turn "Now is the time for all good men" into "Now is the time for..."
 !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
 Translated the function from
 [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
+
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -31,6 +35,14 @@ Translated the function from
 
 ### StringUtils.abbreviate
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to abbreviate.             |
+| $2     | inMaxWidth     | number        | in       |            | Maximum length of result string, must be at least 4. |
+| $3 ?   | inOffsets      | number        | in       | 0          | Left edge of source String.                          |
+| $4 ?   | inMarker       | string        | in       | ...        | The string used as replacement marker.               |
+
 #### Example
 
 ```bash
@@ -42,12 +54,6 @@ StringUtils.abbreviate "abcdefg" 8     # "abcdefg"
 StringUtils.abbreviate "abcdefg" 4     # "a..."
 StringUtils.abbreviate "abcdefg" 3     # failure - ""
 ```
-
-#### Arguments
-
-* **$1** (string): The string to abbreviate.
-* **$3** (string): The string used as replacement marker. (Default: "...")
-* **$4** (string): Left edge of source String. (Default: 0)
 
 #### Exit codes
 

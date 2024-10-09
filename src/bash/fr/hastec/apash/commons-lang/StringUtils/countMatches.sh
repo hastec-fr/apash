@@ -5,6 +5,9 @@
 # @brief Counts how many times the substring appears in the larger string.
 # @description 
 #
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

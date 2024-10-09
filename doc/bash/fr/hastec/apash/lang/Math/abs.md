@@ -13,6 +13,9 @@ Checks whether the given String is a parsable number, then return without minus 
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -26,6 +29,11 @@ Checks whether the given String is a parsable number, then return without minus 
 * [Math.abs](#mathabs)
 
 ### Math.abs
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inNumber       | number        | in       |            | The number to evaluate.               |
 
 #### Example
 
@@ -44,10 +52,6 @@ Math.abs  "1."     # failure - ""
 Math.abs  ".1"     # .1
 Math.abs  "-.12"   # .12
 ```
-
-#### Arguments
-
-* **$1** (number): The number to analyze.
 
 #### Exit codes
 

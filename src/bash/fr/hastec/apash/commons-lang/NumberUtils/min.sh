@@ -7,8 +7,12 @@ apash.import fr.hastec.apash.lang.Math.min
 # @name NumberUtils.min
 # @brief Returns the smaller value of a list of numbers.
 # @description
-# If the arguments have the same value, the result is that same value
-# but the first number format is returned.
+#   If the arguments have the same value, the result is that same value
+#   but the first number format is returned.
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

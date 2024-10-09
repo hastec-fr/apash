@@ -13,9 +13,11 @@ Defensive programming technique to change a null reference to an empty Array
 
 ## Overview
 
-The reference is transformed in any case in empty array.
-Use the mathematic expression which accept dynamic name on left assignement 
-to do the trick without using eval. Then flush the array.
+Only non referred variables are automatically transformed to emptyArray.
+If array already exists, then nothing is done.
+
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -31,24 +33,29 @@ to do the trick without using eval. Then flush the array.
 
 ### ArrayUtils.nullToEmpty
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array if exists.        |
+
 #### Example
 ```bash
 ArrayUtils.nullToEmpty  ""                # failure
+
+myVar=test
 ArrayUtils.nullToEmpty  "myVar"           # myVar=()
 
 declare -A myMap
-ArrayUtils.nullToEmpty  "myMap"           # myVar=()
+ArrayUtils.nullToEmpty  "myMap"           # failure
+
+ArrayUtils.nullToEmpty  "myUndefVar"      # myUndefVar=()
 
 myArray=()
-ArrayUtils.nullToEmpty  "myArray"         # myArray()
+ArrayUtils.nullToEmpty  "myArray"         # myArray=()
 
 myArray=("a" "b" "c")
 ArrayUtils.nullToEmpty  "myArray"  "a"    # myArray=("a" "b" "c")
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array if exists.
 
 #### Exit codes
 
@@ -57,15 +64,11 @@ ArrayUtils.nullToEmpty  "myArray"  "a"    # myArray=("a" "b" "c")
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
 * None.
-
-#### See also
-
-* [For adding element in the middle of an array, please check insert method.](#for-adding-element-in-the-middle-of-an-array-please-check-insert-method)
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

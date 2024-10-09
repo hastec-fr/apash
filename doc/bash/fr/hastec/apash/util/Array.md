@@ -16,6 +16,9 @@ Contains methods for performing basic numeric operations
 This package contains various methods for manipulating arrays.
 This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html).
 
+### Since:
+0.1.0
+
 ### Parents
 <!-- apash.parentBegin -->
 [](../../../.md) / [apash](../../apash.md) / [util](../util.md) / 

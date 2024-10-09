@@ -13,6 +13,9 @@ Gets the nTh element of an array or a default value if the index is out of bound
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,13 @@ Gets the nTh element of an array or a default value if the index is out of bound
 
 ### ArrayUtils.get
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
+| $2     | inIndex        | string        | in       |            | Index of the array.                  |
+| $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds |
+
 #### Example
 ```bash
 ArrayUtils.get  ""       ""            # failure - ""
@@ -40,15 +50,10 @@ ArrayUtils.get  "myArray"              # failure - ""
 ArrayUtils.get  "myArray"  "0"         # "a"
 ArrayUtils.get  "myArray"  "3"         # "c"
 ArrayUtils.get  "myArray"  "-1"        # failure - ""
+ArrayUtils.get  "myArray"  "a" " "     # " "
 ArrayUtils.get  "myArray"  "-1" " "    # " "
 ArrayUtils.get  "myArray"  "5"  "foo"  # "foo"
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to get value.
-* **$2** (string): Index of the array.
-* **$3** (string): [Optional] Default value if index is out of bounds (default: " ").
 
 #### Exit codes
 

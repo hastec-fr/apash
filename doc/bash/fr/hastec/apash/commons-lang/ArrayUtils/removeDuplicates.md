@@ -15,6 +15,9 @@ Removes elements which are present multiple times in the array.
 
 All remaining elements are shifted to the left.
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -28,6 +31,11 @@ All remaining elements are shifted to the left.
 * [ArrayUtils.removeDuplicates](#arrayutilsremoveduplicates)
 
 ### ArrayUtils.removeDuplicates
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 
 #### Example
 ```bash
@@ -52,7 +60,7 @@ ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c" "d")
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 

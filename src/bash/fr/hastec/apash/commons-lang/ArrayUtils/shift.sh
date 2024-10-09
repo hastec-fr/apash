@@ -8,9 +8,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # File description ###########################################################
 # @name ArrayUtils.shift
 # @brief Shifts the order of a series of elements in the given array.
-#
 # @description
-# This method does nothing for non existing array.
+#   This method does nothing for non existing array.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

@@ -3,7 +3,10 @@
 # File description ###########################################################
 # @name StringUtils.endsWith
 # @brief Check if a string ends with a specified suffix.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

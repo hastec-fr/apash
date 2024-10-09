@@ -3,7 +3,11 @@
 # File description ###########################################################
 # @name StringUtils.isEmpty
 # @brief Checks if a string is empty ("") or not existing.
-# @description <!-- -->
+# @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

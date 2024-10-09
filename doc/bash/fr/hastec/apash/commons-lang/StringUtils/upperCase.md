@@ -13,6 +13,9 @@ Converts a String to upper case.
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -27,6 +30,11 @@ Converts a String to upper case.
 
 ### StringUtils.upperCase
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString       | string        | in       |            | The string to upper case.             |
+
 #### Example
 
 ```bash
@@ -37,10 +45,6 @@ StringUtils.upperCase "a123b"         # "A123B"
 StringUtils.upperCase "ABC"           # "ABC"
 StringUtils.upperCase "crème brûlée"  # "CRÈME BRÛLÉE"
 ```
-
-#### Arguments
-
-* **$1** (string): The string to upper case
 
 #### Exit codes
 

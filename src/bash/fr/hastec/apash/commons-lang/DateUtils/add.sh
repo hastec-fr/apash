@@ -9,6 +9,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # @name DateUtils.add
 # @brief Adds a number of specified unity to a date, returning a new date.
 # @description
+#
+# ### Since:
+# 0.1.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #

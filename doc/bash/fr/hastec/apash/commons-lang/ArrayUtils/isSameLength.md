@@ -13,6 +13,9 @@ Checks whether two arrays are the same length, return false if it's not an array
 
 ## Overview
 
+### Since:
+0.1.0
+
 ### Authors:
 * Benjamin VARGIN
 
@@ -21,11 +24,19 @@ Checks whether two arrays are the same length, return false if it's not an array
 [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.parentEnd -->
 
+Method description #########################################################
+
 ## Index
 
 * [ArrayUtils.isSameLength](#arrayutilsissamelength)
 
 ### ArrayUtils.isSameLength
+
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                          |
+|--------|----------------|---------------|----------|------------|--------------------------------------|
+| $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
+| $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 
 #### Example
 ```bash
@@ -46,12 +57,12 @@ ArrayUtils.isSameLength "myArray1" "myArray2" # true
 myArray1=("a")
 myArray2=("a" "b")
 ArrayUtils.isSameLength "myArray"  "myArray2" # false
+
+myArray1=("a")
+myArray2=("a" "b")
+myArray1[10]=z
+ArrayUtils.isSameLength "myArray"  "myArray2" # true
 ```
-
-#### Arguments
-
-* **$1** (ref(string[])): The first array to compare.
-* **$2** (ref(string[])): The second array to compare.
 
 #### Exit codes
 

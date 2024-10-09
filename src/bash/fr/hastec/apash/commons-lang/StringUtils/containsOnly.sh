@@ -3,10 +3,14 @@
 # File description ###########################################################
 # @name StringUtils.containsOnly
 # @brief Checks if the CharSequence contains only certain characters.
-# @description Checks if the CharSequence contains only certain characters.
-# An empty input string returns always true.
-# An empty sequence of character to search with a non empty input 
-# string returns false.
+# @description 
+#   Checks if the CharSequence contains only certain characters.
+#   An empty input string returns always true.
+#   An empty sequence of character to search with a non empty input 
+#   string returns false.
+#
+# ### Since:
+# 0.1.0
 #
 # ### Authors:
 # * Benjamin VARGIN

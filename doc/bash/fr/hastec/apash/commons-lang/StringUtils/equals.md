@@ -13,7 +13,8 @@ Compares two string, returning true if they represent equal sequences of charact
 
 ## Overview
 
-<!-- -->
+### Since:
+0.1.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -29,6 +30,12 @@ Compares two string, returning true if they represent equal sequences of charact
 
 ### StringUtils.equals
 
+#### Arguments
+| #      | varName        | Type          | in/out   | Default    | Description                           |
+|--------|----------------|---------------|----------|------------|---------------------------------------|
+| $1     | inString1      | string        | in       |            | First string to compare.              |
+| $2     | inString2      | string        | in       |            | Second string to compare.             |
+
 #### Example
 
 ```bash
@@ -37,11 +44,6 @@ StringUtils.equals "abc" "abc"  # true
 StringUtils.equals "abc" "abcd" # false
 ```
 
-#### Arguments
-
-* **$1** (string): First string to compare.
-* **$2** (string): Second string to compare.
-
 #### Exit codes
 
 * **0**: If the string are equal (case-sensitive), or both empty.
@@ -49,7 +51,7 @@ StringUtils.equals "abc" "abcd" # false
 
 #### Output on stdout
 
-* None
+* None.
 
 #### Output on stderr
 
