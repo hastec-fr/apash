@@ -15,6 +15,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to trim.                   |
+#
 # @example
 #    StringUtils.trim ""                 # ""
 #    StringUtils.trim "     "            # ""

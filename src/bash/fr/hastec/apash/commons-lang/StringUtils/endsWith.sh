@@ -15,6 +15,12 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | Input string to check.                |
+# | $2     | inSuffix       | string        | in       |            | The suffix to find.                   |
+#
 # @example
 #    StringUtils.endsWith "" ""        # true
 #    StringUtils.endsWith "abcd" ""    # true
@@ -22,11 +28,8 @@
 #    StringUtils.endsWith "abcd" "bd"  # false
 #    StringUtils.endsWith ""     "c"   # false
 #
-# @arg $1 string Input string to check.
-# @arg $2 string The suffix to find.
-#
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 If the string ends with the suffix.
 # @exitcode 1 Otherwise.

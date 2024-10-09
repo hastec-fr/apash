@@ -5,7 +5,7 @@
 # @brief Defensive programming technique to check that a variable exists.
 #
 # @description
-#   Arrays and Maps will are not considered here as variables.
+#   Arrays and Maps are not considered as variables.
 #   If you need to consider arrays and maps then use BashUtils.isDeclared.
 # 
 # ### Authors:
@@ -18,6 +18,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | varName        | string        | in       |            | Variable name to check.               |
+#
 # #### Example
 # ```bash
 #    BashUtils.isVariable  ""              # false
@@ -33,8 +38,6 @@
 #    BashUtils.isVariable  "myMap"         # false
 #
 # ```
-#
-# @arg $1 string Variable name to check
 #
 # @stdout None.
 # @stderr None.

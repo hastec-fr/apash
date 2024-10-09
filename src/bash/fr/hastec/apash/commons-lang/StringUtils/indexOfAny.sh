@@ -18,14 +18,17 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to check.                  |
+#
 # @example
 #                        StringUtils.indexOfAny ""                 # -1
 #    arr=("")          ; StringUtils.indexOfAny ""           arr   #  0
 #    arr=("a")         ; StringUtils.indexOfAny ""           arr   # -1
 #    arr=("cd" "ab" )  ; StringUtils.indexOfAny "zzabyycdxx" arr   #  2
 #    arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
-#
-# @arg $1 string The string to check.
 #
 # @stdout The first minimum index matching researches, -1 if no match
 #         or empty input string or empty research.

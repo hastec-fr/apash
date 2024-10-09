@@ -18,12 +18,15 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to check.                  |
+#
 # @example
 #    StringUtils.isBlank ""            # true
 #    StringUtils.isBlank "     "       # true
 #    StringUtils.isBlank "Hello World" # false
-#
-# @arg $1 string The string to check.
 #
 # @stdout None.
 # @stderr None.

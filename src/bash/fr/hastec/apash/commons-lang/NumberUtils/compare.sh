@@ -18,6 +18,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber1      | number        | in       |            | The first number to compare.          |
+# | $2     | inNumber2      | number        | in       |            | The second number to compare.         |
+#
 # @example
 #    NumberUtils.compare "" ""     # failure - ""
 #    NumberUtils.compare "0" ""    # failure - ""
@@ -25,9 +31,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    NumberUtils.compare "0" "2"   # -2
 #    NumberUtils.compare "2" "0"   # 2
 #    NumberUtils.compare "1.2" "1" # failure - ""
-#
-# @arg $1 the first number to compare
-# @arg $2 the second number to compare
 #
 # @stdout the value 0 if $1 == $2; a value less than 0 if $1 < $2; and a value greater than 0 if $1 > $2.
 # @stderr None.

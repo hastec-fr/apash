@@ -6,13 +6,18 @@
 # @description <!-- -->
 # ### Authors:
 # * Benjamin VARGIN
-
-# Method description #########################################################
-# @description
+#
 # ### Parents
 # <!-- apash.parentBegin -->
 # [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
 # <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | ${@:1} | inStrings      | string...     | in       |            | The strings to check.                 |
 #
 # @example
 #    StringUtils.isAnyEmpty                  # true
@@ -24,8 +29,6 @@
 #    StringUtils.isAnyEmpty "  bob  " ""     # true
 #    StringUtils.isAnyEmpty " "       "bar"  # false
 #    StringUtils.isAnyEmpty "foo"     "bar"  # false
-#
-# @arg $1 string... Input strings to evaluate
 #
 # @stdout None.
 # @stderr None

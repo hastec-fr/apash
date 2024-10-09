@@ -16,6 +16,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber       | number        | in       |            | The number to check.                  |
+#
 # @example
 #    NumberUtils.isParsable  ""       # false
 #    NumberUtils.isParsable  "a"      # false
@@ -29,8 +34,6 @@
 #    NumberUtils.isParsable  "000"    # true
 #    NumberUtils.isParsable  "1."     # false
 #    NumberUtils.isParsable  ".1"     # true
-#
-# @arg $1 number The number to analyze.
 #
 # @stdout None.
 # @stderr None.

@@ -17,13 +17,16 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to reverse.                |
+#
 # @example
 #    StringUtils.reverse             # ""
 #    StringUtils.reverse ""          # ""
 #    StringUtils.reverse "bat"       # "tab"
 #    StringUtils.reverse "bat man"   # "nam tab"
-#
-# @arg $1 string The string to reverse.
 #
 # @stdout The reversed string.
 # @stderr None.

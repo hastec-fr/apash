@@ -15,14 +15,17 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | commandName    | string        | in       |            | Command to analyse                    |
+#
 # #### Example
 # ```bash
 #    BashUtils.isCommandValid  ""                # false
 #    BashUtils.isCommandValid  "apashnotexist"   # false
 #    BashUtils.isCommandValid  "command"         # true
 # ```
-#
-# @arg $1 string Command to analyse
 #
 # @stdout None.
 # @stderr None.

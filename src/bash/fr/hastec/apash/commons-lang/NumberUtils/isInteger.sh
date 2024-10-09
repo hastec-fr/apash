@@ -19,6 +19,11 @@ apash.import fr.hastec.apash.lang.Integer.sh
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber       | number        | in       |            | The number to check.                  |
+#
 # @example
 #    NumberUtils.isInteger ""             # false
 #    NumberUtils.isInteger "a"            # false
@@ -32,8 +37,6 @@ apash.import fr.hastec.apash.lang.Integer.sh
 #    NumberUtils.isInteger "000"          # true
 #    NumberUtils.isInteger "2147483647"   # true
 #    NumberUtils.isInteger "-2147483648"  # true
-#
-# @arg $1 number The number to analyze.
 #
 # @stdout None.
 # @stderr None.

@@ -19,6 +19,11 @@ apash.import fr.hastec.apash.lang.Math.max
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
+#
 # @example
 #    NumberUtils.max  ""       ""       ""       # failure - ""
 #    NumberUtils.max  "a"      "1"      "2"      # failure - ""
@@ -29,8 +34,6 @@ apash.import fr.hastec.apash.lang.Math.max
 #    NumberUtils.max  "0.123"  ".099"   "-1"     # 0.123
 #    NumberUtils.max  "-.123"  "0.123"  ".123"   # 0.123
 #    NumberUtils.max  "000"    "0"      "00"     # 000
-#
-# @arg $1 string... List of number to evaluate.
 #
 # @stdout Returns the greater value from a list of number.
 #         In case of equality, the first number format is returned.

@@ -3,10 +3,11 @@
 # File description ###########################################################
 # @name StringUtils.splitPreserveAllTokens
 # @brief Splits the provided text into an array preserving all tokens.
-# @description Splits the provided text into an array.eparators specified, 
-# preserving all tokens, including empty tokens created by adjacent separators.
-# The separator is not included in the returned String array. 
-# Adjacent separators are treated as separators for empty tokens
+# @description 
+#   Splits the provided text into an array.eparators specified, 
+#   preserving all tokens, including empty tokens created by adjacent separators.
+#   The separator is not included in the returned String array. 
+#   Adjacent separators are treated as separators for empty tokens
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -18,6 +19,13 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+# | $2     | inString       | string        | in       |            | The string to split.                             |
+# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+#
 # @example
 #    StringUtils.splitPreserveAllTokens myArray ""  ""                    # []
 #    StringUtils.splitPreserveAllTokens myArray ""  ":"                   # []
@@ -26,14 +34,11 @@
 #    StringUtils.splitPreserveAllTokens myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "", "cd", "ef"]
 #    StringUtils.splitPreserveAllTokens myArray "abab::cd:ab:ef::ab" "ab" # ["", "", "::cd:", ":ef::", ""]
 #
-# @arg $1 string[] The result array which will contains tokens.
-# @arg $2 string The string to split.
-# @arg $3 string The delimiter (can be a sequance of characters).
-#
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
-# @warning: Not optimized, but looks functional. 
+# @warning: Not optimized, but looks functional.
+#
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
 StringUtils.splitPreserveAllTokens() {

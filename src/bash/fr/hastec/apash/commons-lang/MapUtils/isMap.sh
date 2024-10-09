@@ -15,6 +15,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inDate         | string        | in       |            | Name of the hashmap to check.         |
+#
 # #### Example
 # ```bash
 #    MapUtils.isMap  ""          # false
@@ -32,8 +37,6 @@
 #    myMap={}
 #    MapUtils.isMap   "myMap"    # true
 # ```
-#
-# @arg $1 string Name of the hashmap.
 #
 # @stdout None.
 # @stderr None.

@@ -6,7 +6,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # File description ###########################################################
 # @name Array.sort
 # @brief Sorts the specified array into ascending natural order.
-#
 # @description
 #   Non array reference will be transformed to empty array.
 #
@@ -20,6 +19,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
+#
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c")
@@ -37,8 +41,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #    myArray=("1" "")
 #    Array.sort "myArray"  # ("" "1")
 # ```
-#
-# @arg $1 ref(string[]) The array to sort.
 #
 # @stdout None.
 # @stderr None.

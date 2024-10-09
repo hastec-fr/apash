@@ -18,6 +18,12 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to check.                  |
+# | $2     | inSequence     | string        | in       |            | The sequence of characters which should compose the input string. |
+#
 # @example
 #    StringUtils.constainsOnly ""     ""     # true
 #    StringUtils.constainsOnly ""     "ab"   # true
@@ -26,9 +32,6 @@
 #    StringUtils.constainsOnly "ab1"  "abc"  # false
 #    StringUtils.constainsOnly "abz"  "abc"  # false
 # 
-# @arg $1 string The string to check.
-# @arg $2 string The sequence of characters which should compose the input string.
-#
 # @stdout None.
 # @stderr None
 #

@@ -17,6 +17,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | varName        | string        | in       |            | Variable name to check.               |
+#
 # #### Example
 # ```bash
 #    BashUtils.isDeclared  ""              # false
@@ -33,8 +38,6 @@
 #
 # ```
 #
-# @arg $1 string Variable name to check
-# 
 # @see 
 # - [BashUtils.isDeclared](./isDeclared.md), 
 # - [ArrayUtils.isArray](../ArrayUtils/isArray.md),

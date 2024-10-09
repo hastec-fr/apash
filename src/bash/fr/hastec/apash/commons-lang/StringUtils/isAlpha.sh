@@ -6,13 +6,18 @@
 # @description An empty string will return false.
 # ### Authors:
 # * Benjamin VARGIN
-
-# Method description #########################################################
-# @description
+#
 # ### Parents
 # <!-- apash.parentBegin -->
 # [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
 # <!-- apash.parentEnd -->
+
+# Method description #########################################################
+# @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to check.                  |
 #
 # @example
 #    StringUtils.isAlpha ""            # false
@@ -21,8 +26,6 @@
 #    StringUtils.isAlpha "ab2c"        # false
 #    StringUtils.isAlpha "ab-c"        # false
 #    StringUtils.isAlpha "abéc"        # true
-#
-# @arg $1 string The string to evaluate
 #
 # @stdout None.
 # @stderr None

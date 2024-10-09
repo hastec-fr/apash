@@ -18,14 +18,16 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inDate         | date          | in       |            | The date to check                     |
+#
 # @example
 #    DateUtils.isDate ""                              # false
 #    DateUtils.isDate "20240914"                      # false
 #    DateUtils.isDate "2024-09-14T10:30"              # false
 #    DateUtils.isDate "2022-03-15T14:30:45.123+0000"  # true
-#
-# @arg $1 The date in UTC format
-# @arg $2 The amount to add, may be negative. [Default=0]
 #
 # @stdout The new Date with the amount added.
 # @stderr None.

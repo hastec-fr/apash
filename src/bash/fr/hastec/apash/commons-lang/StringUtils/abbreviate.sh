@@ -14,6 +14,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # !! WARNING !! The parameter order is not the same than in java to facilitate usage in bash
 # Translated the function from
 # [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -24,6 +25,14 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to abbreviate.             |
+# | $2     | inMaxWidth     | number        | in       |            | Maximum length of result string, must be at least 4. |
+# | $3 ?   | inOffsets      | number        | in       | 0          | Left edge of source String.                          |
+# | $4 ?   | inMarker       | string        | in       | ...        | The string used as replacement marker.               |
+#
 # @example
 #    StringUtils.abbreviate ""              # ""
 #    StringUtils.abbreviate ""        4     # ""
@@ -32,11 +41,6 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 #    StringUtils.abbreviate "abcdefg" 8     # "abcdefg"
 #    StringUtils.abbreviate "abcdefg" 4     # "a..."
 #    StringUtils.abbreviate "abcdefg" 3     # failure - ""
-#
-# @arg $1 string The string to abbreviate.
-# @agr $2 number Maximum length of result string, must be at least 4.
-# @arg $3 string The string used as replacement marker. (Default: "...")
-# @arg $4 string Left edge of source String. (Default: 0)
 #
 # @stdout The abbreviated string.
 # @stderr None.

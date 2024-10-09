@@ -15,6 +15,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | varName        | string        | in       |            | Variable name to check.               |
+#
 # #### Example
 # ```bash
 #    BashUtils.isVariableNameValid  ""                # false
@@ -30,8 +35,6 @@
 #    BashUtils.isVariableNameValid  "myVar1"          # true
 #    BashUtils.isVariableNameValid  "my_Var1"         # true
 # ```
-#
-# @arg $1 string Name to analyse
 #
 # @stdout None.
 # @stderr None.

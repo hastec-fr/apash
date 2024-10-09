@@ -15,6 +15,13 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to modify.                 |
+# | $2     | inSubstring    | string        | in       |            | The substring to search.              |
+# | $3     | inReplacement  | string        | in       |            | The string which replaces the substring found. |
+#
 # @example
 #    StringUtils.replace ""     ""    ""   # ""
 #    StringUtils.replace ""     "a"   "d"  # ""
@@ -23,10 +30,6 @@
 #    StringUtils.replace "aba"  "a"   ""   # "b"
 #    StringUtils.replace "aba"  "a"   "z"  # "zbz"
 #    StringUtils.replace "aba"  "z"   "x"  # "aba"
-#
-# @arg $1 string The string to modify.
-# @arg $2 string The substring to search.
-# @arg $3 string The string which replaces the substring found.
 #
 # @stdout The text with any replacements processed
 # @stderr None

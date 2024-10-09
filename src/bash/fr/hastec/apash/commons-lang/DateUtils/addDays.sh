@@ -5,9 +5,8 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 
 # File description ###########################################################
 # @name DateUtils.addDays
-# @brief Adds a number of days to a date returning a new object.
+# @brief Adds a number of days to a date returning a new date.
 # @description 
-#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -18,6 +17,12 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inDate         | date          | in       |            | The date in UTC format.               |
+# | $2 ?   | inAmount       | number        | in       | 0          | The amount of day to add, may be negative. |
+#
 # @example
 #    DateUtils.addDays ""                               ""    # failure - ""
 #    DateUtils.addDays "0"                              ""    # failure - ""
@@ -25,10 +30,7 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 #    DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "-1"  # 2022-03-13T14:30:45.123+0200
 #    DateUtils.addDays "2022-03-14T14:30:45.123+0200"   "1.2" # failure - ""
 #
-# @arg $1 The date in UTC format
-# @arg $2 The amount of dayd to add, may be negative. [Default=0]
-#
-# @stdout The new Date with the amount added.
+# @stdout The new Date with the added amount of days.
 # @stderr None.
 #
 # @exitcode 0 When are using the correct format of date and integer.

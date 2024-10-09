@@ -3,8 +3,9 @@
 # File description ###########################################################
 # @name StringUtils.remove
 # @brief Removes all occurrences of a substring from within the source string.
-# @description An empty ("") source string will return the empty string.
-# An empty ("") remove string will return the source string.
+# @description 
+#   An empty ("") source string will return the empty string.
+#   An empty ("") remove string will return the source string.
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -16,6 +17,12 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to modify.                 |
+# | $2     | inSubstring    | string        | in       |            | The substring to remove within the input string. |
+#
 # @example
 #    StringUtils.remove ""                   ""       # ""
 #    StringUtils.remove ""                   ":"      # ""
@@ -24,11 +31,8 @@
 #    StringUtils.remove "abab::cd:ab:ef::ab" "ab"     # "::cd::ef::"
 #    StringUtils.remove "queued"             "zz"     # "queued"
 #
-# @arg $1 string The string to modify.
-# @arg $2 string The substring to remove within the input string.
-#
-# @stdout the substring with the string removed if found
-# @stderr None
+# @stdout The substring with the string removed if found.
+# @stderr None.
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 otherwise.

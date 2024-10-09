@@ -19,6 +19,11 @@ apash.import fr.hastec.apash.lang.Math.min
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
+#
 # @example
 #    NumberUtils.min  ""       ""       ""       # failure - ""
 #    NumberUtils.min  "a"      "1"      "2"      # failure - ""
@@ -29,8 +34,6 @@ apash.import fr.hastec.apash.lang.Math.min
 #    NumberUtils.min  "0.123"  ".099"   "-1"     # -1
 #    NumberUtils.min  "-.123"  "-0.123"  ".123"  # -.123
 #    NumberUtils.min  "000"    "0"      "00"     # 000
-#
-# @arg $1 string... List of number to evaluate.
 #
 # @stdout Returns the greater value from a list of numbers.
 #         In case of equality, the first number format is returned.

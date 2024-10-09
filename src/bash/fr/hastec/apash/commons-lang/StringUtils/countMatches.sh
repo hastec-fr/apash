@@ -15,6 +15,12 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to check.                  |
+# | $2     | inSubstring    | string        | in       |            | The substring to count.               |
+#
 # @example
 #    StringUtils.countMatches ""     ""      # 0
 #    StringUtils.countMatches ""     "a"     # 0
@@ -22,9 +28,6 @@
 #    StringUtils.countMatches "abba"  "a"    # 2
 #    StringUtils.countMatches "abba"  "ab"   # 1
 #    StringUtils.countMatches "abba"  "xxx"  # 0
-#
-# @arg $1 string The string to check.
-# @arg $2 string The substring to count.
 #
 # @stdout The number of occurrences, 0 if either string is empty
 # @stderr None.
@@ -34,7 +37,7 @@
 StringUtils.countMatches() {
   local inString="$1"
   local inSubstring="$2"
-  local count=0
+  local -i count=0
 
   if [[ -z $inString || -z $inSubstring ]]; then
     echo "$count" && return "$APASH_FUNCTION_SUCCESS"

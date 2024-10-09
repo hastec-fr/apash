@@ -23,6 +23,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+# | $2     | inString       | string        | in       |            | The string to split.                             |
+# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+#
 # @example
 #    StringUtils.split myArray ""  ""                    # []
 #    StringUtils.split myArray ""  ":"                   # []
@@ -31,12 +38,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #    StringUtils.split myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "cd", "ef"]
 #    StringUtils.split myArray "abab::cd:ab:ef::ab" "ab" # ["::cd:", ":ef::"]
 #
-# @arg $1 string[] The result array which will contains tokens.
-# @arg $2 string The string to split.
-# @arg $3 string The delimiter (can be a sequance of characters).
-#
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @warning: Not optimized, but looks functional.
 # @exitcode 0 When result array exists.

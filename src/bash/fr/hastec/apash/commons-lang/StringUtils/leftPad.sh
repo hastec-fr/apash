@@ -7,7 +7,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # @name StringUtils.leftPad
 # @brief Left pad a String with a specified String.
 # @description 
-#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -18,6 +17,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to pad out.                |
+# | $2     | inString       | string        | in       |            | The size to pad to.                   |
+# | $3 ?   | inString       | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
+#
 # @example
 #    StringUtils.leftPad ""     ""    ""      # failure - ""
 #    StringUtils.leftPad ""     "3"   "z"     # "zzz"
@@ -26,10 +32,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #    StringUtils.leftPad "bat"  "8"   "yz"    # "yzyzybat"
 #    StringUtils.leftPad "bat"  "-1"  "z"     # "bat"
 #    StringUtils.leftPad "bat"  "5"   ""      # "  bat"
-#
-# @arg $1 string The string to pad out.
-# @arg $2 string The size to pad to.
-# @arg $3 string The string to pad with, empty treated as single space (default).
 #
 # @stdout Left padded string or original string if no padding is necessary.
 # @stderr None.

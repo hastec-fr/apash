@@ -20,6 +20,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNum1         | number        | in       |            | The first number to compare.          |
+# | $2     | inNum2         | number        | in       |            | The second number to compare.         |
+#
 # @example
 #    Math.max  ""       ""       # failure - ""
 #    Math.max  "a"      "1"      # failure - ""
@@ -30,9 +36,6 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 #    Math.max  "0.123"  ".099"   # 0.123
 #    Math.max  "-.123"  "0.123"  # -0.123
 #    Math.max  "000"    "0"      # 000
-#
-# @arg $1 number The first number to compare.
-# @arg $2 number The second number to compare.
 #
 # @stdout Returns the greater value of two number.
 #         In case of equality, the first number format is returned.

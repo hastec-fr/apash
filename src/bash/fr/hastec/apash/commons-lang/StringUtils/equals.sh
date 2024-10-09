@@ -15,13 +15,16 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString1      | string        | in       |            | First string to compare.              |
+# | $2     | inString2      | string        | in       |            | Second string to compare.             |
+#
 # @example
 #    StringUtils.equals "" ""        # true
 #    StringUtils.equals "abc" "abc"  # true
 #    StringUtils.equals "abc" "abcd" # false
-#
-# @arg $1 string First string to compare.
-# @arg $2 string Second string to compare.
 #
 # @stdout None.
 # @stderr None

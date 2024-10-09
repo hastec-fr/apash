@@ -4,10 +4,11 @@
 # @name StringUtils.substring
 # @brief Gets a substring from the specified String.
 # @description
-# Gets a substring from the specified String. The first character correspond
-# to the index 0. Negative index are possible, in this case, it counts from the end.
-# Any index minus 0 will be considered as 0 and any index over the length of the string
-# will be considered as the length of the string.
+#   Gets a substring from the specified String. The first character correspond
+#   to the index 0. Negative index are possible, in this case, it counts from the end.
+#   Any index minus 0 will be considered as 0 and any index over the length of the string
+#   will be considered as the length of the string.
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -18,16 +19,19 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default     | Description                           |
+# |--------|----------------|---------------|----------|-------------|---------------------------------------|
+# | $1     | inString       | string        | in       |             | The String to get the substring from. |
+# | $2 ?   | inPrefix       | string        | in       | 0           | The position to start from, negative means count back from the end of the String by this many characters. |
+# | $3 ?   | inPrefix       | string        | in       | ${#inString}| The position to end at (exclusive), negative means count back from the end of the String by this many characters. |
+#
 # @example
 #    StringUtils.substring ""              # return ""
 #    StringUtils.substring "abc"  0   2    # return "ab"
 #    StringUtils.substring "abc" -2  -1    # return "b"
 #    StringUtils.substring "abc" -4   2    # return "ab"
 #    StringUtils.substring "abc"  2   6    # return "c"
-#
-# @arg $1 the String to get the substring from
-# @arg $2 the position to start from, negative means count back from the end of the String by this many characters
-# @arg $3 the position to end at (exclusive), negative means count back from the end of the String by this many characters
 #
 # @stdout substring from start position to end position, empty if empty String input
 # @stderr None

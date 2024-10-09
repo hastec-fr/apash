@@ -26,7 +26,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.          |
-# | ${@:2} | inValues       | string...    | in       |            | Values to add at the end of the array.|
+# | ${@:2} | inValues       | string...     | in       |            | Values to add at the end of the array.|
 #
 # #### Example
 # ```bash

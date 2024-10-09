@@ -15,6 +15,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to lower case.             |
+#
 # @example
 #    StringUtils.upperCase ""              # ""
 #    StringUtils.upperCase "ABC"           # "abc"
@@ -23,7 +28,7 @@
 #    StringUtils.upperCase "abc"           # "abc"
 #    StringUtils.upperCase "CRÈME BRÛLÉE"  # "crème brûlée"
 #
-# @arg $1 string The string to lower case
+# @arg $1 string 
 #
 # @stdout The lower cased string
 # @stderr None.

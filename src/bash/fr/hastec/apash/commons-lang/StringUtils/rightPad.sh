@@ -18,6 +18,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to pad out.                |
+# | $2     | inSubstring    | string        | in       |            | The size to pad to.                   |
+# | $3 ?   | inReplacement  | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
+#
 # @example
 #    StringUtils.rightPad ""     ""    ""      # failure - ""
 #    StringUtils.rightPad ""     "3"   "z"     # "zzz"
@@ -26,10 +33,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #    StringUtils.rightPad "bat"  "8"   "yz"    # "batyzyzy"
 #    StringUtils.rightPad "bat"  "-1"  "z"     # "bat"
 #    StringUtils.rightPad "bat"  "5"   ""      # "bat   "
-#
-# @arg $1 string The string to pad out.
-# @arg $2 string The size to pad to.
-# @arg $3 string The string to pad with, empty treated as single space (default).
 #
 # @stdout Right padded string or original string if no padding is necessary.
 # @stderr None.

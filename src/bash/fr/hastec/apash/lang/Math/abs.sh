@@ -18,6 +18,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber       | number        | in       |            | The number to evaluate.               |
+#
 # @example
 #    Math.abs  ""       # failure - ""
 #    Math.abs  "a"      # failure - ""
@@ -32,8 +37,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #    Math.abs  "1."     # failure - ""
 #    Math.abs  ".1"     # .1
 #    Math.abs  "-.12"   # .12
-#
-# @arg $1 number The number to analyze.
 #
 # @stdout None.
 # @stderr None.

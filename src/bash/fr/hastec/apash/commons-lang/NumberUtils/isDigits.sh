@@ -16,6 +16,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber       | number        | in       |            | The number to check.                  |
+#
 # @example
 #    NumberUtils.isDigits ""      # false
 #    NumberUtils.isDigits "a"     # false
@@ -25,8 +30,6 @@
 #    NumberUtils.isDigits " 12"   # false
 #    NumberUtils.isDigits "123"   # true
 #    NumberUtils.isDigits "000"   # true
-#
-# @arg $1 number The number to analyze.
 #
 # @stdout None.
 # @stderr None.

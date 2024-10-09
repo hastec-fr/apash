@@ -19,7 +19,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # Method description #########################################################
 # @description
-# @example:
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | minValue       | number        | in       |            | The least value that can be returned. |
+# | $2     | maxValue       | number        | in       |            | The upper bound (exclusive) for the returned value. |
+#
+# #### Example
+# ```bash
 #    Random.nextInt
 #    Array.sort "myArray"  # ("a" "b" "c")
 #
@@ -35,9 +42,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #    myArray=("1" "")
 #    Array.sort "myArray"  # ("" "1")
 # ```
-#
-# @arg $1 number The least value that can be returned. [Default: N/A]
-# @arg $2 number The upper bound (exclusive) for the returned value. [Default: N/A]
 #
 # @stdout An pseudorandomly chosen int value between the minValue (inclusive) and the maxValue (exclusive).
 # @stderr None.

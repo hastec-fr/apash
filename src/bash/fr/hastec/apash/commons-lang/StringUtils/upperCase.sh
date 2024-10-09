@@ -15,6 +15,11 @@
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inString       | string        | in       |            | The string to upper case.             |
+#
 # @example
 #    StringUtils.upperCase ""              # ""
 #    StringUtils.upperCase "abc"           # "ABC"
@@ -22,8 +27,6 @@
 #    StringUtils.upperCase "a123b"         # "A123B"
 #    StringUtils.upperCase "ABC"           # "ABC"
 #    StringUtils.upperCase "crème brûlée"  # "CRÈME BRÛLÉE"
-#
-# @arg $1 string The string to upper case
 #
 # @stdout The upper cased string
 # @stderr None.

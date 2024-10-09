@@ -20,6 +20,11 @@ apash.import fr.hastec.apash.lang.Long.sh
 
 # Method description #########################################################
 # @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default    | Description                           |
+# |--------|----------------|---------------|----------|------------|---------------------------------------|
+# | $1     | inNumber       | number        | in       |            | The number to check.                  |
+#
 # @example
 #    NumberUtils.isLong ""                      # false
 #    NumberUtils.isLong "a"                     # false
@@ -34,8 +39,6 @@ apash.import fr.hastec.apash.lang.Long.sh
 #    NumberUtils.isLong "-9223372036854775808"  # true
 #    NumberUtils.isLong "9223372036854775807"   # true
 #    NumberUtils.isLong "9223372036854775808"   # false
-#
-# @arg $1 number The number to analyze.
 #
 # @stdout None.
 # @stderr None.
