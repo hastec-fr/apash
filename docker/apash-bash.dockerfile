@@ -1,7 +1,8 @@
 # docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
 # docker run --rm -it hastec/apash:0.1.0
 # docker push docker.io/hastec/apash:0.1.0
-FROM docker.io/bash:5.2.32
+FROM docker.io/bash:${BASH_VERSION}
+ARG BASH_VERSION=5.2.32
 
 LABEL maintainer="Benjamin Vargin"
 

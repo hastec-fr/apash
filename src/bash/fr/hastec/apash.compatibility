@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
+apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
+
+apash.compatibility(){
+  apash.compatibility.addVersion "bash" "5.2"
+}
+
+apash.compatibility.addVersion(){
+  local shellName="$1"
+  local shellVersion="$2"
+  local resultTestFile="$APASH_HOME_DIR/tmp/${shellName}_${shellVersion}"
+  local functionName
+  local -A functionMap=()
+
+  while IFS= read -r line; do
+    StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $3}') \
+                                        || functionName=$(echo "$line" | awk '{print $4}')
+    [ -z "$functionName" ] && continue
+    MapUtils.containsKey "functionMap" "$functionName" || functionMap["$functionName"]="ok"
+    StringUtils.startsWith "$line" "not ok" && functionMap["$functionName"]="ko"
+  done < <(apash test --bats-options "-t" "$APASH_HOME_DIR/test/$shellName/commons-lang/DateUtils")
+
+  echo "function,${shellName}_${shellVersion}" > "$resultTestFile"
+  for key in "${!functionMap[@]}"; do
+    echo "$key,${functionMap[$key]}"
+  done
+}
