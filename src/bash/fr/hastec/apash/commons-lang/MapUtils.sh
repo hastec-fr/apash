@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2034
 # <!-- @class -->
 # @name MapUtils
 # @brief Operations on maps.
