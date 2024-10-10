@@ -2,7 +2,7 @@
 
 if [ "$APASH_TEST_MINIFIED" != "true" ]; then
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.sh
-  apash.import fr.hastec.apash.commons-lang.DateUtils
+  apash.import fr.hastec.apash.commons-lang.DateUtils.addHours
 else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
