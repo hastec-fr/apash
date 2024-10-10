@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.DateUtils.sh
+apash.import fr.hastec.apash.commons-lang.DateUtils.isDate
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 

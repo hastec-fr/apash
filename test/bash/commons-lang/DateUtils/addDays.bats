@@ -62,10 +62,12 @@ fi
   export TZ="Europe/Paris"
   # Summer Time 
   # @todo: mail sent to GNU, because result is not the expected one ?
-  # run DateUtils.addDays "2024-03-30T02:30:00.123+0100" 1
-  # [ "$status" -eq 0 ]
-  # [ "$output" = "2024-03-31T04:30:00.123+0200"  ]
-  # [ "$output" = "2024-03-31T03:30:00.123+0200"  ]  # expectation
+  # Gnu known bug
+  run DateUtils.addDays "2024-03-30T02:30:00.123+0100" 1
+  skip
+  [ "$status" -eq 0 ]
+  [ "$output" = "2024-03-31T03:30:00.123+0200"  ]   # expectation
+  # [ "$output" = "2024-03-31T04:30:00.123+0200"  ] # actual
 
   run DateUtils.addDays "2024-03-31T03:30:00.123+0200" -1
   [ "$status" -eq 0 ]
@@ -83,8 +85,10 @@ fi
   # Answer: The bug is known, only a workaround available (anchoring at 12:00) until more global change on 
   # date time management.
   # https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#The-date-command-is-not-working-right_002e
+  # Gnu known bug
   # run DateUtils.addDays "2023-10-29T03:30:00.123+0200" -1
-  # [ "$status" -eq 0 ]
-  # [ "$output" = "2023-10-28T03:30:00.123+0200"  ] 
-  # [ "$output" = "2023-10-28T03:30:00.123+0100"  ] # expectation
+  skip
+  [ "$status" -eq 0 ]
+  [ "$output" = "2023-10-28T03:30:00.123+0100"  ]   # expectation
+  # [ "$output" = "2023-10-28T03:30:00.123+0200"  ] # actual
 }

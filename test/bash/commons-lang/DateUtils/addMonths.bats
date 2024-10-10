@@ -33,7 +33,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addMonths return the date with the number of minute to add" {
+@test "addMonths returns the date with the number of minute to add" {
   export TZ="Europe/Paris"
   run DateUtils.addMonths "2024-04-01T14:00:00.123+0200" 1
   [ "$status" -eq 0 ]
@@ -53,7 +53,7 @@ fi
 
 }
 
-@test "addDays return the date during Summer daylight saving" {
+@test "addMonths returns the date during Summer daylight saving" {
   export TZ="Europe/Paris"
   # Summer Time 
   run DateUtils.addMonths "2024-03-01T14:00:00.123+0100" 1 
@@ -66,7 +66,7 @@ fi
 }
 
 
-@test "addDays return the date during Winter daylight saving" {
+@test "addMonths return the date during Winter daylight saving" {
   export TZ="Europe/Paris"
   # Winter Time  
   run DateUtils.addMonths "2024-10-01T14:00:00.123+0200" 1
