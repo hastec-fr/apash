@@ -2,28 +2,51 @@
 
 apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
+apash.import "fr.hastec.apash.commons-lang.CsvUtils.merge"
 
 apash.compatibility(){
+  local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
+  true > "$globalCampaignFile"
   apash.compatibility.addVersion "bash" "5.2"
+  apash.compatibility.addVersion "bash" "4.0"
 }
 
 apash.compatibility.addVersion(){
   local shellName="$1"
   local shellVersion="$2"
-  local resultTestFile="$APASH_HOME_DIR/tmp/${shellName}_${shellVersion}"
+  local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
+  local shellFormattedCampaignFile="$APASH_HOME_DIR/tmp/apash_fmt_${shellName}_${shellVersion}.tmp"
   local functionName
   local -A functionMap=()
 
+  # Build and run a container with apash test.
+  docker build --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY_TO=/home/apash/.apash" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" "apash test --bats-options '-t -r'" | tee "$shellCampaignFile"
+
   while IFS= read -r line; do
+    # Keep only lines with ok/not ok
+    StringUtils.startsWith "$line" "ok" || StringUtils.startsWith "$line" "not ok" || continue
     StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $3}') \
                                         || functionName=$(echo "$line" | awk '{print $4}')
     [ -z "$functionName" ] && continue
     MapUtils.containsKey "functionMap" "$functionName" || functionMap["$functionName"]="ok"
     StringUtils.startsWith "$line" "not ok" && functionMap["$functionName"]="ko"
-  done < <(apash test --bats-options "-t" "$APASH_HOME_DIR/test/$shellName/commons-lang/DateUtils")
+  done < "$shellCampaignFile"
 
-  echo "function,${shellName}_${shellVersion}" > "$resultTestFile"
+  echo "function,${shellName}_${shellVersion}" > "$shellFormattedCampaignFile"
   for key in "${!functionMap[@]}"; do
-    echo "$key,${functionMap[$key]}"
+    echo "$key,${functionMap[$key]}" >> "$shellFormattedCampaignFile"
   done
+
+  # If the global result file does not exist or is empty, then copy the current shell results
+  # Else merge the result with the existing file.
+  [ ! -f "$globalCampaignFile" ] && true > "$globalCampaignFile"
+  if [ -s "$globalCampaignFile" ]; then
+    CsvUtils.merge "$globalCampaignFile" "$shellFormattedCampaignFile" > "$globalCampaignFile.tmp"
+    mv "$globalCampaignFile.tmp" "$globalCampaignFile"
+  else
+    cat "$shellFormattedCampaignFile" > "$globalCampaignFile"
+  fi
+
+  # rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
 }

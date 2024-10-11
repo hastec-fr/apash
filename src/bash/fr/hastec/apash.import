@@ -8,7 +8,7 @@ apash.import(){
   [ "$1" = "-f" ] && forceFlag=true && shift
 
   for l in "$@"; do
-    location="$APASH_BASH_DIR/${l//./\/}"
+    location="$APASH_BASH_DIR/"${l//./\/}
     # Import package
     if [ -d "$location" ]; then
       location="$location/*.sh"
@@ -26,15 +26,15 @@ apash.import(){
     
     # Check if raw value is a package
     elif [ -d "$l" ]; then
-      location="$l/*.sh"
-      for lib in $location; do
+      location="$l"
+      for lib in "$location"/*.sh; do
         libs+=("$lib")
       done
 
     # Check if relative raw value is a package
     elif [ -d "$APASH_BASH_DIR/$l" ]; then
-      location="$APASH_BASH_DIR/$l/*.sh"
-      for lib in $location; do
+      location="$APASH_BASH_DIR/$l"
+      for lib in "$location"/*.sh; do
         libs+=("$lib")
       done
     
