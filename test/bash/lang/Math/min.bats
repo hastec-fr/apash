@@ -12,7 +12,7 @@ setup_file(){
 }
 
 
-@test "min returns empty value when at least one input is not parsable " {
+@test "Math.min returns empty value when at least one input is not parsable " {
   run --separate-stderr Math.min
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -35,7 +35,7 @@ setup_file(){
 }
 
 
-@test "min returns the smaller of two number values." {
+@test "Math.min returns the smaller of two number values." {
   run --separate-stderr Math.min "0" "1"
   [ "$output" = "0" ]
 

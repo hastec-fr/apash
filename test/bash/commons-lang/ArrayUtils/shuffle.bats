@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "shuffle fails when the input does not refer to an array" {
+@test "ArrayUtils.shuffle fails when the input does not refer to an array" {
   run ArrayUtils.shuffle
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "shuffle succeed when the reference is an array" {
+@test "ArrayUtils.shuffle succeed when the reference is an array" {
   myArray=("a" "b" "c" "d")
   ArrayUtils.shuffle "myArray"
   [ "${#myArray[@]}" -eq 4  ]

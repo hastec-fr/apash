@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "getLength fails when the input name does not refere to an array" {
+@test "ArrayUtils.getLength fails when the input name does not refere to an array" {
   run ArrayUtils.getLength
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "getLength succeed when input reference is an array" {
+@test "ArrayUtils.getLength succeed when input reference is an array" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.getLength "myArray"
   [ "$status" -eq 0  ]

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isDigits returns false when the input number is empty " {
+@test "NumberUtils.isDigits returns false when the input number is empty " {
   run NumberUtils.isDigits
   [ "$status" -eq 1 ]
 
@@ -15,7 +15,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isDigits returns false when the string other char than digits" {
+@test "NumberUtils.isDigits returns false when the string other char than digits" {
   run NumberUtils.isDigits "-12"
   [ "$status" -eq 1 ]
   
@@ -29,7 +29,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isDigits returns true when the string has only digits characters" {
+@test "NumberUtils.isDigits returns true when the string has only digits characters" {
   NumberUtils.isDigits "123"
   
   NumberUtils.isDigits "000"

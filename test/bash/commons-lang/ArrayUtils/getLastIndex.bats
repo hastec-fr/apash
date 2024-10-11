@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "getLastIndex fails when the inputs do not refere to an array" {
+@test "ArrayUtils.getLastIndex fails when the inputs do not refere to an array" {
   run ArrayUtils.getLastIndex
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -34,14 +34,14 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "getLastIndex succeed and return empty string when the array is empty" {
+@test "ArrayUtils.getLastIndex succeed and return empty string when the array is empty" {
   myArray=()
   run ArrayUtils.getLastIndex "myArray"
   [ "$status" -eq 0  ]
   [ "$output" = ""   ]
 }
 
-@test "getLastIndex succeed when references are arrays and value is present" {
+@test "ArrayUtils.getLastIndex succeed when references are arrays and value is present" {
   local myArray=("a" "b" "" "c" "b")
   run ArrayUtils.getLastIndex "myArray"
   [ "$status" -eq 0  ]

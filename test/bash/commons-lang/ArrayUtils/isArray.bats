@@ -8,7 +8,7 @@ else
 fi
 
 
-@test "isArray fails when the input name does not refere an array" {
+@test "ArrayUtils.isArray fails when the input name does not refere an array" {
   run ArrayUtils.isArray
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "isArray returns success when the input argument is an array" {
+@test "ArrayUtils.isArray returns success when the input argument is an array" {
   local myArray=()
   ArrayUtils.isArray "myArray"
 

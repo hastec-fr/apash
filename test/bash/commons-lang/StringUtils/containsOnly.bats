@@ -7,11 +7,11 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "containsOnly succeed without arguments" {
+@test "StringUtils.containsOnly succeed without arguments" {
   StringUtils.containsOnly
 }
 
-@test "containsOnly succeed with empty input string" {
+@test "StringUtils.containsOnly succeed with empty input string" {
   StringUtils.containsOnly ""
 
   StringUtils.containsOnly "" ""
@@ -19,18 +19,18 @@ fi
   StringUtils.containsOnly "" "abc"
 }
 
-@test "containsOnly succeed when string contains only provided characters" {
+@test "StringUtils.containsOnly succeed when string contains only provided characters" {
   StringUtils.containsOnly "abab" "abc"
 
   StringUtils.containsOnly "a[b" "a[bc"
 }
 
-@test "containsOnly failed when inputs string is not null but charsequence is" {
+@test "StringUtils.containsOnly failed when inputs string is not null but charsequence is" {
   run StringUtils.containsOnly "abc" ""
   [ "$status" -eq 1 ]
 }
 
-@test "containsOnly failed when string does not contains only provided characters" {
+@test "StringUtils.containsOnly failed when string does not contains only provided characters" {
   run StringUtils.containsOnly "ab1" "abc"
   [ "$status" -eq 1 ]
 

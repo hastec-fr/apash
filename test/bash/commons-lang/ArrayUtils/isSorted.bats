@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isSorted fails when the input do not refer to an array" {
+@test "ArrayUtils.isSorted fails when the input do not refer to an array" {
   run ArrayUtils.isSorted
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "isSorted succeed when the input array is sorted in natural order" {
+@test "ArrayUtils.isSorted succeed when the input array is sorted in natural order" {
   local myArray=()
   run ArrayUtils.isSorted "myArray"
   [ "$status" -eq 0  ]
@@ -66,7 +66,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isSorted fails when the input array is not sorted in natural order" {
+@test "ArrayUtils.isSorted fails when the input array is not sorted in natural order" {
   myArray=("a" "c" "b")
   run ArrayUtils.isSorted "myArray"
   [ "$status" -eq 1  ]

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "addFirst fails when the input name does not refere to an array" {
+@test "ArrayUtils.addFirst fails when the input name does not refere to an array" {
   run ArrayUtils.addFirst
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -35,7 +35,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addFirst succeed and force input transformation" {
+@test "ArrayUtils.addFirst succeed and force input transformation" {
   unset myArray
   ArrayUtils.addFirst "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]
@@ -43,7 +43,7 @@ fi
 
 }
 
-@test "addFirst succeed when reference is an array and a value is declared" {
+@test "ArrayUtils.addFirst succeed when reference is an array and a value is declared" {
   local myArray=()
   ArrayUtils.addFirst "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]
@@ -63,7 +63,7 @@ fi
   [ "${myArray[2]}" == "a"  ]
 }
 
-@test "addFirst fails when more than 1 value is provided" {
+@test "ArrayUtils.addFirst fails when more than 1 value is provided" {
   local myArray=("a" "b")
   run ArrayUtils.addFirst "myArray"
   [ "$status" -eq 1 ]

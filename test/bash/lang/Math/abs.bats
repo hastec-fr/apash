@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "absolute returns empty value when the input number is not parsable " {
+@test "Math.abs returns empty value when the input number is not parsable " {
   run Math.abs
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -58,7 +58,7 @@ fi
 }
 
 
-@test "absolute returns the absolute value of the argument." {
+@test "Math.abs returns the absolute value of the argument." {
   run Math.abs "123"
   [ "$output" = "123" ]
 

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isNotEmpty fails when the input do not refere to an array" {
+@test "ArrayUtils.isNotEmpty fails when the input do not refere to an array" {
   run ArrayUtils.isNotEmpty
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "isNotEmpty succeed when the input array has at least one element" {
+@test "ArrayUtils.isNotEmpty succeed when the input array has at least one element" {
   myArray=("a")
   run ArrayUtils.isNotEmpty "myArray"
   [ "$status" -eq 0  ]
@@ -51,7 +51,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isNotEmpty fails when the input array does not have elements" {
+@test "ArrayUtils.isNotEmpty fails when the input array does not have elements" {
   myArray=()
   run ArrayUtils.isNotEmpty "myArray"
   [ "$status" -eq 1  ]

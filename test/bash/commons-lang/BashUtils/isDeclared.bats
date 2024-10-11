@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isDeclared fails when the input name is not a valid variable name" {
+@test "BashUtils.isDeclared fails when the input name is not a valid variable name" {
   run BashUtils.isDeclared
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -21,7 +21,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "isDeclared succeed when the variable has been declared" {
+@test "BashUtils.isDeclared succeed when the variable has been declared" {
   local myVar="myValue"
   BashUtils.isDeclared "myVar"
 

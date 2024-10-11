@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "reverse fails when the input does not refer to an array" {
+@test "ArrayUtils.reverse fails when the input does not refer to an array" {
   run ArrayUtils.reverse
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "reverse succeed when the reference is an array" {
+@test "ArrayUtils.reverse succeed when the reference is an array" {
   myArray=("a" "b" "c" "d")
   ArrayUtils.reverse "myArray"
   [ "${#myArray[@]}" -eq 4  ]
@@ -86,7 +86,7 @@ fi
   [ "${myArray[4]}" == "d"  ]
 }
 
-@test "reverse succeed even when indexes are not in the bounds" {
+@test "ArrayUtils.reverse succeed even when indexes are not in the bounds" {
   myArray=("a" "b" "c" "" "d")
   ArrayUtils.reverse "myArray" -1
   [ "${#myArray[@]}" -eq 5  ]
@@ -152,7 +152,7 @@ fi
   
 }
 
-@test "reverse fails when the indexes are not numbers" {
+@test "ArrayUtils.reverse fails when the indexes are not numbers" {
 
   myArray=("a" "b" "c" "" "d")
   run ArrayUtils.reverse "myArray" "a"

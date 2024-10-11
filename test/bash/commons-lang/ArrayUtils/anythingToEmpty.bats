@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "anythingToEmpty fails when the input name is not a valid variable name" {
+@test "ArrayUtils.anythingToEmpty fails when the input name is not a valid variable name" {
   run ArrayUtils.anythingToEmpty
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -30,7 +30,7 @@ fi
 
 }
 
-@test "anythingToEmpty erase old reference if the name is a valid variable" {
+@test "ArrayUtils.anythingToEmpty erase old reference if the name is a valid variable" {
   myVar=test
   ArrayUtils.anythingToEmpty "myVar"
   [ "${#myVar[@]}" -eq 0  ]
@@ -45,7 +45,7 @@ fi
   [ "${#myMap[@]}" -eq 0  ]
 }
 
-@test "anythingToEmpty succeed when reference if name is a valid array or not exists " {
+@test "ArrayUtils.anythingToEmpty succeed when reference if name is a valid array or not exists " {
   unset "myArray"
   ArrayUtils.anythingToEmpty "myArray"
   [ "${#myArray[@]}" -eq 0  ]
@@ -55,7 +55,7 @@ fi
   [ "${#myArray[@]}" -eq 0  ]
 }
 
-@test "anythingToEmpty does not preserve array if it already contains values" {
+@test "ArrayUtils.anythingToEmpty does not preserve array if it already contains values" {
   myArray=("a" "b")
   ArrayUtils.anythingToEmpty "myArray"
   [ "${#myArray[@]}" -eq 0 ]

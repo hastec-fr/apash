@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "replace returns an empty string when the input string is empty " {
+@test "StringUtils.replace returns an empty string when the input string is empty " {
   run StringUtils.replace "" "" ""
   [ "$output" == ""  ]
 
@@ -15,7 +15,7 @@ fi
   [ "$output" == ""  ]
 }
 
-@test "replace returns the full string if the substring to remove is empty " {
+@test "StringUtils.replace returns the full string if the substring to remove is empty " {
   run StringUtils.replace "any" "" "d"
   [ "$output" == "any"  ]
   
@@ -23,7 +23,7 @@ fi
   [ "$output"  == $'ab:cd:\nef'  ]
 }
 
-@test "replace returns the string without occurence of the substring if replacement is empty " {
+@test "StringUtils.replace returns the string without occurence of the substring if replacement is empty " {
   run StringUtils.replace "ab:cd:ef" ":" ""
   [ "$output" == "abcdef" ]
 
@@ -46,12 +46,12 @@ fi
   [ "$output" == "b" ]
 }
 
-@test "replace returns the orginal string if no occurence of the substring occurs" {
+@test "StringUtils.replace returns the orginal string if no occurence of the substring occurs" {
   run StringUtils.replace "aba"  "z"   "x"
   [ "$output" == "aba" ]
 }
 
-@test "replace returns the string with any replacements processed" {
+@test "StringUtils.replace returns the string with any replacements processed" {
   run StringUtils.replace "aba"  "a"   "z"
   [ "$output" == "zbz" ]
 

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "sort fails when the input do not refer to an array" {
+@test "Array.sort fails when the input do not refer to an array" {
   run Array.sort
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -30,14 +30,14 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "sort transform the wrong reference to empty array " {
+@test "Array.sort transform the wrong reference to empty array " {
   unset myArray
   Array.sort "myArray"
   [ "${#myArray[@]}" -eq 0 ]
 }
 
 
-@test "sort succeed when the reference is an array" {
+@test "Array.sort succeed when the reference is an array" {
   local myArray=()
   Array.sort "myArray"
   [ "${#myArray[@]}" -eq 0 ]

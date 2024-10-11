@@ -7,12 +7,12 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "lowerCase returns an empty string when input string is empty " {
+@test "StringUtils.lowerCase returns an empty string when input string is empty " {
   run StringUtils.lowerCase "" "" ""
   [ "$output" == ""  ]  
 }
 
-@test "lowerCase convert string to upper case" {
+@test "StringUtils.lowerCase convert string to upper case" {
   run StringUtils.lowerCase "ABC"
   [ "$output" == "abc"  ]
   

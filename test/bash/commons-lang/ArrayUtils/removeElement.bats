@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "removeElement fails when the input does not refer to an array" {
+@test "ArrayUtils.removeElement fails when the input does not refer to an array" {
   run ArrayUtils.removeElement
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "removeElement succeed when the reference is an array" {
+@test "ArrayUtils.removeElement succeed when the reference is an array" {
   myArray=("a" "b" "a" "c" "" "d")
   ArrayUtils.removeElement "myArray" "a"
   [ "${#myArray[@]}" -eq 5  ]

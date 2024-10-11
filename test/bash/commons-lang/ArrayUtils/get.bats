@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "contains fails when the input name does not refere to an array" {
+@test "ArrayUtils.get fails when the input name does not refere to an array" {
   run ArrayUtils.get
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "get succeed when reference is an array and index exists" {
+@test "ArrayUtils.get succeed when reference is an array and index exists" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.get "myArray" "0"
   [ "$status" -eq 0  ]
@@ -50,7 +50,7 @@ fi
   [ "$output" = "c"  ]
 }
 
-@test "get fails when index is not present into the array" {
+@test "ArrayUtils.get fails when index is not present into the array" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.get "myArray" "-1"
   [ "$status" -eq 1 ]
@@ -61,7 +61,7 @@ fi
   [ "$output" = ""  ] 
 }
 
-@test "get succeed when index is out of bound but a default value is provided" {
+@test "ArrayUtils.get succeed when index is out of bound but a default value is provided" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.get "myArray" "-1" " "
   [ "$status" -eq 0 ]

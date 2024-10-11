@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "toArray fails when the input does not refer to an array" {
+@test "ArrayUtils.toArray fails when the input does not refer to an array" {
   run ArrayUtils.toArray
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "toArray succeed when the reference is an array" {
+@test "ArrayUtils.toArray succeed when the reference is an array" {
   myArray=()
   ArrayUtils.toArray "myArray" 2
   [ "${#myArray[@]}" -eq 1  ]

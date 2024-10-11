@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "addMonths fails because format is not respected" {
+@test "DateUtils.addMonths fails because format is not respected" {
   run DateUtils.addMonths
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -33,7 +33,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addMonths returns the date with the number of minute to add" {
+@test "DateUtils.addMonths returns the date with the number of minute to add" {
   export TZ="Europe/Paris"
   run DateUtils.addMonths "2024-04-01T14:00:00.123+0200" 1
   [ "$status" -eq 0 ]
@@ -53,7 +53,7 @@ fi
 
 }
 
-@test "addMonths returns the date during Summer daylight saving" {
+@test "DateUtils.addMonths returns the date during Summer daylight saving" {
   export TZ="Europe/Paris"
   # Summer Time 
   run DateUtils.addMonths "2024-03-01T14:00:00.123+0100" 1 
@@ -66,7 +66,7 @@ fi
 }
 
 
-@test "addMonths return the date during Winter daylight saving" {
+@test "DateUtils.addMonths return the date during Winter daylight saving" {
   export TZ="Europe/Paris"
   # Winter Time  
   run DateUtils.addMonths "2024-10-01T14:00:00.123+0200" 1

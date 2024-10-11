@@ -4,11 +4,11 @@ source $( dirname "$BATS_TEST_FILENAME" )/../../../../src/bash/fr/hastec/apash.s
 apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 
 
-@test "isAnyEmpty succeed without argument" {
+@test "StringUtils.isAnyEmpty succeed without argument" {
   StringUtils.isAnyEmpty
 }
 
-@test "isAnyEmpty succeed with at least an empty argument" {
+@test "StringUtils.isAnyEmpty succeed with at least an empty argument" {
   StringUtils.isAnyEmpty ""
 
   StringUtils.isAnyEmpty "" "foo"
@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 }
 
 
-@test "isAnyEmpty failed with only non empty argument" {
+@test "StringUtils.isAnyEmpty failed with only non empty argument" {
   run StringUtils.isAnyEmpty " "
   [ "$status" -eq 1 ]
 

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "addWeeks fails because format is not respected" {
+@test "DateUtils.addWeeks fails because format is not respected" {
   run DateUtils.addWeeks
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -33,7 +33,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addWeeks returns the date with the number of seconds to add" {
+@test "DateUtils.addWeeks returns the date with the number of seconds to add" {
   export TZ="Europe/Paris"
   run DateUtils.addWeeks "2024-04-01T14:00:00.123+0200" 1
   [ "$status" -eq 0 ]

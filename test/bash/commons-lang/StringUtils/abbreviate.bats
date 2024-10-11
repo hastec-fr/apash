@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "abbreviate fails without valid max length" {
+@test "StringUtils.abbreviate fails without valid max length" {
   run StringUtils.abbreviate
   [ "$status" -eq 1 ]
 
@@ -18,7 +18,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "abbreviate succeed with only max width value declared" {
+@test "StringUtils.abbreviate succeed with only max width value declared" {
   run StringUtils.abbreviate "" 4
   [ "$status" -eq 0 ]
   [ "$output" = ""  ]
@@ -40,12 +40,12 @@ fi
   [ "$output" = "a..."  ]
 }
 
-@test "abbreviate fails with only max width value declared" {
+@test "StringUtils.abbreviate fails with only max width value declared" {
   run StringUtils.abbreviate "abcdefg" 3
   [ "$status" -eq 1 ]
 }
 
-@test "abbreviate succedd with only max width and offset declared" {
+@test "StringUtils.abbreviate succedd with only max width and offset declared" {
   run StringUtils.abbreviate "" 4 0
   [ "$status" -eq 0 ]
   [ "$output" = ""  ]
@@ -87,7 +87,7 @@ fi
   [ "$output" = "...ijklmno" ]
 }
 
-@test "abbreviate failed with only max width and offset declared" {
+@test "StringUtils.abbreviate failed with only max width and offset declared" {
   run StringUtils.abbreviate "abcdefghij" 3 0
   [ "$status" -eq 1 ]
   [ "$output" = ""   ]
@@ -97,7 +97,7 @@ fi
   [ "$output" = ""   ]  
 }
 
-@test "abbreviate succeed with everything declared" {
+@test "StringUtils.abbreviate succeed with everything declared" {
   run StringUtils.abbreviate "" 4 0 "..."
   [ "$status" -eq 0 ]
   [ "$output" = ""   ]
@@ -140,7 +140,7 @@ fi
 
 }
 
-@test "abbreviate failed with everything declared" {
+@test "StringUtils.abbreviate failed with everything declared" {
   run StringUtils.abbreviate "abcdefghij" 4 0 "abra"
   [ "$status" -eq 1 ]
   [ "$output" = "" ]

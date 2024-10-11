@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "split returns an empty array when the input string is empty " {
+@test "StringUtils.splitPreserveAllTokens returns an empty array when the input string is empty " {
   local myArray=()
   StringUtils.splitPreserveAllTokens myArray "" ""
   [ "${#myArray[@]}" -eq 0 ]
@@ -16,7 +16,7 @@ fi
   [ "${#myArray[@]}" -eq 0 ]
 }
 
-@test "split returns the full string if the delimiter is empty " {
+@test "StringUtils.splitPreserveAllTokens returns the full string if the delimiter is empty " {
   local myArray=()
   StringUtils.splitPreserveAllTokens myArray "ab:cd:ef" ""
   [ "${#myArray[@]}" -eq 1 ]
@@ -27,7 +27,7 @@ fi
   [ "${myArray[0]}"  == $'ab:cd:\nef'  ]
 }
 
-@test "split returns the correct number of elements according to sequence occurence " {
+@test "StringUtils.splitPreserveAllTokens returns the correct number of elements according to sequence occurence " {
   local myArray=()
   StringUtils.splitPreserveAllTokens myArray "ab:cd:ef" ":"
   [ "${#myArray[@]}" -eq 3 ]
@@ -48,7 +48,7 @@ fi
   [ "${myArray[1]}" == ":ef" ]
 }
 
-@test "split returns empty value when adjacent delimiter are encountered" {
+@test "StringUtils.splitPreserveAllTokens returns empty value when adjacent delimiter are encountered" {
   local myArray=()
   StringUtils.splitPreserveAllTokens myArray "ab::cd:ef" ":"
   [ "${#myArray[@]}" -eq 4  ]

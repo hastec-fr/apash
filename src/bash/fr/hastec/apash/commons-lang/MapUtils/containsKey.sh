@@ -43,10 +43,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 MapUtils.containsKey() {
    local inMapName="$1"
    local inKey="$2"
+   local k
 
    MapUtils.isMap "$inMapName" || return "$APASH_FUNCTION_FAILURE"
    local -n inMap="$inMapName"
 
-   [[ -v inMap["$inKey"] ]] && return "$APASH_FUNCTION_SUCCESS"
+   for k in "${!inMap[@]}"; do
+      [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
+   done
    return "$APASH_FUNCTION_FAILURE"
 }

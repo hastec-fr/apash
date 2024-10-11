@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "clone fails when the input name does not refere to an array" {
+@test "ArrayUtils.clone fails when the input name does not refere to an array" {
   run ArrayUtils.clone
   [ "$status" -eq 1 ]
 
@@ -37,7 +37,7 @@ fi
   [ "${#myClone[@]}" -eq 1  ]
 }
 
-@test "clone succeed when references are arrays" {
+@test "ArrayUtils.clone succeed when references are arrays" {
   local myArray=()
   local myClone=("a")
   ArrayUtils.clone "myArray" "myClone"

@@ -316,7 +316,7 @@ executeApashTest(){
   parseApashTestArgs "$@" || return
   shift $APASH_NB_ARGS
   APASH_BATS_FILES=("$@")
-  [ $# -eq 0 ] && APASH_BATS_FILES=("$APASH_HOME_DIR/test")
+  [ $# -eq 0 ] && APASH_BATS_FILES=("$APASH_HOME_DIR/test/$APASH_SHELL")
   
   # Split word intentionnaly the bats options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then

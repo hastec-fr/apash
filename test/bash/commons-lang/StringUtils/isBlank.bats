@@ -7,32 +7,32 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isBlank succeed without argument" {
+@test "StringUtils.isBlank succeed without argument" {
   StringUtils.isBlank
 }
 
-@test "isBlank succeed with an empty argument" {
+@test "StringUtils.isBlank succeed with an empty argument" {
   StringUtils.isBlank ""
 }
 
-@test "isBlank succeed with a blank argument" {
+@test "StringUtils.isBlank succeed with a blank argument" {
   StringUtils.isBlank " "
 }
 
-@test "isBlank succeed with multiple spaces argument" {
+@test "StringUtils.isBlank succeed with multiple spaces argument" {
   StringUtils.isBlank "    "
 }
 
-@test "isBlank succeed with a tab argument" {
+@test "StringUtils.isBlank succeed with a tab argument" {
   StringUtils.isBlank "	"
 }
 
-@test "isBlank failed with a non empty argument" {
+@test "StringUtils.isBlank failed with a non empty argument" {
   run StringUtils.isBlank "Hello World"  
   [ "$status" -eq 1 ]
 }
 
-@test "isBlank failed with a non empty argument starting and finising by spaces" {
+@test "StringUtils.isBlank failed with a non empty argument starting and finising by spaces" {
   run StringUtils.isBlank "   Hello World   "  
   [ "$status" -eq 1 ]
 }

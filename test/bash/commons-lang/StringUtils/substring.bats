@@ -7,11 +7,11 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "substring returns empty when no arguments " {
+@test "StringUtils.substring returns empty when no arguments " {
   run StringUtils.substring
 }
 
-@test "substring returns empty when the input argument is empty" {
+@test "StringUtils.substring returns empty when the input argument is empty" {
   run StringUtils.substring ""
   [ "$output" = "" ]
 
@@ -22,7 +22,7 @@ fi
   [ "$output" = "" ]
 }
 
-@test "substring returns correct substring for nominal cases" {
+@test "StringUtils.substring returns correct substring for nominal cases" {
   run StringUtils.substring "abc" 0 2
   [ "$output" = "ab" ]
 
@@ -42,22 +42,22 @@ fi
   [ "$output" = "c" ]
 }
 
-@test "substring returns empty when the indexes are equal" {
+@test "StringUtils.substring returns empty when the indexes are equal" {
   run StringUtils.substring "abc" 2 2
   [ "$output" = "" ]
 }
 
-@test "substring returns empty when start is greater than end" {
+@test "StringUtils.substring returns empty when start is greater than end" {
   run StringUtils.substring "abc" 2 0
   [ "$output" = "" ]
 }
 
-@test "substring returns empty when start is greater than string" {
+@test "StringUtils.substring returns empty when start is greater than string" {
   run StringUtils.substring "abc" 4 6
   [ "$output" = "" ]
 }
 
-@test "substring returns empty when end is less than 0" {
+@test "StringUtils.substring returns empty when end is less than 0" {
   run StringUtils.substring "abc" -4 -6
   [ "$output" = "" ]
 }

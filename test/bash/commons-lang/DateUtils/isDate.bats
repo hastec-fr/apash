@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isDate fails because format is not respected" {
+@test "DateUtils.isDate fails because format is not respected" {
   run DateUtils.isDate
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -51,7 +51,7 @@ fi
 
 
 
-@test "isDate because it can be parsed by date utils" {
+@test "DateUtils.isDate because it can be parsed by date utils" {
   run DateUtils.isDate "2022-03-14T14:30:45.123+0200"
   [ "$status" -eq 0 ]
   [ "$output" = ""  ]

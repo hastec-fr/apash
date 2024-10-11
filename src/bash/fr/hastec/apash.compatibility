@@ -3,12 +3,16 @@
 apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
 apash.import "fr.hastec.apash.commons-lang.CsvUtils.merge"
+apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
+apash.import "fr.hastec.apash.commons-lang.StringUtils.splitPreserveAllTokens"
+apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 
 apash.compatibility(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
   true > "$globalCampaignFile"
   apash.compatibility.addVersion "bash" "5.2"
   apash.compatibility.addVersion "bash" "4.0"
+
 }
 
 apash.compatibility.addVersion(){
@@ -43,10 +47,55 @@ apash.compatibility.addVersion(){
   [ ! -f "$globalCampaignFile" ] && true > "$globalCampaignFile"
   if [ -s "$globalCampaignFile" ]; then
     CsvUtils.merge "$globalCampaignFile" "$shellFormattedCampaignFile" > "$globalCampaignFile.tmp"
-    mv "$globalCampaignFile.tmp" "$globalCampaignFile"
+    cp "$globalCampaignFile.tmp" "$globalCampaignFile"
   else
     cat "$shellFormattedCampaignFile" > "$globalCampaignFile"
   fi
 
-  # rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
+  rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
+}
+
+apash.compatibility.toMarkDown(){
+  local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"  
+  local s v shellName shellVersion result;
+  local -a shells=() versions=() results=()
+  local -A shellsMap=()
+  export APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
+
+  StringUtils.split shells "$(head -n 1 "$globalCampaignFile")" ","
+  ArrayUtils.remove shells 0   # Remove the function header
+  for s in "${shells[@]}"; do
+    shellName="${s%%_*}"
+    shellVersion="${s#*_}"
+    shellsMap[$shellName]+="$shellVersion "
+  done
+
+  # Get shell campaigns
+  for s in "${!shellsMap[@]}"; do
+    StringUtils.split versions "${shellsMap[$s]}"
+    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'>${s}</th>"
+    for v in "${versions[@]}"; do
+      APASH_SHELL_VERSIONS+="<th>$v</th>"
+    done
+  done
+
+  # Get campaign results
+  APASH_FUNCTION_RESULTS=""
+  while IFS= read -r line; do
+    StringUtils.splitPreserveAllTokens results "$line" ","
+    APASH_FUNCTION_RESULTS+="<tr>"
+    APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
+    ArrayUtils.remove results 0
+
+    for r in "${results[@]}"; do
+      [ "$r" = ""   ] && result=""
+      [ "$r" = "ok" ] && result="✅"
+      [ "$r" = "ko" ] && result="❌"
+      APASH_FUNCTION_RESULTS+="<th>${result}</th>"
+    done
+    APASH_FUNCTION_RESULTS+="</tr>"
+  done < <(tail -n +2 "$globalCampaignFile" | sort)
+
+  envsubst < "$APASH_HOME_DIR/utils/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibility.md"
+  unset APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
 }

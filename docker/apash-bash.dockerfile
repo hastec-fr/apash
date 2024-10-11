@@ -22,12 +22,17 @@ RUN apk update && \
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
 
+# Conditional copy, by default it's send to /dev/null
+COPY --chown=apash:tribe "." "${APASH_LOCAL_COPY_TO}"
+
+# Change directly the user rights to apash user
+# RUN [ -d /home/apash/.apash ] && chown -r apash:tribe /home/apash/.apash
+
 USER apash
 WORKDIR /home/apash
 SHELL ["/usr/local/bin/bash", "-c"]
 
-# Conditional copy, by default it's send to /dev/null
-COPY "." "${APASH_LOCAL_COPY_TO}"
+
 
 # By default, the version from github is selected.
 RUN if [ "${APASH_LOCAL_COPY_TO}" = "/dev/null" ]; then \

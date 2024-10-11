@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "indexesOf fails when the inputs do not refere to an array" {
+@test "ArrayUtils.indexesOf fails when the inputs do not refere to an array" {
   run ArrayUtils.indexesOf
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "indexesOf succeed when references are arrays" {
+@test "ArrayUtils.indexesOf succeed when references are arrays" {
   unset myIndexes
   local myArray=("a" "b" "" "c" "b")
   ArrayUtils.indexesOf "myIndexes" "myArray" "a"
