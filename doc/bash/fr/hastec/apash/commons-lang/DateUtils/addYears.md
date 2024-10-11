@@ -7,14 +7,14 @@
   # Apash
 </div>
 
-# DateUtils.addMonths
+# DateUtils.addYears
 
-Adds a number of hours to a date returning a new date.
+Adds a number of years to a date returning a new date.
 
 ## Overview
 
 ### Since:
-0.1.0
+0.2.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -26,25 +26,24 @@ Adds a number of hours to a date returning a new date.
 
 ## Index
 
-* [DateUtils.addMonths](#dateutilsaddmonths)
+* [DateUtils.addYears](#dateutilsaddyears)
 
-### DateUtils.addMonths
+### DateUtils.addYears
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
 | $1     | inDate         | date          | in       |            | The date in UTC format.               |
-| $2 ?   | inAmount       | number        | in       | 0          | The amount of months to add, may be negative. |
+| $2 ?   | inAmount       | number        | in       | 0          | The amount of weeks to add, may be negative. |
 
 #### Example
 
 ```bash
-DateUtils.addMonths ""                               ""    # failure - ""
-DateUtils.addMonths "0"                              ""    # failure - ""
-DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "1"   # 2024-05-01T14:00:00.123+0200
-DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "-1"  # 2024-03-01T14:00:00.123+0100
-DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "12"  # 2025-04-01T14:00:00.123+0200
-DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "1.2" # failure - ""
+DateUtils.addYears ""                               ""    # failure - ""
+DateUtils.addYears "0"                              ""    # failure - ""
+DateUtils.addYears "2024-04-01T14:00:00.123+0200"   "1"   # 2025-04-01T14:00:00.123+0200
+DateUtils.addYears "2024-04-01T14:00:00.123+0200"   "-1"  # 2023-04-01T14:00:00.123+0200
+DateUtils.addYears "2024-04-01T14:00:00.123+0200"   "1.2" # failure - ""
 ```
 
 #### Exit codes
@@ -54,7 +53,7 @@ DateUtils.addMonths "2024-04-01T14:00:00.123+0200"   "1.2" # failure - ""
 
 #### Output on stdout
 
-* The new Date with the added amount of months.
+* The new Date with the added amount of seconds.
 
 #### Output on stderr
 

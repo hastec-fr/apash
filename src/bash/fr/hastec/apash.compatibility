@@ -9,10 +9,15 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 
 apash.compatibility(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
+  local v
+  local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2 4.1 4.0)
   true > "$globalCampaignFile"
-  apash.compatibility.addVersion "bash" "5.2"
-  apash.compatibility.addVersion "bash" "4.0"
+  
+  for v in "${bashVersions[@]}"; do
+    apash.compatibility.addVersion "bash" "$v"
+  done
 
+  apash.compatibility.toMarkDown
 }
 
 apash.compatibility.addVersion(){
@@ -52,7 +57,7 @@ apash.compatibility.addVersion(){
     cat "$shellFormattedCampaignFile" > "$globalCampaignFile"
   fi
 
-  rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
+  # rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
 }
 
 apash.compatibility.toMarkDown(){
@@ -96,6 +101,6 @@ apash.compatibility.toMarkDown(){
     APASH_FUNCTION_RESULTS+="</tr>"
   done < <(tail -n +2 "$globalCampaignFile" | sort)
 
-  envsubst < "$APASH_HOME_DIR/utils/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibility.md"
+  envsubst < "$APASH_HOME_DIR/utils/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibilityTable.md"
   unset APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
 }

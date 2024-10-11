@@ -18,7 +18,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
-# |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
+# |[merge](CsvUtils/merge.md)|Merge two csv files according to their columns keys|
 # <!-- apash.summaryTableEnd -->
 
 

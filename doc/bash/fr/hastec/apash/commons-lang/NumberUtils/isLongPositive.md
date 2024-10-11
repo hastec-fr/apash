@@ -7,9 +7,9 @@
   # Apash
 </div>
 
-# NumberUtils.isLong
+# NumberUtils.isLongPositive
 
-Checks whether the String contains has the form of a valid long integer.
+Checks whether the String contains has the form of a valid long positive integer.
 
 ## Overview
 
@@ -29,9 +29,9 @@ optional minus first and digits after are considered as valid.
 
 ## Index
 
-* [NumberUtils.isLong](#numberutilsislong)
+* [NumberUtils.isLongPositive](#numberutilsislongpositive)
 
-### NumberUtils.isLong
+### NumberUtils.isLongPositive
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
@@ -41,24 +41,19 @@ optional minus first and digits after are considered as valid.
 #### Example
 
 ```bash
-NumberUtils.isLong ""                      # false
-NumberUtils.isLong "a"                     # false
-NumberUtils.isLong "a12"                   # false
-NumberUtils.isLong "-12"                   # true
-NumberUtils.isLong "--12"                  # false
-NumberUtils.isLong "1-2"                   # false
-NumberUtils.isLong "1.2"                   # false
-NumberUtils.isLong " 12"                   # false
-NumberUtils.isLong "123"                   # true
-NumberUtils.isLong "000"                   # true
-NumberUtils.isLong "-9223372036854775808"  # true
-NumberUtils.isLong "9223372036854775807"   # true
-NumberUtils.isLong "9223372036854775808"   # false
+NumberUtils.isLongPositive "0"                    # true
+NumberUtils.isLongPositive "1"                    # true
+NumberUtils.isLongPositive "9223372036854775807"  # true
+NumberUtils.isLongPositive "9223372036854775808"  # false
+NumberUtils.isLongPositive "-1"                   # false
+NumberUtils.isLongPositive "1.2"                  # false
+NumberUtils.isLongPositive "a"                    # false
+NumberUtils.isLongPositive                        # false
 ```
 
 #### Exit codes
 
-* **0**: When the input string is a long integer.
+* **0**: When the input string is a long int.
 * **1**: When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 
 #### Output on stdout

@@ -7,14 +7,14 @@
   # Apash
 </div>
 
-# MapUtils.isMap
+# MapUtils.containsKey
 
-Check if the input name is an map or not.
+Check if the input value is present in the input map.
 
 ## Overview
 
 ### Since:
-0.1.0
+0.2.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -26,37 +26,27 @@ Check if the input name is an map or not.
 
 ## Index
 
-* [MapUtils.isMap](#maputilsismap)
+* [MapUtils.containsKey](#maputilscontainskey)
 
-### MapUtils.isMap
+### MapUtils.containsKey
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inDate         | string        | in       |            | Name of the hashmap to check.         |
+| $1     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
+| $2     | inKey          | string        | in       |            | Key to check.                         |
 
 #### Example
 ```bash
-MapUtils.isMap  ""                # false
-MapUtils.isMap  "myVar"           # false
-
-declare -a myArray
-MapUtils.isMap  "myArray"         # false
-
-myArray=()
-MapUtils.isMap  "myArray"         # false
-
-declare -A myMap
-MapUtils.isMap   "myMap"          # true
-
 declare -A myMap=(["foo"]="bar" ["key"]="value")
-MapUtils.containsKey   "myMap"    # true
-
+MapUtils.containsKey   "myMap"          # false
+MapUtils.containsKey   "myMap" "foo"    # true
+MapUtils.containsKey   "myMap" "wrong"  # false
 ```
 
 #### Exit codes
 
-* **0**: When the corresponding variable is a hashmap.
+* **0**: When the input key is present in the hashmap.
 * **1**: Otherwise.
 
 #### Output on stdout

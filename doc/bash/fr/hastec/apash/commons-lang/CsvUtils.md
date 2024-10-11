@@ -7,18 +7,16 @@
   # Apash
 </div>
 
-# MapUtils
+# CsvUtils
 
-Operations on maps.
+Operations on csv files.
 
 ## Overview
 
-This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/MapUtils.html)
-### WARNING
-Contrary Java implementation methods are generally modifying directly the input map given by reference.
+Apash utilitary function on csv files.
 
 ### Since:
-0.1.0
+0.2.0
 
 ### Parents
 <!-- apash.parentBegin -->
@@ -30,8 +28,7 @@ Contrary Java implementation methods are generally modifying directly the input 
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[containsKey](MapUtils/containsKey.md)|Check if the input value is present in the input map.|
-|[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
+|[merge](CsvUtils/merge.md)|Merge two csv files according to their columns keys|
 <!-- apash.summaryTableEnd -->
 
 
