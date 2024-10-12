@@ -1,3 +1,9 @@
+<!-- 
+  @todo: styles are not currently surpported by github.
+  So fixed header will not work until they authorize it.
+  SVG trick does not look to work anymore.
+-->
+<!--
 <style>
   table {
     border-collapse: separate;
@@ -44,6 +50,7 @@
     color: black;
   }
 </style>
+-->
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
@@ -53,18 +60,946 @@
   # Apash
 </div>
 
-<table>
+# Compatibility Matrix
+Tips: Because css styles are not allowed on github mardowns, it looks not possible
+to have a table with fixed header, so let your mouse on a cell to know on which shell it belongs.
+
+<table align='center'>
   <thead>
     <tr>
       <th rowspan="2">Function</th>
-      <th colspan='8'>bash</th>
+      <th colspan='8'><div align='center'>bash</div></th>
     </tr>
     <tr>
       <th>5.2</th><th>5.1</th><th>5.0</th><th>4.4</th><th>4.3</th><th>4.2</th><th>4.1</th><th>4.0</th>
     </tr>
   </thead>
   <tbody>
-      <tr><th class='start'>Array.sort</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.add</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.addAll</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.addFirst</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.anythingToEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.clone</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.contains</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.get</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.getLastIndex</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.getLength</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.indexOf</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.indexesOf</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.init</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.insert</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isArray</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>ArrayUtils.isArrayIndex</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>ArrayUtils.isArrayIndexValid</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isNotEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isSameLastIndex</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isSameLength</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.isSorted</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.lastIndexOf</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.nullToEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.remove</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.removeAll</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.removeAllOccurrences</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.removeDuplicates</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>ArrayUtils.removeElement</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.removeElements</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.reverse</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.shift</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.shuffle</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.subarray</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.swap</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>ArrayUtils.toArray</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>BashUtils.isDeclared</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>BashUtils.isVariable</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>BashUtils.isVariableNameValid</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>DateUtils.addDays</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addHours</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addMinutes</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addMonths</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addSeconds</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addWeeks</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.addYears</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>DateUtils.isDate</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>MapUtils.containsKey</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>MapUtils.isMap</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>Math.abs</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>Math.max</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>Math.min</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.compare</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.isDigits</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.isInteger</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.isLong</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.isLongPositive</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.isParsable</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.max</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>NumberUtils.min</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>Random.nextInt</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.abbreviate</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.containsOnly</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.countMatches</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.endsWith</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.equals</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.indexOf</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.indexOfAny</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>StringUtils.isAlpha</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.isAnyEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.isBlank</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.isEmpty</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.lowerCase</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>StringUtils.remove</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.repeat</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.replace</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>StringUtils.reverse</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.rotate</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.split</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>StringUtils.splitPreserveAllTokens</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr><tr><th class='start'>StringUtils.startsWith</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.substring</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.trim</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr><tr><th class='start'>StringUtils.upperCase</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr>
+      <tr>
+      <td>Array.sort</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.add</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.addAll</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.addFirst</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.anythingToEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.clone</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.contains</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.get</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.getLastIndex</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.getLength</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.indexOf</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.indexesOf</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.init</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.insert</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isArray</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isArrayIndex</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isArrayIndexValid</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isNotEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isSameLastIndex</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isSameLength</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.isSorted</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.lastIndexOf</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.nullToEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.remove</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.removeAll</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.removeAllOccurrences</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.removeDuplicates</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.removeElement</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.removeElements</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.reverse</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.shift</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.shuffle</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.subarray</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.swap</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.toArray</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>BashUtils.isDeclared</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>BashUtils.isVariable</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>BashUtils.isVariableNameValid</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addDays</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addHours</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addMinutes</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addMonths</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addSeconds</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addWeeks</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.addYears</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>DateUtils.isDate</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>MapUtils.containsKey</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>MapUtils.isMap</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>Math.abs</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>Math.max</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>Math.min</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.compare</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.isDigits</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.isInteger</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.isLong</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.isLongPositive</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.isParsable</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.max</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>NumberUtils.min</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>Random.nextInt</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.abbreviate</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.containsOnly</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.countMatches</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.endsWith</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.equals</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.indexOf</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.indexOfAny</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>StringUtils.isAlpha</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.isAnyEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.isBlank</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.isEmpty</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.lowerCase</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>StringUtils.remove</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.repeat</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.replace</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>StringUtils.reverse</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.rotate</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.split</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>StringUtils.splitPreserveAllTokens</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    <tr>
+      <td>StringUtils.startsWith</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.substring</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.trim</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='bash 4.1' >✅</td>
+      <td title='bash 4.0' >✅</td>
+    </tr>
+    <tr>
+      <td>StringUtils.upperCase</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='bash 4.1' >❌</td>
+      <td title='bash 4.0' >❌</td>
+    </tr>
+    
   </tbody>
 </table>
 

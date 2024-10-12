@@ -1,3 +1,9 @@
+<!-- 
+  @todo: styles are not currently surpported by github.
+  So fixed header will not work until they authorize it.
+  SVG trick does not look to work anymore.
+-->
+<!--
 <style>
   table {
     border-collapse: separate;
@@ -44,6 +50,7 @@
     color: black;
   }
 </style>
+-->
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
@@ -53,7 +60,11 @@
   # Apash
 </div>
 
-<table>
+# Compatibility Matrix
+Tips: Because css styles are not allowed on github mardowns, it looks not possible
+to have a table with fixed header, so let your mouse on a cell to know on which shell it belongs.
+
+<table align='center'>
   <thead>
     <tr>
       <th rowspan="2">Function</th>

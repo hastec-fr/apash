@@ -78,7 +78,7 @@ apash.compatibility.toMarkDown(){
   # Get shell campaigns
   for s in "${!shellsMap[@]}"; do
     StringUtils.split versions "${shellsMap[$s]}"
-    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'>${s}</th>"
+    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'><div align='center'>${s}</div></th>${NEXT_LINE}"
     for v in "${versions[@]}"; do
       APASH_SHELL_VERSIONS+="<th>$v</th>"
     done
@@ -88,17 +88,25 @@ apash.compatibility.toMarkDown(){
   APASH_FUNCTION_RESULTS=""
   while IFS= read -r line; do
     StringUtils.splitPreserveAllTokens results "$line" ","
-    APASH_FUNCTION_RESULTS+="<tr>"
-    APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
+    APASH_FUNCTION_RESULTS+="<tr>
+    "
+    APASH_FUNCTION_RESULTS+="  <td>${results[0]}</td>
+    "
+    # APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
     ArrayUtils.remove results 0
 
-    for r in "${results[@]}"; do
-      [ "$r" = ""   ] && result=""
-      [ "$r" = "ok" ] && result="✅"
-      [ "$r" = "ko" ] && result="❌"
-      APASH_FUNCTION_RESULTS+="<th>${result}</th>"
+    for ((s=0; s < ${#results[@]}; s++ )); do
+      shellName="${shells[$s]%%_*}"
+      shellVersion="${shells[$s]#*_}"
+    # for r in "${results[@]}"; do
+      [ "${results[$s]}" = ""   ] && result=""
+      [ "${results[$s]}" = "ok" ] && result="✅"
+      [ "${results[$s]}" = "ko" ] && result="❌"
+      APASH_FUNCTION_RESULTS+="  <td title='$shellName $shellVersion' >${result}</td>
+    "
     done
-    APASH_FUNCTION_RESULTS+="</tr>"
+    APASH_FUNCTION_RESULTS+="</tr>
+    "
   done < <(tail -n +2 "$globalCampaignFile" | sort)
 
   envsubst < "$APASH_HOME_DIR/utils/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibilityTable.md"
