@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isParsable returns false when the input number is empty " {
+@test "NumberUtils.isParsable returns false when the input number is empty " {
   run NumberUtils.isParsable
   [ "$status" -eq 1 ]
 
@@ -15,7 +15,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isParsable returns false when the string contains other valid numbers" {
+@test "NumberUtils.isParsable returns false when the string contains other valid numbers" {
   run NumberUtils.isParsable "a"
   [ "$status" -eq 1 ]
 
@@ -26,7 +26,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isDigits returns true when the string has only digits characters, potential a minus before or potential dot" {
+@test "NumberUtils.isParsable returns true when the string has only digits characters, potential a minus before or potential dot" {
   NumberUtils.isParsable "123"
 
   NumberUtils.isParsable "-12"
@@ -42,7 +42,7 @@ fi
   NumberUtils.isParsable "-.123"
 }
 
-@test "isParsable returns false when the string is not parsable" {
+@test "NumberUtils.isParsable returns false when the string is not parsable" {
   run NumberUtils.isParsable "--12"
   [ "$status" -eq 1 ]
 

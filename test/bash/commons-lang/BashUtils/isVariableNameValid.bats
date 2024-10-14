@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isVariableNameValid fails when the input name is not a valid variable name" {
+@test "BashUtils.isVariableNameValid fails when the input name is not a valid variable name" {
   run BashUtils.isVariableNameValid
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -45,7 +45,7 @@ fi
   [ "$output" = ""  ]  
 }
 
-@test "isVariableNameValid succeed when the variable name is valid" {
+@test "BashUtils.isVariableNameValid succeed when the variable name is valid" {
   BashUtils.isVariableNameValid "_myVar"
   BashUtils.isVariableNameValid "myVar"
   BashUtils.isVariableNameValid "myVar1"

@@ -111,7 +111,7 @@ echo """
 apash.substitutePlaceHolders() {
   local placeHolder=$1
   local placeHolders=""
-  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude generateDoc.sh)
+  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude apashDoc.sh)
 
   while read -r p; do
     class=$(basename "$p" | sed 's/\.sh//')

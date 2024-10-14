@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "lastIndexOf fails when the inputs do not refere to an array" {
+@test "ArrayUtils.lastIndexOf fails when the inputs do not refere to an array" {
   run ArrayUtils.lastIndexOf
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "lastIndexOf succeed when references are arrays and value is present" {
+@test "ArrayUtils.lastIndexOf succeed when references are arrays and value is present" {
   local myArray=("a" "b" "" "c" "b")
   run ArrayUtils.lastIndexOf "myArray" "b"
   [ "$status" -eq 0  ]
@@ -61,7 +61,7 @@ fi
   [ "$output" = "1"  ]
 }
 
-@test "lastIndexOf returns ArrayUtils_INDEX_NOT_FOUND when value is not present" {
+@test "ArrayUtils.lastIndexOf returns ArrayUtils_INDEX_NOT_FOUND when value is not present" {
   myArray=("a" "b")
   run ArrayUtils.lastIndexOf "myArray" "c"
   [ "$status" -eq 1   ]

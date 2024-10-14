@@ -8,7 +8,7 @@ else
 fi
 
 
-@test "addHours fails because format is not respected" {
+@test "DateUtils.addHours fails because format is not respected" {
   run DateUtils.addHours
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -34,7 +34,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addHours return the date with the number of hour to add" {
+@test "DateUtils.addHours return the date with the number of hour to add" {
   export TZ="Europe/Paris"
   run DateUtils.addHours "2024-03-14T14:30:45.123+0100" 1
   [ "$status" -eq 0 ]

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "rotate returns empty string when shift is not parsable)" {
+@test "StringUtils.rotate returns empty string when shift is not parsable)" {
   run StringUtils.rotate "abc" " "
   [ "$status" = 1  ]
   [ "$output" = "" ]
@@ -21,7 +21,7 @@ fi
   [ "$output" = "" ]
 }
 
-@test "rotate returns the original string when shift 0 or empty" {
+@test "StringUtils.rotate returns the original string when shift 0 or empty" {
   run StringUtils.rotate
   [ "$status" = 0  ]
   [ "$output" = "" ]
@@ -52,7 +52,7 @@ fi
 }
 
 
-@test "rotate returns the string with right rotation when shift is greater than 0" {
+@test "StringUtils.rotate returns the string with right rotation when shift is greater than 0" {
   run StringUtils.rotate "abcdefg" "2"
   [ "$status" = 0 ]
   [ "$output" = "fgabcde" ]
@@ -67,7 +67,7 @@ fi
 }
 
 
-@test "rotate returns the string with left rotation when shift is less than 0" {
+@test "StringUtils.rotate returns the string with left rotation when shift is less than 0" {
   run StringUtils.rotate "abcdefg" "-2"
   [ "$status" = 0 ]
   [ "$output" = "cdefgab" ]

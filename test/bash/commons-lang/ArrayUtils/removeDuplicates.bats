@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "removeDuplicates fails when the inputs do not refere to an array" {
+@test "ArrayUtils.removeDuplicates fails when the inputs do not refere to an array" {
   run ArrayUtils.removeDuplicates
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "remove succeed when the reference is an arrays the index is valid" {
+@test "ArrayUtils.remove succeed when the reference is an arrays the index is valid" {
   myArray=("a" "b" "a" "c")
   ArrayUtils.removeDuplicates "myArray"
   [ "${#myArray[@]}" -eq 3 ]

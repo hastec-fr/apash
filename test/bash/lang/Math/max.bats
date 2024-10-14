@@ -12,7 +12,7 @@ setup_file(){
 }
 
 # max #########################################
-@test "max returns empty value when at least one input is not parsable " {
+@test "Math.max returns empty value when at least one input is not parsable " {
   run --separate-stderr Math.max
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -35,7 +35,7 @@ setup_file(){
 }
 
 
-@test "max returns the greater value of two number." {
+@test "Math.max returns the greater value of two number." {
   run --separate-stderr Math.max "0" "1"
   [ "$output" = "1" ]
 

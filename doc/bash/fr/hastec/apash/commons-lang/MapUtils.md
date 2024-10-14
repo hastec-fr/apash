@@ -30,6 +30,7 @@ Contrary Java implementation methods are generally modifying directly the input 
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
+|[containsKey](MapUtils/containsKey.md)|Check if the input value is present in the input map.|
 |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 <!-- apash.summaryTableEnd -->
 

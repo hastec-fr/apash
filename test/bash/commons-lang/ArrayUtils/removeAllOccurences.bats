@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "removeAllOccurrences fails when the input does not refer to an array" {
+@test "ArrayUtils.removeAllOccurrences fails when the input does not refer to an array" {
   run ArrayUtils.removeAllOccurrences
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "removeAllOccurrences succeed when the reference is an array" {
+@test "ArrayUtils.removeAllOccurrences succeed when the reference is an array" {
   myArray=("a" "b" "a" "c" "" "d")
   ArrayUtils.removeAllOccurrences "myArray" "a"
   [ "${#myArray[@]}" -eq 4  ]

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "swap fails when the input does not refer to an array" {
+@test "ArrayUtils.swap fails when the input does not refer to an array" {
   run ArrayUtils.swap
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "swap succeed when the reference is an array and offset are declared" {
+@test "ArrayUtils.swap succeed when the reference is an array and offset are declared" {
   myArray=("a" "b" "c" "d")
   ArrayUtils.swap "myArray" 0 2
   [ "${#myArray[@]}" -eq 4  ]
@@ -92,7 +92,7 @@ fi
   [ "${myArray[4]}" == "c"  ]
 }
 
-@test "swap succeed even when indexes are not in the bounds" {
+@test "ArrayUtils.swap succeed even when indexes are not in the bounds" {
   myArray=("a" "b" "c" "d")
   ArrayUtils.swap "myArray" 0 10
   [ "${#myArray[@]}" -eq 4  ]
@@ -126,7 +126,7 @@ fi
   [ "${myArray[3]}" == "b"  ]
 }
 
-@test "swap fails when the indexes are not numbers" {
+@test "ArrayUtils.swap fails when the indexes are not numbers" {
 
   myArray=("a" "b" "c" "d")
   run ArrayUtils.swap "myArray" "a"

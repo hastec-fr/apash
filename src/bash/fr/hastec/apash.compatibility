@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
+apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
+apash.import "fr.hastec.apash.commons-lang.CsvUtils.merge"
+apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
+apash.import "fr.hastec.apash.commons-lang.StringUtils.splitPreserveAllTokens"
+apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
+
+apash.compatibility(){
+  local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
+  local v
+  local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2 4.1 4.0)
+  true > "$globalCampaignFile"
+  
+  for v in "${bashVersions[@]}"; do
+    apash.compatibility.addVersion "bash" "$v"
+  done
+
+  apash.compatibility.toMarkDown
+}
+
+apash.compatibility.addVersion(){
+  local shellName="$1"
+  local shellVersion="$2"
+  local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
+  local shellFormattedCampaignFile="$APASH_HOME_DIR/tmp/apash_fmt_${shellName}_${shellVersion}.tmp"
+  local functionName
+  local -A functionMap=()
+
+  # Build and run a container with apash test.
+  docker build --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY_TO=/home/apash/.apash" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" "apash test --bats-options '-t -r'" | tee "$shellCampaignFile"
+
+  while IFS= read -r line; do
+    # Keep only lines with ok/not ok
+    StringUtils.startsWith "$line" "ok" || StringUtils.startsWith "$line" "not ok" || continue
+    StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $3}') \
+                                        || functionName=$(echo "$line" | awk '{print $4}')
+    [ -z "$functionName" ] && continue
+    MapUtils.containsKey "functionMap" "$functionName" || functionMap["$functionName"]="ok"
+    StringUtils.startsWith "$line" "not ok" && functionMap["$functionName"]="ko"
+  done < "$shellCampaignFile"
+
+  echo "function,${shellName}_${shellVersion}" > "$shellFormattedCampaignFile"
+  for key in "${!functionMap[@]}"; do
+    echo "$key,${functionMap[$key]}" >> "$shellFormattedCampaignFile"
+  done
+
+  # If the global result file does not exist or is empty, then copy the current shell results
+  # Else merge the result with the existing file.
+  [ ! -f "$globalCampaignFile" ] && true > "$globalCampaignFile"
+  if [ -s "$globalCampaignFile" ]; then
+    CsvUtils.merge "$globalCampaignFile" "$shellFormattedCampaignFile" > "$globalCampaignFile.tmp"
+    cp "$globalCampaignFile.tmp" "$globalCampaignFile"
+  else
+    cat "$shellFormattedCampaignFile" > "$globalCampaignFile"
+  fi
+
+  # rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
+}
+
+apash.compatibility.toMarkDown(){
+  local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"  
+  local s v shellName shellVersion result;
+  local -a shells=() versions=() results=()
+  local -A shellsMap=()
+  export APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
+
+  StringUtils.split shells "$(head -n 1 "$globalCampaignFile")" ","
+  ArrayUtils.remove shells 0   # Remove the function header
+  for s in "${shells[@]}"; do
+    shellName="${s%%_*}"
+    shellVersion="${s#*_}"
+    shellsMap[$shellName]+="$shellVersion "
+  done
+
+  # Get shell campaigns
+  for s in "${!shellsMap[@]}"; do
+    StringUtils.split versions "${shellsMap[$s]}"
+    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'><div align='center'>${s}</div></th>${NEXT_LINE}"
+    for v in "${versions[@]}"; do
+      APASH_SHELL_VERSIONS+="<th>$v</th>"
+    done
+  done
+
+  # Get campaign results
+  APASH_FUNCTION_RESULTS=""
+  while IFS= read -r line; do
+    StringUtils.splitPreserveAllTokens results "$line" ","
+    APASH_FUNCTION_RESULTS+="<tr>
+    "
+    APASH_FUNCTION_RESULTS+="  <td>${results[0]}</td>
+    "
+    # APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
+    ArrayUtils.remove results 0
+
+    for ((s=0; s < ${#results[@]}; s++ )); do
+      shellName="${shells[$s]%%_*}"
+      shellVersion="${shells[$s]#*_}"
+    # for r in "${results[@]}"; do
+      [ "${results[$s]}" = ""   ] && result=""
+      [ "${results[$s]}" = "ok" ] && result="✅"
+      [ "${results[$s]}" = "ko" ] && result="❌"
+      APASH_FUNCTION_RESULTS+="  <td title='$shellName $shellVersion' >${result}</td>
+    "
+    done
+    APASH_FUNCTION_RESULTS+="</tr>
+    "
+  done < <(tail -n +2 "$globalCampaignFile" | sort)
+
+  envsubst < "$APASH_HOME_DIR/utils/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibilityTable.md"
+  unset APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
+}

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "contains fails when the input name does not refere to an array" {
+@test "ArrayUtils.contains fails when the input name does not refere to an array" {
   run ArrayUtils.contains
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "contains succeed when reference is an array and value is present in the array" {
+@test "ArrayUtils.contains succeed when reference is an array and value is present in the array" {
   local myArray=("a" "b" "" "c")
   ArrayUtils.contains "myArray" "b"
   [ "${#myArray[@]}" -eq 4  ]
@@ -49,7 +49,7 @@ fi
   [ "${myArray[3]}" == "c"  ]
 }
 
-@test "contains fails when the value is not present into the array" {
+@test "ArrayUtils.contains fails when the value is not present into the array" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.contains "myArray" "d"
   [ "$status" -eq 1 ]
@@ -68,7 +68,7 @@ fi
   [ "${myArray[3]}" == "c"  ]
 }
 
-@test "contains fails when no value or more than 1 value is provided" {
+@test "ArrayUtils.contains fails when no value or more than 1 value is provided" {
   local myArray=("a" "b" "" "c")
   run ArrayUtils.contains "myArray"
   [ "$status" -eq 1 ]

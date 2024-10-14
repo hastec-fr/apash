@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "nullToEmpty fails when the input name is not a valid variable name" {
+@test "ArrayUtils.nullToEmpty fails when the input name is not a valid variable name" {
   run ArrayUtils.nullToEmpty
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -46,7 +46,7 @@ fi
 }
 
 
-@test "nullToEmpty succeed when reference if name is a valid array or not exists " {
+@test "ArrayUtils.nullToEmpty succeed when reference if name is a valid array or not exists " {
   unset "myArray"
   ArrayUtils.nullToEmpty "myArray"
   [ "${#myArray[@]}" -eq 0  ]
@@ -56,7 +56,7 @@ fi
   [ "${#myArray[@]}" -eq 0  ]
 }
 
-@test "nullToEmpty preserve array if it already contains values" {
+@test "ArrayUtils.nullToEmpty preserves array if it already contains values" {
   myArray=("a" "b")
   ArrayUtils.nullToEmpty "myArray"
   [ "${#myArray[@]}" -eq 2 ]

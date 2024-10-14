@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2034
 # <!-- @class -->
 # @name MapUtils
 # @brief Operations on maps.
@@ -21,6 +20,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[containsKey](MapUtils/containsKey.md)|Check if the input value is present in the input map.|
 # |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 # <!-- apash.summaryTableEnd -->
 

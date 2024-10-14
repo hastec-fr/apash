@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "init fails when the input name is not a valid array name" {
+@test "ArrayUtils.init fails when the input name is not a valid array name" {
   run ArrayUtils.init
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -45,7 +45,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "init succeed when reference if name is a valid array or not exists " {
+@test "ArrayUtils.init succeed when reference if name is a valid array or not exists " {
   unset "myArray"
   ArrayUtils.init "myArray"
   [ "${#myArray[@]}" -eq 0  ]
@@ -55,7 +55,7 @@ fi
   [ "${#myArray[@]}" -eq 0  ]
 }
 
-@test "init does not preserve array if it already contains values" {
+@test "ArrayUtils.init does not preserve array if it already contains values" {
   myArray=("a" "b")
   ArrayUtils.init "myArray"
   [ "${#myArray[@]}" -eq 0 ]

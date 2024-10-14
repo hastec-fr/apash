@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "countMatch returns 0 if string or substring are empty" {
+@test "StringUtils.countMatches returns 0 if string or substring are empty" {
   run StringUtils.countMatches "" ""
   [ "$output" == "0"  ]
   
@@ -18,7 +18,7 @@ fi
   [ "$output" == "0"  ]
 }
 
-@test "countMatch returns the number of occurence of the substring within the string" {
+@test "StringUtils.countMatches returns the number of occurence of the substring within the string" {
   run StringUtils.countMatches "abba" "a"
   [ "$output" == "2"  ]
   

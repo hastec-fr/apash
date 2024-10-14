@@ -8,7 +8,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isArrayIndex fails when the inputs is not a positive long number" {
+@test "ArrayUtils.isArrayIndex fails when the inputs is not a positive long number" {
   run ArrayUtils.isArrayIndex
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -26,7 +26,7 @@ fi
   [ "$output" = ""  ] 
 }
 
-@test "isArrayIndex succeed when the input is a positive long number" {
+@test "ArrayUtils.isArrayIndex succeed when the input is a positive long number" {
   run ArrayUtils.isArrayIndex "0"
   [ "$status" -eq 0  ]
   [ "$output" = ""   ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isArrayIndex fails when index is out of range" {
+@test "ArrayUtils.isArrayIndex fails when index is out of range" {
   run ArrayUtils.isArrayIndex 9223372036854775808
   [ "$status" -eq 1  ]
   [ "$output" = ""   ]

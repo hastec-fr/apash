@@ -8,7 +8,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isLong returns false when the input number is empty " {
+@test "NumberUtils.isLong returns false when the input number is empty " {
   run NumberUtils.isLong
   [ "$status" -eq 1 ]
 
@@ -16,7 +16,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isLong returns false when the string contains other char than digits" {
+@test "NumberUtils.isLong returns false when the string contains other char than digits" {
   run NumberUtils.isLong "-"
   [ "$status" -eq 1 ]
   
@@ -30,7 +30,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isLong returns true when the string has only digits characters or a minus before" {
+@test "NumberUtils.isLong returns true when the string has only digits characters or a minus before" {
   NumberUtils.isLong "123"
 
   NumberUtils.isLong "-123"
@@ -40,13 +40,13 @@ fi
   NumberUtils.isLong "1"
 }
 
-@test "isLong returns true when the string is inside the bounds" {
+@test "NumberUtils.isLong returns true when the string is inside the bounds" {
   NumberUtils.isLong "$Long_MAX_VALUE"
 
   NumberUtils.isLong "$Long_MIN_VALUE"
 }
 
-@test "isLong returns fals when the string is out of bounds" {
+@test "NumberUtils.isLong returns fals when the string is out of bounds" {
   run NumberUtils.isLong "9223372036854775808"
   [ "$status" -eq 1 ]
 

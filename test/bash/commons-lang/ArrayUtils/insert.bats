@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "insert fails when the input name does not refere to an array or index is not a number" {
+@test "ArrayUtils.insert fails when the input name does not refere to an array or index is not a number" {
   run ArrayUtils.insert
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "insert succeed when index is a number, reference is an array and values are provided" {
+@test "ArrayUtils.insert succeed when index is a number, reference is an array and values are provided" {
   myArray=()
   ArrayUtils.insert "0" "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]
@@ -69,7 +69,7 @@ fi
   [ "${myArray[5]}" == ""   ]
 }
 
-@test "insert fails if bad index is provided or no value to insert" {
+@test "ArrayUtils.insert fails if bad index is provided or no value to insert" {
   local myArray=("a" "foo bar" "b" "c" "d" "")
   run ArrayUtils.insert "-1" "myArray" "e"
   [ "$status" -eq 1 ]

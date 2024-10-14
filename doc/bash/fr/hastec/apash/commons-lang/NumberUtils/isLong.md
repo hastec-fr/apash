@@ -9,7 +9,7 @@
 
 # NumberUtils.isLong
 
-Checks whether the String contains has the form of a valid integer.
+Checks whether the String contains has the form of a valid long integer.
 
 ## Overview
 
@@ -58,7 +58,7 @@ NumberUtils.isLong "9223372036854775808"   # false
 
 #### Exit codes
 
-* **0**: When the input string is a long int.
+* **0**: When the input string is a long integer.
 * **1**: When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 
 #### Output on stdout

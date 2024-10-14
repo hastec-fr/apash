@@ -41,6 +41,7 @@ This implementation do reference to the [java apache implementation](http://comm
 |[leftPad](StringUtils/leftPad.md)|Left pad a String with a specified String.|
 |[lowerCase](StringUtils/lowerCase.md)|Converts a String to lower case.|
 |[remove](StringUtils/remove.md)|Removes all occurrences of a substring from within the source string.|
+|[repeat](StringUtils/repeat.md)|repeats a string.|
 |[replace](StringUtils/replace.md)|Replaces all occurrences of a String within another String.|
 |[reverse](StringUtils/reverse.md)|Reverses a string.|
 |[rightPad](StringUtils/rightPad.md)|Right pad a string with a specified string.|

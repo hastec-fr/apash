@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "addAll fails when the input name does not refere to an array" {
+@test "ArrayUtils.addAll fails when the input name does not refere to an array" {
   run ArrayUtils.addAll
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -35,7 +35,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addAll succeed when reference is an array and at least 1 one value is provided" {
+@test "ArrayUtils.addAll succeed when reference is an array and at least 1 one value is provided" {
   local myArray=()
   ArrayUtils.addAll "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]
@@ -72,7 +72,7 @@ fi
   [ "${myArray[3]}" == "d"  ]
 }
 
-@test "addAll succeed and force input transformation" {
+@test "ArrayUtils.addAll succeed and force input transformation" {
   unset myArray
   ArrayUtils.addAll "myArray" "a"
   [ "${#myArray[@]}" -eq 1  ]
@@ -81,7 +81,7 @@ fi
 
 }
 
-@test "addAll fails when no value is provided" {
+@test "ArrayUtils.addAll fails when no value is provided" {
   local myArray=("a" "b")
   run ArrayUtils.addAll "myArray"
   [ "$status" -eq 1 ]

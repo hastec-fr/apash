@@ -1,7 +1,13 @@
 # docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
 # docker run --rm -it hastec/apash:0.1.0
 # docker push docker.io/hastec/apash:0.1.0
-FROM docker.io/bash:5.2.32
+
+# Only version is before from for ARG scope
+ARG BASH_VERSION=5.2.32
+FROM docker.io/bash:${BASH_VERSION}
+
+ARG APASH_BRANCH="main"
+ARG APASH_LOCAL_COPY_TO="/dev/null"
 
 LABEL maintainer="Benjamin Vargin"
 
@@ -16,11 +22,23 @@ RUN apk update && \
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
 
+# Conditional copy, by default it's send to /dev/null
+COPY --chown=apash:tribe "." "${APASH_LOCAL_COPY_TO}"
+
+# Change directly the user rights to apash user
+# RUN [ -d /home/apash/.apash ] && chown -r apash:tribe /home/apash/.apash
+
 USER apash
 WORKDIR /home/apash
 SHELL ["/usr/local/bin/bash", "-c"]
 
-RUN git clone -b HASTEC_DEV_0.1.0 https://github.com/hastec-fr/apash.git /home/apash/.apash && \
+
+
+# By default, the version from github is selected.
+RUN if [ "${APASH_LOCAL_COPY_TO}" = "/dev/null" ]; then \
+        rm -rf "/home/apash/.apash"; \
+        git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
+    fi; \
     cat <<EOF > $HOME/.bashrc
 [ -n "\$APASH_SHELL" ] && return                 # Prevent recursive sourcing (basher init)
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag

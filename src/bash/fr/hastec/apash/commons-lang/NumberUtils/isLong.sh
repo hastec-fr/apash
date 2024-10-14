@@ -5,7 +5,7 @@ apash.import fr.hastec.apash.lang.Long.sh
 
 # File description ###########################################################
 # @name NumberUtils.isLong
-# @brief Checks whether the String contains has the form of a valid integer.
+# @brief Checks whether the String contains has the form of a valid long integer.
 # @description 
 #   Numbers with and "." will return false. Only numbers with 
 #   optional minus first and digits after are considered as valid.
@@ -46,7 +46,7 @@ apash.import fr.hastec.apash.lang.Long.sh
 # @stdout None.
 # @stderr None.
 #
-# @exitcode 0 When the input string is a long int.
+# @exitcode 0 When the input string is a long integer.
 # @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 NumberUtils.isLong() {
   local inNumber="$1"

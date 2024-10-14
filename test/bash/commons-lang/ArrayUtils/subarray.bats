@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "subarray fails when the input does not refer to an array" {
+@test "ArrayUtils.subarray fails when the input does not refer to an array" {
   run ArrayUtils.subarray
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -42,7 +42,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "subarray succeed when the reference is an array and indices valid positive integers" {
+@test "ArrayUtils.subarray succeed when the reference is an array and indices valid positive integers" {
   mySubArray=()
   myArray=("a" "b" "c" "d")
   ArrayUtils.subarray "mySubArray" "myArray" 0 2
@@ -62,7 +62,7 @@ fi
   [ "${mySubArray[0]}" == "d"  ]
 }
 
-@test "subarray succeed even when indexes are not in the bounds" {
+@test "ArrayUtils.subarray succeed even when indexes are not in the bounds" {
   mySubArray=()
   myArray=("a" "b" "c" "d")
   ArrayUtils.subarray "mySubArray" "myArray" 0 10
@@ -104,7 +104,7 @@ fi
   [ "${#mySubArray[@]}" -eq 0  ]
 }
 
-@test "subarray fails when the indexes are not numbers" {
+@test "ArrayUtils.subarray fails when the indexes are not numbers" {
   mySubArray=()
   myArray=("a" "b" "c" "d")
   run ArrayUtils.subarray "mySubArray" "myArray"

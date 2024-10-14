@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isArrayIndexValid fails when the inputs do not refere to an array or index not provided" {
+@test "ArrayUtils.isArrayIndexValid fails when the inputs do not refere to an array or index not provided" {
   run ArrayUtils.isArrayIndexValid
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "isArrayIndexValid succeed when the references is an arrays and index exists" {
+@test "ArrayUtils.isArrayIndexValid succeed when the references is an arrays and index exists" {
   myArray=("a" "b" "" "c" "b")
   run ArrayUtils.isArrayIndexValid "myArray" "1"
   [ "$status" -eq 0  ]
@@ -61,7 +61,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isArrayIndexValid fails when index is out of range" {
+@test "ArrayUtils.isArrayIndexValid fails when index is out of range" {
   myArray=("a" "b")
   run ArrayUtils.isArrayIndexValid "myArray" "3"
   [ "$status" -eq 1  ]

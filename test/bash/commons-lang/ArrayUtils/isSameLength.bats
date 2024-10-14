@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isSameLength fails when the input do not refere to an array" {
+@test "ArrayUtils.isSameLength fails when the input do not refere to an array" {
   run ArrayUtils.isSameLength
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isSameLength succeed when the input arrays have the same length" {
+@test "ArrayUtils.isSameLength succeed when the input arrays have the same length" {
   local myArray=()
   run ArrayUtils.isSameLength "myArray" "myArray"
   [ "$status" -eq 0  ]
@@ -64,7 +64,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isSameLength fails when the input arrays does not have the same length" {
+@test "ArrayUtils.isSameLength fails when the input arrays does not have the same length" {
   myArray1=("a")
   myArray2=("a" "b")
   run ArrayUtils.isSameLength "myArray1" "myArray2"

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "removeAll fails when the inputs do not refere to an array" {
+@test "ArrayUtils.removeAll fails when the inputs do not refere to an array" {
   run ArrayUtils.removeAll
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "removeAll succeed when the reference is an arrays and indexes are valid" {
+@test "ArrayUtils.removeAll succeed when the reference is an arrays and indexes are valid" {
   local myArray=("a" "b" "c" "" "d")
   ArrayUtils.removeAll "myArray" "4"
   [ "${#myArray[@]}" -eq 4  ]
@@ -59,7 +59,7 @@ fi
   [ "${myArray[1]}" == ""  ]
 }
 
-@test "removeAll fails when the index is not present" {
+@test "ArrayUtils.removeAll fails when the index is not present" {
   myArray=("a")
   run ArrayUtils.removeAll "myArray" "4"
   [ "$status" -eq 1   ]

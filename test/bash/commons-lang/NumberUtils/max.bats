@@ -12,7 +12,7 @@ setup_file(){
 }
 
 # max #########################################
-@test "max returns empty value when at least one input is not parsable " {
+@test "NumberUtils.max returns empty value when at least one input is not parsable " {
   run --separate-stderr NumberUtils.max
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -43,7 +43,7 @@ setup_file(){
 }
 
 
-@test "max returns the greater value from a list of numbers." {
+@test "NumberUtils.max returns the greater value from a list of numbers." {
   run --separate-stderr NumberUtils.max "0" "2" "1"
   [ "$status" -eq 0  ]
   [ "$output" = "2"  ]

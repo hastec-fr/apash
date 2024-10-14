@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "addMinutes fails because format is not respected" {
+@test "DateUtils.addMinutes fails because format is not respected" {
   run DateUtils.addMinutes
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -33,7 +33,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addMinutes return the date with the number of minute to add" {
+@test "DateUtils.addMinutes return the date with the number of minute to add" {
   export TZ="Europe/Paris"
   run DateUtils.addMinutes "2024-03-14T14:00:00.123+0100" 1
   [ "$status" -eq 0 ]

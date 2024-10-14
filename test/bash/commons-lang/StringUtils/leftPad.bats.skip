@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "leftPad returns an empty string when the number to pad is empty " {
+@test "StringUtils.leftPad returns an empty string when the number to pad is empty " {
   run StringUtils.leftPad "" "" ""
   [ "$status" -eq 1  ]
   [ "$output" == ""  ]
@@ -25,7 +25,7 @@ fi
   [ "$output" == ""  ]
 }
 
-@test "leftPad returns string with necessary prefix " {
+@test "StringUtils.leftPad returns string with necessary prefix " {
   run StringUtils.leftPad ""  "3"   "z"
   [ "$output" == "zzz"  ]
   
@@ -42,7 +42,7 @@ fi
   [ "$output" == "y" ]
 }
 
-@test "leftPad returns the original string when this string is longer than required size" {
+@test "StringUtils.leftPad returns the original string when this string is longer than required size" {
   StringUtils.leftPad "bat"  "3"  "yz"
   [ "$output" == "bat" ]
 
@@ -50,7 +50,7 @@ fi
   [ "$output" == "" ] 
 }
 
-@test "leftPad returns string with necessary prefix set to space when the pad string is empty" {
+@test "StringUtils.leftPad returns string with necessary prefix set to space when the pad string is empty" {
   StringUtils.leftPad "bat"  "5"   "" 
   [ "$output" == "  bat" ]
 }

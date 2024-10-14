@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "compare fails when the inputs are not integers " {
+@test "NumberUtils.compare fails when the inputs are not integers " {
   run NumberUtils.compare
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -25,7 +25,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "compare return 0 when numbers are equals" {
+@test "NumberUtils.compare return 0 when numbers are equals" {
   run NumberUtils.compare "0" "0"
   [ "$status" -eq 0 ]
   [ "$output" = "0" ]
@@ -39,7 +39,7 @@ fi
   [ "$output" = "0" ]
 }
 
-@test "compare returns value greater than 0 when first number is greater than the second" {
+@test "NumberUtils.compare returns value greater than 0 when first number is greater than the second" {
   run NumberUtils.compare "2" "1"
   [ "$status" -eq 0 ]
   [ "$output" = "1" ]
@@ -53,7 +53,7 @@ fi
   [ "$output" = "1" ]
 }
 
-@test "compare returns value smaller than 0 when first number is less than the second" {
+@test "NumberUtils.compare returns value smaller than 0 when first number is less than the second" {
   run NumberUtils.compare "1" "2"
   [ "$status" -eq 0 ]
   [ "$output" = "-1" ]

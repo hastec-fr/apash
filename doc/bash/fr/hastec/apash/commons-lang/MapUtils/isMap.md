@@ -37,20 +37,21 @@ Check if the input name is an map or not.
 
 #### Example
 ```bash
-MapUtils.isMap  ""          # false
-MapUtils.isMap  "myVar"     # false
+MapUtils.isMap  ""                # false
+MapUtils.isMap  "myVar"           # false
 
 declare -a myArray
-MapUtils.isMap  "myArray"   # false
+MapUtils.isMap  "myArray"         # false
 
 myArray=()
-MapUtils.isMap  "myArray"   # false
+MapUtils.isMap  "myArray"         # false
 
 declare -A myMap
-MapUtils.isMap   "myMap"    # true
+MapUtils.isMap   "myMap"          # true
 
-myMap={}
-MapUtils.isMap   "myMap"    # true
+declare -A myMap=(["foo"]="bar" ["key"]="value")
+MapUtils.containsKey   "myMap"    # true
+
 ```
 
 #### Exit codes

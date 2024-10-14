@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isAlpha fails when input string is empty or blank" {
+@test "StringUtils.isAlpha fails when input string is empty or blank" {
   run StringUtils.isAlpha
   [ "$status" -eq 1 ]
 
@@ -15,7 +15,7 @@ fi
   [ "$status" -eq 1 ]
 }
 
-@test "isAlpha succeed when input string contains only letters" {
+@test "StringUtils.isAlpha succeed when input string contains only letters" {
   StringUtils.isAlpha "abc"
 
   StringUtils.isAlpha "aBc"
@@ -23,7 +23,7 @@ fi
   StringUtils.isAlpha "aBéc"
 }
 
-@test "isAlpha fails when input string contains other characters than letters" {
+@test "StringUtils.isAlpha fails when input string contains other characters than letters" {
   run StringUtils.isAlpha "ab-c"
    [ "$status" -eq 1 ]
 

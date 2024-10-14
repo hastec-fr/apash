@@ -12,7 +12,7 @@ setup_file(){
 }
 
 
-@test "min returns empty value when at least one input is not parsable " {
+@test "NumberUtils.min returns empty value when at least one input is not parsable " {
   run --separate-stderr NumberUtils.min
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -43,7 +43,7 @@ setup_file(){
 }
 
 
-@test "min returns the smaller value from a list of numbers." {
+@test "NumberUtils.min returns the smaller value from a list of numbers." {
   run --separate-stderr NumberUtils.min "0" "2" "1"
   [ "$status" -eq 0  ]
   [ "$output" = "0"  ]

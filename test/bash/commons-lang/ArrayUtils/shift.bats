@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "shift fails when the input does not refer to an array" {
+@test "ArrayUtils.shift fails when the input does not refer to an array" {
   run ArrayUtils.shift
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -40,7 +40,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "shift succeed when the reference is an array" {
+@test "ArrayUtils.shift succeed when the reference is an array" {
   myArray=("a" "b" "c" "" "d")
   ArrayUtils.shift "myArray"
   [ "${#myArray[@]}" -eq 5  ]
@@ -87,7 +87,7 @@ fi
   [ "${myArray[4]}" == "d"  ]
 }
 
-@test "shift succeed even when indexes are not in the bounds" {
+@test "ArrayUtils.shift succeed even when indexes are not in the bounds" {
   myArray=("a" "b" "c" "" "d")
   ArrayUtils.shift "myArray" -1
   [ "${#myArray[@]}" -eq 5  ]
@@ -161,7 +161,7 @@ fi
   [ "${myArray[4]}" == ""   ]
 }
 
-@test "shift fails when the indexes are not numbers" {
+@test "ArrayUtils.shift fails when the indexes are not numbers" {
   myArray=("a" "b" "c" "" "d")
   run ArrayUtils.shift "myArray" "a"
   [ "$status" -eq 1 ]

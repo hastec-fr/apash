@@ -8,7 +8,7 @@ else
 fi
 
 
-@test "addDays fails because format is not respected" {
+@test "DateUtils.addDays fails because format is not respected" {
   run DateUtils.addDays
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -34,7 +34,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "addDays return the date with the number of day to add" {
+@test "DateUtils.addDays return the date with the number of day to add" {
   export TZ="Europe/Paris"
   run DateUtils.addDays "2024-03-14T14:30:45.123+0100" 1
   [ "$status" -eq 0 ]
@@ -58,7 +58,7 @@ fi
 
 }
 
-@test "addDays return the date during Summer daylight saving" {
+@test "DateUtils.addDays return the date during Summer daylight saving" {
   export TZ="Europe/Paris"
   # Summer Time 
   # @todo: mail sent to GNU, because result is not the expected one ?
@@ -74,7 +74,7 @@ fi
   [ "$output" = "2024-03-30T02:30:00.123+0100"  ]
 }
 
-@test "addDays return the date during Winter daylight saving" {
+@test "DateUtils.addDays return the date during Winter daylight saving" {
   export TZ="Europe/Paris"
   # Winter Time  
   run DateUtils.addDays "2023-10-28T03:30:00.123+0200" 1

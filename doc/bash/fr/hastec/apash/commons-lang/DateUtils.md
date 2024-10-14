@@ -37,6 +37,9 @@ date -u +"%FT%T.%3N%z"
 |[addHours](DateUtils/addHours.md)|Adds a number of hours to a date returning a new date.|
 |[addMinutes](DateUtils/addMinutes.md)|Adds a number of hours to a date returning a new date.|
 |[addMonths](DateUtils/addMonths.md)|Adds a number of hours to a date returning a new date.|
+|[addSeconds](DateUtils/addSeconds.md)|Adds a number of seconds to a date returning a new date.|
+|[addWeeks](DateUtils/addWeeks.md)|Adds a number of weeks to a date returning a new date.|
+|[addYears](DateUtils/addYears.md)|Adds a number of years to a date returning a new date.|
 |[isDate](DateUtils/isDate.md)|Check if the input string has an UTC valid format (used accross all apash date functions)|
 <!-- apash.summaryTableEnd -->
 

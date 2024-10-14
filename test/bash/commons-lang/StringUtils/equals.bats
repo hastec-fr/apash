@@ -8,42 +8,42 @@ else
 fi
 
 
-@test "equals succeed without argument" {
+@test "StringUtils.equals succeed without argument" {
   StringUtils.equals
 }
 
-@test "equals succeed with an empty argument" {
+@test "StringUtils.equals succeed with an empty argument" {
   StringUtils.equals ""
 }
 
-@test "equals succeed with two empty arguments" {
+@test "StringUtils.equals succeed with two empty arguments" {
   StringUtils.equals "" ""
 }
 
-@test "equals succeed with two blank arguments" {
+@test "StringUtils.equals succeed with two blank arguments" {
   StringUtils.equals "  " "  "
 }
 
-@test "equals succeed when arguments are identical" {
+@test "StringUtils.equals succeed when arguments are identical" {
   StringUtils.equals "abc" "abc"
 }
 
-@test "equals fails when blank arguments are different" {
+@test "StringUtils.equals fails when blank arguments are different" {
   run StringUtils.equals "  " " "
   [ "$status" -eq 1 ]
 }
 
-@test "equals fails when arguments are different" {
+@test "StringUtils.equals fails when arguments are different" {
   run StringUtils.equals "abc" "abcd"
   [ "$status" -eq 1 ]
 }
 
-@test "equals fails when first argument is empty and not the second" {
+@test "StringUtils.equals fails when first argument is empty and not the second" {
   run StringUtils.equals "" "abc"
   [ "$status" -eq 1 ]
 }
 
-@test "equals fails when second argument is empty and not the first" {
+@test "StringUtils.equals fails when second argument is empty and not the first" {
   run StringUtils.equals "abc" ""
   [ "$status" -eq 1 ]
 }

@@ -7,38 +7,38 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "trim returns string without leading and tailing whitespaces but preserve middle spaces" {
+@test "StringUtils.trim returns string without leading and tailing whitespaces but preserve middle spaces" {
   run StringUtils.trim "   Hello   World   "
   [ "$output" = "Hello   World" ]
 }
 
-@test "trim returns empty string no characters are present" {
+@test "StringUtils.trim returns empty string no characters are present" {
   run StringUtils.trim ""
   [ "$output" = "" ]
 }
 
-@test "trim returns empty string no argument is present" {
+@test "StringUtils.trim returns empty string no argument is present" {
   run StringUtils.trim
   [ "$output" = "" ]
 }
 
 
-@test "trim returns empty string when only whitespaces are present (including tabs)" {
+@test "StringUtils.trim returns empty string when only whitespaces are present (including tabs)" {
   run StringUtils.trim "   	  "
   [ "$output" = "" ]
 }
 
-@test "trim returns string without leading spaces" {
+@test "StringUtils.trim returns string without leading spaces" {
   run StringUtils.trim "   Hello World"
   [ "$output" = "Hello World" ]
 }
 
-@test "trim returns string without tailing spaces" {
+@test "StringUtils.trim returns string without tailing spaces" {
   run StringUtils.trim "Hello World     "
   [ "$output" = "Hello World" ]
 }
 
-@test "trim returns the current value if no space to trim" {
+@test "StringUtils.trim returns the current value if no space to trim" {
   run StringUtils.trim "Hello World"
   [ "$output" = "Hello World" ]
 }

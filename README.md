@@ -24,7 +24,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Features](#features)
 - [Documentation](#documentation)
 - [Container](#container)
-- [Compatibility](#compatibility)
+- [Compatibility](#compatibility) ([Matrix](doc/bash/fr/hastec/apashCompatibilityTable.md))
 - [Troubleshooting](#troubleshooting)
 - [Maintenance](#maintenance)
 - [License](#license)
@@ -36,7 +36,7 @@ As other shell projects, unfortunately there is no standard way to install Apash
 ### <ins>Pre-requisites</ins>
 Install curl and git to facilitate the installation. Adapt the command with your package manager
 ```bash
-sudo apt install curl git
+sudo apt install curl git bc
 ```
 
 ### <ins>Intallation by Script</ins>
@@ -213,10 +213,6 @@ docker run --rm hastec/apash:0.1.0 'apash test'
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## <a id="compatibility" ></a> ✅ Compatibility
-A more complete list of compatibility will be dressed.
-Currently it has been tested for bash version 5.2 and require bc to be installed.
-
 ## <a id="container" ></a> 🐳 Container
 ### One shot
 If you don't want to install apash but test it quickly, you can pull its container on [docker hub](https://hub.docker.com/r/hastec/apash)
@@ -271,8 +267,11 @@ docker run --rm hastec/apash:0.1.0 'apash test'
 ```
 
 ## <a id="compatibility" ></a> ✅ Compatibility
-A more complete list of compatibility will be dressed.
-Currently it has been tested for bash version 5.2.
+A compatibility [matrix](doc/bash/fr/hastec/apashCompatibilityTable.md) is available.<br>
+Currently from bash version 5.2 to 4.4 (2016-09-15) looks compatible.<br>
+Issues appears at the version 4.3 (2014-02-26) and grow with older versions.
+In most of cases, it is due the nameref which is a key feature appearing this the version 4.3.
+It is not planned to workaround it for the moment (but any idea is welcome 😉).
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### I have modified a library but it's not taken into account

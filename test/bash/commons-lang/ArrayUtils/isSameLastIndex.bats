@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "isSameLastIndex fails when the input do not refere to an array" {
+@test "ArrayUtils.isSameLastIndex fails when the input do not refere to an array" {
   run ArrayUtils.isSameLastIndex
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isSameLastIndex succeed when the input arrays have the same last index" {
+@test "ArrayUtils.isSameLastIndex succeed when the input arrays have the same last index" {
   local myArray=()
   run ArrayUtils.isSameLastIndex "myArray" "myArray"
   [ "$status" -eq 0  ]
@@ -57,7 +57,7 @@ fi
   [ "$output" = ""   ]
 }
 
-@test "isSameLastIndex fails when the input arrays does not have the same last index" {
+@test "ArrayUtils.isSameLastIndex fails when the input arrays does not have the same last index" {
   myArray1=("a")
   myArray2=("a" "b")
   run ArrayUtils.isSameLastIndex "myArray1" "myArray2"

@@ -7,7 +7,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "indexOf fails when the inputs do not refere to an array" {
+@test "ArrayUtils.indexOf fails when the inputs do not refere to an array" {
   run ArrayUtils.indexOf
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -44,7 +44,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "indexOf succeed when references are arrays and value is present" {
+@test "ArrayUtils.indexOf succeed when references are arrays and value is present" {
   local myArray=("a" "b" "" "c" "b")
   run ArrayUtils.indexOf "myArray" "b"
   [ "$status" -eq 0  ]
@@ -61,7 +61,7 @@ fi
   [ "$output" = "1"  ]
 }
 
-@test "indexOf returns ArrayUtils_INDEX_NOT_FOUND when value is not present" {
+@test "ArrayUtils.indexOf returns ArrayUtils_INDEX_NOT_FOUND when value is not present" {
   myArray=("a" "b")
   run ArrayUtils.indexOf "myArray" "c"
   [ "$status" -eq 0   ]

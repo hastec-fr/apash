@@ -8,7 +8,7 @@ else
   source $( dirname "$BATS_TEST_FILENAME" )/../../../../apash-bash-min.sh
 fi
 
-@test "nextInt succeed and return integer between bound" {
+@test "Random.nextInt succeed and return integer between bound" {
   myInt=$(Random.nextInt)
   NumberUtils.isInteger $myInt
 
@@ -41,7 +41,7 @@ fi
   [ "$myInt" -eq 5  ]
 }
 
-@test "nextInt fails when numbers are not integer" {
+@test "Random.nextInt fails when numbers are not integer" {
   run Random.nextInt ""
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]
@@ -71,7 +71,7 @@ fi
   [ "$output" = ""  ]
 }
 
-@test "nextInt failes when min value is greater than maxValue" {
+@test "Random.nextInt failes when min value is greater than maxValue" {
   run Random.nextInt 10 1
   [ "$status" -eq 1 ]
   [ "$output" = ""  ]

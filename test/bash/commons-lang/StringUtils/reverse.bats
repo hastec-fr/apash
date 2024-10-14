@@ -11,7 +11,7 @@ setup_file(){
   bats_require_minimum_version 1.5.0
 }
 
-@test "reverse returns empty string input string is empty)" {
+@test "StringUtils.reverse returns empty string input string is empty)" {
   run --separate-stderr StringUtils.reverse
   [ "$status" = 0  ]
   [ "$output" = "" ]
@@ -21,7 +21,7 @@ setup_file(){
   [ "$output" = "" ]
 }
 
-@test "reverse returns the reversed string" {
+@test "StringUtils.reverse returns the reversed string" {
   run --separate-stderr StringUtils.reverse "bat"
   [ "$status" = 0  ]
   [ "$output" = "tab" ]
