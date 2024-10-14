@@ -32,14 +32,12 @@ USER apash
 WORKDIR /home/apash
 SHELL ["/usr/bin/zsh", "-c"]
 
-
-
 # By default, the version from github is selected.
 RUN if [ "${APASH_LOCAL_COPY_TO}" = "/dev/null" ]; then \
         rm -rf "/home/apash/.apash"; \
         git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
     fi; \
-    cat <<EOF > $HOME/.bashrc
+    cat <<EOF > $HOME/.zshrc
 [ -n "\$APASH_SHELL" ] && return                 # Prevent recursive sourcing (basher init)
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
 export APASH_SHELL="bash"                        ##apashInstallTag
@@ -49,12 +47,17 @@ export PATH=".:\$PATH:\$APASH_HOME_DIR"          ##apashInstallTag
 unset BASH_ENV                                   # Prevent recursive sourcing (basher init)
 EOF
 
-ADD apash /home/apash/.apash/apash
-ADD src/bash/fr/hastec/apash.sh /home/apash/.apash/src/bash/fr/hastec/apash.sh
+# ADD apash /home/apash/.apash/apash
+# ADD src/bash/fr/hastec/apash.sh /home/apash/.apash/src/bash/fr/hastec/apash.sh
 
-RUN curl -s https://raw.githubusercontent.com/basherpm/basher/master/install.sh | bash && \
-    . $HOME/.bashrc && \
-    basher install "bats-core/bats-core"
+# Install bats-core
+RUN git clone https://github.com/bats-core/bats-core.git; \
+    cd bats-core && ./install $HOME/.bats-core; \
+    cd $HOME
+
+# RUN curl -s https://raw.githubusercontent.com/basherpm/basher/master/install.sh | bash && \
+#     . $HOME/.bashrc && \
+#     basher install "bats-core/bats-core"
 
 # Force environment file
 # @see: https://stackoverflow.com/q/29021704

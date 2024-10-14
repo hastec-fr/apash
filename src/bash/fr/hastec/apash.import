@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1090
 apash.import(){
   local lib
   local libs=()
@@ -11,13 +12,12 @@ apash.import(){
     location="$APASH_BASH_DIR/"${l//./\/}
     # Import package
     if [ -d "$location" ]; then
-      location="$location/*.sh"
-      for lib in $location; do
+      for lib in "$location"/*.sh; do
         libs+=("$lib")
       done
     
     # Import a single class or method
-    elif [ -r "$location.sh" ]; then
+    elif [ -r "${location}.sh" ]; then
       libs+=("$location.sh")
 
     # Import a file terminating by .sh
@@ -55,11 +55,18 @@ apash.import(){
 
   for lib in "${libs[@]}"; do
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
-    if ! declare -F "$(basename "$(dirname "$lib")")" || [[ $forceFlag = true ]]; then
-      # shellcheck disable=SC1090
+    if [[ $forceFlag = true ]]; then source "$lib"; continue; fi
+
+    if [[ "$APASH_SHELL" == "bash" ]] && ! declare -F "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")"; then
+      source "$lib"
+    elif [[ "$APASH_SHELL" == "zsh"  ]] && ! type -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
       source "$lib"
     fi
   done
 }
 
-export -f apash.import
+if [[ "$APASH_SHELL" == "bash" ]]; then
+  export -f apash.import
+elif [[ "$APASH_SHELL" == "zsh"  ]] && ! type -f apash.import; then
+  FPATH+="${0:A:h}" && autoload -Uz apash.import
+fi
