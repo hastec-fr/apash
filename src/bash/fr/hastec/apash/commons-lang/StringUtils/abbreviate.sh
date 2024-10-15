@@ -60,7 +60,6 @@ StringUtils.abbreviate() {
   NumberUtils.isLong "$inMaxWidth" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inOffset"   || return "$APASH_FUNCTION_FAILURE"
 
-  # echo "Par ici 1"
   if (! StringUtils.isEmpty "$inString") && [[ $inMarker = "" && $inMaxWidth -gt 0 ]]; then
     StringUtils.substring "$inString" 0 "$inMaxWidth" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
