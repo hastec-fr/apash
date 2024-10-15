@@ -44,7 +44,7 @@ StringUtils.replace() {
   local inSubstring="$2"
   local inReplacement="$3"
 
-  echo "${inString//"$inSubstring"/"$inReplacement"}" || return "$APASH_FUNCTION_SUCCESS"
+  echo "${inString//"$inSubstring"/"$inReplacement"}" && return "$APASH_FUNCTION_SUCCESS"
 
   return "$APASH_FUNCTION_FAILURE"
 }

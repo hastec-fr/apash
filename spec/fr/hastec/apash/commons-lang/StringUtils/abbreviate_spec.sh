@@ -82,7 +82,7 @@ Describe 'StringUtils.abbreviate'
 
   It 'passes with only max width and offset declared'
     When call StringUtils.abbreviate "" 4 0
-    The output should equal ''
+    The output should equal ""
     The status should be success
   End
 

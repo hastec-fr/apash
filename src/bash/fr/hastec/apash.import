@@ -67,6 +67,7 @@ apash.import(){
 
 if [[ "$APASH_SHELL" == "bash" ]]; then
   export -f apash.import
-elif [[ "$APASH_SHELL" == "zsh"  ]] && ! type -f apash.import; then
-  FPATH+="${0:A:h}" && autoload -Uz apash.import
+elif [[ "$APASH_SHELL" == "zsh"  ]] && ! typeset -f apash.import > /dev/null; then
+  # FPATH+="${0:A:h}"
+  autoload -Uz apash.import
 fi
