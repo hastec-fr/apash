@@ -52,10 +52,6 @@ ArrayUtils.removeDuplicates() {
   local -n ioArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
 
-  for value in "${ioArray[@]}"; do
-    echo "ICI: $value"
-  done
-
   local uniqueArray=()
   for value in "${ioArray[@]}"; do
     ArrayUtils.contains "uniqueArray" "$value" || uniqueArray+=("$value") 
