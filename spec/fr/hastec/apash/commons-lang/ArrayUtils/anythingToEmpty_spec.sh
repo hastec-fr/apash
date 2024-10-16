@@ -46,7 +46,7 @@ Describe 'ArrayUtils.anythingToEmpty'
 
   It 'overrides old reference if the name is a valid variable'
     local -A myMap=(["foo"]="bar")
-    When call ArrayUtils.anythingToEmpty "myVar"
+    When call ArrayUtils.anythingToEmpty "myMap"
     The output should equal ""
     The status should be success
     The value "${#myMap[@]}" should eq 0
