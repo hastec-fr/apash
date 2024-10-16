@@ -1,7 +1,7 @@
 Describe 'ArrayUtils.clone'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
     Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
-    Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash/commons-lang/ArrayUtils/clone.sh"
+    apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
