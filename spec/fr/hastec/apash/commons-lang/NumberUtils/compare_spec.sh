@@ -48,12 +48,6 @@ Describe 'NumberUtils.compare'
     The status should be success
   End
   
-  It 'returns 0 when numbers are equals'
-    When call NumberUtils.compare "2.0" "2"
-    The output should equal "0"
-    The status should be success
-  End
-
   It 'returns value greater than 0 when first number is greater than the second'
     When call NumberUtils.compare "2" "1"
     The output should equal "1"

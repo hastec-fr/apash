@@ -69,7 +69,7 @@ Describe 'DateUtils.addSeconds'
   End
 
   It 'returns the new Date with the added amount of seconds during Summer daylight saving'
-    When call DateUtils.addSeconds "2024-04-01T01:59:59.123+0100" 1 
+    When call DateUtils.addSeconds "2024-04-01T01:59:59.123+0100" 1
     The output should equal "2024-04-01T03:00:00.123+0200"
     The status should be success
   End
@@ -82,8 +82,8 @@ Describe 'DateUtils.addSeconds'
   # End
 
   It 'returns the new Date with the added amount of seconds during Winter daylight saving'
-    When call DateUtils.addSeconds "2024-10-01T14:00:00.123+0200" 1
-    The output should equal "2024-11-01T13:00:00.123+0100"
+    When call DateUtils.addSeconds "2024-11-01T02:59:59.123+0200" 1
+    The output should equal "2024-11-01T02:00:00.123+0100"
     The status should be success
   End
 

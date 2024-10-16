@@ -15,35 +15,28 @@ Describe 'DateUtils.isDate'
   End
   
   It 'fails because format is not respected'
-    When call DateUtils.isDate "" 1
+    When call DateUtils.isDate ""
     The output should equal ""
     The status should be failure
   End
 
   It 'fails because format is not respected'
-    When call DateUtils.isDate "20240914" 1
+    When call DateUtils.isDate "20240914"
     The output should equal ""
     The status should be failure
   End
 
   It 'fails because format is not respected'
-    When call DateUtils.isDate "2024-09-14T10:30" 1
+    When call DateUtils.isDate "2024-09-14T10:30"
     The output should equal ""
     The status should be failure
   End
 
   It 'fails because format is not respected'
-    When call DateUtils.isDate "2024-03-4T14:30:45.123+0000" 1
+    When call DateUtils.isDate "2024-03-4T14:30:45.123"
     The output should equal ""
     The status should be failure
   End
-
-  It 'fails because format is not respected'
-    When call DateUtils.isDate "2024-03-14T14:30:45.123+0000" "a"
-    The output should equal ""
-    The status should be failure
-  End
-
 
   It 'fails because format is not respected'
     When call DateUtils.isDate "yersteday"

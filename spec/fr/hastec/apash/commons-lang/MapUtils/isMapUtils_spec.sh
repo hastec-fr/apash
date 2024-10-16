@@ -59,7 +59,7 @@ Describe 'MapUtils.isMap'
   End
 
   It 'passes when references is a map'
-    myMap=(["Hello"]="World")
+    local -A myMap=(["Hello"]="World")
     When call MapUtils.isMap "myMap"
     The output should equal ""
     The status should be success

@@ -1,7 +1,7 @@
 Describe 'StringUtils.split'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
     Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
-    apash.import -f "fr.hastec.apash.commons-lang.StringUtils.split"
+    apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi    
