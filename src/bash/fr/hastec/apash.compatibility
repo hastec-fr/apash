@@ -10,7 +10,7 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 apash.compatibility(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
   local v
-  local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2 4.1 4.0)
+  local -a bashVersions=(5.2 4.3)
   true > "$globalCampaignFile"
   
   for v in "${bashVersions[@]}"; do
@@ -30,13 +30,13 @@ apash.compatibility.addVersion(){
 
   # Build and run a container with apash test.
   docker build --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY_TO=/home/apash/.apash" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
-  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" "apash test --bats-options '-t -r'" | tee "$shellCampaignFile"
+  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" "apash test --test-options '--shell ${shellName} --format tap'" | tee "$shellCampaignFile"
 
   while IFS= read -r line; do
     # Keep only lines with ok/not ok
     StringUtils.startsWith "$line" "ok" || StringUtils.startsWith "$line" "not ok" || continue
-    StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $3}') \
-                                        || functionName=$(echo "$line" | awk '{print $4}')
+    StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $4}') \
+                                        || functionName=$(echo "$line" | awk '{print $5}')
     [ -z "$functionName" ] && continue
     MapUtils.containsKey "functionMap" "$functionName" || functionMap["$functionName"]="ok"
     StringUtils.startsWith "$line" "not ok" && functionMap["$functionName"]="ko"

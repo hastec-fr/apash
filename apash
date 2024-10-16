@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-APASH_VERSION="0.1.0"
+APASH_VERSION="0.2.0-snapshot"
 
 ##############################################################################
 # @name apash
@@ -41,8 +41,8 @@ APASH_NB_ARGS=0                  # Number of argument before the action.
 APASH_INIT_POST_INSTALL=false    # Init suboption.
 APASH_SOURCE_ALL=false           # Source subtoption.
 
-# Test suboption overriding bats options.
-APASH_TEST_BATS_OPTIONS=" -T --print-output-on-failure -r "
+# Test suboption overriding options.
+APASH_TEST_OPTIONS=" --shell ${APASH_SHELL}"
 
 # Calculated flags
 APASH_EXIT_REQUIRED=false        # Flag set to true when an issue occurs.
@@ -145,32 +145,26 @@ EOF
 
 showApashTestHelp(){
   cat << EOF
-  Usage: ${0##*/} test [-h] [--bats-options options] [--] [test paths]
+  Usage: ${0##*/} test [-h] [--test-options options] [--] [test paths]
 
   Execute unitary tests contained in the test directory.
   
       -h|--help|-?      display this help and exit.
-      --bats-options    options in a single argument.
+      --test-options    options in a single argument for shellspec.
 
-  By default the bats command looks like:
-  $ bats -T --print-output-on-failure -r test
+  By default the shellspec command looks like:
+  $ shellspec --shell bash spec/bash
 
-  Example to override bats options:
-  $ apash test --bats-options "-t -r --trace" "\$APASH_HOME_DIR/test/bash"
+  Example to override shellspec options:
+  $ apash test --test-options "--shell bash --format tap" "\$APASH_HOME_DIR/spec"
 
   Example to select some tests:
-  $ apash test \$APASH_HOME_DIR/test/bash/lang/Math/*.bats
+  $ apash test \$APASH_HOME_DIR/spec/fr/hastec/apash/lang/Math/*.sh
 
-  PREREQUISITES: Bats-Core must be installed.
+  PREREQUISITES: shellspec must be installed.
   Example:
-  # Install basher
-  $ curl -s \
-    "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" \
-    | bash
+  $ curl -fsSL https://git.io/shellspec | sh -s -- --yes
   
-  # Install Bats
-  $ basher install bats-core/bats-core
-
   # Open another terminal again to ensure that environment is well loaded.
 EOF
 }
@@ -315,16 +309,16 @@ executeApashTest(){
   APASH_NB_ARGS="0"
   parseApashTestArgs "$@" || return
   shift $APASH_NB_ARGS
-  APASH_BATS_FILES=("$@")
-  [ $# -eq 0 ] && APASH_BATS_FILES=("$APASH_HOME_DIR/test/$APASH_SHELL")
+  APASH_TEST_FILES=("$@")
+  [ $# -eq 0 ] && APASH_TEST_FILES=("$APASH_HOME_DIR/spec/")
   
-  # Split word intentionnaly the bats options.
+  # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     # shellcheck disable=SC2086
-    APASH_TEST_MINIFIED=true bats $APASH_TEST_BATS_OPTIONS "${APASH_BATS_FILES[@]}"
+    APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
   else
     # shellcheck disable=SC2086
-    bats $APASH_TEST_BATS_OPTIONS "${APASH_BATS_FILES[@]}"
+    shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
   fi
 }
 
@@ -470,9 +464,9 @@ parseApashTestArgs() {
         return $APASH_EXIT_REQUIRED
         ;;
 
-      --bats-options)
+      --test-options)
         if [ "$2" ]; then
-          APASH_TEST_BATS_OPTIONS="$2"
+          APASH_TEST_OPTIONS="$2"
           shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
         fi
         ;;
