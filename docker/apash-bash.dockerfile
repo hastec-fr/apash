@@ -7,7 +7,7 @@ ARG BASH_VERSION=5.2.32
 FROM docker.io/bash:${BASH_VERSION}
 
 ARG APASH_BRANCH="main"
-ARG APASH_LOCAL_COPY_TO="/dev/null"
+ARG APASH_LOCAL_COPY="false"
 
 LABEL maintainer="Benjamin Vargin"
 
@@ -22,18 +22,16 @@ RUN apk update && \
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
 
-# Conditional copy, by default it's send to /dev/null
-COPY --chown=apash:tribe "." "${APASH_LOCAL_COPY_TO}"
-
 # Change directly the user rights to apash user
-# RUN [ -d /home/apash/.apash ] && chown -r apash:tribe /home/apash/.apash
+COPY "." "/home/apash/.apash"
+RUN chown "apash:tribe" "/home/apash/.apash"
 
 USER apash
 WORKDIR /home/apash
 SHELL ["/usr/local/bin/bash", "-c"]
 
 # By default, the version from github is selected.
-RUN if [ "${APASH_LOCAL_COPY_TO}" = "/dev/null" ]; then \
+RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
         rm -rf "/home/apash/.apash"; \
         git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
     fi; \

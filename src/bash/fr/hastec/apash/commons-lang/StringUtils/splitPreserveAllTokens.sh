@@ -40,7 +40,7 @@
 # @stdout None.
 # @stderr None.
 #
-# @warning: Not optimized, but looks functional.
+# @WARNING: Not optimized, but looks functional.
 #
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.

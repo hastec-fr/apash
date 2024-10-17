@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # 
 # #### Example
 # ```bash
-#    ArrayUtils.isArrayIndex "0"                    # true
+#    ArrayUtils.isArrayIndex "0"                    # true (false for zsh starting at 1)
 #    ArrayUtils.isArrayIndex "1"                    # true
 #    ArrayUtils.isArrayIndex "9223372036854775807"  # true
 #    ArrayUtils.isArrayIndex "9223372036854775808"  # false
@@ -49,6 +49,6 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 ArrayUtils.isArrayIndex() {
   local inIndex="$1"
   NumberUtils.isLong "$inIndex" || return "$APASH_FUNCTION_FAILURE"
-  [[ $inIndex -ge 0 ]] || return "$APASH_FUNCTION_FAILURE"  
+  [[ $inIndex -ge $APASH_ARRAY_FIRST_INDEX ]] || return "$APASH_FUNCTION_FAILURE"  
   return "$APASH_FUNCTION_SUCCESS"
 }

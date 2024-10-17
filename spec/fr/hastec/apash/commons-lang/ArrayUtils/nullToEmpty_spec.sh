@@ -72,8 +72,8 @@ Describe 'ArrayUtils.nullToEmpty'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
+    The variable 'myArray[@]:0:1' should eq "a"
+    The variable 'myArray[@]:1:1' should eq "b"
   End
   
 End

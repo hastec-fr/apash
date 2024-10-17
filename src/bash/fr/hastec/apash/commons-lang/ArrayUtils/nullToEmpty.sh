@@ -36,7 +36,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 #    ArrayUtils.nullToEmpty  ""                # failure
 #
 #    myVar=test
-#    ArrayUtils.nullToEmpty  "myVar"           # myVar=()
+#    ArrayUtils.nullToEmpty  "myVar"           # failure
 #
 #    declare -A myMap
 #    ArrayUtils.nullToEmpty  "myMap"           # failure
@@ -63,11 +63,8 @@ ArrayUtils.nullToEmpty() {
   # Fails if the variable is declared and not an array
   BashUtils.isDeclared "$inArrayName" && return "$APASH_FUNCTION_FAILURE"
 
-  # The input name is not a variable, then create it as an array.
-  (( "${inArrayName}[0]=1" )) || return "$APASH_FUNCTION_FAILURE"
-  local -n outArray="${inArrayName}"
-  # shellcheck disable=SC2034
-  outArray=() && return "$APASH_FUNCTION_SUCCESS"
+  # Declare the array with dynamic name
+  declare -a "${inArrayName}" && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }

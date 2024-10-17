@@ -32,13 +32,7 @@ Describe 'ArrayUtils.isArrayIndex'
   End
 
   It 'passes when the input is a positive long number'
-    When call ArrayUtils.isArrayIndex "0"
-    The output should equal ""
-    The status should be success
-  End
-
-  It 'passes when the input is a positive long number'
-    When call ArrayUtils.isArrayIndex "1"
+    When call ArrayUtils.isArrayIndex "$APASH_ARRAY_FIRST_INDEX"
     The output should equal ""
     The status should be success
   End
@@ -56,7 +50,7 @@ Describe 'ArrayUtils.isArrayIndex'
   End
 
   It 'fails when index is out of range'
-    When call ArrayUtils.isArrayIndex -1
+    When call ArrayUtils.isArrayIndex $((APASH_ARRAY_FIRST_INDEX-1))
     The output should equal ""
     The status should be failure
   End

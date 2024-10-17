@@ -151,6 +151,9 @@ showApashTestHelp(){
   
       -h|--help|-?      display this help and exit.
       --test-options    options in a single argument for shellspec.
+      --minified|-mn    Use minified version of apash.
+      --compatibility   Launch the campaign of test to generate the
+                        compatibility matrix.
 
   By default the shellspec command looks like:
   $ shellspec --shell bash spec/bash
@@ -462,6 +465,14 @@ parseApashTestArgs() {
       -h|-\?|--help)
         showApashTestHelp
         return $APASH_EXIT_REQUIRED
+        ;;
+
+      # Launch compatibility campaign
+      --compatibility)
+          ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return $APASH_EXIT_REQUIRED
+          apash.import -f "fr/hastec/apash.test.compatibility"
+          apash.test.compatibility
+          return $APASH_EXIT_REQUIRED
         ;;
 
       --test-options)

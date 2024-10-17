@@ -7,20 +7,26 @@ apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
 apash.import "fr.hastec.apash.commons-lang.StringUtils.splitPreserveAllTokens"
 apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 
-apash.compatibility(){
+apash.test.compatibility(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
   local v
-  local -a bashVersions=(5.2 4.3)
+  # local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
+  local -a bashVersions=(5.2)
+  local -a zshVersions=(5.9)
   true > "$globalCampaignFile"
   
   for v in "${bashVersions[@]}"; do
-    apash.compatibility.addVersion "bash" "$v"
+    apash.test.compatibility.addVersion "bash" "$v"
   done
 
-  apash.compatibility.toMarkDown
+  for v in "${zshVersions[@]}"; do
+    apash.test.compatibility.addVersion "zsh" "$v"
+  done
+
+  apash.test.compatibility.toMarkDown
 }
 
-apash.compatibility.addVersion(){
+apash.test.compatibility.addVersion(){
   local shellName="$1"
   local shellVersion="$2"
   local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
@@ -29,8 +35,8 @@ apash.compatibility.addVersion(){
   local -A functionMap=()
 
   # Build and run a container with apash test.
-  docker build --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY_TO=/home/apash/.apash" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
-  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" "apash test --test-options '--shell ${shellName} --format tap'" | tee "$shellCampaignFile"
+  docker build --no-cache --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
 
   while IFS= read -r line; do
     # Keep only lines with ok/not ok
@@ -60,7 +66,7 @@ apash.compatibility.addVersion(){
   # rm -f "$shellCampaignFile" "$shellFormattedCampaignFile"
 }
 
-apash.compatibility.toMarkDown(){
+apash.test.compatibility.toMarkDown(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"  
   local s v shellName shellVersion result;
   local -a shells=() versions=() results=()

@@ -25,4 +25,7 @@
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
 
+export APASH_ARRAY_FIRST_INDEX=0
+[ "$APASH_SHELL" = "zsh" ] && [[ ! $(setopt) == *ksharrays* ]] && APASH_ARRAY_FIRST_INDEX=1
+
 source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"

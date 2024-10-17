@@ -64,7 +64,7 @@ Math.max() {
       echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
     fi
   else
-    [ "$APASH_WARNING_DEGRADED" != "disabled" ] && echo "WARNING - Degraded mode (bc command not found)" >&2
+    # @WARNING: Degraded mode (bc command not found)
     if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 < inNum2)}'; then
       echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
     else

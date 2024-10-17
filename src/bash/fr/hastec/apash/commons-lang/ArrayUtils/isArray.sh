@@ -48,6 +48,6 @@
 # @exitcode 1 Otherwise.
 ArrayUtils.isArray() {
    local inVarName="$1"
-   declare -p "$inVarName" 2> /dev/null | grep -q 'declare -a' && return "$APASH_FUNCTION_SUCCESS"
+   declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && return "$APASH_FUNCTION_SUCCESS"
    return "$APASH_FUNCTION_FAILURE"
 }

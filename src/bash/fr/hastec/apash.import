@@ -54,6 +54,8 @@ apash.import(){
   done
 
   for lib in "${libs[@]}"; do
+    # Change lib in case a variant exist for the current shell.
+    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     if [[ $forceFlag = true ]]; then source "$lib"; continue; fi
 
