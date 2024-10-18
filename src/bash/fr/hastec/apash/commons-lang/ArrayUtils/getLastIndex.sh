@@ -59,15 +59,14 @@ ArrayUtils.getLastIndex() {
 
   # In zsh, all elements are declared, no hole in the array
   if [ "$APASH_SHELL" = "zsh" ]; then
-    # shellcheck disable=SC2296
-    # local -a inArray=("${(PA)1[@]}")
-    # local -a inArray=()
     ArrayUtils.clone "$inArrayName" "inArray"
     [[ ${#inArray[@]} == 0 ]] && return "$APASH_FUNCTION_SUCCESS"
     echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? ${#inArray[@]} -  1 : ${#inArray[@]}))" && return "$APASH_FUNCTION_SUCCESS"
-  else
-    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-    echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
-  fi  
+    return "$APASH_FUNCTION_FAILURE"
+  fi
+
+  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
+  
   return "$APASH_FUNCTION_FAILURE"
 }
