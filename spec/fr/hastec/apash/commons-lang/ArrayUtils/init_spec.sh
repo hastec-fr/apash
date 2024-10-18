@@ -45,7 +45,7 @@ Describe 'ArrayUtils.init'
 
   It 'fails when the input name is not a valid array name'
     local -A myMap=(["foo"]="bar")
-    When call ArrayUtils.init "myMap" "a"
+    When call ArrayUtils.init "myMap"
     The output should equal ""
     The status should be failure
   End

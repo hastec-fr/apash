@@ -43,7 +43,7 @@ If array already exists, then nothing is done.
 ArrayUtils.nullToEmpty  ""                # failure
 
 myVar=test
-ArrayUtils.nullToEmpty  "myVar"           # myVar=()
+ArrayUtils.nullToEmpty  "myVar"           # failure
 
 declare -A myMap
 ArrayUtils.nullToEmpty  "myMap"           # failure

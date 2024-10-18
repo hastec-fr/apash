@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.getLastIndex
@@ -54,8 +55,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 ArrayUtils.getLastIndex() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
+
+  # In zsh, all elements are declared, no hole in the array
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    # shellcheck disable=SC2296
+    # local -a inArray=("${(PA)1[@]}")
+    # local -a inArray=()
+    ArrayUtils.clone "$inArrayName" "inArray"
+    [[ ${#inArray[@]} == 0 ]] && return "$APASH_FUNCTION_SUCCESS"
+    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? ${#inArray[@]} -  1 : ${#inArray[@]}))" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
+  fi  
   return "$APASH_FUNCTION_FAILURE"
 }

@@ -22,3 +22,11 @@ spec_helper_configure() {
   # Available functions: import, before_each, after_each, before_all, after_all
   : import 'support/custom_matcher'
 }
+
+global_helper_is_zsh(){
+  [ "$APASH_SHELL" = "zsh" ] && return "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
+}
+
+global_helper_is_bash(){
+  [ "$APASH_SHELL" = "bash" ] && return "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
+}

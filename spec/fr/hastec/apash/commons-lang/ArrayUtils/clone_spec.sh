@@ -2,6 +2,7 @@ Describe 'ArrayUtils.clone'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
     Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
     apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
+    apash.import "fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
@@ -55,32 +56,56 @@ Describe 'ArrayUtils.clone'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq ""
-    The variable 'myArray[3]' should eq "c"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "c"
     The value "${#myClone[@]}" should eq 4
-    The variable 'myClone[0]' should eq "a"
-    The variable 'myClone[1]' should eq "b"
-    The variable 'myClone[2]' should eq ""
-    The variable 'myClone[3]' should eq "c"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "c"
   End
 
   It 'passes when references are arrays'
-    local myArray=("a" "b" "" "c")
+    local myArray=("a" "b")
+    myArray[$((APASH_ARRAY_FIRST_INDEX+10))]="z"
     local myClone=()
     When call ArrayUtils.clone "myArray" "myClone"
     The output should equal ""
     The status should be success
-    The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq ""
-    The variable 'myArray[3]' should eq "c"
-    The value "${#myClone[@]}" should eq 4
-    The variable 'myClone[0]' should eq "a"
-    The variable 'myClone[1]' should eq "b"
-    The variable 'myClone[2]' should eq ""
-    The variable 'myClone[3]' should eq "c"
+    The value "$(ArrayUtils.getLastIndex myArray)" should eq "$((APASH_ARRAY_FIRST_INDEX+10))"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]'  should eq "a"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]'  should eq "b"
+    The value    "${myArray[$((APASH_ARRAY_FIRST_INDEX+2))]}"  should eq ""
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+10))]' should eq "z"
+    The value  "$(ArrayUtils.getLastIndex myArray)" should eq "$((APASH_ARRAY_FIRST_INDEX+10))"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+0))]'  should eq "a"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+1))]'  should eq "b"
+    The value    "${myClone[$((APASH_ARRAY_FIRST_INDEX+2))]}"  should eq ""
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+10))]' should eq "z"
+  End
+
+  It 'passes when references are arrays'
+    local myArray=("a" "b" "" "foo bar" "c" "")
+    local myClone=()
+    When call ArrayUtils.clone "myArray" "myClone"
+    The output should equal ""
+    The status should be success
+    The value "${#myArray[@]}" should eq 6
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "foo bar"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+4))]' should eq "c"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+5))]' should eq ""
+    The value "${#myClone[@]}" should eq 6
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
+    The variable 'myClone[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "foo bar"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+4))]' should eq "c"
+    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+5))]' should eq ""
   End
 End
+

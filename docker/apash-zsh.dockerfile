@@ -19,6 +19,8 @@ LABEL maintainer="Benjamin Vargin"
 RUN apt update && \
     apt install -y curl git bc coreutils tzdata
 
+RUN apt install -y vim
+
 RUN addgroup tribe && \
     adduser --shell /usr/bin/zsh --home /home/apash --ingroup tribe --disabled-password --gecos apash apash
 
@@ -29,6 +31,9 @@ RUN chown "apash:tribe" "/home/apash/.apash"
 USER apash
 WORKDIR /home/apash
 SHELL ["/usr/bin/zsh", "-c"]
+
+# Install Shellspec
+RUN curl -fsSL https://git.io/shellspec | sh -s -- --yes    
 
 # By default, the version from github is selected.
 # Add interactivecomments to allow copy/paste on zsh with # sign
@@ -46,9 +51,6 @@ export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
 setopt interactivecomments                                  ##apashInstallTag
 EOF
 
-# Install Shellspec
-RUN curl -fsSL https://git.io/shellspec | sh -s -- --yes
-    
 # Force environment file
 ENV ZSH_ENV="/home/apash/.zshenv"
 

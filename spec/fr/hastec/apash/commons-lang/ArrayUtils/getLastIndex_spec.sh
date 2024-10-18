@@ -26,14 +26,14 @@ Describe 'ArrayUtils.getLastIndex'
 
   It 'fails when the input name does not refer to an array'
     local myVar="test"
-    When call ArrayUtils.getLastIndex "myVar" "0"
+    When call ArrayUtils.getLastIndex "myVar"
     The output should equal ""
     The status should be failure
   End
 
   It 'fails when the input name does not refer to an array'
     local -A myMap=(["foo"]="bar")
-    When call ArrayUtils.getLastIndex "myMap" "0"
+    When call ArrayUtils.getLastIndex "myMap"
     The output should equal ""
     The status should be failure
   End
@@ -46,20 +46,28 @@ Describe 'ArrayUtils.getLastIndex'
   End
 
   It 'passes references are arrays and value is present'
-    local myArray=("a" "b" "" "c" "b")
+    local myArray=("a" "b" "" "c" "one two three")
     When call ArrayUtils.getLastIndex "myArray"
-    The output should equal "4"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+4))"
+    The status should be success
+  End
+
+  It 'passes references are arrays and value is present'
+    local myArray=("a" "b" "c" "")
+    When call ArrayUtils.getLastIndex "myArray"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+3))"
     The status should be success
   End
 
   It 'passes references are arrays and value is present'
     local myArray=("")
     When call ArrayUtils.getLastIndex "myArray"
-    The output should equal "0"
+    The output should equal "$APASH_ARRAY_FIRST_INDEX"
     The status should be success
   End
   
   It 'passes references are arrays and value is present'
+    Skip if "is zsh" global_helper_is_zsh
     local myArray=("a" "b" "" "c")
     myArray[9223372036854775807]=z
     When call ArrayUtils.getLastIndex "myArray"

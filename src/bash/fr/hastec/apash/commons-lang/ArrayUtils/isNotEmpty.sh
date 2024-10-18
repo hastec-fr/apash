@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.isNotEmpty
@@ -51,8 +52,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 ArrayUtils.isNotEmpty() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+
+  if [[ $APASH_SHELL == "zsh" ]]; then
+    local -a inArray=()
+    ArrayUtils.clone "$inArrayName" inArray
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  fi
+  
   [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }
