@@ -55,21 +55,26 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 ArrayUtils.get() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   local inIndex="$2"
   local inDefaultValue="$3"
   local lastIndex
-  
   ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
+  
   if ! ArrayUtils.isArrayIndex "$inIndex"; then
     [[ $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
     echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
-  fi
+  fi  
 
   lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
   [[ inIndex -gt $lastIndex && $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
   [[ inIndex -gt $lastIndex ]] && echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
 
-  echo "${inArray[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    echo "${${(P)inArrayName}[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    echo "${inArray[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  fi
+
   return "$APASH_FUNCTION_FAILURE"
 }

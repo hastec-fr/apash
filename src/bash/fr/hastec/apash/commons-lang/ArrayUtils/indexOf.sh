@@ -62,19 +62,26 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 0 When input array references exist and start index is an integer (when declared).
 # @exitcode 1 Otherwise.
 ArrayUtils.indexOf() {
+  # If no value to find explicitly declared, then return
+  [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
+
   local inArrayName="$1"
   local inValue="$2"
   local inStart="${3:-0}"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
   
-  # If no value to find explicitly declared, then return
-  [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ $inStart -lt 0 ]] && inStart=0
-  for ((i = inStart; i < ${#inArray[@]} ; i++)); do
-    [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
-  done
+  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#${(P)inArrayName}[@]} ; i++)); do
+      [[ "${${(P)inArrayName}[$i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+    done
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArray[@]} ; i++)); do
+      [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+    done
+  fi
   
   # Return default value if not found
   echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_FUNCTION_SUCCESS"

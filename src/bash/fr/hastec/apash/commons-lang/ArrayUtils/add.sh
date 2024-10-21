@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.add
@@ -48,12 +49,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @exitcode 0 When first argument is an array and the value is not an embedded array or map.
 # @exitcode 1 Otherwise.
 ArrayUtils.add() {
+  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+
   local ioArrayName="$1"
   ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$ioArrayName"
   local inValue="$2"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"  
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local outArray=()
+    ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
+    outArray+=("$inValue")                     || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n inArray="$ioArrayName"
+    inArray+=("$inValue") && return "$APASH_FUNCTION_SUCCESS"
+  fi
   
-  inArray+=("$inValue") && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

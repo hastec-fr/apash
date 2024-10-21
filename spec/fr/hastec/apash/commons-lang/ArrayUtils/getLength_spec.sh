@@ -52,7 +52,9 @@ Describe 'ArrayUtils.getLength'
     The status should be success
   End
   
+
   It 'passes when input reference is an array'
+    Skip if "is zsh" global_helper_is_zsh
     local myArray=("a" "b" "" "c")
     myArray[9223372036854775807]=z
     When call ArrayUtils.getLength "myArray"

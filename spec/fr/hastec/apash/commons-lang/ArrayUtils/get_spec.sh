@@ -54,14 +54,14 @@ Describe 'ArrayUtils.get'
 
   It 'passes when reference is an array and index exists'
     local myArray=("a" "b" "" "c")
-    When call ArrayUtils.get "myArray" "0"
+    When call ArrayUtils.get "myArray" "$((APASH_ARRAY_FIRST_INDEX+0))"
     The output should equal "a"
     The status should be success
   End
 
   It 'passes when reference is an array and index exists'
     local myArray=("a" "b" "" "c")
-    When call ArrayUtils.get "myArray" "3"
+    When call ArrayUtils.get "myArray" "$((APASH_ARRAY_FIRST_INDEX+3))"
     The output should equal "c"
     The status should be success
   End
@@ -75,7 +75,7 @@ Describe 'ArrayUtils.get'
   
   It 'passes when index is out of bound but a default value is provided'
     local myArray=("a" "b" "" "c")
-    When call ArrayUtils.get "myArray" "5" "foo bar"
+    When call ArrayUtils.get "myArray" "$((APASH_ARRAY_FIRST_INDEX+5))" "foo bar"
     The output should equal "foo bar"
     The status should be success
   End

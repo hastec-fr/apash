@@ -41,28 +41,28 @@ Describe 'ArrayUtils.indexOf'
   It 'passes when references are arrays and value is present'
     local myArray=("a" "b" "" "c" "b")
     When call ArrayUtils.indexOf "myArray" "a"
-    The output should equal "0"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+0))"
     The status should be success
   End
 
   It 'passes when references are arrays and value is present'
     local myArray=("a" "b" "" "c" "b")
     When call ArrayUtils.indexOf "myArray" "b"
-    The output should equal "1"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+1))"
     The status should be success
   End
 
   It 'passes when references are arrays and value is present'
     local myArray=("a" "b")
     When call ArrayUtils.indexOf "myArray" "a" "-1"
-    The output should equal "0"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+0))"
     The status should be success
   End
 
   It 'passes when references are arrays and value is present'
     myArray=("a" "" "b")
     When call ArrayUtils.indexOf "myArray" "" "-1"
-    The output should equal "1"
+    The output should equal "$((APASH_ARRAY_FIRST_INDEX+1))"
     The status should be success
   End
 

@@ -57,9 +57,6 @@ ArrayUtils.anythingToEmpty() {
   local ioArrayName="$1"
   BashUtils.isVariableNameValid "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   unset "$ioArrayName"
-  (( "${ioArrayName}[0]=1" )) || return "$APASH_FUNCTION_FAILURE"
-  local -n outArrayRef="${ioArrayName}"
-  # shellcheck disable=SC2034
-  outArrayRef=() && return "$APASH_FUNCTION_SUCCESS"
+  declare -a "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

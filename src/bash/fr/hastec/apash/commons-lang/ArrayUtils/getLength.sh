@@ -58,9 +58,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
 ArrayUtils.getLength() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
-  echo "${#inArray[@]}" && return "$APASH_FUNCTION_SUCCESS"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    echo "${#${(PA)inArrayName}[@]}" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+    echo "${#inArray[@]}" && return "$APASH_FUNCTION_SUCCESS"
+  fi
+
   return "$APASH_FUNCTION_FAILURE"
 }

@@ -3,6 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.addAll
@@ -57,17 +58,26 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # @exitcode 0 When first argument is an array and at least one value is provided.
 # @exitcode 1 Otherwise.
 ArrayUtils.addAll() {
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  
   local ioArrayName="$1"
   ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n ioArray="$ioArrayName"
   shift
-  [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
 
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local outArray=()
+    ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
+  else
+    # shellcheck disable=SC2178
+    local -n outArray="$ioArrayName"
+  fi
+  
   # Return failure if the number of elements exceed the bounds.
-  ArrayUtils.isArrayIndex $((${#ioArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArrayIndex $((APASH_ARRAY_FIRST_INDEX + ${#outArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
 
   # Add values at the end of the array
-  ioArray+=("$@")
+  outArray+=("$@")
+  [ "$APASH_SHELL" = "zsh" ] && ArrayUtils.clone "outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

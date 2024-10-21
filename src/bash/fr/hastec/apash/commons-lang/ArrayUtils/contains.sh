@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.contains
@@ -49,12 +50,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When first argument is an array and a value to find is provided.
 # @exitcode 1 Otherwise.
 ArrayUtils.contains() {
+  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+
   local inArrayName="$1"
   local inValue="$2"
   local value=""
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local inArray=()
+    ArrayUtils.clone "$inArrayName" inArray || return "$APASH_FUNCTION_FAILURE"
+  else
+    # shellcheck disable=SC2178
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  fi 
+  
   for value in "${inArray[@]}"; do
     [[ "$value" == "$inValue" ]] && return "$APASH_FUNCTION_SUCCESS"
   done

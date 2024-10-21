@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.addFirst
@@ -57,13 +58,26 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @exitcode 0 When first argument is an array and a value must be added.
 # @exitcode 1 When none or more than 1 value must be added.
 ArrayUtils.addFirst() {
+  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+
   local ioArrayName="$1"
   ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n ioArray="$ioArrayName"
-  local inValue="$2"
 
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  
-  ioArray=("$inValue" "${ioArray[@]}") || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  local inValue="$2"
+  local outArray=("$inValue")
+  local inArray=()
+  ArrayUtils.clone "$ioArrayName" "inArray" || return "$APASH_FUNCTION_FAILURE"
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    outArray+=("${inArray[@]}")
+  else
+    # Need to preserve indexes in bash
+    for i in "${!inArray[@]}"; do
+      # shellcheck disable=SC2034
+      outArray["$((i+1))"]="${inArray[$i]}"
+    done
+  fi
+  ArrayUtils.clone "outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+
+  return "$APASH_FUNCTION_FAILURE"
 }
