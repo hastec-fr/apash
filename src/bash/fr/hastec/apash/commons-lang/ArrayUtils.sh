@@ -60,7 +60,7 @@
 # <!-- apash.summaryTableEnd -->
 
 ArrayUtils_INDEX_NOT_FOUND="-1"
-
+ArrayUtils_EMPTY_ARRAY=()
 
 
 

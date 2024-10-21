@@ -74,7 +74,7 @@ ArrayUtils.indexOf() {
   [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
     for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#${(P)inArrayName}[@]} ; i++)); do
-      [[ "${${(P)inArrayName}[$i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
     done
   else
     local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"

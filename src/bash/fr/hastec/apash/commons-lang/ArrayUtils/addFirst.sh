@@ -28,7 +28,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+# | $1     | inArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
 # | ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
 #
 # #### Example
@@ -59,25 +59,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 When none or more than 1 value must be added.
 ArrayUtils.addFirst() {
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-
-  local ioArrayName="$1"
-  ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtilsAddFirst_inArrayName="$1"
+  ArrayUtils.nullToEmpty "$ref_ArrayUtilsAddFirst_inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   local inValue="$2"
-  local outArray=("$inValue")
-  local inArray=()
-  ArrayUtils.clone "$ioArrayName" "inArray" || return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtilsAddFirst_outArray=("$inValue")
+  local ref_ArrayUtilsAddFirst_inArray=()
+  ArrayUtils.clone "$ref_ArrayUtilsAddFirst_inArrayName" "ref_ArrayUtilsAddFirst_inArray" || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    outArray+=("${inArray[@]}")
+    ref_ArrayUtilsAddFirst_outArray+=("${ref_ArrayUtilsAddFirst_inArray[@]}")
   else
     # Need to preserve indexes in bash
-    for i in "${!inArray[@]}"; do
+    for i in "${!ref_ArrayUtilsAddFirst_inArray[@]}"; do
       # shellcheck disable=SC2034
-      outArray["$((i+1))"]="${inArray[$i]}"
+      ref_ArrayUtilsAddFirst_outArray[i+1]="${ref_ArrayUtilsAddFirst_inArray[i]}"
     done
   fi
-  ArrayUtils.clone "outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
-
+  ArrayUtils.clone "ref_ArrayUtilsAddFirst_outArray" "$ref_ArrayUtilsAddFirst_inArrayName" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

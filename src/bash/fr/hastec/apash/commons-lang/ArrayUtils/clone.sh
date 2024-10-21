@@ -57,21 +57,20 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @exitcode 0 When input arguments are arrays.
 # @exitcode 1 Otherwise.
 ArrayUtils.clone() {
-  local inArrayName="$1"
-  local outArrayName="$2"
-  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.init    "$outArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtils_clone_inArrayNameName="$1"
+  local ref_ref_ArrayUtils_clone_outArrayName="$2"
+  ArrayUtils.isArray "$ref_ArrayUtils_clone_inArrayNameName"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.init    "$ref_ref_ArrayUtils_clone_outArrayName" || return "$APASH_FUNCTION_FAILURE"
   
-  local -n inArray="$inArrayName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-  local -n outArray="$outArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local -n ref_ArrayUtils_clone_inArrayName="$ref_ArrayUtils_clone_inArrayNameName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local -n ref_ArrayUtils_clone_outArray="$ref_ref_ArrayUtils_clone_outArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
   local i
-  
   # Can't use direct wrapping because need to preserve indexes
-  # outArray=("${inArray[@]}")
+  # ref_ArrayUtils_clone_outArray=("${ref_ArrayUtils_clone_inArrayName[@]}")
   
-  for i in "${!inArray[@]}"; do
+  for i in "${!ref_ArrayUtils_clone_inArrayName[@]}"; do
     # shellcheck disable=SC2034
-    outArray["$i"]="${inArray[$i]}"
+    ref_ArrayUtils_clone_outArray[i]="${ref_ArrayUtils_clone_inArrayName[i]}"
   done
 
   return "$APASH_FUNCTION_SUCCESS"

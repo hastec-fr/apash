@@ -4,6 +4,7 @@
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.indexesOf
@@ -65,17 +66,23 @@ ArrayUtils.indexesOf() {
   local inArrayName="$2"
   local inValue="$3"
   local inStart="${4:-0}"
-  local -n outIndexes="$outIndexesName"         || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayName" 2> /dev/null  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayName"             || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inStart"                || return "$APASH_FUNCTION_FAILURE"
-  # Reset the indexes array
-  outIndexes=()
+  local i
+  local outIndexes=()
+  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStart"     || return "$APASH_FUNCTION_FAILURE"
   
-  [[ $inStart -lt 0 ]] && inStart=0
+  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArrayName[@]} ; i++)); do
+      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && outIndexes+=("$i")
+    done
+  else
+    local -n inArray="$inArrayName" 2> /dev/null  || return "$APASH_FUNCTION_FAILURE"
+    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArray[@]} ; i++)); do
+      [[ "${inArray[i]}" == "$inValue" ]] && outIndexes+=("$i")
+    done
+  fi
 
-  for ((i = inStart; i < ${#inArray[@]} ; i++)); do
-    [[ "${inArray[i]}" == "$inValue" ]] && outIndexes+=("$i")
-  done
+  ArrayUtils.clone outIndexes "$outIndexesName" || return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

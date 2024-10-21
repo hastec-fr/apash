@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+# Dependencies #####################################
+apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
+
 # File description ###########################################################
-# @name BashUtils.isVariableNameValid
+# @name BashUtils.isVariable
 # @brief Defensive programming technique to check that a variable exists.
 # @description
 #   Arrays and Maps are not considered as variables.
@@ -48,6 +53,8 @@
 # @exitcode 1 Otherwise.
 BashUtils.isVariable() {
   local varName="$1"
-  declare -p "$varName" 2> /dev/null | grep -q 'declare --' && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isDeclared "$varName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray   "$varName" && return "$APASH_FUNCTION_FAILURE"
+  MapUtils.isMap       "$varName" && return "$APASH_FUNCTION_FAILURE"
+  return "$APASH_FUNCTION_SUCCESS"
 }

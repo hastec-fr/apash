@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariable
+apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 
 # File description ###########################################################
@@ -29,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
+# | $1     | ref_ArrayUtils_init_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 #
 # @description
 # #### Example
@@ -58,16 +60,24 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
 ArrayUtils.init() {
-  local ioArrayName="$1"
-  BashUtils.isVariableNameValid "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  BashUtils.isVariable "$ioArrayName" && return "$APASH_FUNCTION_FAILURE"
-  MapUtils.isMap "$ioArrayName" && return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtils_init_ioArrayName="$1"
+  BashUtils.isVariableNameValid "$ref_ArrayUtils_init_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isVariable "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_FAILURE"
+  MapUtils.isMap "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_FAILURE"
 
-  unset "$ioArrayName"
-  declare -a "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
-  # (( "${ioArrayName}[0]=1" )) || return "$APASH_FUNCTION_FAILURE"
-  # local -n outArrayRef="${ioArrayName}"
-  # # shellcheck disable=SC2034
-  # outArrayRef=() && return "$APASH_FUNCTION_SUCCESS"
+  # If the variable is not declared, then create the corresponding global value.
+  if ! BashUtils.isDeclared "$ref_ArrayUtils_init_ioArrayName"; then
+    declare -g -a "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+    return "$APASH_FUNCTION_FAILURE"
+  fi
+
+  # Only way found in zsh to reset an existing array and preserving its original scope
+  # P: pointer, A: consider the pointed value as array and provide an existing empty array.
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    : ${(PA)ref_ArrayUtils_init_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n ref_ArrayUtils_init_outArray="$ref_ArrayUtils_init_ioArrayName"
+    ref_ArrayUtils_init_outArray=() && return "$APASH_FUNCTION_SUCCESS"
+  fi
   return "$APASH_FUNCTION_FAILURE"
 }

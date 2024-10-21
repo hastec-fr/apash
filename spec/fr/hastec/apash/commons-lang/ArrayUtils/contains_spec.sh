@@ -44,10 +44,10 @@ Describe 'ArrayUtils.contains'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "c"
   End
 
   It 'fails when the value is not present into the array'
