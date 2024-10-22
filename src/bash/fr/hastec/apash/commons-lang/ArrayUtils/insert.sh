@@ -3,6 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.insert
@@ -26,7 +27,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
-# | $2     | ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
+# | $2     | ref_ArrayUtilsInsert_ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
 # | ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 #
 # #### Example
@@ -52,16 +53,49 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # @exitcode 0 When all elements are inserted.
 # @exitcode 1 When the index is not a positive number or reference is not an array or there are no value to insert.
 ArrayUtils.insert() {
+  [ $# -lt 3 ] && return "$APASH_FUNCTION_FAILURE"
+
   local inIndex="$1"
-  local ioArrayName="$2"
-  local -n ioArray="$ioArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"    
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArrayIndex "$inIndex" || return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtilsInsert_ioArrayName="$2"
+  ArrayUtils.isArray "$ref_ArrayUtilsInsert_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArrayIndex "$inIndex"                     || return "$APASH_FUNCTION_FAILURE"  
+  shift 2
+  local inValues=("$@")
+  local i j
 
-  shift 2  
-  [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
-  inValues=("$@") ||  return "$APASH_FUNCTION_FAILURE"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local ref_ArrayUtilsInsert_outArray=()
+    ref_ArrayUtilsInsert_outArray=("${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+                                   "${inValues[@]}" \
+                                   "${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX))}")
+    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n ref_ArrayUtilsInsert_ioArray="$ref_ArrayUtilsInsert_ioArrayName"
+    local isInserted=false
+    # Need to preserve indexes in bash
+    for i in "${!ref_ArrayUtilsInsert_ioArray[@]}"; do
+      if [[ $i -lt inIndex ]]; then
+        ref_ArrayUtilsInsert_outArray[i]="${ref_ArrayUtilsInsert_ioArray[i]}"
+      elif [[ $i -ge inIndex ]]; then
+        if [[ $isInserted == false ]]; then
+          for ((j=0; j < ${#inValues[@]}; j++ )); do
+            ref_ArrayUtilsInsert_outArray[j+inIndex]=${inValues[j]}
+          done
+          isInserted=true
+        fi
+        ref_ArrayUtilsInsert_outArray[i+${#inValues[@]}]="${ref_ArrayUtilsInsert_ioArray[i]}"
+      fi
+    done
+    
+    # If the value have not been insert because after the last element
+    # Then insert it at the demanded index.
+    if [[ $isInserted == false ]]; then
+      for ((i=0; i < ${#inValues[@]}; i++ )); do
+        ref_ArrayUtilsInsert_outArray[i+inIndex]="${inValues[i]}"
+      done
+    fi
+    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  fi
 
-  ioArray=("${ioArray[@]:0:inIndex}" "${inValues[@]}" "${ioArray[@]:inIndex}") && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

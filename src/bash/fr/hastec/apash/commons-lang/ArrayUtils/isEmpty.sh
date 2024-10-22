@@ -51,8 +51,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 ArrayUtils.isEmpty() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [[ ${#inArray[@]} -ne 0 ]] && return "$APASH_FUNCTION_FAILURE"
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    [[ ${#${(P)inArrayName}[@]} -ne 0 ]] && return "$APASH_FUNCTION_FAILURE"
+  else
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+    [[ ${#inArray[@]} -ne 0 ]] && return "$APASH_FUNCTION_FAILURE"
+  fi
   return "$APASH_FUNCTION_SUCCESS"
 }

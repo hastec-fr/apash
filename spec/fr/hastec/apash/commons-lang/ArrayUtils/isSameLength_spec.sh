@@ -67,6 +67,7 @@ Describe 'ArrayUtils.isSameLength'
   End
 
   It 'passes when the input arrays have the same length'
+    Skip if "is zsh" global_helper_is_zsh
     local myArray1=("a")
     local myArray2=("a" "b")
     myArray1[10]=z

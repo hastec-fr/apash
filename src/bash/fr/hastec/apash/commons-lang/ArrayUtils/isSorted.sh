@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.isSorted
@@ -60,11 +61,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 ArrayUtils.isSorted() {
   local inArrayName="$1"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local ref_ArrayUtils_sorted_inArray=()
+    ArrayUtils.clone "$inArrayName" ref_ArrayUtils_sorted_inArray
+  else
+    local -n ref_ArrayUtils_sorted_inArray="$inArrayName"
+  fi
 
-  for (( i=0; i<${#inArray[@]}-1; i++ )); do
-    [[ "${inArray[i]}" > "${inArray[i+1]}" ]] && return "$APASH_FUNCTION_FAILURE"
+  for (( i=$APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#ref_ArrayUtils_sorted_inArray[@]}-1; i++ )); do
+    [[ "${ref_ArrayUtils_sorted_inArray[i]}" > "${ref_ArrayUtils_sorted_inArray[i+1]}" ]] && return "$APASH_FUNCTION_FAILURE"
   done
 
   return "$APASH_FUNCTION_SUCCESS"

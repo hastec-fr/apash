@@ -78,6 +78,14 @@ Describe 'ArrayUtils.isArrayIndexValid'
     The status should be success
   End
 
+  It 'passes when the references is an arrays with discontinued indexes'
+    local myArray=("a" "" "b")
+    myArray[10]="z"
+    When call ArrayUtils.isArrayIndexValid "myArray" 6
+    The output should equal ""
+    The status should be success
+  End
+
   It 'fails when the inputs do not refer to an array or index not provided'
     local myArray=("a" "b")
     When call ArrayUtils.isArrayIndexValid "myArray" "3"
@@ -88,6 +96,13 @@ Describe 'ArrayUtils.isArrayIndexValid'
   It 'fails when the inputs do not refer to an array or index not provided'
     local myArray=("a" "b")
     When call ArrayUtils.isArrayIndexValid "myArray" "-1"
+    The output should equal ""
+    The status should be failure
+  End
+
+  It 'fails when index does not exists'
+    local myArray=()
+    When call ArrayUtils.isArrayIndexValid "myArray" 0
     The output should equal ""
     The status should be failure
   End

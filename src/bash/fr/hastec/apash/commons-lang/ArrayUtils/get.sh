@@ -2,7 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
@@ -57,17 +57,14 @@ ArrayUtils.get() {
   local inArrayName="$1"
   local inIndex="$2"
   local inDefaultValue="$3"
-  local lastIndex
   ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
   
-  if ! ArrayUtils.isArrayIndex "$inIndex"; then
+  # Check if the index is valid for the array
+  if ! ArrayUtils.isArrayIndexValid "$inArrayName" "$inIndex"; then
     [[ $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
     echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
-  fi  
-
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
-  [[ inIndex -gt $lastIndex && $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ inIndex -gt $lastIndex ]] && echo "$inDefaultValue" && return "$APASH_FUNCTION_SUCCESS"
+    return "$APASH_FUNCTION_FAILURE"
+  fi
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${${(P)inArrayName}[$inIndex]}" && return "$APASH_FUNCTION_SUCCESS"

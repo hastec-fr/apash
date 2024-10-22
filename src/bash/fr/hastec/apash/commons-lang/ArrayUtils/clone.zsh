@@ -5,14 +5,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 
 ArrayUtils.clone() {
-  local inArrayName="$1"
-  local outArrayName="$2"
-  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.init "$outArrayName"    || return "$APASH_FUNCTION_FAILURE"
+  local ref_ArrayUtils_clone_inArrayNameName="$1"
+  local ref_ref_ArrayUtils_clone_outArrayName="$2"
+  ArrayUtils.isArray "$ref_ArrayUtils_clone_inArrayNameName"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.init "$ref_ref_ArrayUtils_clone_outArrayName"    || return "$APASH_FUNCTION_FAILURE"
   
   # Add special case when only a single empty element is present in the array
-  [[ ${#${(PA)1[@]}} == 1 && ${(PA)1[@]} == "" ]] && : ${(PA)outArrayName::=("")} && return "$APASH_FUNCTION_SUCCESS"
-  : ${(PA)outArrayName::="${(PA)1[@]}"} || return "$APASH_FUNCTION_FAILURE"
+  [[ ${#${(PA)1[@]}} == 1 && ${(PA)1[@]} == "" ]] && : ${(PA)ref_ref_ArrayUtils_clone_outArrayName::=("")} && return "$APASH_FUNCTION_SUCCESS"
+  : ${(PA)ref_ref_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

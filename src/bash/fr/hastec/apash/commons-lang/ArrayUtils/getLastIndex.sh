@@ -38,7 +38,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #    ArrayUtils.getLastIndex  "myMap"          # failure - ""
 #
 #    myArray=()
-#    ArrayUtils.getLastIndex  "myArray"        # ""
+#    ArrayUtils.getLastIndex  "myArray"        # "-1"
 #
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.getLastIndex  "myArray"        # 4
@@ -59,13 +59,13 @@ ArrayUtils.getLastIndex() {
 
   # In zsh, all elements are declared, no hole in the array
   if [ "$APASH_SHELL" = "zsh" ]; then
-    ArrayUtils.clone "$inArrayName" "inArray"
-    [[ ${#inArray[@]} == 0 ]] && return "$APASH_FUNCTION_SUCCESS"
-    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? ${#inArray[@]} -  1 : ${#inArray[@]}))" && return "$APASH_FUNCTION_SUCCESS"
+    [[ ${#${(P)inArrayName}[@]} == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? ${#${(P)inArrayName}[@]} -  1 : ${#${(P)inArrayName}[@]}))" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
   fi
 
   local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  [[ ${#inArray[@]} == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
   echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"

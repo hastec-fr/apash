@@ -38,10 +38,10 @@ Describe 'ArrayUtils.getLastIndex'
     The status should be failure
   End
 
-  It 'returns empty string when the array is empty'
+  It 'returns -1 when the array is empty'
     local myArray=()
     When call ArrayUtils.getLastIndex "myArray"
-    The output should equal ""
+    The output should equal "-1"
     The status should be success
   End
 
@@ -63,6 +63,14 @@ Describe 'ArrayUtils.getLastIndex'
     local myArray=("")
     When call ArrayUtils.getLastIndex "myArray"
     The output should equal "$APASH_ARRAY_FIRST_INDEX"
+    The status should be success
+  End
+    
+  It 'passes references are arrays and indexes are discontinued'
+    local myArray=("a" "b" "" "c")
+    myArray[10]=z
+    When call ArrayUtils.getLastIndex "myArray"
+    The output should equal "10"
     The status should be success
   End
   

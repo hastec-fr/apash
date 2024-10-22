@@ -68,6 +68,7 @@ ArrayUtils.indexOf() {
   local inArrayName="$1"
   local inValue="$2"
   local inStart="${3:-0}"
+  local i
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
   

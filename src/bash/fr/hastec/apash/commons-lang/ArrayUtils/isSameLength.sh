@@ -61,10 +61,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 ArrayUtils.isSameLength() {
   local inArrayName1="$1"
   local inArrayName2="$2"
-  local -n inArray1="$inArrayName1" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  local -n inArray2="$inArrayName2" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName1" || return "$APASH_FUNCTION_FAILURE"
   ArrayUtils.isArray "$inArrayName2" || return "$APASH_FUNCTION_FAILURE"
-  [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+
+  if [ $APASH_SHELL = "zsh" ]; then
+    [[ ${#${(P)inArrayName1}[@]} -ne ${#${(P)inArrayName2}[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+  else
+    local -n inArray1="$inArrayName1" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+    local -n inArray2="$inArrayName2" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
+    [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+  fi
   return "$APASH_FUNCTION_SUCCESS"
 }

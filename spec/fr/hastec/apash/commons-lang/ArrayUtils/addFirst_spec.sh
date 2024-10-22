@@ -82,9 +82,9 @@ Describe 'ArrayUtils.addFirst'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq ""
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "foo bar"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "a"
   End
 
   It 'passes reference is an array and indexes are not in sequence'

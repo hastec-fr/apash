@@ -3,6 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.remove
@@ -56,13 +57,31 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @exitcode 0 When first argument is an array and the index is valid.
 # @exitcode 1 Otherwise.
 ArrayUtils.remove() {
-  local ioArrayName="$1"
-  local -n ioArray="$ioArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  local inIndex="$2"
   [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+
+  local ioArrayName="$1"
+  local inIndex="$2"
+  local i
   ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || return "$APASH_FUNCTION_FAILURE"
   
-  ioArray=("${ioArray[@]:0:inIndex}" "${ioArray[@]:inIndex+1}") && return "$APASH_FUNCTION_SUCCESS"
+  local ref_ArrayUtilsRemove_outArray=()
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    ref_ArrayUtilsRemove_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+                                   "${${(P)ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX+1))}")
+  else
+    ArrayUtils.clone "$ioArrayName" ref_ArrayUtilsRemove_outArray
+    unset "ref_ArrayUtilsRemove_outArray[$inIndex]"
+
+    # Shift to the left all next cells
+    for i in "${!ref_ArrayUtilsRemove_outArray[@]}"; do
+      [[ $i -lt $inIndex ]] && continue
+      ref_ArrayUtilsRemove_outArray[i-1]=${ref_ArrayUtilsRemove_outArray[i]}
+      unset "ref_ArrayUtilsRemove_outArray[$i]"
+    done
+  fi
+  ArrayUtils.clone "ref_ArrayUtilsRemove_outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+
   return "$APASH_FUNCTION_FAILURE"
 }

@@ -55,12 +55,11 @@ ArrayUtils.isNotEmpty() {
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   if [[ $APASH_SHELL == "zsh" ]]; then
-    local -a inArray=()
-    ArrayUtils.clone "$inArrayName" inArray
+    [[ ${#${(P)inArrayName}[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
   else
     local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
   fi
   
-  [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

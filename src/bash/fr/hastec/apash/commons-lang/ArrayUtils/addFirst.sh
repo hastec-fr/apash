@@ -65,6 +65,8 @@ ArrayUtils.addFirst() {
   local inValue="$2"
   local ref_ArrayUtilsAddFirst_outArray=("$inValue")
   local ref_ArrayUtilsAddFirst_inArray=()
+  local i
+  
   ArrayUtils.clone "$ref_ArrayUtilsAddFirst_inArrayName" "ref_ArrayUtilsAddFirst_inArray" || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then

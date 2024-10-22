@@ -4,7 +4,7 @@
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
-
+[ "$APASH_SHELL" =  "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.lastIndexOf
@@ -60,19 +60,26 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 0 When input array references exist and start index is an integer (when declared).
 # @exitcode 1 Otherwise.
 ArrayUtils.lastIndexOf() {
+  # If no value to find explicitly declared, then return
+  [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
+
   local inArrayName="$1"
   local inValue="$2"
   local inStart="${3:-0}"
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
-  
-  # If no value to find explicitly declared, then return
-  [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ $inStart -lt 0 ]] && inStart=0
-  
-  for ((i=${#inArray[@]}-1; i >= inStart  ; i--)); do
-    [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+
+  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+
+  if [ "$APASH_SHELL" =  "zsh" ]; then
+    local ref_ArrayUtils_lastIndexOf_inArray=()
+    ArrayUtils.clone "$inArrayName" "ref_ArrayUtils_lastIndexOf_inArray"
+  else
+    local -n ref_ArrayUtils_lastIndexOf_inArray="$inArrayName"
+  fi
+
+  for ((i=APASH_ARRAY_FIRST_INDEX+${#ref_ArrayUtils_lastIndexOf_inArray[@]}-1; i >= inStart  ; i--)); do
+    [[ "${ref_ArrayUtils_lastIndexOf_inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
   done
   
   # Return default value if not found
