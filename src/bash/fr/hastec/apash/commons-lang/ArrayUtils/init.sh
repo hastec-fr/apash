@@ -41,7 +41,7 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 #    ArrayUtils.init  "myVar"           # failure
 #
 #    declare -A myMap=([foo]=bar)
-#    ArrayUtils.init  "myVar"           # failure
+#    ArrayUtils.init  "myMap"           # failure
 #
 #    ArrayUtils.init  "myArray"         # myArray=()
 #
