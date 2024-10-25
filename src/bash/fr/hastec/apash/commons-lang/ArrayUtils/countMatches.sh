@@ -49,7 +49,7 @@ ArrayUtils.countMatches() {
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for value in "${(P)inArrayName}"; do
+    for value in "${${(P)inArrayName}[@]}"; do
       [[ "$value" == "$inValue" ]] && ((counter++))
     done
   else

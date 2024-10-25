@@ -2,6 +2,8 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+
 
 # File description ###########################################################
 # @name Array.sort
@@ -53,10 +55,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 Array.sort() {
   local inArrayName="$1"
   ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayName"
-
-  [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_SUCCESS"
-  readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) &&  return "$APASH_FUNCTION_SUCCESS"
+  
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local ref_Array_sort_inArray=("${(o)${(P)inArrayName}[@]}")
+    ArrayUtils.clone "ref_Array_sort_inArray" "$inArrayName"
+  else
+    local -n inArray="$inArrayName"
+    [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_SUCCESS"
+    readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) &&  return "$APASH_FUNCTION_SUCCESS"
+  fi
 
   return "$APASH_FUNCTION_SUCCESS"
 }

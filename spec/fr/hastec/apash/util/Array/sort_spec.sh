@@ -46,9 +46,9 @@ Describe 'Array.sort'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
   End
 
   It 'passes when the reference is an array'
@@ -57,9 +57,9 @@ Describe 'Array.sort'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[0]' should eq "beta-1"
-    The variable 'myArray[1]' should eq "beta-10"
-    The variable 'myArray[2]' should eq "beta-20"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "beta-1"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "beta-10"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "beta-20"
   End
 
   It 'passes when the reference is an array'
@@ -68,8 +68,8 @@ Describe 'Array.sort'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[0]' should eq ""
-    The variable 'myArray[1]' should eq "1"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "1"
   End
 
   It 'passes when the reference is an array'
@@ -78,8 +78,8 @@ Describe 'Array.sort'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "bat man"
-    The variable 'myArray[2]' should eq "foo \"bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "bat man"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "foo \"bar"
   End
 End
