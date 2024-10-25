@@ -6,6 +6,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeDuplicates
 apash.import fr.hastec.apash.util.Array.sort
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.removeAll
@@ -61,26 +62,31 @@ apash.import fr.hastec.apash.util.Array.sort
 # @exitcode 0 When first argument is an array and all indexes are valid numbers.
 # @exitcode 1 Otherwise.
 ArrayUtils.removeAll() {
-  local ioArrayRef="$1"
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+
+  local ioArrayName="$1"
   local indexes=()
   local index=""
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  shift
-
-  [ $# -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  shift  
   
   for index in "$@"; do
-    ArrayUtils.isArrayIndexValid "$ioArrayRef" "$index"  || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.isArrayIndexValid "$ioArrayName" "$index"  || return "$APASH_FUNCTION_FAILURE"
     indexes+=("$index")
   done
   
   ArrayUtils.removeDuplicates "indexes" || return "$APASH_FUNCTION_FAILURE"
-  Array.sort "indexes" || return "$APASH_FUNCTION_FAILURE"
-    
-  # @todo: operation on array could fail in the middle. It must be handled.
-  for ((i=${#indexes[@]}-1; i >= 0; i--)); do
-    ArrayUtils.remove "$ioArrayRef" "${indexes[i]}" || return "$APASH_FUNCTION_FAILURE"
+  Array.sort "indexes"                  || return "$APASH_FUNCTION_FAILURE"
+  
+  # Create local array to prevent partial modification.
+  local ref_ArrayUtils_removeAll_outArray=()
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_removeAll_outArray" || return "$APASH_FUNCTION_FAILURE"
+
+  for ((i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
+    ArrayUtils.remove "ref_ArrayUtils_removeAll_outArray" "${indexes[i]}" || return "$APASH_FUNCTION_FAILURE"
   done
+
+  ArrayUtils.clone "ref_ArrayUtils_removeAll_outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

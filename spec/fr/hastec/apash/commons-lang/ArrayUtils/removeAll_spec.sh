@@ -68,7 +68,7 @@ Describe 'ArrayUtils.removeAll'
 
   It 'passes when the reference is an arrays and indexes are discontinued'
     local myArray=("a" "b" "foo bar" "" "c")
-    myArray[10]="z"
+    myArray[APASH_ARRAY_FIRST_INDEX+10]="z"
     When call ArrayUtils.removeAll "myArray" $((APASH_ARRAY_FIRST_INDEX+0)) $((APASH_ARRAY_FIRST_INDEX+6))
     The output should equal ""
     The status should be success

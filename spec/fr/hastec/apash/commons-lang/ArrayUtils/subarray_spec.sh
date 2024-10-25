@@ -45,8 +45,8 @@ Describe 'ArrayUtils.subarray'
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 2
-    The variable 'mySubArray[0]' should eq "a"
-    The variable 'mySubArray[1]' should eq "b"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
   End
 
   It 'passes when the reference is an array and indices valid positive integers'
@@ -65,7 +65,7 @@ Describe 'ArrayUtils.subarray'
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 1
-    The variable 'mySubArray[0]' should eq "d"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -75,10 +75,10 @@ Describe 'ArrayUtils.subarray'
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 4
-    The variable 'mySubArray[0]' should eq "a"
-    The variable 'mySubArray[1]' should eq "b"
-    The variable 'mySubArray[2]' should eq "c"
-    The variable 'mySubArray[3]' should eq "d"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -88,8 +88,8 @@ Describe 'ArrayUtils.subarray'
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 2
-    The variable 'mySubArray[0]' should eq "a"
-    The variable 'mySubArray[1]' should eq "b"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -99,10 +99,10 @@ Describe 'ArrayUtils.subarray'
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 4
-    The variable 'mySubArray[0]' should eq "a"
-    The variable 'mySubArray[1]' should eq "b"
-    The variable 'mySubArray[2]' should eq "c"
-    The variable 'mySubArray[3]' should eq "d"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'mySubArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'

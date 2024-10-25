@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
@@ -59,24 +59,30 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 0 When the array is shifted.
 # @exitcode 1 When the input is not an array or the offset/indexes are not integers.
 ArrayUtils.shift() {
-  local ioArrayRef="$1"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$ioArrayRef"
+  local ioArrayName="$1"
   local inOffset="${2:-0}"
   local inStartIndex="${3:-0}"
-  local inEndIndex="${4:-${#inArray[@]}}"
+  local inEndIndex="${4}"
   local distance=0
   local distance_offset=0
+  local lastIndex
+
+  local ref_ArrayUtils_shift_outArray=()
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_shift_outArray" || return "$APASH_FUNCTION_FAILURE"
+  
+  # Set the default value to the last index + 1
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
+  [ -z "$inEndIndex" ] && inEndIndex=$((lastIndex+1))
 
   NumberUtils.isLong "$inOffset"     || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
-  [[ "$inStartIndex" -ge ${#inArray[@]}-1 ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ "$inEndIndex"   -le 0 ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -ge $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_SUCCESS"
 
-  [[ "$inStartIndex" -lt 0 ]] && inStartIndex=0
-  [[ "$inEndIndex"   -gt ${#inArray[@]} ]] && inEndIndex=${#inArray[@]}
+  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
   
   distance=$((inEndIndex - inStartIndex))
   [[ $distance -le 1 ]] && return "$APASH_FUNCTION_SUCCESS"
@@ -87,18 +93,20 @@ ArrayUtils.shift() {
     distance_offset=$((distance - inOffset))
 
     if [[ $inOffset -gt $distance_offset ]]; then
-      ArrayUtils.swap "$ioArrayRef" "$inStartIndex" $((inStartIndex + distance - distance_offset)) $distance_offset
+      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance - distance_offset)) $distance_offset
       distance=$inOffset
       inOffset=$((inOffset - distance_offset))
     elif [[ $inOffset -lt  $distance_offset ]]; then
-      ArrayUtils.swap "$ioArrayRef" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
+      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
       inStartIndex=$((inStartIndex + inOffset))
       distance=$distance_offset
     else
-      ArrayUtils.swap "$ioArrayRef" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
+      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
       break;
     fi
   done
+
+  ArrayUtils.clone "ref_ArrayUtils_shift_outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

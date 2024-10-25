@@ -44,7 +44,7 @@ Describe 'ArrayUtils.toArray'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[0]' should eq "2"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "2"
   End
 
   It 'passes when the reference is an array'
@@ -53,10 +53,10 @@ Describe 'ArrayUtils.toArray'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
   End
 
   It 'passes when the reference is an array'
@@ -65,9 +65,9 @@ Describe 'ArrayUtils.toArray'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "2"
-    The variable 'myArray[2]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "2"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "b"
   End
 
 End

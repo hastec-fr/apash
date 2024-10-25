@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.lang.Math.min
 
@@ -67,30 +68,36 @@ apash.import fr.hastec.apash.lang.Math.min
 # @exitcode 1 When the input is not an array or the offset/indexes are not integers.
 ArrayUtils.swap() {
   local ioArrayName="$1"
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n ioArray="$ioArrayName"
   local inStartIndex="$2"
   local inEndIndex="$3"
   local inLen="${4:-1}"
   local i=0
   local swap=""
+  local outArray=()
+  local lastIndex
 
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inLen"        || return "$APASH_FUNCTION_FAILURE"
 
-  [[ "$inStartIndex" -ge ${#ioArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ "$inEndIndex"   -ge ${#ioArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.clone "$ioArrayName" "outArray"          || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
 
-  [[ "$inStartIndex" -lt 0 ]] && inStartIndex=0
-  [[ "$inEndIndex"   -lt 0 ]] && inEndIndex=0
+  # Nothing to swap.
+  [[ $inStartIndex -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inEndIndex   -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
 
-  inLen=$(Math.min "$(Math.min "$inLen" $((${#ioArray[@]}-inStartIndex)))" $((${#ioArray[@]}-inEndIndex)))
-  for (( i = 0 ; i < inLen; i++, inStartIndex++, inEndIndex++)); do
-    swap=${ioArray[$inStartIndex]}
-    ioArray[inStartIndex]=${ioArray[$inEndIndex]}
-    ioArray[inEndIndex]=$swap
+  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
+
+  inLen=$(Math.min "$(Math.min "$inLen" $((APASH_ARRAY_FIRST_INDEX+lastIndex-inStartIndex)))" $((APASH_ARRAY_FIRST_INDEX+lastIndex-inEndIndex)))
+  for (( i = APASH_ARRAY_FIRST_INDEX ; i < APASH_ARRAY_FIRST_INDEX+inLen; i++, inStartIndex++, inEndIndex++)); do
+    swap=${outArray[$inStartIndex]}
+    outArray[inStartIndex]=${outArray[$inEndIndex]}
+    outArray[inEndIndex]=$swap
   done
+
+  ArrayUtils.clone "outArray" "$ioArrayName"  || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

@@ -44,12 +44,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 When the input is not an array.
 ArrayUtils.toArray() {
   local ioArrayName="$1"
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  local -n ioArray="$ioArrayName"
   shift
 
+  local outArray=()
   # shellcheck disable=SC2034
-  ioArray=("$@")
+  outArray=("$@")
+
+  ArrayUtils.clone "outArray" "$ioArrayName"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

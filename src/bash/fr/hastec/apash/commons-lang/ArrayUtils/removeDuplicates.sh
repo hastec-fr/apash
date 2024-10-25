@@ -3,6 +3,8 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
 # @name ArrayUtils.removeDuplicates
@@ -48,15 +50,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # @exitcode 0 When first argument is an array.
 # @exitcode 1 Otherwise.
 ArrayUtils.removeDuplicates() {
-  local ioArrayRef="$1"
-  local -n ioArray="$ioArrayRef" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-
+  local ioArrayName="$1"
+  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local lastIndex
   local uniqueArray=()
-  for value in "${ioArray[@]}"; do
-    ArrayUtils.contains "uniqueArray" "$value" || uniqueArray+=("$value") 
-  done
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
 
-  ioArray=("${uniqueArray[@]}")
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    for ((i=APASH_ARRAY_FIRST_INDEX; i <= lastIndex ; i++)); do
+      ArrayUtils.contains "uniqueArray" "${${(P)ioArrayName}[i]}" || uniqueArray+=("${${(P)ioArrayName}[i]}")
+    done
+  else
+    local -n ioArray="$ioArrayName"
+    for ((i=APASH_ARRAY_FIRST_INDEX; i <= lastIndex ; i++)); do
+      ArrayUtils.contains "uniqueArray" "${ioArray[i]}" || uniqueArray+=( "${ioArray[i]}")
+    done
+  fi
+
+  ArrayUtils.clone "uniqueArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }

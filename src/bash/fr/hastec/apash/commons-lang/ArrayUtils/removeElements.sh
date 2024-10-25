@@ -53,9 +53,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeElement
 # @exitcode 0 When all occurences have been removed from the array.
 # @exitcode 1 Otherwise.
 ArrayUtils.removeElements() {
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  
   local ioArrayRef="$1"
   ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
   
   for value in "$@"; do
     ArrayUtils.removeElement "$ioArrayRef" "$value" || return "$APASH_FUNCTION_FAILURE"

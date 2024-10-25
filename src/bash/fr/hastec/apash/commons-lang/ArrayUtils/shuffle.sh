@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
 apash.import fr.hastec.apash.util.Random.nextInt
 
@@ -44,14 +44,17 @@ apash.import fr.hastec.apash.util.Random.nextInt
 # @exitcode 0 When the array is shuffled.
 # @exitcode 1 When the input is not an array.
 ArrayUtils.shuffle() {
-  local ioArrayRef="$1"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$ioArrayRef"
+  local ioArrayName="$1"
   local i=0
   
-  for (( i = ${#inArray[@]} ; i > 1 ; i-- )); do
-    ArrayUtils.swap "$ioArrayRef" $((i - 1)) "$(Random.nextInt 0 $i)"
+  local outArray=()
+  ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
+  
+  for (( i = ${#outArray[@]} ; i > 1 ; i-- )); do
+    ArrayUtils.swap "outArray" $((i - 1)) "$(Random.nextInt 0 $i)"
   done
+
+  ArrayUtils.clone "outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

@@ -44,10 +44,10 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "d"
-    The variable 'myArray[1]' should eq "c"
-    The variable 'myArray[2]' should eq "b"
-    The variable 'myArray[3]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "a"
   End
 
   It 'passes when the reference is an array'
@@ -56,11 +56,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "d"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "b"
-    The variable 'myArray[4]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "a"
   End
   
   It 'passes when the reference is an array'
@@ -69,7 +69,7 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes when the reference is an array'
@@ -86,11 +86,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "d"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "c"
   End
 
   It 'passes when the reference is an array and starting/ending index are numbers'
@@ -99,11 +99,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "b"
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -112,11 +112,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "d"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "b"
-    The variable 'myArray[4]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "a"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -125,11 +125,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "d"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "b"
-    The variable 'myArray[4]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "a"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -138,11 +138,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "d"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "b"
-    The variable 'myArray[4]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "a"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -151,11 +151,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -164,11 +164,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 
   It 'passes even when indexes are not in the bounds'
@@ -177,11 +177,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq "d"
-    The variable 'myArray[4]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq ""
   End
 
   It 'fails when the indexes are not numbers'
@@ -190,11 +190,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 
   It 'fails when the indexes are not numbers'
@@ -203,11 +203,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 
   It 'fails when the indexes are not numbers'
@@ -216,11 +216,11 @@ Describe 'ArrayUtils.reverse'
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq "a"
-    The variable 'myArray[1]' should eq "b"
-    The variable 'myArray[2]' should eq "c"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "d"
   End
 End
 

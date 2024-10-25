@@ -52,11 +52,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 # @exitcode 0 When the first occurence is removed from the array.
 # @exitcode 1 Otherwise.
 ArrayUtils.removeElement() {
+  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+  
   local ioArrayName="$1"
   local inValue="$2"
   local index
   ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
   
   # Get the index to remove
   index=$(ArrayUtils.indexOf "$ioArrayName" "$inValue")

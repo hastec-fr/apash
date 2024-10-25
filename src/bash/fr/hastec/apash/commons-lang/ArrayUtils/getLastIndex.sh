@@ -59,8 +59,9 @@ ArrayUtils.getLastIndex() {
 
   # In zsh, all elements are declared, no hole in the array
   if [ "$APASH_SHELL" = "zsh" ]; then
-    [[ ${#${(P)inArrayName}[@]} == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
-    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? ${#${(P)inArrayName}[@]} -  1 : ${#${(P)inArrayName}[@]}))" && return "$APASH_FUNCTION_SUCCESS"
+    local arrayLength=${#${(P)inArrayName}[@]}
+    [[ $arrayLength == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? arrayLength -  1 : arrayLength))" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
   fi
 

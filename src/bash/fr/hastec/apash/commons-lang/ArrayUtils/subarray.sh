@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
@@ -66,15 +67,14 @@ ArrayUtils.subarray() {
   local inArrayName="$2"
   local inStartIndex="$3"
   local inEndIndex="$4"
+  local inArray=()
+  local outArray=()
 
-  ArrayUtils.isArray "$outSubArrayName"   || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayName"      || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
-  local -n subArray="$outSubArrayName"
-  local -n inArray="$inArrayName"
-  subArray=()
+  ArrayUtils.clone "$inArrayName" "inArray" || return "$APASH_FUNCTION_FAILURE"
 
   [[ $inStartIndex -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"
   [[ $inStartIndex -lt 0 ]] && inStartIndex=0
@@ -84,7 +84,9 @@ ArrayUtils.subarray() {
   [[ $inStartIndex -gt $inEndIndex    ]] && return "$APASH_FUNCTION_SUCCESS"
 
   # shellcheck disable=SC2034
-  subArray=("${inArray[@]:$inStartIndex:$((inEndIndex - inStartIndex))}")
+  outArray=("${inArray[@]:$inStartIndex:$((inEndIndex - inStartIndex))}")
+
+  ArrayUtils.clone "outArray" "$outSubArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }
