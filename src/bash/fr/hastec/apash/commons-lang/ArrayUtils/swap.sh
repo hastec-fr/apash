@@ -73,14 +73,14 @@ ArrayUtils.swap() {
   local inLen="${4:-1}"
   local i=0
   local swap=""
-  local outArray=()
+  local ref_ArrayUtils_swap_outArray=()
   local lastIndex
 
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inLen"        || return "$APASH_FUNCTION_FAILURE"
 
-  ArrayUtils.clone "$ioArrayName" "outArray"          || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_swap_outArray"          || return "$APASH_FUNCTION_FAILURE"
   lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
 
   # Nothing to swap.
@@ -90,14 +90,13 @@ ArrayUtils.swap() {
   [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
 
-  inLen=$(Math.min "$(Math.min "$inLen" $((APASH_ARRAY_FIRST_INDEX+lastIndex-inStartIndex)))" $((APASH_ARRAY_FIRST_INDEX+lastIndex-inEndIndex)))
-  for (( i = APASH_ARRAY_FIRST_INDEX ; i < APASH_ARRAY_FIRST_INDEX+inLen; i++, inStartIndex++, inEndIndex++)); do
-    swap=${outArray[$inStartIndex]}
-    outArray[inStartIndex]=${outArray[$inEndIndex]}
-    outArray[inEndIndex]=$swap
+  inLen=$(Math.min "$(Math.min "$inLen" $((lastIndex+1-inStartIndex)))" $((lastIndex+1-inEndIndex)))
+  for (( i = 0 ; i < inLen; i++, inStartIndex++, inEndIndex++)); do
+    swap=${ref_ArrayUtils_swap_outArray[$inStartIndex]}
+    ref_ArrayUtils_swap_outArray[inStartIndex]=${ref_ArrayUtils_swap_outArray[$inEndIndex]}
+    ref_ArrayUtils_swap_outArray[inEndIndex]=$swap
   done
-
-  ArrayUtils.clone "outArray" "$ioArrayName"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "ref_ArrayUtils_swap_outArray" "$ioArrayName"  || return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }

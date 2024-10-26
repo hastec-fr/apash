@@ -60,18 +60,20 @@ ArrayUtils.reverse() {
   local inEndIndex="${3}"
   local swap=""
   local outArray=()
-
+  local lastIndex
+  
   ArrayUtils.clone "$ioArrayName" "outArray"  || return "$APASH_FUNCTION_FAILURE"
-  [[ -z "$inEndIndex" ]] && inEndIndex=$(($(ArrayUtils.getLastIndex "$ioArrayName")+1))
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName")  || return "$APASH_FUNCTION_FAILURE"
+  [[ -z "$inEndIndex" ]] && inEndIndex=$((lastIndex+1))
 
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
-  [[ "$inStartIndex" -ge ${#outArray[@]}-1 ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ "$inEndIndex"   -le 0 ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -ge $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_SUCCESS"
 
-  [[ "$inStartIndex" -lt 0 ]] && inStartIndex=0
-  [[ "$inEndIndex"   -gt ${#outArray[@]} ]] && inEndIndex=${#outArray[@]}
+  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
   
   [[ "$inStartIndex" -ge "$inEndIndex" ]] && return "$APASH_FUNCTION_SUCCESS"
     

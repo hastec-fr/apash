@@ -82,7 +82,7 @@ Describe 'ArrayUtils.reverse'
 
   It 'passes when the reference is an array and starting index is a number'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.reverse "myArray" 2
+    When call ArrayUtils.reverse "myArray" $((APASH_ARRAY_FIRST_INDEX+2))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -95,7 +95,7 @@ Describe 'ArrayUtils.reverse'
 
   It 'passes when the reference is an array and starting/ending index are numbers'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.reverse "myArray" 1 4
+    When call ArrayUtils.reverse "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+4))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -121,7 +121,7 @@ Describe 'ArrayUtils.reverse'
 
   It 'passes even when indexes are not in the bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.reverse "myArray" -1 10
+    When call ArrayUtils.reverse "myArray" -1 $((APASH_ARRAY_FIRST_INDEX+10))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -134,7 +134,7 @@ Describe 'ArrayUtils.reverse'
 
   It 'passes even when indexes are not in the bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.reverse "myArray" 0 10
+    When call ArrayUtils.reverse "myArray" $((APASH_ARRAY_FIRST_INDEX+0)) $((APASH_ARRAY_FIRST_INDEX+10))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -173,7 +173,7 @@ Describe 'ArrayUtils.reverse'
 
   It 'passes even when indexes are not in the bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.reverse "myArray" 3 5
+    When call ArrayUtils.reverse "myArray" $((APASH_ARRAY_FIRST_INDEX+3)) $((APASH_ARRAY_FIRST_INDEX+5))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5

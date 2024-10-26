@@ -57,7 +57,7 @@ Describe 'ArrayUtils.shuffle'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes when the reference is an array'

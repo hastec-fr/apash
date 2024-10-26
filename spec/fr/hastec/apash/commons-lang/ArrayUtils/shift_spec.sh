@@ -53,7 +53,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the same array when the shift is set to 0'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+0))
+    When call ArrayUtils.shift "myArray" 0
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -66,7 +66,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the same array when the shift is set to the length of the array'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+${#myArray[@]}))
+    When call ArrayUtils.shift "myArray" ${#myArray[@]}
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -79,7 +79,7 @@ Describe 'ArrayUtils.shift'
   
   It 'returns the array with shifted elements'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+3))
+    When call ArrayUtils.shift "myArray" 1 $((APASH_ARRAY_FIRST_INDEX+3))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -92,7 +92,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+2))
+    When call ArrayUtils.shift "myArray" 2
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -105,7 +105,7 @@ Describe 'ArrayUtils.shift'
   
   It 'returns the array with shifted elements'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+1 $((APASH_ARRAY_FIRST_INDEX+1)) 3
+    When call ArrayUtils.shift "myArray" 1 $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+3))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -118,7 +118,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" -1 10
+    When call ArrayUtils.shift "myArray" -1 $((APASH_ARRAY_FIRST_INDEX+10))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -131,7 +131,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" 0 10
+    When call ArrayUtils.shift "myArray" 0 $((APASH_ARRAY_FIRST_INDEX+10))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -144,7 +144,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+5)) $((APASH_ARRAY_FIRST_INDEX+4))
+    When call ArrayUtils.shift "myArray" 5 $((APASH_ARRAY_FIRST_INDEX+4))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -157,7 +157,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" 10 15
+    When call ArrayUtils.shift "myArray" 10 $((APASH_ARRAY_FIRST_INDEX+15))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -170,7 +170,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+4)) $((APASH_ARRAY_FIRST_INDEX+4))
+    When call ArrayUtils.shift "myArray" 4 $((APASH_ARRAY_FIRST_INDEX+4))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -183,7 +183,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+3)) $((APASH_ARRAY_FIRST_INDEX+4))
+    When call ArrayUtils.shift "myArray" 3 $((APASH_ARRAY_FIRST_INDEX+4))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -196,7 +196,7 @@ Describe 'ArrayUtils.shift'
 
   It 'returns the array with shifted elements even if indexes are out of bounds'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+1)) 10
+    When call ArrayUtils.shift "myArray" 1 $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+10))
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
@@ -222,7 +222,7 @@ Describe 'ArrayUtils.shift'
 
   It 'fails when the indexes are not numbers'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) "b"
+    When call ArrayUtils.shift "myArray" 1 "b"
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 5
@@ -248,7 +248,7 @@ Describe 'ArrayUtils.shift'
 
   It 'fails when the indexes are not numbers'
     local myArray=("a" "b" "c" "" "d")
-    When call ArrayUtils.shift "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) $((APASH_ARRAY_FIRST_INDEX+1)) "e"
+    When call ArrayUtils.shift "myArray" 1 $((APASH_ARRAY_FIRST_INDEX+1)) "e"
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 5

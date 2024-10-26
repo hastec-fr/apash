@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name ArrayUtils.toArray
@@ -43,14 +43,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When list of argument are pushed to the array.
 # @exitcode 1 When the input is not an array.
 ArrayUtils.toArray() {
-  local ioArrayName="$1"
+  [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
+  local ioArrayName="$1" 
   shift
 
   local outArray=()
   # shellcheck disable=SC2034
   outArray=("$@")
 
-  ArrayUtils.clone "outArray" "$ioArrayName"
+  ArrayUtils.clone "outArray" "$ioArrayName" ||  return "$APASH_FUNCTION_FAILURE"
 
   return "$APASH_FUNCTION_SUCCESS"
 }
