@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 
@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 # | $2     | inValue        | string        | in       |            | Value to find.                       |
-# | $3 ?   | inValue        | number        | in       | 0          | The index to start searching at.     |
+# | $3 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
 #
 # #### Example
 # ```bash
@@ -69,17 +69,18 @@ ArrayUtils.indexOf() {
   local inValue="$2"
   local inStart="${3:-0}"
   local i
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  local lastIndex
   NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
-  
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+
   [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#${(P)inArrayName}[@]} ; i++)); do
+    for ((i = inStart; i < lastIndex+1 ; i++)); do
       [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
     done
   else
     local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArray[@]} ; i++)); do
+    for ((i = inStart; i < lastIndex+1 ; i++)); do
       [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
     done
   fi

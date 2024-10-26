@@ -38,6 +38,7 @@
 # @exitcode 0 If the input string contains only unicode letters
 # @exitcode 1 contains other things than letters.
 StringUtils.isAlpha() {
-  [[ $1 =~ ^[[:alpha:]]+$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  local pattern="^[[:alpha:]]+$"
+  [[ $1 =~ $pattern ]] && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

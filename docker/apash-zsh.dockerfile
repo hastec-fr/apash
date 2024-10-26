@@ -47,6 +47,8 @@ export APASH_SHELL="zsh"                                    ##apashInstallTag
 export APASH_HOME_DIR="\$HOME/.apash"                       ##apashInstallTag
 export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
 # setopt ksh_arrays                                         ##apashInstallTag
+export LANG=C.UTF-8                                         ##apashInstallTag
+export LC_ALL=C.UTF-8                                       ##apashInstallTag
 . "\$APASH_HOME_DIR/apash" source                           ##apashInstallTag
 setopt interactivecomments                                  ##apashInstallTag
 EOF

@@ -11,7 +11,8 @@ ArrayUtils.clone() {
   ArrayUtils.init "$ref_ArrayUtils_clone_outArrayName"    || return "$APASH_FUNCTION_FAILURE"
   
   # Add special case when only a single empty element is present in the array
-  [[ ${#${(P)1}[@]} == 1 && ${(P)1[@]} == "" ]] && : ${(PA)ref_ArrayUtils_clone_outArrayName::=("")} && return "$APASH_FUNCTION_SUCCESS"
+  [[ ${#${(P)1}[@]} == 1 && ${${(P)1}[@]} == "" ]] && : ${(PA)ref_ArrayUtils_clone_outArrayName::=""} && return "$APASH_FUNCTION_SUCCESS"
   : ${(PA)ref_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || return "$APASH_FUNCTION_FAILURE"
   return "$APASH_FUNCTION_SUCCESS"
 }
+

@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name StringUtils.indexOfAny
@@ -47,9 +48,11 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
 # see https://stackoverflow.com/questions/10953833/passing-multiple-distinct-arrays-to-a-shell-function
 StringUtils.indexOfAny() {
   local inString="$1"
-  local -n research="$2" 2> /dev/null || local research=()
+  local researchName="$2"  
   local index=-1
-  local i
+  local i r
+  local researh=()
+  ArrayUtils.clone "$researchName" "research"
 
   # If the researsh is empty then return -1.
   if [[ ${#research[@]} -eq 0 ]]; then
@@ -57,7 +60,7 @@ StringUtils.indexOfAny() {
     return "$APASH_FUNCTION_FAILURE"
   fi
 
-  # For each reseach, apply the index of function
+  # For each reseach, apply the function indexOf
   # and keep the minimum index if string has been found.
   for r in "${research[@]}"; do
     i=$(StringUtils.indexOf "$inString" "$r")

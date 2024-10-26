@@ -58,12 +58,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @exitcode 1 Otherwise.
 ArrayUtils.clone() {
   local ref_ArrayUtils_clone_inArrayNameName="$1"
-  local ref_ref_ArrayUtils_clone_outArrayName="$2"
+  local ref_ArrayUtils_clone_outArrayName="$2"
   ArrayUtils.isArray "$ref_ArrayUtils_clone_inArrayNameName"  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.init    "$ref_ref_ArrayUtils_clone_outArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.init    "$ref_ArrayUtils_clone_outArrayName"     || return "$APASH_FUNCTION_FAILURE"
   
   local -n ref_ArrayUtils_clone_inArrayName="$ref_ArrayUtils_clone_inArrayNameName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-  local -n ref_ArrayUtils_clone_outArray="$ref_ref_ArrayUtils_clone_outArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local -n ref_ArrayUtils_clone_outArray="$ref_ArrayUtils_clone_outArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
   local i
   # Can't use direct wrapping because need to preserve indexes
   # ref_ArrayUtils_clone_outArray=("${ref_ArrayUtils_clone_inArrayName[@]}")

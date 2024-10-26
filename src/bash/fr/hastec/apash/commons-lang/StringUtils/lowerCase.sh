@@ -41,7 +41,11 @@
 StringUtils.lowerCase() {
   local inString="$1"
 
-  echo "${inString,,}" && return "$APASH_FUNCTION_SUCCESS"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    echo "${(L)inString}" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    echo "${inString,,}" && return "$APASH_FUNCTION_SUCCESS"
+  fi
 
   return "$APASH_FUNCTION_FAILURE"
 }

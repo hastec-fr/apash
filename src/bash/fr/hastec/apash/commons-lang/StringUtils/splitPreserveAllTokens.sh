@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
+
 # File description ###########################################################
 # @name StringUtils.splitPreserveAllTokens
 # @brief Splits the provided text into an array preserving all tokens.
@@ -25,7 +27,7 @@
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+# | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
 # | $2     | inString       | string        | in       |            | The string to split.                             |
 # | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 #
@@ -45,27 +47,30 @@
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
 StringUtils.splitPreserveAllTokens() {
-  local -n inArray="$1" || return "$APASH_FUNCTION_FAILURE"
+  local ioArrayName="$1"  
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""
-  inArray=()
+  local outArray=()
 
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do
     # Check if the next chars correspond to delimiter
     if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
-      inArray+=("$currentString")
+      outArray+=("$currentString")
       currentString=""
       i=$((i + ${#inDelimiter}-1))
 
       # If delimiter is at the end, then add an empty token
-      [[ i -eq $((${#inString}-1)) ]] && inArray+=("")
+      [[ i -eq $((${#inString}-1)) ]] && outArray+=("")
       continue
     fi
     currentString+=${inString:$i:1}
   done
-  [ -n "$currentString" ] && inArray+=("$currentString")
+  [ -n "$currentString" ] && outArray+=("$currentString")
+
+  ArrayUtils.clone "outArray" "$ioArrayName"
+
   return "$APASH_FUNCTION_SUCCESS"
 }
 

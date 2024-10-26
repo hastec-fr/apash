@@ -26,7 +26,7 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[0]' should eq "ab:cd:ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab:cd:ef"
   End
 
   It 'returns the full string if the delimiter is empty'
@@ -34,7 +34,7 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[0]' should eq $'ab:cd:\nef'
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq $'ab:cd:\nef'
   End
 
   It 'returns the correct number of elements according to sequence occurence'
@@ -42,9 +42,9 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[0]' should eq "ab"
-    The variable 'myArray[1]' should eq "cd"
-    The variable 'myArray[2]' should eq "ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "cd"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "ef"
   End
 
   It 'returns the correct number of elements according to sequence occurence'
@@ -52,10 +52,10 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "ab"
-    The variable 'myArray[1]' should eq " cd"
-    The variable 'myArray[2]' should eq $'\nef gh'
-    The variable 'myArray[3]' should eq $'\nij '
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq " cd"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq $'\nef gh'
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq $'\nij '
   End
 
   It 'returns the correct number of elements according to sequence occurence'
@@ -63,8 +63,8 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[0]' should eq "ab:"
-    The variable 'myArray[1]' should eq ":ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab:"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ":ef"
   End
 
   It 'returns item even when adjacent delimiter are encountered'
@@ -72,10 +72,10 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "ab"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "cd"
-    The variable 'myArray[3]' should eq "ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "cd"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "ef"
   End
 
   It 'returns item even when adjacent delimiter are encountered'
@@ -83,10 +83,10 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[0]' should eq "ab"
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "cd"
-    The variable 'myArray[3]' should eq "ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "ab"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "cd"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "ef"
   End
 
   It 'returns item even when adjacent delimiter are encountered'
@@ -94,16 +94,16 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 10
-    The variable 'myArray[0]' should eq ""
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "ab"
-    The variable 'myArray[3]' should eq ""
-    The variable 'myArray[4]' should eq "cd"
-    The variable 'myArray[5]' should eq ""
-    The variable 'myArray[6]' should eq ""
-    The variable 'myArray[7]' should eq "ef"
-    The variable 'myArray[8]' should eq ""
-    The variable 'myArray[9]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "ab"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "cd"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+5]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+6]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+7]' should eq "ef"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+8]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+9]' should eq ""
   End
 
   It 'returns item even when adjacent delimiter are encountered'
@@ -111,11 +111,11 @@ Describe 'StringUtils.splitPreserveAllTokens'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 5
-    The variable 'myArray[0]' should eq ""
-    The variable 'myArray[1]' should eq ""
-    The variable 'myArray[2]' should eq "::cd:"
-    The variable 'myArray[3]' should eq ":ef::"
-    The variable 'myArray[4]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "::cd:"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq ":ef::"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq ""
   End
 
 End

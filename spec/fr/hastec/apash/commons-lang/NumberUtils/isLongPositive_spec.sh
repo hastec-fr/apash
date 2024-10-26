@@ -73,6 +73,7 @@ Describe 'NumberUtils.isLongPositive'
   End
 
   It 'fails when the number is negative'
+    Skip if "is zsh" global_helper_is_zsh
     When call NumberUtils.isLongPositive "$Long_MIN_VALUE"
     The output should equal ""
     The status should be failure
@@ -85,6 +86,16 @@ Describe 'NumberUtils.isLongPositive'
   End
 
   It 'fails when the number is negative'
+    Skip if "is zsh" global_helper_is_zsh
+    When call NumberUtils.isLongPositive "-922337203685477580"
+    The output should equal ""
+    The status should be failure
+  End
+
+  # @todo: Not supported by zsh after 18 chars including the sign
+  # Ref: https://www.bouledef.eu/~tleguern/articles/shell-overflow/
+  It 'fails when the number is negative'
+    Skip if "is zsh" global_helper_is_zsh
     When call NumberUtils.isLongPositive "-9223372036854775809"
     The output should equal ""
     The status should be failure

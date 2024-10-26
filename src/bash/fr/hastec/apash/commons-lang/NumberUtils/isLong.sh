@@ -50,9 +50,10 @@ apash.import fr.hastec.apash.lang.Long.sh
 # @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 NumberUtils.isLong() {
   local inNumber="$1"
+  local pattern="^-?[0-9]{1,19}$"
 
   # Limit the number near the max number of characters.
-  [[ ! $inNumber =~ ^-?[0-9]{1,19}$ ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ ! $inNumber =~ $pattern ]] && return "$APASH_FUNCTION_FAILURE"
   
   # Check that litterally the number is not greater with a maximum of digits.
   [[ "${inNumber:0:1}" = "-"  && ${#inNumber} -eq 20 && "$inNumber" > "$Long_MIN_VALUE" ]] && return "$APASH_FUNCTION_FAILURE"

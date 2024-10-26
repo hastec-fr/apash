@@ -47,8 +47,9 @@
 #             and a potential dot with meaning numbers.
 NumberUtils.isParsable() {
   local inNumber="$1"
+  local pattern="^-?[0-9]*\.?[0-9]+$"
 
-  [[ $inNumber =~ ^-?[0-9]*\.?[0-9]+$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inNumber =~ $pattern ]] && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }

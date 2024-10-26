@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name StringUtils.split
@@ -29,7 +29,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+# | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
 # | $2     | inString       | string        | in       |            | The string to split.                             |
 # | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 #
@@ -49,14 +49,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # @exitcode 1 When input array does not exists.
 StringUtils.split() {
   local inArrayName="$1"
-  ArrayUtils.nullToEmpty  "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-
-  local -n inArray="$inArrayName"
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""
 
-  inArray=()
+  local outArray=()
 
   # Remove starting delimiters
   
@@ -69,7 +66,7 @@ StringUtils.split() {
   for (( i=0; i<${#inString}; i++ )); do
     # Check if the next chars correspond to delimiter
     if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
-      inArray+=("$currentString")
+      outArray+=("$currentString")
       currentString=""
       while [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; do
         # Skip the number of chars corresponding to the delimiter.
@@ -81,7 +78,10 @@ StringUtils.split() {
     fi
     currentString+=${inString:$i:1}
   done
-  [ -n "$currentString" ] && inArray+=("$currentString")
+  [ -n "$currentString" ] && outArray+=("$currentString")
+
+  ArrayUtils.clone "outArray" "$inArrayName"
+
   return "$APASH_FUNCTION_SUCCESS"
 }
 

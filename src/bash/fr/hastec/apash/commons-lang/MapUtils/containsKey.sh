@@ -46,10 +46,16 @@ MapUtils.containsKey() {
    local k
 
    MapUtils.isMap "$inMapName" || return "$APASH_FUNCTION_FAILURE"
-   local -n inMap="$inMapName"
 
-   for k in "${!inMap[@]}"; do
-      [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
-   done
+   if [ "$APASH_SHELL" = "zsh" ]; then
+      for k in "${(@kP)inMapName}"; do
+         [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
+      done
+   else
+      local -n inMap="$inMapName"
+      for k in "${!inMap[@]}"; do
+         [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
+      done
+   fi
    return "$APASH_FUNCTION_FAILURE"
 }

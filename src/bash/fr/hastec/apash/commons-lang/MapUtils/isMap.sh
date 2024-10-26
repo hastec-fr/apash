@@ -48,6 +48,6 @@
 # @exitcode 0 When the corresponding variable is a hashmap.
 # @exitcode 1 Otherwise.
 MapUtils.isMap() {
-   declare -p "$1" 2> /dev/null | grep -q 'declare -A' && return "$APASH_FUNCTION_SUCCESS"
+   declare -p "$1" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " && return "$APASH_FUNCTION_SUCCESS"
    return "$APASH_FUNCTION_FAILURE"
 }

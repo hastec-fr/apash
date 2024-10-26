@@ -37,6 +37,6 @@
 #
 # @see [StringUtils](../StringUtils.md)
 StringUtils.equals() {
-  [ "$1" == "$2" ] && return "$APASH_FUNCTION_SUCCESS"
+  [[ "$1" == "$2" ]] && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
