@@ -2,7 +2,6 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariable
 apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared

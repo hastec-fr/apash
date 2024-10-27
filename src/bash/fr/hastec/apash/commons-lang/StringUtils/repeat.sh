@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLongPositive
+apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
 # File description ###########################################################
 # @name StringUtils.repeat
@@ -41,7 +42,18 @@ StringUtils.repeat() {
   local inString="$2"
   
   NumberUtils.isLongPositive "$inNumber" || return "$APASH_FUNCTION_FAILURE"
-  printf "%0.s$inString" $(seq 1 "$inNumber") && return "$APASH_FUNCTION_SUCCESS"
+  
+  if [[ $APASH_SHELL == "zsh" ]] && \
+      VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
+    local i
+    local outString=""
+    for ((i=0; i < inNumber; i++)); do
+      outString+="$inString"
+    done
+    echo "$outString" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    printf "%0.s$inString" $(seq 1 "$inNumber") && return "$APASH_FUNCTION_SUCCESS"
+  fi
   return "$APASH_FUNCTION_FAILURE"
 }
 

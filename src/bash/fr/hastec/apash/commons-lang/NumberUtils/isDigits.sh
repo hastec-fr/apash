@@ -42,8 +42,8 @@
 # @exitcode 1 When the input string contains characters other than digits.
 NumberUtils.isDigits() {
   local inNumber="$1"
-
-  [[ $inNumber =~ ^[0-9]+$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  local pattern="^[0-9]+$"
+  [[ $inNumber =~ $pattern ]] && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }

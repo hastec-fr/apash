@@ -44,6 +44,7 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
     cat <<EOF > $HOME/.zshenv
 export PS1="apash:zsh-\${ZSH_VERSION} \$ "                  ##apashInstallTag
 export APASH_SHELL="zsh"                                    ##apashInstallTag
+export APASH_SHELL_VERSION="${ZSH_VERSION}"                 ##apashInstallTag
 export APASH_HOME_DIR="\$HOME/.apash"                       ##apashInstallTag
 export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
 # setopt ksh_arrays                                         ##apashInstallTag

@@ -25,7 +25,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to pad out.                |
-# | $2     | inSubstring    | string        | in       |            | The size to pad to.                   |
+# | $2     | inSize         | number        | in       |            | The size to pad to.                   |
 # | $3 ?   | inReplacement  | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
 #
 # @example
@@ -52,7 +52,7 @@ StringUtils.rightPad() {
   NumberUtils.isDigits "$inSize" || return "$APASH_FUNCTION_FAILURE" 
   
   # Get the number of missing characters.
-  local padCount=$(("$inSize" - ${#inString}))
+  local padCount=$((inSize - ${#inString}))
 
   # If the padding size is less than the string, then return the string itself.
   [[ $padCount -le 0 ]] && echo "$inString" && return "$APASH_FUNCTION_SUCCESS"

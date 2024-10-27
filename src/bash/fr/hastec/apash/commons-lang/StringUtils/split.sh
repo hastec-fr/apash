@@ -29,9 +29,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+# | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
 # | $2     | inString       | string        | in       |            | The string to split.                             |
-# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
 #
 # @example
 #    StringUtils.split myArray ""  ""                    # []
@@ -52,7 +52,7 @@ StringUtils.split() {
   local inString="$2"
   local inDelimiter="${3:- }"
   local currentString=""
-
+  local i
   local outArray=()
 
   # Remove starting delimiters
@@ -65,7 +65,7 @@ StringUtils.split() {
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do
     # Check if the next chars correspond to delimiter
-    if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
+    if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" && ${#inDelimiter} -gt 0 ]]; then
       outArray+=("$currentString")
       currentString=""
       while [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; do

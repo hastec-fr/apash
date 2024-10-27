@@ -21,8 +21,10 @@ git clone https://github.com/hastec-fr/apash.git "$HOME/.apash" 2> /dev/null
 ## now check what shell is running
 if [ -n "$BASH_VERSION" ]; then    
   shell_type="bash"
+  shell_version="$BASH_VERSION"
 elif [ -n "$ZSH_VERSION" ]; then
   shell_type="zsh"
+  shell_version="$ZSH_VERSION"
 fi
 echo ". Detected shell type: $shell_type"
 case "$shell_type" in
@@ -43,9 +45,11 @@ apash_keyword="apashInstallTag"
 ## now add the apash initialisation lines to the user's startup script
 echo ". Add apash initialisation to [$startup_script]"
 (
-  echo "export APASH_HOME_DIR=\"\$HOME/.apash\"   ##$apash_keyword"
-  echo "export PATH=\"\$PATH:\$APASH_HOME_DIR\"   ##$apash_keyword"
-  echo ". \"\$APASH_HOME_DIR/apash\"              ##$apash_keyword"
+  echo "export APASH_SHELL=\"$shell_type\"             ##$apash_keyword"
+  echo "export APASH_SHELL_VERSION=\"$shell_version\"  ##$apash_keyword"
+  echo "export APASH_HOME_DIR=\"\$HOME/.apash\"        ##$apash_keyword"
+  echo "export PATH=\"\$PATH:\$APASH_HOME_DIR\"        ##$apash_keyword"
+  echo ". \"\$APASH_HOME_DIR/apash\"                   ##$apash_keyword"
 ) >>"$startup_script"
 
 ## script is finished

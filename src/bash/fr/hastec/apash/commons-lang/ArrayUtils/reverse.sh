@@ -78,9 +78,9 @@ ArrayUtils.reverse() {
   [[ "$inStartIndex" -ge "$inEndIndex" ]] && return "$APASH_FUNCTION_SUCCESS"
     
   while [[ $inStartIndex -lt $inEndIndex ]]; do
-    swap=${outArray[$inStartIndex]}
-    outArray["$inStartIndex"]=${outArray["$((inEndIndex - 1))"]}
-    outArray["$((inEndIndex - 1))"]="$swap"
+    swap=${outArray[inStartIndex]}
+    outArray[inStartIndex]=${outArray[inEndIndex-1]}
+    outArray[inEndIndex-1]="$swap"
     inStartIndex=$((inStartIndex + 1))
     inEndIndex=$((inEndIndex - 1))
   done

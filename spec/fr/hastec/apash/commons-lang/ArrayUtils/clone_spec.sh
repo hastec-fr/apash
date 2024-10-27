@@ -34,7 +34,7 @@ Describe 'ArrayUtils.clone'
 
   It 'fails when the input name does not refer to an array'
     local -A myMap=(["foo"]="bar")
-    When call ArrayUtils.clone "myArray" "myClone"
+    When call ArrayUtils.clone "myMap" "myClone"
     The output should equal ""
     The status should be failure
   End

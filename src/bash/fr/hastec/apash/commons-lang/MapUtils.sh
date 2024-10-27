@@ -23,7 +23,7 @@
 # |[containsKey](MapUtils/containsKey.md)|Check if the input value is present in the input map.|
 # |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 # <!-- apash.summaryTableEnd -->
-
+declare -A MaptUtils_EMPTY_MAP=()
 
 
 

@@ -30,13 +30,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 #
 # #### Example
 # ```bash
-#    ArrayUtils.clone  ""       ""               # failure
+#    ArrayUtils.clone  ""       ""                # failure
+#
+#    myVar="dummy"
+#    ArrayUtils.clone  "myVar"  "myClone"         # failure
 #
 #    declare -A myMap
-#    ArrayUtils.addFirst  "myMap"  "a"           # failure
-#
-#    declare -a myClone
-#    ArrayUtils.clone  "myVar"  "myClone"        # failure
+#    ArrayUtils.clone  "myMap"  "myClone"         # failure
 #
 #    myArray=()
 #    myClone=("a")
@@ -57,13 +57,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @exitcode 0 When input arguments are arrays.
 # @exitcode 1 Otherwise.
 ArrayUtils.clone() {
-  local ref_ArrayUtils_clone_inArrayNameName="$1"
+  local ref_ArrayUtils_clone_inArrayName="$1"
   local ref_ArrayUtils_clone_outArrayName="$2"
-  ArrayUtils.isArray "$ref_ArrayUtils_clone_inArrayNameName"  || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.init    "$ref_ArrayUtils_clone_outArrayName"     || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ref_ArrayUtils_clone_inArrayName"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.init    "$ref_ArrayUtils_clone_outArrayName" || return "$APASH_FUNCTION_FAILURE"
   
-  local -n ref_ArrayUtils_clone_inArrayName="$ref_ArrayUtils_clone_inArrayNameName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-  local -n ref_ArrayUtils_clone_outArray="$ref_ArrayUtils_clone_outArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local -n ref_ArrayUtils_clone_inArrayName="$ref_ArrayUtils_clone_inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+  local -n ref_ArrayUtils_clone_outArray="$ref_ArrayUtils_clone_outArrayName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
   local i
   # Can't use direct wrapping because need to preserve indexes
   # ref_ArrayUtils_clone_outArray=("${ref_ArrayUtils_clone_inArrayName[@]}")

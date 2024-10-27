@@ -12,7 +12,7 @@ apash.test.compatibility(){
   local v
   # local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
   local -a bashVersions=(5.2)
-  local -a zshVersions=(5.9)
+  local -a zshVersions=(4.3.17)
   true > "$globalCampaignFile"
   
   for v in "${bashVersions[@]}"; do

@@ -40,13 +40,7 @@
 # @exitcode 1 Otherwise.
 StringUtils.lowerCase() {
   local inString="$1"
-
-  if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${(L)inString}" && return "$APASH_FUNCTION_SUCCESS"
-  else
-    echo "${inString,,}" && return "$APASH_FUNCTION_SUCCESS"
-  fi
-
+  echo "$inString" | awk '{print tolower($0)}' && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
 

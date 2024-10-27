@@ -52,7 +52,7 @@ StringUtils.leftPad() {
   NumberUtils.isDigits "$inSize" || return "$APASH_FUNCTION_FAILURE" 
   
   # Get the number of missing characters.
-  local padCount=$(("$inSize" - ${#inString}))
+  local padCount=$((inSize - ${#inString}))
 
   # If the padding size is less than the string, then return the string itself.
   [[ $padCount -le 0 ]] && echo "$inString" && return "$APASH_FUNCTION_SUCCESS"
