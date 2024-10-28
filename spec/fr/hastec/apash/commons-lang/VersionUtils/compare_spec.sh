@@ -50,7 +50,7 @@ Describe 'VersionUtils.compare'
 
   # Check  1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
   It 'returns -1 when the first version is lower than the second'
-    When call VersionUtils.compare "1.0.0-rc" "1.1.0"
+    When call VersionUtils.compare "1.0.0-rc" "1.0.0"
     The output should equal "-1"
     The status should be success
   End
@@ -93,7 +93,7 @@ Describe 'VersionUtils.compare'
 
   # Reverse check
   It 'returns 1 when the first version is greater than the second'
-    When call VersionUtils.compare "1.1.0" "1.0.0-rc" 
+    When call VersionUtils.compare "1.0.0" "1.0.0-rc" 
     The output should equal "1"
     The status should be success
   End

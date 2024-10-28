@@ -38,6 +38,7 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
     cat <<EOF > $HOME/.bashrc
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "             ##apashInstallTag
 export APASH_SHELL="bash"                                   ##apashInstallTag
+export APASH_SHELL_VERSION="\${BASH_VERSION%.*}"            ##apashInstallTag
 export APASH_HOME_DIR="\$HOME/.apash"                       ##apashInstallTag
 export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
 . "\$APASH_HOME_DIR/apash" source                           ##apashInstallTag

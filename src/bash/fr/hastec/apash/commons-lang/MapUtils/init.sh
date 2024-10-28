@@ -66,7 +66,7 @@ MapUtils.init() {
 
   # If the variable is not declared, then create the corresponding global value.
   if ! BashUtils.isDeclared "$ref_MapUtils_init_ioMapName"; then
-    declare -g -A "$ref_MapUtils_init_ioMapName" && return "$APASH_FUNCTION_SUCCESS"
+    declare -g -A "${ref_MapUtils_init_ioMapName}=()" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
   fi
 

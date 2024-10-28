@@ -53,7 +53,15 @@ Describe 'MapUtils.isMap'
   # End
 
   It 'passes when references is a map'
+    Skip if "old bash" global_helper_is_shell_version_lower "bash" "4.3"
     local -A myMap
+    When call MapUtils.isMap "myMap"
+    The output should equal ""
+    The status should be success
+  End
+
+  It 'passes when references is a map'
+    local -A myMap=()
     When call MapUtils.isMap "myMap"
     The output should equal ""
     The status should be success

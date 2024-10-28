@@ -11,8 +11,8 @@ apash.test.compatibility(){
   local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
   local v
   # local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
-  local -a bashVersions=(5.2)
-  local -a zshVersions=(4.3.17)
+  local -a bashVersions=(4.3)
+  local -a zshVersions=(5.3 4.3.17)
   true > "$globalCampaignFile"
   
   for v in "${bashVersions[@]}"; do

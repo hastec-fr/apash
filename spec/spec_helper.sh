@@ -30,3 +30,9 @@ global_helper_is_zsh(){
 global_helper_is_bash(){
   [ "$APASH_SHELL" = "bash" ] && return "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
 }
+
+global_helper_is_shell_version_lower(){
+  [ "$APASH_SHELL" != "$1" ] && return "$APASH_FUNCTION_FAILURE"
+  apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
+  VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "$2" && return "$APASH_FUNCTION_SUCCESS"
+}

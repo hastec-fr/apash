@@ -66,7 +66,7 @@ ArrayUtils.init() {
 
   # If the variable is not declared, then create the corresponding global value.
   if ! BashUtils.isDeclared "$ref_ArrayUtils_init_ioArrayName"; then
-    declare -g -a "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+    declare -g -a "${ref_ArrayUtils_init_ioArrayName}=()" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
   fi
 

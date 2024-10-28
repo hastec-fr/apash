@@ -67,7 +67,7 @@ Describe 'MapUtils.init'
   End
   
   It 'does not preserve array if it already contains values'
-    local -A myMap=("a" "b")
+    local -A myMap=([foo]="a" [bar]="b")
     When call MapUtils.init "myMap"
     The output should equal ""
     The status should be success

@@ -52,7 +52,9 @@ Describe 'ArrayUtils.isArray'
     The status should be success
   End
 
+  # Syntax not valid for bash 4.3
   It 'passes when the input argument is an array'
+    Skip if "old bash" global_helper_is_shell_version_lower "bash" "4.3"
     declare -a myArray
     When call ArrayUtils.isArray "myArray"
     The output should equal ""
@@ -61,6 +63,7 @@ Describe 'ArrayUtils.isArray'
 
   It 'passes when the input argument is an array'
     local -a myArray
+    Skip if "old bash" global_helper_is_shell_version_lower "bash" "4.3"
     When call ArrayUtils.isArray "myArray"
     The output should equal ""
     The status should be success

@@ -2,18 +2,18 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
-apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
-apash.import fr.hastec.apash.util.Array.bubbleSort
-[ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
+
 
 # File description ###########################################################
 # @name Array.sort
-# @brief Sorts the specified array into ascending natural order.
+# @brief Sorts the specified array into alphanumerical order with the bubble sort style.
 # @description
-#   Non array reference will be transformed to empty array.
-#
+#   This is for bash 4.3 and under which does not have the option -d of readarray.
+#   
 # ### Since:
-# 0.1.0
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -53,22 +53,26 @@ apash.import fr.hastec.apash.util.Array.bubbleSort
 #
 # @exitcode 0 True Whether the array is sorted according to natural ordering.
 # @exitcode 1 Otherwise.
-Array.sort() {
+Array.bubbleSort() {
   local inArrayName="$1"
   ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  
-  if [ "$APASH_SHELL" = "zsh" ]; then
-    local ref_Array_sort_inArray=("${(o)${(P)inArrayName}[@]}")
-    ArrayUtils.clone "ref_Array_sort_inArray" "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
-  else # bash
-    local -n inArray="$inArrayName"
-    [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_SUCCESS"
-    if VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.3"; then
-      Array.bubbleSort "$inArrayName" &&  return "$APASH_FUNCTION_SUCCESS"
-    else
-      readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) &&  return "$APASH_FUNCTION_SUCCESS"
-    fi
-  fi
+  local lastIndex
+  local temp i j
+  local outArray=()
+  ArrayUtils.clone "$inArrayName" "outArray"
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
 
-  return "$APASH_FUNCTION_FAILURE"
+  # Performing Bubble sort
+  for ((i = APASH_ARRAY_FIRST_INDEX; i < lastIndex+1; i++)); do
+      for((j = APASH_ARRAY_FIRST_INDEX; j < lastIndex+1-i-1; j++)); do
+          if [[ ${outArray[j]} > ${outArray[j+1]} ]]; then
+              temp=${outArray[j]}
+              outArray[j]=${outArray[j+1]}
+              outArray[j+1]=$temp
+          fi
+      done
+  done
+  ArrayUtils.clone "outArray" "$inArrayName"
+
+  return "$APASH_FUNCTION_SUCCESS"
 }

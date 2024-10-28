@@ -4,7 +4,6 @@
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLongPositive
 apash.import fr.hastec.apash.commons-lang.StringUtils.splitAny
 apash.import fr.hastec.apash.commons-lang.NumberUtils.max
-apash.import fr.hastec.apash.commons-lang.VersionUtils.parse
 
 # File description ###########################################################
 # @name VersionUtils.isLower
@@ -63,7 +62,7 @@ VersionUtils.compare() {
     
     # Check if it's the pre-release numbers
     # and if one of the version has reached its end.
-    if [[ $i -lt $((APASH_ARRAY_FIRST_INDEX+3)) ]]; then
+    if [[ $i -lt $((APASH_ARRAY_FIRST_INDEX+4)) ]]; then
       [[ -n "${vArray1[i]}" && -z "${vArray2[i]}" ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
       [[ -z "${vArray1[i]}" && -n "${vArray2[i]}" ]] && echo "1" && return "$APASH_FUNCTION_SUCCESS"
     else

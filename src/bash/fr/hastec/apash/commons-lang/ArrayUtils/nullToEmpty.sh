@@ -64,7 +64,7 @@ ArrayUtils.nullToEmpty() {
   BashUtils.isDeclared "$inArrayName" && return "$APASH_FUNCTION_FAILURE"
 
   # Declare the array with dynamic name
-  declare -g -a "${inArrayName}" && return "$APASH_FUNCTION_SUCCESS"
+  declare -g -a "${inArrayName}=()" && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }
