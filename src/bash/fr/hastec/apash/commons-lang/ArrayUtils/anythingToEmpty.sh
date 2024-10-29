@@ -3,6 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
+apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 
 # File description ###########################################################
 # @name ArrayUtils.anythingToEmpty
@@ -57,6 +58,6 @@ ArrayUtils.anythingToEmpty() {
   local ioArrayName="$1"
   BashUtils.isVariableNameValid "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   unset "$ioArrayName"
-  declare -g -a "${ioArrayName}=()" && return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.declareArray "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS" 
   return "$APASH_FUNCTION_FAILURE"
 }

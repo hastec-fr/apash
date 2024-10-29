@@ -4,6 +4,8 @@
 apash.import fr.hastec.apash.commons-lang.StringUtils.countMatches
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
 apash.import fr.hastec.apash.commons-lang.StringUtils.repeat
+apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
+
 
 # File description ###########################################################
 # @name CsvUtils.merge
@@ -45,6 +47,7 @@ CsvUtils.merge() {
   local inFile1="$1"
   local inFile2="$2"
   local -A functionMap=()
+  local -a keys=()
   local functionName
   local header1 header2
   local -i nbFields1=0 nbFields2=0
@@ -71,8 +74,10 @@ CsvUtils.merge() {
 
   # Print the merged csv
   echo "$header1,${header2#*,}"
+
+  MapUtils.getKeys "keys" "functionMap"
   # Loop on each values to adjust row present in the first file but not in the second
-  for functionName in "${!functionMap[@]}"; do
+  for functionName in "${keys[@]}"; do
     if [[ $(StringUtils.countMatches "${functionMap["$functionName"]}" "," ) -eq $nbFields1 ]]; then
       functionMap["$functionName"]+="$(StringUtils.repeat "$((nbFields2-1))" ",")"
     fi

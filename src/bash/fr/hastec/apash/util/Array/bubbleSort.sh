@@ -63,14 +63,14 @@ Array.bubbleSort() {
   lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
 
   # Performing Bubble sort
-  for ((i = APASH_ARRAY_FIRST_INDEX; i < lastIndex+1; i++)); do
-      for((j = APASH_ARRAY_FIRST_INDEX; j < lastIndex+1-i-1; j++)); do
-          if [[ ${outArray[j]} > ${outArray[j+1]} ]]; then
-              temp=${outArray[j]}
-              outArray[j]=${outArray[j+1]}
-              outArray[j+1]=$temp
-          fi
-      done
+  for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+lastIndex+1; i++)); do
+    for ((j=APASH_ARRAY_FIRST_INDEX; j < APASH_ARRAY_FIRST_INDEX+lastIndex+1-i-1; j++)); do
+      if [[ "${outArray[j]}" > "${outArray[j+1]}" ]]; then
+          temp="${outArray[j]}"
+          outArray[j]="${outArray[j+1]}"
+          outArray[j+1]="$temp"
+      fi
+    done
   done
   ArrayUtils.clone "outArray" "$inArrayName"
 

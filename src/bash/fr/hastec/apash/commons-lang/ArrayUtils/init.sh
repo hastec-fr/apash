@@ -6,6 +6,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariable
 apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
+apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 
 # File description ###########################################################
 # @name ArrayUtils.init
@@ -66,7 +67,7 @@ ArrayUtils.init() {
 
   # If the variable is not declared, then create the corresponding global value.
   if ! BashUtils.isDeclared "$ref_ArrayUtils_init_ioArrayName"; then
-    declare -g -a "${ref_ArrayUtils_init_ioArrayName}=()" && return "$APASH_FUNCTION_SUCCESS"
+    BashUtils.declareArray "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
     return "$APASH_FUNCTION_FAILURE"
   fi
 

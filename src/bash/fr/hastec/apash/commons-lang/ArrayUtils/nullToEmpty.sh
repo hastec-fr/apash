@@ -4,6 +4,7 @@
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
 apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
+apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 
 # File description ###########################################################
 # @name ArrayUtils.nullToEmpty
@@ -64,7 +65,7 @@ ArrayUtils.nullToEmpty() {
   BashUtils.isDeclared "$inArrayName" && return "$APASH_FUNCTION_FAILURE"
 
   # Declare the array with dynamic name
-  declare -g -a "${inArrayName}=()" && return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.declareArray "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }

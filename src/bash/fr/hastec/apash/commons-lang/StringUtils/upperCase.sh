@@ -41,8 +41,10 @@ StringUtils.upperCase() {
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${(U)inString}" && return "$APASH_FUNCTION_SUCCESS"
-  else
+  elif [ "$APASH_SHELL" = "bash" ]; then
     echo "${inString^^}" && return "$APASH_FUNCTION_SUCCESS"
+  else # POSIX
+    echo "$inString" | awk '{print toupper($0)}' && return "$APASH_FUNCTION_SUCCESS"
   fi
 
   return "$APASH_FUNCTION_FAILURE"

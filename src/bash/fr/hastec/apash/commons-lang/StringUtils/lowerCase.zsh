@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # File description ###########################################################
 # @name StringUtils.lowerCase
@@ -20,4 +20,3 @@ StringUtils.lowerCase() {
   echo "${(L)inString}" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
-

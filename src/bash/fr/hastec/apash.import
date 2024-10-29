@@ -57,14 +57,16 @@ apash.import(){
     # Change lib in case a variant exist for the current shell.
     [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
 
-    # Overide the library whith a compatible version of the same shell
-    for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
-      [ ! -r "$vlib" ] && continue
-      version="${vlib#*_}"
-      if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" | sort -V | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
-        lib="$vlib" && break
-      fi
-    done
+    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
+      # Overide the library whith a compatible version of the same shell
+      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
+        [ ! -r "$vlib" ] && continue
+        version="${vlib#*_}"
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" | sort -V | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+          lib="$vlib" && break
+        fi
+      done
+    fi
 
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     if [[ $forceFlag == true ]]; then source "$lib"; continue; fi
