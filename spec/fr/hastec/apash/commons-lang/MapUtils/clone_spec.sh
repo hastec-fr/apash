@@ -56,8 +56,8 @@ Describe 'MapUtils.clone'
     The status should be success
     The value "${#myMap[@]}" should eq 2
     The value "${#myClone[@]}" should eq 2
-    The variable 'myClone["foo"]' should eq "bar"
-    The variable 'myClone["key"]' should eq "val"
+    The variable 'myClone[foo]' should eq "bar"
+    The variable 'myClone[key]' should eq "val"
   End
 
   It 'passes when references are maps'

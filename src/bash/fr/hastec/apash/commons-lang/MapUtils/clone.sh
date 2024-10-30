@@ -64,7 +64,7 @@ MapUtils.clone() {
   MapUtils.init    "$ref_MapUtils_clone_outMapName" || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PAA)ref_MapUtils_clone_outMapName::="${(kv)1[@]}"} && return "$APASH_FUNCTION_SUCCESS"
+    : ${(PAA)ref_MapUtils_clone_outMapName::="${(AAkv@)${(P)1}}"} && return "$APASH_FUNCTION_SUCCESS"
   else
     local -n ref_MapUtils_clone_inMap="$ref_MapUtils_clone_inMapName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
     local -n ref_MapUtils_clone_outMap="$ref_MapUtils_clone_outMapName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"

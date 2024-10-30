@@ -62,7 +62,8 @@ apash.import(){
       for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
         [ ! -r "$vlib" ] && continue
         version="${vlib#*_}"
-        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" | sort -V | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+        # Sort -V not present in zsh (so use manual numeric sort)
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
           lib="$vlib" && break
         fi
       done
