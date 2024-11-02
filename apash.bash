@@ -469,7 +469,7 @@ parseApashTestArgs() {
 
       # Launch compatibility campaign
       --compatibility)
-          ! declare -F "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return $APASH_EXIT_REQUIRED
+          ! typeset -f "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return $APASH_EXIT_REQUIRED
           apash.import -f "fr/hastec/apash.test.compatibility"
           apash.test.compatibility
           return $APASH_EXIT_REQUIRED

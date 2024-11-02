@@ -10,6 +10,10 @@ apash.import(){
 
   for l in "$@"; do
     location="$APASH_BASH_DIR/"${l//./\/}
+
+    # Shortcut resolution if the function <package>.<method> already exists.
+    [ "$forceFlag" = "false" ] && typeset -F "$(basename "$(dirname "$l")").$(basename "${l%.*}")" > /dev/null 2>&1 && continue
+
     # Import package
     if [ -d "$location" ]; then
       for lib in "$location"/*.sh; do
@@ -48,7 +52,7 @@ apash.import(){
     
     # The library connot be imported
     else
-      echo "WARNING: Unknown library: '$l' - '$location'" >&2
+      echo "$(date -u +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
       continue
     fi
   done
@@ -71,10 +75,7 @@ apash.import(){
 
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     if [[ $forceFlag == true ]]; then source "$lib"; continue; fi
-
-    if [[ "$APASH_SHELL" == "bash" ]] && ! declare -F "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null; then
-      source "$lib"
-    elif [[ "$APASH_SHELL" == "zsh"  ]] && ! type -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
+    if ! typeset -F "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
       source "$lib"
     fi
   done
@@ -82,7 +83,7 @@ apash.import(){
 
 if [[ "$APASH_SHELL" == "bash" ]]; then
   export -f apash.import
-elif [[ "$APASH_SHELL" == "zsh"  ]] && ! typeset -f apash.import > /dev/null; then
+elif [[ "$APASH_SHELL" == "zsh"  ]]; then
   # FPATH+="${0:A:h}"
   autoload -Uz apash.import
 fi
