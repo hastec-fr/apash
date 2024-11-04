@@ -172,14 +172,6 @@ showApashTestHelp(){
 EOF
 }
 
-functionIsDeclared(){
-  if ! typeset -f "$1" > /dev/null; then
-    echo "$(date -u +"%FT%T.%3N%z") [FATAL] apash ($2): $3" >&2 
-    return "$APASH_FUNCTION_FAILURE"
-  fi
-  return "$APASH_FUNCTION_SUCCESS"
-}
-
 # LEVEL 0 - Embedded main execution flow #######################################
 # @name executeApashCommand
 # @description
@@ -286,7 +278,6 @@ executeApashAction(){
 # LEVEL 2 - Actions ##########################################################
 executeApashDoc(){
     parseApashDocArgs "$@" || return
-    ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return
     apash.import "fr/hastec/apash.doc"
     apash.doc
 }
@@ -298,7 +289,6 @@ executeApashInit(){
 
 executeApashMinify(){
   parseApashMinifyArgs "$@" || return
-  ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return
   apash.import "fr/hastec/apash.minify"
   apash.minify
 }
@@ -476,7 +466,6 @@ parseApashTestArgs() {
 
       # Launch compatibility campaign
       --compatibility)
-          ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return $APASH_EXIT_REQUIRED
           apash.import -f "fr/hastec/apash.test.compatibility"
           apash.test.compatibility
           return $APASH_EXIT_REQUIRED
@@ -545,5 +534,7 @@ executePostInstall(){
 if [ $# -eq 0 ]; then
   executeApashSource
 else
+  # Zsh requires to re-declare functions when subprocesses are called.
+  typeset -f "apash.import" > /dev/null || source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
   executeApashCommand "$@"
 fi

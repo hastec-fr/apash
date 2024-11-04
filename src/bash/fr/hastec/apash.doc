@@ -22,6 +22,7 @@
 
 
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
+apash.import fr.hastec.apash.commons-lang.StringUtils.EndsWith
 
 # Count the number of parent directory until apash root dir
 # Then loop on the directory to rebuild the path with relative path
@@ -29,21 +30,23 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.split
 # apash / commons-lang / ...
 apash.doc.getPathFromMethod(){
   local package=$1
-  local rootPackage=${package/src\/*\/fr\/hastec/}
+  local relativePackage=${package/src\/*\/fr\/hastec/}
+  local -a dirs=()
   local row=""
 
+  StringUtils.split dirs "$relativePackage" "/"
   # If it's the root package src/fr/hastec then just display None.
-  count=$(echo "$rootPackage" | tr -cd "$/" | wc -c)
+  count=$(echo "$relativePackage" | tr -cd "$/" | wc -c)
   row="# "
   OLD_IFS=$IFS
-  IFS="/"
-  for dir in $rootPackage; do
+  # IFS="/"
+  for dir in "${dirs[@]}"; do
     parentDir="../"
     for ((i=0; i < count; i++)); do parentDir+="../"; done
     row+="[$dir]($parentDir$dir.md) / "
     ((count--))
   done
-  IFS="$OLD_IFS"
+  # IFS="$OLD_IFS"
   echo "$row"
 }
 
@@ -68,21 +71,22 @@ apash.doc.getFullSummaryTable(){
 
   while  IFS= read -r -d '' file; do
     brief=$(grep -m 1 "@brief" "$file" | sed 's/^.*@brief //1' )
-    f=$(echo "$file" | sed "s|$APASH_HOME_DIR||g")
-    rootPackage=${f/\/src\/*\/fr\/hastec\//}
+    rootPackage=$(echo "$file" | sed "s|^$APASH_HOME_DIR/src/bash/fr/hastec/||g")
     methodPath=""
     cumulatedDir=""
     StringUtils.split dirs "$rootPackage" "/"
     for dir in "${dirs[@]}"; do
-      if [[ $dir =~ ^.*\.sh$ ]]; then
+      echo "!!! dir: $dir"
+      if StringUtils.EndsWith $dir "\.sh"; then
         methodPath+="[${dir/.sh/}](${cumulatedDir}${dir/.sh/}.md)"
       else
         methodPath+="[$dir](${cumulatedDir}$dir.md) / "
         cumulatedDir+="$dir/"
       fi
     done
+    echo "!!! cumul: $cumulatedDir"
     rows+="| $methodPath | $brief |\n"
-  done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0)
+  done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | sort)
   # shellcheck disable=SC2001
   echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|../../../../assets/apash-logo.svg|1" > "$fstFile"
   echo -e "\n$rows" >> "$fstFile"
@@ -107,15 +111,16 @@ echo """
 """
 }
 
-
 apash.substitutePlaceHolders() {
   local placeHolder=$1
   local placeHolders=""
-  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude apashDoc.sh)
+  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude apashDoc.sh "$APASH_HOME_DIR")
+  local relativeFile
 
   while read -r p; do
-    class=$(basename "$p" | sed 's/\.sh//')
-    package=$(dirname "$p")
+    relativeFile=$(echo "${p}" | sed "s|^$APASH_HOME_DIR/||")
+    class=$(basename "$relativeFile" | sed 's/\.sh//')
+    package=$(dirname "$relativeFile")
     rows="# <!-- apash.${placeHolder}Begin -->\n"
 
     if [ "${placeHolder}" = "summaryTable" ]; then
@@ -124,13 +129,15 @@ apash.substitutePlaceHolders() {
       rows+="# | Methods                  | Brief                                 |\n"
       rows+="# |--------------------------|---------------------------------------|\n"
 
-      for f in "$package/$class"/*.sh; do
-        [[ ! -r $f ]] && continue
-        method=$(basename "$f"  | sed 's/\.sh//')
-        brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
-        row="[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"
-        rows+="# |$row\n"
-      done
+      if [ "$APASH_SHELL" = "bash" ] || { [ "$APASH_SHELL" = "zsh" ] && [ -n "$(print -l $package/$class/*.sh(N))" ]; }; then
+        for f in "$package/$class"/*.sh; do
+          [ ! -r "$f" ] && continue
+          method=$(basename "$f"  | sed 's/\.sh//')
+          brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
+          row="[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"
+          rows+="# |$row\n"
+        done
+      fi
     elif [ "$placeHolder" = "parent" ]; then
       rootPackage=${package/src\/*\/fr\/hastec/}
       # If it's the root package src/fr/hastec then just display None.
