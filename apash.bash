@@ -172,6 +172,13 @@ showApashTestHelp(){
 EOF
 }
 
+functionIsDeclared(){
+  if ! typeset -f "$1" > /dev/null; then
+    echo "$(date -u +"%FT%T.%3N%z") [FATAL] apash ($2): $3" >&2 
+    return "$APASH_FUNCTION_FAILURE"
+  fi
+  return "$APASH_FUNCTION_SUCCESS"
+}
 
 # LEVEL 0 - Embedded main execution flow #######################################
 # @name executeApashCommand
@@ -279,7 +286,7 @@ executeApashAction(){
 # LEVEL 2 - Actions ##########################################################
 executeApashDoc(){
     parseApashDocArgs "$@" || return
-    ! typeset -f "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
+    ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return
     apash.import "fr/hastec/apash.doc"
     apash.doc
 }
@@ -291,7 +298,7 @@ executeApashInit(){
 
 executeApashMinify(){
   parseApashMinifyArgs "$@" || return
-  ! typeset -f "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return
+  ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return
   apash.import "fr/hastec/apash.minify"
   apash.minify
 }
@@ -469,7 +476,7 @@ parseApashTestArgs() {
 
       # Launch compatibility campaign
       --compatibility)
-          ! typeset -f "apash.import" > /dev/null && echo "Apash must be sourced first" >&2 && return $APASH_EXIT_REQUIRED
+          ! functionIsDeclared "apash.import" "$LINENO" "Apash must be sourced first" && return $APASH_EXIT_REQUIRED
           apash.import -f "fr/hastec/apash.test.compatibility"
           apash.test.compatibility
           return $APASH_EXIT_REQUIRED

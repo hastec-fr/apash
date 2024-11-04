@@ -83,7 +83,9 @@ apash.import(){
 
 if [[ "$APASH_SHELL" == "bash" ]]; then
   export -f apash.import
-elif [[ "$APASH_SHELL" == "zsh"  ]]; then
-  # FPATH+="${0:A:h}"
+elif [[ "$APASH_SHELL" == "zsh"  ]] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
+  # Autoload the function for the current shell and subshell
+  # But function is not export to subprocesses. Can only resource the file.
+  FPATH+=":${0:A:h}"
   autoload -Uz apash.import
 fi
