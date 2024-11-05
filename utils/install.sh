@@ -45,11 +45,8 @@ apash_keyword="apashInstallTag"
 ## now add the apash initialisation lines to the user's startup script
 echo ". Add apash initialisation to [$startup_script]"
 (
-  echo "export APASH_SHELL=\"$shell_type\"             ##$apash_keyword"
-  echo "export APASH_SHELL_VERSION=\"$shell_version\"  ##$apash_keyword"
-  echo "export APASH_HOME_DIR=\"\$HOME/.apash\"        ##$apash_keyword"
-  echo "export PATH=\"\$PATH:\$APASH_HOME_DIR\"        ##$apash_keyword"
-  echo ". \"\$APASH_HOME_DIR/apash\"                   ##$apash_keyword"
+  echo ". \"\$HOME/.apash/.apashrc\"         ##$apash_keyword"
+  echo ". \"\$APASH_HOME_DIR/apash\" source  ##$apash_keyword"
 ) >>"$startup_script"
 
 ## script is finished

@@ -1,0 +1,20 @@
+# shellcheck disable=all
+# Apash configurations
+
+# Manual
+# export APASH_SHELL="bash"
+# export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
+
+# Dynamic
+if [ -n "$ZSH_VERSION" ]; then
+  export APASH_SHELL="zsh"
+  export APASH_SHELL_VERSION="${ZSH_VERSION}"
+elif [ -n "$BASH_VERSION" ]; then
+  export APASH_SHELL="bash"
+  export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
+else
+  echo "$(date -u +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
+fi
+
+export APASH_HOME_DIR="$HOME/.apash"                      # $HOME/.apash
+export PATH="$PATH:$HOME/.local/bin:$APASH_HOME_DIR"      # $PATH:$HOME/.local/bin:$APASH_HOME_DIR

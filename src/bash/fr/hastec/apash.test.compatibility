@@ -45,7 +45,7 @@ apash.test.compatibility.addVersion(){
   shellUpperName=$(StringUtils.upperCase "$shellName")
 
   # Build and run a container with apash test.
-  echo "Enter password (if necessary) for docker usage."
+  echo "Enter password for docker usage (if necessary)."
   sudo docker build --no-cache --build-arg "${shellUpperName}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
   sudo docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
 
@@ -89,7 +89,7 @@ apash.test.compatibility.toMarkDown(){
   export APASH_FUNCTION_RESULTS=""
 
   StringUtils.split shells "$(head -n 1 "$globalCampaignFile")" ","
-  ArrayUtils.remove shells $APASH_ARRAY_FIRST_INDEX   # Remove the function header
+  ArrayUtils.remove shells "$APASH_ARRAY_FIRST_INDEX"   # Remove the function header
   for s in "${shells[@]}"; do
     shellName="${s%%_*}"
     shellVersion="${s#*_}"
@@ -115,7 +115,7 @@ apash.test.compatibility.toMarkDown(){
     APASH_FUNCTION_RESULTS+="  <td>${results[APASH_ARRAY_FIRST_INDEX]}</td>
     "
     # APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
-    ArrayUtils.remove results $APASH_ARRAY_FIRST_INDEX
+    ArrayUtils.remove results "$APASH_ARRAY_FIRST_INDEX"
 
     for ((s=APASH_ARRAY_FIRST_INDEX; s < APASH_ARRAY_FIRST_INDEX+${#results[@]}; s++ )); do
       shellName="${shells[$s]%%_*}"

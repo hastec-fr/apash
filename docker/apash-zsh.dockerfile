@@ -19,7 +19,7 @@ LABEL maintainer="Benjamin Vargin"
 RUN apt update && \
     apt install -y curl git bc coreutils tzdata
 
-RUN apt install -y vim
+# RUN apt install -y vim
 
 RUN addgroup tribe && \
     adduser --shell /usr/bin/zsh --home /home/apash --ingroup tribe --disabled-password --gecos apash apash
@@ -42,16 +42,13 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
         git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
     fi; \
     cat <<EOF > $HOME/.zshenv
-export PS1="apash:zsh-\${ZSH_VERSION} \$ "                  ##apashInstallTag
-export APASH_SHELL="zsh"                                    ##apashInstallTag
-export APASH_SHELL_VERSION="${ZSH_VERSION}"                 ##apashInstallTag
-export APASH_HOME_DIR="\$HOME/.apash"                       ##apashInstallTag
-export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
-# setopt ksh_arrays                                         ##apashInstallTag
-export LANG=C.UTF-8                                         ##apashInstallTag
-export LC_ALL=C.UTF-8                                       ##apashInstallTag
-. "\$APASH_HOME_DIR/apash" source                           ##apashInstallTag
-setopt interactivecomments                                  ##apashInstallTag
+# setopt ksh_arrays                        ##apashInstallTag
+setopt interactivecomments                 ##apashInstallTag
+export PS1="apash:zsh-\${ZSH_VERSION} \$ " ##apashInstallTag
+export LANG=C.UTF-8                        ##apashInstallTag
+export LC_ALL=C.UTF-8                      ##apashInstallTag
+. "$HOME/.apash/.apashrc"                  ##apashInstallTag
+. "\$APASH_HOME_DIR/apash" source          ##apashInstallTag
 EOF
 
 # Force environment file

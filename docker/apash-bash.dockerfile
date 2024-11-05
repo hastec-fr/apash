@@ -22,6 +22,8 @@ RUN apk update && \
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
 
+# RUN apt install -y vim
+
 # Change directly the user rights to apash user
 COPY "." "/home/apash/.apash"
 RUN chown "apash:tribe" "/home/apash/.apash"
@@ -36,12 +38,9 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
         git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
     fi; \
     cat <<EOF > $HOME/.bashrc
-export PS1="apash:bash-\${BASH_VERSION%.*} \$ "             ##apashInstallTag
-export APASH_SHELL="bash"                                   ##apashInstallTag
-export APASH_SHELL_VERSION="\${BASH_VERSION%.*}"            ##apashInstallTag
-export APASH_HOME_DIR="\$HOME/.apash"                       ##apashInstallTag
-export PATH=".:\$PATH:\$HOME/.local/bin:\$APASH_HOME_DIR"   ##apashInstallTag
-. "\$APASH_HOME_DIR/apash" source                           ##apashInstallTag
+export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
+. "\$HOME/.apash/.apashrc"                       ##apashInstallTag
+. "\$APASH_HOME_DIR/apash" source                ##apashInstallTag
 EOF
 
 # Install Shellspec
