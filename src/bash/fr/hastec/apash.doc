@@ -81,7 +81,7 @@ apash.doc.getFullSummaryTable(){
       fi
     done
     rows+="| $methodPath | $brief |\n"
-  done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | sort)
+  done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | LC_ALL=C sort -z)
   # shellcheck disable=SC2001
   echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|../../../../assets/apash-logo.svg|1" > "$fstFile"
   echo -e "\n$rows" >> "$fstFile"
@@ -109,7 +109,7 @@ echo """
 apash.substitutePlaceHolders() {
   local placeHolder=$1
   local placeHolders=""
-  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh --exclude apashDoc.sh "$APASH_HOME_DIR")
+  placeHolders=$(grep -rl "apash\.${placeHolder}" --include \*.sh | LC_ALL=C sort)
   local relativeFile
 
   while read -r p; do
@@ -124,14 +124,16 @@ apash.substitutePlaceHolders() {
       rows+="# | Methods                  | Brief                                 |\n"
       rows+="# |--------------------------|---------------------------------------|\n"
 
-      if [ "$APASH_SHELL" = "bash" ] || { [ "$APASH_SHELL" = "zsh" ] && [ -n "$(print -l $package/$class/*.sh(N))" ]; }; then
-        for f in "$package/$class"/*.sh; do
+      if [ -d "$package/$class" ] &&
+         { [ "$APASH_SHELL" = "bash" ] || { [ "$APASH_SHELL" = "zsh" ] && [ -n "$(print -l $package/$class/*.sh(N))" ]; }; }; then
+        # for f in "$package/$class"/*.sh; 
+        while IFS= read -r -d '' f; do
           [ ! -r "$f" ] && continue
           method=$(basename "$f"  | sed 's/\.sh//')
           brief=$(grep -m 1 "@brief" "$f" | sed 's/^.*@brief //1' )
           row="[${method//|/\|}]($class/${method}.md)|${brief//|/\|}|"
           rows+="# |$row\n"
-        done
+        done < <(find "$package/$class" -maxdepth 1 -type f -name "*.sh" -print0 | LC_ALL=C sort -z)
       fi
     elif [ "$placeHolder" = "parent" ]; then
       rootPackage=${package/src\/*\/fr\/hastec/}

@@ -278,7 +278,7 @@ executeApashAction(){
 # LEVEL 2 - Actions ##########################################################
 executeApashDoc(){
     parseApashDocArgs "$@" || return
-    apash.import "fr/hastec/apash.doc"
+    apash.import -f "fr/hastec/apash.doc"
     apash.doc
 }
 
