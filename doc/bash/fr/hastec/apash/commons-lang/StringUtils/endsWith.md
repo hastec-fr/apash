@@ -13,6 +13,7 @@ Check if a string ends with a specified suffix.
 
 ## Overview
 
+The suffix is a string (not a pattern).
 ### Since:
 0.1.0
 
@@ -39,11 +40,13 @@ Check if a string ends with a specified suffix.
 #### Example
 
 ```bash
-StringUtils.endsWith "" ""        # true
-StringUtils.endsWith "abcd" ""    # true
-StringUtils.endsWith "abcd" "cd"  # true
-StringUtils.endsWith "abcd" "bd"  # false
-StringUtils.endsWith ""     "c"   # false
+StringUtils.endsWith "" ""             # true
+StringUtils.endsWith "abcd"     ""     # true
+StringUtils.endsWith "abcd"     "cd"   # true
+StringUtils.endsWith "abcd"     "bd"   # false
+StringUtils.endsWith ""         "c"    # false
+StringUtils.endsWith "apash"    ".sh"  # false
+StringUtils.endsWith "apash.sh" ".sh"  # false
 ```
 
 #### Exit codes

@@ -38,7 +38,7 @@ Adjacent separators are treated as separators for empty tokens
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
+| $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
 | $2     | inString       | string        | in       |            | The string to split.                             |
 | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 

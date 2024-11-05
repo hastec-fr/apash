@@ -7,14 +7,11 @@
   # Apash
 </div>
 
-# BashUtils.isVariable
+# BashUtils.isCommandValid
 
-Defensive programming technique to check that a variable exists.
+Determine if current APASH_SHELL is zsh
 
 ## Overview
-
-Arrays and Maps are not considered as variables.
-If you need to consider arrays and maps then use BashUtils.isDeclared.
 
 ### Since:
 0.2.0
@@ -29,34 +26,27 @@ If you need to consider arrays and maps then use BashUtils.isDeclared.
 
 ## Index
 
-* [BashUtils.isVariable](#bashutilsisvariable)
+* [BashUtils.isZsh](#bashutilsiszsh)
 
-### BashUtils.isVariable
+### BashUtils.isZsh
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | varName        | string        | in       |            | Variable name to check.               |
+| $1     | commandName    | string        | in       |            | Command to analyse                    |
 
 #### Example
 ```bash
-BashUtils.isVariable  ""              # false
-BashUtils.isVariable  "myVar"         # false
+# From bash
+BashUtils.isZsh  ""                # false
 
-myVar=myValue
-BashUtils.isVariable  "myVar"         # true
-
-declare -a myArray=()
-BashUtils.isVariable  "myArray"       # false
-
-declare -A myMap=([foo]=bar)
-BashUtils.isVariable  "myMap"         # false
-
+# From zsh
+BashUtils.isZsh  ""                # true
 ```
 
 #### Exit codes
 
-* **0**: When the input name corresponds to a variable (not including arrays and maps).
+* **0**: When the command name is correct.
 * **1**: Otherwise.
 
 #### Output on stdout

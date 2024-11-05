@@ -36,7 +36,7 @@ Existing variables or maps are not overriden and the function fails.
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                          |
 |--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
+| $1     | inArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
 | ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
 
 #### Example

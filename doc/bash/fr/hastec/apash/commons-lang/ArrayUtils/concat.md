@@ -7,13 +7,13 @@
   # Apash
 </div>
 
-# ArrayUtils.getLastIndex
+# ArrayUtils.concat
 
-Return the last index of the given array.
+Concatenate multiple arrays
 
 ## Overview
 
-Empty string is returned if the array is empty.
+The output array can be one of the input array (modified at the end).
 
 ### Since:
 0.2.0
@@ -28,43 +28,33 @@ Empty string is returned if the array is empty.
 
 ## Index
 
-* [ArrayUtils.getLastIndex](#arrayutilsgetlastindex)
+* [ArrayUtils.concat](#arrayutilsconcat)
 
-### ArrayUtils.getLastIndex
+### ArrayUtils.concat
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                          |
 |--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+| $1     | outArrayName   | ref(string[]) | out      |            | Name of the array with concatenated values.          |
+| ${@:2} | inArrayName*   | ref(string[]) | in       |            | Name of the arrays to concatenate.        |
 
 #### Example
 ```bash
-myIndexes=()
-ArrayUtils.getLastIndex  ""               # failure - ""
-ArrayUtils.getLastIndex  "myVar"          # failure - ""
-
-declare -A myMap
-ArrayUtils.getLastIndex  "myMap"          # failure - ""
-
-myArray=()
-ArrayUtils.getLastIndex  "myArray"        # "-1"
-
-myArray=("a" "b" "" "c" "b")
-ArrayUtils.getLastIndex  "myArray"        # 4
-
-myArray[9223372036854775807]=z
-ArrayUtils.getLastIndex  "myArray"        # 9223372036854775807
-
+local outArray=()
+myArray1=("a" "b" "c")
+myArray2=("d" "e")
+myArray2[3]="f"
+ArrayUtils.countMathes outArray "myArray1" "myArray2" # ("a" "b" "c" "d" "e" "" "f")
 ```
 
 #### Exit codes
 
-* **0**: When input array references exist.
+* **0**: When all arguments are arrays.
 * **1**: Otherwise.
 
 #### Output on stdout
 
-* The last index of the array.
+* None.
 
 #### Output on stderr
 

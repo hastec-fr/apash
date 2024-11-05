@@ -19,6 +19,7 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[bubbleSort](Array/bubbleSort.md)|Sorts the specified array into alphanumerical order with the bubble sort style.|
 # |[sort](Array/sort.md)|Sorts the specified array into ascending natural order.|
 # <!-- apash.summaryTableEnd -->
 

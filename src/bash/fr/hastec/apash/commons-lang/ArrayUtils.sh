@@ -27,13 +27,16 @@
 # |[addFirst](ArrayUtils/addFirst.md)|Adds given elements at the beginning of an array.|
 # |[anythingToEmpty](ArrayUtils/anythingToEmpty.md)|Create an array even if the variable named was already declared.|
 # |[clone](ArrayUtils/clone.md)|Copy an array into another array using references.|
+# |[concat](ArrayUtils/concat.md)|Concatenate multiple arrays|
 # |[contains](ArrayUtils/contains.md)|Adds given elements at the end of an array.|
+# |[countMatches](ArrayUtils/countMatches.md)|Return the number of cells having the given value|
 # |[get](ArrayUtils/get.md)|Gets the nTh element of an array or a default value if the index is out of bounds.|
 # |[getLastIndex](ArrayUtils/getLastIndex.md)|Return the last index of the given array.|
 # |[getLength](ArrayUtils/getLength.md)|Returns the length of the specified array.|
 # |[indexOf](ArrayUtils/indexOf.md)|Finds the first index of the given value in the array starting at the given index.|
 # |[indexesOf](ArrayUtils/indexesOf.md)|Finds the indices of the given value in the array starting at the given index.|
 # |[init](ArrayUtils/init.md)|Defensive programming technique initialize an array.|
+# |[initWithValue](ArrayUtils/initWithValue.md)|Initialize an array for a specific width and value|
 # |[insert](ArrayUtils/insert.md)|Inserts elements into an array at the given index (starting from zero).|
 # |[isArray](ArrayUtils/isArray.md)|Check if the input name is an array or not.|
 # |[isArrayIndex](ArrayUtils/isArrayIndex.md)|Check if the given index is a long positive integer.|

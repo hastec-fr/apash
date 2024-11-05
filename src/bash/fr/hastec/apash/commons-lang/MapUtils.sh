@@ -20,7 +20,10 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[clone](MapUtils/clone.md)|Copy a map into another map using references.|
 # |[containsKey](MapUtils/containsKey.md)|Check if the input value is present in the input map.|
+# |[getKeys](MapUtils/getKeys.md)|Return an array containing all keys of a map.|
+# |[init](MapUtils/init.md)|Defensive programming technique initialize a map.|
 # |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 # <!-- apash.summaryTableEnd -->
 declare -A MaptUtils_EMPTY_MAP=()

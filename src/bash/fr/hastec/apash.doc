@@ -38,15 +38,12 @@ apash.doc.getPathFromMethod(){
   # If it's the root package src/fr/hastec then just display None.
   count=$(echo "$relativePackage" | tr -cd "$/" | wc -c)
   row="# "
-  OLD_IFS=$IFS
-  # IFS="/"
   for dir in "${dirs[@]}"; do
     parentDir="../"
     for ((i=0; i < count; i++)); do parentDir+="../"; done
     row+="[$dir]($parentDir$dir.md) / "
     ((count--))
   done
-  # IFS="$OLD_IFS"
   echo "$row"
 }
 
@@ -76,14 +73,12 @@ apash.doc.getFullSummaryTable(){
     cumulatedDir=""
     StringUtils.split dirs "$rootPackage" "/"
     for dir in "${dirs[@]}"; do
-     echo "!!! dir: $dir"
       if StringUtils.endsWith $dir ".sh"; then
         methodPath+="[${dir/.sh/}](${cumulatedDir}${dir/.sh/}.md)"
       else
         methodPath+="[$dir](${cumulatedDir}$dir.md) / "
         cumulatedDir+="$dir/"
       fi
-    echo "!!! cumul: $cumulatedDir"
     done
     rows+="| $methodPath | $brief |\n"
   done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | sort)

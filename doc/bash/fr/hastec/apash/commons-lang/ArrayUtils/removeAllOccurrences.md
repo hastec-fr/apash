@@ -15,6 +15,7 @@ Removes the occurrences of the specified element from the specified array.
 
 All subsequent elements are shifted to the left (subtracts one from their indices). 
 If the array doesn't contains such an element, no elements are removed from the array.
+Not defined cells will be considered as ""
 
 ### Since:
 0.1.0
@@ -50,6 +51,10 @@ ArrayUtils.removeAllOccurrences  "myArray"  "e"       # ("b" "c" "d")
 myArray=("a")
 ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
 ArrayUtils.removeAllOccurrences  "myArray"  "a"       # ()
+
+myArray=("a" "b" "" "c")
+myArray[10]="z"
+ArrayUtils.removeAllOccurrences  "myArray"  ""         # ("a" "b" "c" "z")
 ```
 
 #### Exit codes

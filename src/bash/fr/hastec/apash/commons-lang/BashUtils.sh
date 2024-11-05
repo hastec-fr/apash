@@ -18,10 +18,12 @@
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[declareArray](BashUtils/declareArray.md)|Declare an array at global level with dynamic name.|
 # |[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
 # |[isDeclared](BashUtils/isDeclared.md)|Defensive programming technique to check that a variable is declared.|
 # |[isVariable](BashUtils/isVariable.md)|Defensive programming technique to check that a variable exists.|
 # |[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid|
+# |[isZsh](BashUtils/isZsh.md)|Determine if current APASH_SHELL is zsh|
 # <!-- apash.summaryTableEnd -->
 
 

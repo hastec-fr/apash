@@ -32,12 +32,14 @@
 # |[leftPad](StringUtils/leftPad.md)|Left pad a String with a specified String.|
 # |[lowerCase](StringUtils/lowerCase.md)|Converts a String to lower case.|
 # |[remove](StringUtils/remove.md)|Removes all occurrences of a substring from within the source string.|
+# |[removeLeading](StringUtils/removeLeading.md)|Removes all occurrences of a substring from within the source string.|
 # |[repeat](StringUtils/repeat.md)|repeats a string.|
 # |[replace](StringUtils/replace.md)|Replaces all occurrences of a String within another String.|
 # |[reverse](StringUtils/reverse.md)|Reverses a string.|
 # |[rightPad](StringUtils/rightPad.md)|Right pad a string with a specified string.|
 # |[rotate](StringUtils/rotate.md)|Rotate (circular shift) a string of shift characters|
 # |[split](StringUtils/split.md)|Splits the provided text into an array.|
+# |[splitAny](StringUtils/splitAny.md)|Splits the provided text into an array according to the multiple inputs strings.|
 # |[splitPreserveAllTokens](StringUtils/splitPreserveAllTokens.md)|Splits the provided text into an array preserving all tokens.|
 # |[startsWith](StringUtils/startsWith.md)|Check if a CharSequence starts with a specified prefix.|
 # |[substring](StringUtils/substring.md)|Gets a substring from the specified String.|

@@ -18,7 +18,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.max
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [VersionUtils](../VersionUtils.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################

@@ -38,13 +38,13 @@ Copy an array into another array using references.
 
 #### Example
 ```bash
-ArrayUtils.clone  ""       ""               # failure
+ArrayUtils.clone  ""       ""                # failure
+
+myVar="dummy"
+ArrayUtils.clone  "myVar"  "myClone"         # failure
 
 declare -A myMap
-ArrayUtils.addFirst  "myMap"  "a"           # failure
-
-declare -a myClone
-ArrayUtils.clone  "myVar"  "myClone"        # failure
+ArrayUtils.clone  "myMap"  "myClone"         # failure
 
 myArray=()
 myClone=("a")

@@ -7,14 +7,13 @@
   # Apash
 </div>
 
-# BashUtils.isVariable
+# BashUtils.declareArray
 
-Defensive programming technique to check that a variable exists.
+Declare an array at global level with dynamic name.
 
 ## Overview
 
-Arrays and Maps are not considered as variables.
-If you need to consider arrays and maps then use BashUtils.isDeclared.
+In bash (4.3), the parentheses are required to ensure that array is initialized
 
 ### Since:
 0.2.0
@@ -29,9 +28,9 @@ If you need to consider arrays and maps then use BashUtils.isDeclared.
 
 ## Index
 
-* [BashUtils.isVariable](#bashutilsisvariable)
+* [BashUtils.declareArray](#bashutilsdeclarearray)
 
-### BashUtils.isVariable
+### BashUtils.declareArray
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
@@ -40,23 +39,12 @@ If you need to consider arrays and maps then use BashUtils.isDeclared.
 
 #### Example
 ```bash
-BashUtils.isVariable  ""              # false
-BashUtils.isVariable  "myVar"         # false
-
-myVar=myValue
-BashUtils.isVariable  "myVar"         # true
-
-declare -a myArray=()
-BashUtils.isVariable  "myArray"       # false
-
-declare -A myMap=([foo]=bar)
-BashUtils.isVariable  "myMap"         # false
-
+BashUtils.declareArray  "myArray"       # myArray=()
 ```
 
 #### Exit codes
 
-* **0**: When the input name corresponds to a variable (not including arrays and maps).
+* **0**: When the variable is declared.
 * **1**: Otherwise.
 
 #### Output on stdout

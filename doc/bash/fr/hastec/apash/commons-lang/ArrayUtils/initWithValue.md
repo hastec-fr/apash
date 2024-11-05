@@ -7,9 +7,9 @@
   # Apash
 </div>
 
-# ArrayUtils.init
+# ArrayUtils.initWithValue
 
-Defensive programming technique initialize an array.
+Initialize an array for a specific width and value
 
 ## Overview
 
@@ -30,31 +30,31 @@ If it's an existing variable or map, just fail to protect overriding.
 
 ## Index
 
-* [ArrayUtils.init](#arrayutilsinit)
+* [ArrayUtils.initWithValue](#arrayutilsinitwithvalue)
 
-### ArrayUtils.init
+### ArrayUtils.initWithValue
 
 #### Example
 ```bash
 
 myVar="test" 
-ArrayUtils.init  "myVar"           # failure
+ArrayUtils.initWithValue  "myVar"           # failure
 
 declare -A myMap=([foo]=bar)
-ArrayUtils.init  "myMap"           # failure
+ArrayUtils.initWithValue  "myMap"           # failure
 
-ArrayUtils.init  "myArray"         # myArray=()
+ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
 
 myArray=()
-ArrayUtils.init  "myArray"         # myArray=()
+ArrayUtils.initWithValue  "myArray" 4 0     # myArray=(0 0 0 0)
 
 myArray=("a" "b" "c")
-ArrayUtils.init  "myArray"         # myArray=()
+ArrayUtils.initWithValue  "myArray" 2 "ah!" # myArray=("ah!" "ah!")
 ```
 
 #### Exit codes
 
-* **0**: When the array is created.
+* **0**: When the array is initialized.
 * **1**: Otherwise.
 
 #### Output on stdout

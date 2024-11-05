@@ -7,20 +7,20 @@
   # Apash
 </div>
 
-# StringUtils.split
+# StringUtils.splitAny
 
-Splits the provided text into an array.
+Splits the provided text into an array according to the multiple inputs strings.
 
 ## Overview
 
 Non array reference will be transformed to empty array.
-Splits the provided text into an array. Default separator is " "
+Default separator is " "
 The separator is not included in the returned String array.
 Adjacent separators are treated as one separator. Leading and tailing separators
-are not considered.
+are not considered. Strings are split in the order of the matching.
 
 ### Since:
-0.1.0
+0.2.0
 
 ### Authors:
 * Benjamin VARGIN
@@ -32,26 +32,24 @@ are not considered.
 
 ## Index
 
-* [StringUtils.split](#stringutilssplit)
+* [StringUtils.splitAny](#stringutilssplitany)
 
-### StringUtils.split
+### StringUtils.splitAny
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
 | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
 | $2     | inString       | string        | in       |            | The string to split.                             |
-| $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
+| $3     | inDelimiters   | string...     | in       | " "        | The delimiter (can be a sequence of characters). |
 
 #### Example
 
 ```bash
-StringUtils.split myArray ""  ""                    # []
-StringUtils.split myArray ""  ":"                   # []
-StringUtils.split myArray "ab:cd:ef" ""             # ["ab:cd:ef"]
-StringUtils.split myArray "::ab::cd:::ef::" ":"     # ["ab", "cd", "ef"]
-StringUtils.split myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "cd", "ef"]
-StringUtils.split myArray "abab::cd:ab:ef::ab" "ab" # ["::cd:", ":ef::"]
+StringUtils.split myArray "ab:c,d:e,f" ":" ","           # ["ab", c, d, e, f ]
+StringUtils.split myArray ":,:ab::c,d:::e,f:,:" ":" ","  # ["ab", c, d, e, f ]
+StringUtils.split myArray $'ab\n\ncd\nef' $'\n'          # ["ab", "cd", "ef"]
+StringUtils.split myArray "abab::cd:ab:ef::ab" "ab"      # ["::cd:", ":ef::"]
 ```
 
 #### Exit codes

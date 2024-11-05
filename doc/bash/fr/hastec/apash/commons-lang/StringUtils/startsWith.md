@@ -13,6 +13,7 @@ Check if a CharSequence starts with a specified prefix.
 
 ## Overview
 
+The prefix is a string (not a pattern).
 ### Since:
 0.1.0
 
@@ -46,16 +47,13 @@ StringUtils.startsWith "abcd" ""     # true
 StringUtils.startsWith "abcd" "ab"   # true
 StringUtils.startsWith "abcd" "abd"  # false
 StringUtils.startsWith ""     "a"    # false
+StringUtils.startsWith "abcd" "a.c"  # false
+StringUtils.startsWith "a.cd" "a.c"  # true
 ```
-
-#### Arguments
-
-* **$1** (string): Input string to check
-* **$2** (the): prefix to find
 
 #### Exit codes
 
-* **0**: If the string starts with the prefix
+* **0**: If the string starts with the prefix.
 * **1**: Otherwise.
 
 #### Output on stdout
@@ -64,7 +62,7 @@ StringUtils.startsWith ""     "a"    # false
 
 #### Output on stderr
 
-* None
+* None.
 
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

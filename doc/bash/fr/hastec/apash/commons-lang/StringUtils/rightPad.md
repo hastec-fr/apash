@@ -34,7 +34,7 @@ Right pad a string with a specified string.
 | #      | varName        | Type          | in/out   | Default    | Description                           |
 |--------|----------------|---------------|----------|------------|---------------------------------------|
 | $1     | inString       | string        | in       |            | The string to pad out.                |
-| $2     | inSubstring    | string        | in       |            | The size to pad to.                   |
+| $2     | inSize         | number        | in       |            | The size to pad to.                   |
 | $3 ?   | inReplacement  | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
 
 #### Example

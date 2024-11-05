@@ -7,13 +7,11 @@
   # Apash
 </div>
 
-# ArrayUtils.getLastIndex
+# ArrayUtils.countMathes
 
-Return the last index of the given array.
+Return the number of cells having the given value
 
 ## Overview
-
-Empty string is returned if the array is empty.
 
 ### Since:
 0.2.0
@@ -28,43 +26,33 @@ Empty string is returned if the array is empty.
 
 ## Index
 
-* [ArrayUtils.getLastIndex](#arrayutilsgetlastindex)
+* [ArrayUtils.countMatches](#arrayutilscountmatches)
 
-### ArrayUtils.getLastIndex
+### ArrayUtils.countMatches
 
 #### Arguments
 | #      | varName        | Type          | in/out   | Default    | Description                          |
 |--------|----------------|---------------|----------|------------|--------------------------------------|
 | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+| $2     | inValue        | string        | in       | ""         | Value to find in the array.          |
 
 #### Example
 ```bash
-myIndexes=()
-ArrayUtils.getLastIndex  ""               # failure - ""
-ArrayUtils.getLastIndex  "myVar"          # failure - ""
-
-declare -A myMap
-ArrayUtils.getLastIndex  "myMap"          # failure - ""
-
-myArray=()
-ArrayUtils.getLastIndex  "myArray"        # "-1"
-
-myArray=("a" "b" "" "c" "b")
-ArrayUtils.getLastIndex  "myArray"        # 4
-
-myArray[9223372036854775807]=z
-ArrayUtils.getLastIndex  "myArray"        # 9223372036854775807
-
+myArray=("a" "b" "" "a" "c" "" "")
+ArrayUtils.countMathes  "myArray"              # 3
+ArrayUtils.countMathes  "myArray"  "d"         # 0
+ArrayUtils.countMathes  "myArray"  "b"         # 1
+ArrayUtils.countMathes  "myArray"  "a"         # 2
 ```
 
 #### Exit codes
 
-* **0**: When input array references exist.
+* **0**: When first argument is an array.
 * **1**: Otherwise.
 
 #### Output on stdout
 
-* The last index of the array.
+* The number of cells having the given value.
 
 #### Output on stderr
 
