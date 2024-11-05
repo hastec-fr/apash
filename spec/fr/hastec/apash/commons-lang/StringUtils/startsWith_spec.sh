@@ -42,10 +42,16 @@ Describe 'StringUtils.startsWith'
     The status should be failure
   End
 
-  It 'fails when prefix is not empty but the string is empty'
-    When call StringUtils.startsWith "abcd" "abd"
+  It 'fails when prefix has some pattern symbols not matching the beginning of the string'
+    When call StringUtils.startsWith "abcd" "a.c"
     The output should equal ""
     The status should be failure
+  End
+
+  It 'fails when prefix has some pattern symbols matching the beginning of the string'
+    When call StringUtils.startsWith "a.cd" "a.c"
+    The output should equal ""
+    The status should be success
   End
   
 End

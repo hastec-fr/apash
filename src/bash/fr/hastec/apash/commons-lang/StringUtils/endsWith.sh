@@ -4,7 +4,7 @@
 # @name StringUtils.endsWith
 # @brief Check if a string ends with a specified suffix.
 # @description
-#
+#   The suffix is a string (not a pattern).
 # ### Since:
 # 0.1.0
 #
@@ -25,11 +25,13 @@
 # | $2     | inSuffix       | string        | in       |            | The suffix to find.                   |
 #
 # @example
-#    StringUtils.endsWith "" ""        # true
-#    StringUtils.endsWith "abcd" ""    # true
-#    StringUtils.endsWith "abcd" "cd"  # true
-#    StringUtils.endsWith "abcd" "bd"  # false
-#    StringUtils.endsWith ""     "c"   # false
+#    StringUtils.endsWith "" ""             # true
+#    StringUtils.endsWith "abcd"     ""     # true
+#    StringUtils.endsWith "abcd"     "cd"   # true
+#    StringUtils.endsWith "abcd"     "bd"   # false
+#    StringUtils.endsWith ""         "c"    # false
+#    StringUtils.endsWith "apash"    ".sh"  # false
+#    StringUtils.endsWith "apash.sh" ".sh"  # false
 #
 # @stdout None.
 # @stderr None.
@@ -42,6 +44,8 @@ StringUtils.endsWith(){
   local inString=$1
   local inSuffix=$2
 
-  [[ $inString =~ $inSuffix$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  # The string is between quotes to prevent the interpretation of pattern symbols
+  # @todo: endsWithPattern
+  [[ $inString =~ "$inSuffix"$ ]] && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

@@ -4,7 +4,7 @@
 # @name StringUtils.startsWith
 # @brief Check if a CharSequence starts with a specified prefix.
 # @description
-#
+#   The prefix is a string (not a pattern).
 # ### Since:
 # 0.1.0
 #
@@ -30,6 +30,8 @@
 #    StringUtils.startsWith "abcd" "ab"   # true
 #    StringUtils.startsWith "abcd" "abd"  # false
 #    StringUtils.startsWith ""     "a"    # false
+#    StringUtils.startsWith "abcd" "a.c"  # false
+#    StringUtils.startsWith "a.cd" "a.c"  # true
 #
 # @arg $1 string Input string to check
 # @arg $2 the prefix to find
@@ -43,6 +45,8 @@ StringUtils.startsWith(){
   local inString=$1
   local inPrefix=$2
 
-  [[ $inString =~ ^$inPrefix ]] && return "$APASH_FUNCTION_SUCCESS"
+  # The string is between quotes to prevent the interpretation of pattern symbols
+  # @todo: endsWithPattern
+  [[ $inString =~ ^"$inPrefix" ]] && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }

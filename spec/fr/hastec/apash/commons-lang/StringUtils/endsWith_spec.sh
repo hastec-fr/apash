@@ -54,4 +54,15 @@ Describe 'StringUtils.endsWith'
     The status should be failure
   End
 
+  It 'fails when suffix has some pattern symbols not matching the end of the string'
+    When call StringUtils.endsWith "apash" ".sh"
+    The output should equal ""
+    The status should be failure
+  End
+
+  It 'passes when suffix has some pattern symbols matching the end of the string'
+    When call StringUtils.endsWith "apash.sh" ".sh"
+    The output should equal ""
+    The status should be success
+  End
 End
