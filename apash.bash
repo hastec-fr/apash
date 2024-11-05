@@ -314,11 +314,19 @@ executeApashTest(){
   
   # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
-    # shellcheck disable=SC2086
-    APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+    if [ "$APASH_SHELL" = "zsh" ]; then
+      APASH_TEST_MINIFIED=true shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+    else
+      # shellcheck disable=SC2086
+      APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+    fi
   else
-    # shellcheck disable=SC2086
-    shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+    if [ "$APASH_SHELL" = "zsh" ]; then
+      shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+    else
+      # shellcheck disable=SC2086
+      shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+    fi
   fi
 }
 

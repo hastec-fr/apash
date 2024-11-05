@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+apash.import "fr.hastec.apash.commons-lang.StringUtils.upperCase"
 apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
 apash.import "fr.hastec.apash.commons-lang.CsvUtils.merge"
@@ -9,11 +10,15 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 
 apash.test.compatibility(){
-  local globalCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${APASH_VERSION}.res"
+  local globalCampaignDir="$APASH_HOME_DIR/tmp"
+  local globalCampaignFile="$globalCampaignDir/apash_campaign_${APASH_VERSION}.res"
   local v
   # local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
+  # local -a zshVersions=(5.9 5.8 5.7 5.6 5.5 5.4 5.3 5.2)
   local -a bashVersions=(4.3)
   local -a zshVersions=(5.3)
+
+  [ ! -d "$globalCampaignDir" ] && mkdir -p "$globalCampaignDir"
   true > "$globalCampaignFile"
   
   for v in "${bashVersions[@]}"; do
@@ -32,13 +37,17 @@ apash.test.compatibility.addVersion(){
   local shellVersion="$2"
   local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
   local shellFormattedCampaignFile="$APASH_HOME_DIR/tmp/apash_fmt_${shellName}_${shellVersion}.tmp"
+  local shellUpperName
   local functionName
   local -A functionMap=()
   local -a keys=()
 
+  shellUpperName=$(StringUtils.upperCase "$shellName")
+
   # Build and run a container with apash test.
-  docker build --no-cache --build-arg "${shellName^^}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
-  docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
+  echo "Enter password (if necessary) for docker usage."
+  sudo docker build --no-cache --build-arg "${shellUpperName}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  sudo docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
 
   while IFS= read -r line; do
     # Keep only lines with ok/not ok
@@ -46,8 +55,8 @@ apash.test.compatibility.addVersion(){
     StringUtils.startsWith "$line" "ok" && functionName=$(echo "$line" | awk '{print $4}') \
                                         || functionName=$(echo "$line" | awk '{print $5}')
     [ -z "$functionName" ] && continue
-    MapUtils.containsKey "functionMap" "$functionName" || functionMap["$functionName"]="ok"
-    StringUtils.startsWith "$line" "not ok" && functionMap["$functionName"]="ko"
+    MapUtils.containsKey "functionMap" "$functionName" || functionMap[$functionName]="ok"
+    StringUtils.startsWith "$line" "not ok" && functionMap[$functionName]="ko"
   done < "$shellCampaignFile"
 
   echo "function,${shellName}_${shellVersion}" > "$shellFormattedCampaignFile"
@@ -75,10 +84,12 @@ apash.test.compatibility.toMarkDown(){
   local s v shellName shellVersion result;
   local -a shells=() versions=() results=() keys=()
   local -A shellsMap=()
-  export APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
+  export APASH_SHELL_NAMES=""
+  export APASH_SHELL_VERSIONS=""
+  export APASH_FUNCTION_RESULTS=""
 
   StringUtils.split shells "$(head -n 1 "$globalCampaignFile")" ","
-  ArrayUtils.remove shells 0   # Remove the function header
+  ArrayUtils.remove shells $APASH_ARRAY_FIRST_INDEX   # Remove the function header
   for s in "${shells[@]}"; do
     shellName="${s%%_*}"
     shellVersion="${s#*_}"
@@ -89,7 +100,7 @@ apash.test.compatibility.toMarkDown(){
   # Get shell campaigns
   for s in "${keys[@]}"; do
     StringUtils.split versions "${shellsMap[$s]}"
-    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'><div align='center'>${s}</div></th>${NEXT_LINE}"
+    APASH_SHELL_NAMES+="<th colspan='${#versions[@]}'><div align='center'>${s}</div></th>"
     for v in "${versions[@]}"; do
       APASH_SHELL_VERSIONS+="<th>$v</th>"
     done
@@ -101,12 +112,12 @@ apash.test.compatibility.toMarkDown(){
     StringUtils.splitPreserveAllTokens results "$line" ","
     APASH_FUNCTION_RESULTS+="<tr>
     "
-    APASH_FUNCTION_RESULTS+="  <td>${results[0]}</td>
+    APASH_FUNCTION_RESULTS+="  <td>${results[APASH_ARRAY_FIRST_INDEX]}</td>
     "
     # APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
-    ArrayUtils.remove results 0
+    ArrayUtils.remove results $APASH_ARRAY_FIRST_INDEX
 
-    for ((s=0; s < ${#results[@]}; s++ )); do
+    for ((s=APASH_ARRAY_FIRST_INDEX; s < APASH_ARRAY_FIRST_INDEX+${#results[@]}; s++ )); do
       shellName="${shells[$s]%%_*}"
       shellVersion="${shells[$s]#*_}"
     # for r in "${results[@]}"; do

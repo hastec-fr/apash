@@ -59,16 +59,16 @@ CsvUtils.merge() {
   # Map all functions from the first file
   while IFS= read -r line; do
     functionName=${line%%,*}
-    functionMap["$functionName"]="$line"
+    functionMap[$functionName]="$line"
   done < <(tail -n +2 "$inFile1")
 
   # Map all functions from the second file
   while IFS= read -r line; do
     functionName=${line%%,*}
     if MapUtils.containsKey functionMap "$functionName"; then
-      functionMap["$functionName"]+=",${line#*,}"
+      functionMap[$functionName]+=",${line#*,}"
     else
-      functionMap["$functionName"]="${functionName}$(StringUtils.repeat "$nbFields1" ","),${line#*,}"
+      functionMap[$functionName]="${functionName}$(StringUtils.repeat "$nbFields1" ","),${line#*,}"
     fi
   done < <(tail -n +2 "$inFile2")
 
@@ -79,9 +79,9 @@ CsvUtils.merge() {
   # Loop on each values to adjust row present in the first file but not in the second
   for functionName in "${keys[@]}"; do
     if [[ $(StringUtils.countMatches "${functionMap["$functionName"]}" "," ) -eq $nbFields1 ]]; then
-      functionMap["$functionName"]+="$(StringUtils.repeat "$((nbFields2-1))" ",")"
+      functionMap[$functionName]+="$(StringUtils.repeat "$((nbFields2-1))" ",")"
     fi
-    echo "${functionMap["$functionName"]}"
+    echo "${functionMap[$functionName]}"
   done 
   return "$APASH_FUNCTION_SUCCESS"
 }

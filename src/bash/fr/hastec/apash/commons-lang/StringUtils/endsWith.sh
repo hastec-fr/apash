@@ -33,6 +33,9 @@
 #    StringUtils.endsWith "apash"    ".sh"  # false
 #    StringUtils.endsWith "apash.sh" ".sh"  # false
 #
+# #### Implementation notes
+#   In zsh, pattern chararecters are interpreted even if they are between quotes.
+#
 # @stdout None.
 # @stderr None.
 #
@@ -44,8 +47,12 @@ StringUtils.endsWith(){
   local inString=$1
   local inSuffix=$2
 
-  # The string is between quotes to prevent the interpretation of pattern symbols
-  # @todo: endsWithPattern
-  [[ $inString =~ "$inSuffix"$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    [[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && return "$APASH_FUNCTION_SUCCESS"
+  else # bash
+    # The string is between quotes to prevent the interpretation of pattern symbols in bash.
+    # @todo: endsWithPattern
+    [[ "$inString" =~ "${inSuffix}"$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  fi
   return "$APASH_FUNCTION_FAILURE"
 }

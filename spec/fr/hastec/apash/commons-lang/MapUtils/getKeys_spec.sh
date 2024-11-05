@@ -2,6 +2,7 @@ Describe 'MapUtils.getKeys'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
     Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
     apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
+    apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
@@ -50,8 +51,8 @@ Describe 'MapUtils.getKeys'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "foo"
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "key"
+    Assert ArrayUtils.contains myArray "foo"
+    Assert ArrayUtils.contains myArray "key"
   End
 
   It 'passes when references is a map with splitted keys'
@@ -61,8 +62,8 @@ Describe 'MapUtils.getKeys'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "bat man"
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "key"
+    Assert ArrayUtils.contains myArray "bat man"
+    Assert ArrayUtils.contains myArray "key"
   End
 
   It 'passes when references is an empty map'
@@ -81,7 +82,7 @@ Describe 'MapUtils.getKeys'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "foo"
-    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "key"
+    Assert ArrayUtils.contains myArray "foo"
+    Assert ArrayUtils.contains myArray "key"
   End
 End

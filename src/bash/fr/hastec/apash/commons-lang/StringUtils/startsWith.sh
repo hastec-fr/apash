@@ -33,20 +33,24 @@
 #    StringUtils.startsWith "abcd" "a.c"  # false
 #    StringUtils.startsWith "a.cd" "a.c"  # true
 #
-# @arg $1 string Input string to check
-# @arg $2 the prefix to find
+# #### Implementation notes
+#   In zsh, pattern chararecters are interpreted even if they are between quotes.
 #
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
-# @exitcode 0 If the string starts with the prefix
+# @exitcode 0 If the string starts with the prefix.
 # @exitcode 1 Otherwise.
 StringUtils.startsWith(){
   local inString=$1
   local inPrefix=$2
 
-  # The string is between quotes to prevent the interpretation of pattern symbols
-  # @todo: endsWithPattern
-  [[ $inString =~ ^"$inPrefix" ]] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    [[ "${inString:0:${#inPrefix}}" == "$inPrefix" ]] && return "$APASH_FUNCTION_SUCCESS"
+  else # bash
+    # The string is between quotes to prevent the interpretation of pattern symbols.
+    # @todo: startsWithPattern
+    [[ $inString =~ ^"$inPrefix" ]] && return "$APASH_FUNCTION_SUCCESS"
+    return "$APASH_FUNCTION_FAILURE"
+  fi
 }

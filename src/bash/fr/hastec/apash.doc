@@ -22,7 +22,7 @@
 
 
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
-apash.import fr.hastec.apash.commons-lang.StringUtils.EndsWith
+apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 
 # Count the number of parent directory until apash root dir
 # Then loop on the directory to rebuild the path with relative path
@@ -76,15 +76,15 @@ apash.doc.getFullSummaryTable(){
     cumulatedDir=""
     StringUtils.split dirs "$rootPackage" "/"
     for dir in "${dirs[@]}"; do
-      echo "!!! dir: $dir"
-      if StringUtils.EndsWith $dir "\.sh"; then
+     echo "!!! dir: $dir"
+      if StringUtils.endsWith $dir ".sh"; then
         methodPath+="[${dir/.sh/}](${cumulatedDir}${dir/.sh/}.md)"
       else
         methodPath+="[$dir](${cumulatedDir}$dir.md) / "
         cumulatedDir+="$dir/"
       fi
-    done
     echo "!!! cumul: $cumulatedDir"
+    done
     rows+="| $methodPath | $brief |\n"
   done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | sort)
   # shellcheck disable=SC2001

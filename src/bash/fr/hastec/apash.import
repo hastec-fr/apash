@@ -12,7 +12,7 @@ apash.import(){
     location="$APASH_BASH_DIR/"${l//./\/}
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$forceFlag" = "false" ] && typeset -F "$(basename "$(dirname "$l")").$(basename "${l%.*}")" > /dev/null 2>&1 && continue
+    [ "$forceFlag" = "false" ] && typeset -f "$(basename "$(dirname "$l")").$(basename "${l%.*}")" > /dev/null 2>&1 && continue
 
     # Import package
     if [ -d "$location" ]; then
@@ -75,7 +75,7 @@ apash.import(){
 
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     if [[ $forceFlag == true ]]; then source "$lib"; continue; fi
-    if ! typeset -F "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
+    if ! typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
       source "$lib"
     fi
   done
