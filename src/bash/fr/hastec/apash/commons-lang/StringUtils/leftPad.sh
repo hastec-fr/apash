@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
+apash.import fr.hastec.apash.util.Log.functionEntry
 
 # File description ###########################################################
 # @name StringUtils.leftPad
@@ -47,6 +48,8 @@ StringUtils.leftPad() {
   local inSize="$2"
   local inPadString="${3:- }"
   local leftPadString=""
+  
+  Log.functionEntry "$LINENO" "$@"
 
   # Check if the second argument is a valid number.
   NumberUtils.isDigits "$inSize" || return "$APASH_FUNCTION_FAILURE" 
