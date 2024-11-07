@@ -298,7 +298,7 @@ executeApashSource(){
     
   # shellcheck disable=SC1091
   . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
-  if [ $APASH_SOURCE_ALL = "true" ]; then
+  if [ "$APASH_SOURCE_ALL" = "true" ]; then
     while IFS= read -r -d '' file; do
       apash.import "$file"
     done < <(find "$APASH_HOME_DIR/src/bash" -name "*.sh" ! -name "apash.sh" ! -name "apashDoc.sh" -print0)

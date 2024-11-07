@@ -6,54 +6,60 @@
 #
 # @description
 #   Launch apash according to the environment.
-#   Note: POSIX operations as much as possible in this script.
+#   Note: POSIX operations must be used as much as possible in this script.
 #
 #   Logic:
 #      1. Determine the shell type.
 #      2. Exit if the shell is not supported.
 #      3. Determine the HOME dir.
-#      4. Force the interpreter of the main script.
+#      4. Force the interpreter of the apash script by the shebang.
 #
+# 
 
-##############################################################################
-# Primary checks prefered in the main flow than embedded in a function
-##############################################################################
-# If already set in env, then skip calculation.
-# Get the type of shell (only bash supported for the moment).
-if [ -z "$APASH_SHELL" ];then
-  if [ -n "$BASH_VERSION" ]; then    
-    APASH_SHELL="bash"
-  elif [ -n "$ZSH_VERSION" ]; then
-    APASH_SHELL="zsh"
+apash_main(){
+  # Get the type of shell (only bash and zsh supported for the moment). Skipped if already defined.
+  [ -z "$APASH_SHELL" ] && [ -n "$BASH_VERSION" ] && export APASH_SHELL="bash"
+  [ -z "$APASH_SHELL" ] && [ -n "$ZSH_VERSION"  ] && export APASH_SHELL="zsh"
+
+  # Prevent execution if declared APASH_SHELL is not supported.
+  if [ ! "$APASH_SHELL" = "bash" ] && [ ! "$APASH_SHELL" = "zsh" ];then
+    echo "$(date +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The apash shell '$APASH_SHELL' is not supported"
+    return 1
   fi
-fi
-export APASH_SHELL
 
-# Prevent execution if not a supported shell.
-if [ ! "$APASH_SHELL" = "bash" ] && [ ! "$APASH_SHELL" = "zsh" ];then
-  echo "$(date -u +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The shell '$APASH_SHELL' is not supported"
-fi
-
-# Calculate potential apash home directory if not defined.
-if [ -z "$APASH_HOME_DIR" ]; then
-  if [ "$APASH_SHELL" = "bash" ]; then
-    APASH_HOME_DIR=$(dirname "$(realpath "$(command -v -- "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")")
-  elif [ "$APASH_SHELL" = "zsh" ]; then
-    APASH_HOME_DIR="${0:h}"
-  # else # POSIX
-    # APASH_HOME_DIR="$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )"
+  # Calculate potential apash home directory if not defined.
+  # But it remains recommended to set it.
+  if [ -z "$APASH_HOME_DIR" ]; then
+    if [ -n "$BASH_VERSION" ]; then
+      APASH_HOME_DIR=$(dirname "$(realpath "$(command -v -- "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")")
+    elif [ -n "$ZSH_VERSION"  ]; then
+      APASH_HOME_DIR="${0:h}"
+    else # POSIX
+      APASH_HOME_DIR="$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )"
+    fi
   fi
-fi
-export APASH_HOME_DIR
+  export APASH_HOME_DIR
 
-# Execute the main script according to its shell
-if [ $# -eq 0 ] || [ "$1" = "source" ]; then
-  # @todo POSIX way to pass all arguments to sourced script must be implemented.
-  if [ "$2" = "--all" ] || [ "$2" = "-a" ]; then
-    APASH_SOURCE_ALL="true" . "$APASH_HOME_DIR/apash.$APASH_SHELL"
+  # Check if the action is to source the script
+  if [ $# -eq 0 ] || [ "$1" = "source" ]; then
+    
+    # If no BASH_VERSION nor ZSH_VERSION means that default sh cannot source apash.
+    if [ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ]; then
+      echo "$(date +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The current shell is not supported for sourcing. Please check shebang."
+      return 1
+    fi
+
+    # @todo Implement a POSIX way to pass all arguments to sourced script.
+    if [ "$2" = "--all" ] || [ "$2" = "-a" ]; then
+      APASH_SOURCE_ALL="true" . "$APASH_HOME_DIR/apash.$APASH_SHELL"
+    else
+      . "$APASH_HOME_DIR/apash.$APASH_SHELL"
+    fi
   else
-    . "$APASH_HOME_DIR/apash.$APASH_SHELL"
+    # Execute the corresponding script with correct shebang.
+    "$APASH_HOME_DIR/apash.$APASH_SHELL" "$@"
   fi
-else
-  "$APASH_HOME_DIR/apash.$APASH_SHELL" "$@"
-fi
+}
+
+# Wrap execution in a function in order to use return statement.
+apash_main "$@"

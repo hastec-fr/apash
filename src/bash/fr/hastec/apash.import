@@ -52,7 +52,7 @@ apash.import(){
     
     # The library connot be imported
     else
-      echo "$(date -u +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
+      echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
       continue
     fi
   done

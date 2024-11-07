@@ -7,7 +7,7 @@
 #   This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/DateUtils.html)
 #   The date should be always a string in UTC format before any manipulations:
 #   ```bash
-#       date -u +"%FT%T.%3N%z"
+#       date +"%FT%T.%3N%z"
 #   ```
 #
 # ### Since:
