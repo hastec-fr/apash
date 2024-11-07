@@ -13,7 +13,7 @@ Describe 'BashUtils.getFunctionName'
   End
 
   It 'passes when the input depth is valid'
-    When call BashUtils.getFunctionName 0
+    When call BashUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+0))
     The output should equal "BashUtils.getFunctionName"
     The status should be success
   End
@@ -26,7 +26,7 @@ Describe 'BashUtils.getFunctionName'
   End
 
   It 'passes when the input depth is defined'
-    myCaller(){ BashUtils.getFunctionName 1 ; }
+    myCaller(){ BashUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+1)) ; }
     When call myCaller
     The output should equal "myCaller"
     The status should be success

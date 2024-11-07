@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 
 # File description ###########################################################
 # @name BashUtils.getFunctionName
@@ -35,6 +35,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 #    myCaller(){ BashUtils.getFunctionName  1; }; myCaller # myCaller
 #
 # ```
+# #### Implementation note
+# No check on system array (funcstack not detected as an array).
 #
 # @stdout The function name.
 # @stderr None.
@@ -43,19 +45,17 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @exitcode 1 When the index is not valid.
 BashUtils.getFunctionName() {
   local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
-  local functionArray="FUNCNAME"
   local functionName
 
-  [ "$APASH_SHELL" = "zsh" ] && functionArray="funcstack"
-  ArrayUtils.isArrayIndexValid "$functionArray" "$inDepth" || return "$APASH_FUNCTION_FAILURE"
-  
+  ArrayUtils.isArrayIndex "$inDepth" || return "$APASH_FUNCTION_FAILURE"
+
   if [ "$APASH_SHELL" = "zsh" ]; then
     functionName="${funcstack[inDepth]}"
   else # bash
     functionName="${FUNCNAME[inDepth]}"
   fi
-  echo "$functionName" && return "$APASH_FUNCTION_SUCCESS"
- 
+  
+  echo "$functionName" && return "$APASH_FUNCTION_SUCCESS" 
   return "$APASH_FUNCTION_FAILURE"
 }
 

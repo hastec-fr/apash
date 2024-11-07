@@ -52,7 +52,7 @@ Log.exit() {
   for arg in "$@"; do
     args+="'$arg' "
   done
-  [ -n "${args[*]}" ] && outMessage="$outMessage {$args}"
+  [ -n "${args[*]}" ] && outMessage="$outMessage { $args}"
 
   Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"

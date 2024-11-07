@@ -3,6 +3,7 @@
 # Dependencies ##############################################################
 apash.import fr.hastec.apash.util.Log.message
 apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
+apash.import fr.hastec.apash.lang.Math.min
 
 # File description ###########################################################
 # @name Log.exception
@@ -59,17 +60,25 @@ Log.exception() {
   local i
 
   if [ "$APASH_LOG_STACK_TRACE" = "true" ]; then
+    local APASH_LOG_STACK_TRACE_MAX_DEFAULT=10
+    local APASH_LOG_STACK_TRACE_MAX=${APASH_LOG_STACK_TRACE_MAX:-$APASH_LOG_STACK_TRACE_MAX_DEFAULT}
+    local stackSize
+    local stackBound
     if [ "$APASH_SHELL" = "bash" ]; then
-      local stackSize=${#FUNCNAME[@]}
-      for (( i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+stackSize-1; i++ )); do
+      stackSize="${#FUNCNAME[@]}"
+      stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+      for (( i=APASH_ARRAY_FIRST_INDEX; i < stackBound; i++ )); do
         outMessage+=$'\n'"  at ${FUNCNAME[i+1]}(${BASH_SOURCE[i+1]}:${BASH_LINENO[i]})"
       done
     elif [ "$APASH_SHELL" = "zsh" ]; then
-      local stackSize=${#funcfiletrace[@]}
-      for (( i=APASH_ARRAY_FIRST_INDEX+1; i < APASH_ARRAY_FIRST_INDEX+stackSize; i++ )); do
+      stackSize="${#funcfiletrace[@]}"
+      stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+      for (( i=APASH_ARRAY_FIRST_INDEX+1; i < stackBound; i++ )); do
         outMessage+=$'\n'"  at ${funcstack[i]}(${funcfiletrace[i]})"
       done
     fi
+    # Add "..." in case the stack is too long.
+    [ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
   fi
 
   parentFunction="$(BashUtils.getParentFunctionName)"

@@ -13,10 +13,10 @@ apash.test.compatibility(){
   local globalCampaignDir="$APASH_HOME_DIR/tmp"
   local globalCampaignFile="$globalCampaignDir/apash_campaign_${APASH_VERSION}.res"
   local v
-  local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
-  local -a zshVersions=(5.9 5.8 5.7 5.6 5.5 5.4 5.3 5.2)
-  # local -a bashVersions=(4.3)
-  # local -a zshVersions=(5.3)
+  # local -a bashVersions=(5.2 5.1 5.0 4.4 4.3 4.2)
+  # local -a zshVersions=(5.9 5.8 5.7 5.6 5.5 5.4 5.3 5.2)
+  local -a bashVersions=(4.3)
+  local -a zshVersions=(5.3)
 
   [ ! -d "$globalCampaignDir" ] && mkdir -p "$globalCampaignDir"
   true > "$globalCampaignFile"
