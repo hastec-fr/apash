@@ -41,7 +41,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes when the reference is an array and indices valid positive integers'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 0 2
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+0)) $((APASH_ARRAY_FIRST_INDEX+2))
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 2
@@ -52,7 +52,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes when the reference is an array and indices valid positive integers'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 0 0
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+0)) $((APASH_ARRAY_FIRST_INDEX+0))
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 0
@@ -61,7 +61,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes when the reference is an array and indices valid positive integers'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 3 4
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+3)) $((APASH_ARRAY_FIRST_INDEX+4))
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 1
@@ -71,7 +71,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes even when indexes are not in the bounds'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 0 10
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+0)) 10
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 4
@@ -84,7 +84,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes even when indexes are not in the bounds'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" -1 2
+    When call ArrayUtils.subarray "mySubArray" "myArray" -1 $((APASH_ARRAY_FIRST_INDEX+2))
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 2
@@ -108,7 +108,7 @@ Describe 'ArrayUtils.subarray'
   It 'passes even when indexes are not in the bounds'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 3 2
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+3)) $((APASH_ARRAY_FIRST_INDEX+2))
     The output should equal ""
     The status should be success
     The value "${#mySubArray[@]}" should eq 0
@@ -154,7 +154,7 @@ Describe 'ArrayUtils.subarray'
   It 'fails when the indexes are not numbers'
     local mySubArray=()
     local myArray=("a" "b" "c" "d")
-    When call ArrayUtils.subarray "mySubArray" "myArray" 1 "b"
+    When call ArrayUtils.subarray "mySubArray" "myArray" $((APASH_ARRAY_FIRST_INDEX+1)) "b"
     The output should equal ""
     The status should be failure
     The value "${#mySubArray[@]}" should eq 0

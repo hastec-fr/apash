@@ -3,6 +3,7 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 # File description ###########################################################
@@ -69,22 +70,27 @@ ArrayUtils.subarray() {
   local inEndIndex="$4"
   local inArray=()
   local outArray=()
+  local lastIndex
 
   ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
   NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
 
   ArrayUtils.clone "$inArrayName" "inArray" || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
 
-  [[ $inStartIndex -ge ${#inArray[@]} ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ $inStartIndex -lt 0 ]] && inStartIndex=0
-  [[ $inEndIndex   -lt 0 ]] && inEndIndex=0
-  [[ $inEndIndex   -gt ${#inArray[@]} ]] && inEndIndex=${#inArray[@]}
+  [[ $inStartIndex -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
 
   [[ $inStartIndex -gt $inEndIndex    ]] && return "$APASH_FUNCTION_SUCCESS"
 
+  
+  
   # shellcheck disable=SC2034
-  outArray=("${inArray[@]:$inStartIndex:$((inEndIndex - inStartIndex))}")
+  # Subarray always start at the index 0, so the the first index is removed.
+  outArray=("${inArray[@]:$inStartIndex-$APASH_ARRAY_FIRST_INDEX:$inEndIndex-$inStartIndex}")
 
   ArrayUtils.clone "outArray" "$outSubArrayName" || return "$APASH_FUNCTION_FAILURE"
 

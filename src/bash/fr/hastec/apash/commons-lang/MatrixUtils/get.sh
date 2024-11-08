@@ -51,10 +51,11 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @exitcode 1 Otherwise.
 MatrixUtils.get() {
   local matrixName="$1"
+  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+  
   local -i cellIndex=0
   shift
   
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
   cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${${(P)matrixName}[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
