@@ -10,9 +10,16 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @brief Create a side array simulating dimensions on an existing array.
 #
 # @description
-#   The matrix array store the dimensions of the matrix.
+#   ⚠️ It is an experimental function.
+#   The side array store dimensions of the expected matrix.
 #   It does not fix bounds of the array. It's just a view of the mind
-#   on how to access to a cell of a multi-dimensional array.
+#   on how to access a cell on a multi-dimensional array.
+#   ⚠️WARNING: 
+#   From Matrix point of view, the first index is 0 (even in zsh).
+#   The real array start from 1 but MatrixUtils consider it as 0.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -24,7 +31,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 
 # Method description #########################################################
 # @description
-# ⚠️ It is an experimental function.
+
 # #### Example
 # ```bash
 #    MatrixUtils.create  "myMatrix" 3    # failure; does not create array with 1 dimension
@@ -43,20 +50,22 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @exitcode 0 When the matrix is created.
 # @exitcode 1 Otherwise.
 MatrixUtils.create() {
+  # If less than 2 dimensions are provided then return.
+  [[ $# -lt 3 ]] && return "$APASH_FUNCTION_FAILURE"
+
   local inArrayName="$1"
   local matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
   local dim
-  local nbDim=0
+  local nbDim="$APASH_ARRAY_FIRST_INDEX"
   ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   shift
 
   local dimensions=("$@")
-  # Reset the corresponding matrix if already exists
+  
+  # Reset the corresponding matrix if already exists.
   unset "$matrixDim"
 
-  [[ ${#dimensions[@]} -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
-
-  # Create the side array with inputs dimensions
+  # Create the side array with inputs dimensions.
   for dim in "${dimensions[@]}"; do
     if ! ArrayUtils.isArrayIndex "$dim" || [[ $dim -eq 0 ]]  ; then
       unset "$matrixDim"

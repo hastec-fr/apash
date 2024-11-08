@@ -10,7 +10,11 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @brief Check if all elements defining a matrix are respected.
 #
 # @description
-#   Considered as a matrix, an array which has its associative dimension array.
+#   ⚠️ It is an experimental function.
+#   Considered as a matrix, an array which has its side array.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -22,7 +26,6 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 
 # Method description #########################################################
 # @description
-# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    MatrixUtils.isMatrix  "myMatrix"  # false
@@ -36,23 +39,32 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 #
 # @arg $1 ref(string[]) Name of the array if exists.
 #
-# @stdout None
+# @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the matrix exists.
 # @exitcode 1 Otherwise.
 MatrixUtils.isMatrix() {
   local inArrayName="$1"
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}" || return "$APASH_FUNCTION_FAILURE"
-  local -n inMatrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
-  local -i i  
+  local apashDimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
+  local -i i
 
-  # Check that dimensions are correct values
-  for i in "${inMatrixDim[@]}"; do
-    ArrayUtils.isArrayIndex "$i" || return "$APASH_FUNCTION_FAILURE"
-    [ "$i" -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
-  done
+  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$apashDimMatrixName" || return "$APASH_FUNCTION_FAILURE"
+
+  # Check that dimensions are correct values.
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    for i in "${${(P)apashDimMatrixName}[@]}"; do
+      ArrayUtils.isArrayIndex "$i" || return "$APASH_FUNCTION_FAILURE"
+      [ "$i" -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+    done
+  else
+    local -n inMatrixDim="$apashDimMatrixName"
+    for i in "${inMatrixDim[@]}"; do
+      ArrayUtils.isArrayIndex "$i" || return "$APASH_FUNCTION_FAILURE"
+      [ "$i" -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+    done
+  fi
 
   return "$APASH_FUNCTION_SUCCESS"
 }

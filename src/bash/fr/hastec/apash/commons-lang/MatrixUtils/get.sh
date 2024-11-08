@@ -9,6 +9,11 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @brief Get a cell of an array according to its associated matrix.
 #
 # @description
+#   ⚠️ It is an experimental function.
+#
+# ### Since:
+# 0.2.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -19,7 +24,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 # Method description #########################################################
 # @description
-# ⚠️ It is an experimental function.
+
 # #### Example
 # ```bash
 #    # Use matrix representation of:
@@ -46,12 +51,17 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @exitcode 1 Otherwise.
 MatrixUtils.get() {
   local matrixName="$1"
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
-  local -n matrix="$matrixName"
-  shift
   local -i cellIndex=0
+  shift
   
+  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
   cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
-  echo "${matrix[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    echo "${${(P)matrixName}[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  else # bash
+    local -n matrix="$matrixName"
+    echo "${matrix[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+  fi
+
   return "$APASH_FUNCTION_FAILURE"
 }

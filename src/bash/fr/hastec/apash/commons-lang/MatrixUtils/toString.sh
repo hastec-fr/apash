@@ -12,7 +12,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # @brief Display each virtual indexes of the matrix.
 #
 # @description
-# ⚠️ It is an experimental function.
+#   ⚠️ It is an experimental function.
+#
+# ### Since:
+# 0.2.0
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -20,7 +24,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # <!-- apash.parentBegin -->
 # [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 # <!-- apash.parentEnd -->
-
+#
 # Method description #########################################################
 # @description
 # #### Example
@@ -38,11 +42,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # @exitcode 1 Otherwise.
 MatrixUtils.toString() {
   local matrixName="$1"
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
-  local -n matrix="$matrixName"
-  local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
   local -i i
   local _apash_matrix_toString
+
+  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    local matrix=()
+    ArrayUtils.clone "$matrixName" "matrix"
+  else # bash
+    local -n matrix="$matrixName"
+    local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
+  fi
+  
   ArrayUtils.clone "matrixDim" "_apash_matrix_toString"
 
   for (( i=0; i < ${#matrixDim[@]}; i++ )); do

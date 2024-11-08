@@ -12,9 +12,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 # @brief Return the corresponding array according to virtual dimensions.
 #
 # @description
-# The simple case on a two dimensional array is to retreive a row.
-# For more dimensions, it returns an array containing all sub dimensions
-# of the current offset.
+#   ⚠️ It is an experimental function.
+#   The simple case on a two dimensional array is to retreive a row.
+#   For more dimensions, it returns an array containing all sub dimensions
+#   of the current offset.
+#
+# ### Since:
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -26,7 +30,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 
 # Method description #########################################################
 # @description
-# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
@@ -45,18 +48,20 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 # @exitcode 0 When the subarray is returned.
 # @exitcode 1 Otherwise.
 MatrixUtils.getDim() {
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
   local inArrayName="$1"
   local matrixName="$2"
   shift 2
   local indexes=("$@")
-  local start=0
+  local start=$APASH_ARRAY_FIRST_INDEX
   local length=0
 
-  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  MatrixUtils.isMatrix   "$matrixName"  || return "$APASH_FUNCTION_FAILURE"
-  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")
-  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}")
-  # Keept at least one cell
+  ArrayUtils.nullToEmpty "$inArrayName"                            || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix   "$matrixName"                             || return "$APASH_FUNCTION_FAILURE"
+  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")      || return "$APASH_FUNCTION_FAILURE"
+  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}") || return "$APASH_FUNCTION_FAILURE"
+  
+  # Keep at least one cell
   [[ $length -le 0 ]] && length=1
   ArrayUtils.subarray "$inArrayName" "$matrixName" "$start" $((start + length)) || return "$APASH_FUNCTION_FAILURE"
 

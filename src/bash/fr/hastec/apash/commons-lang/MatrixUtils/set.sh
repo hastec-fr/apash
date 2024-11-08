@@ -3,12 +3,16 @@
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 # File description ###########################################################
 # @name MatrixUtils.create
 # @brief Set the value of a cell according to the dimensions of the matrix.
 #
 # @description
+#   ⚠️ It is an experimental function.
+#    Note that index in matrix start from 0 (even in zsh).
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -19,7 +23,6 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 # Method description #########################################################
 # @description
-# ⚠️ It is an experimental function.
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
@@ -39,14 +42,26 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @exitcode 0 When the cell is updated.
 # @exitcode 1 Otherwise.
 MatrixUtils.set() {
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
   local matrixName="$1"
   local value="$2"
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
-  local -n matrix="$matrixName"
-  local -i cellIndex=0
+  local -i cellIndex=$APASH_ARRAY_FIRST_INDEX
   shift 2
-  
+
+  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
   cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
-  matrix[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
+  
+  # @todo: find a way in zsh to set directly the cell instead of cloning.
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    # ${(P)matrixName}[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
+    local matrix=()
+    ArrayUtils.clone "$matrixName" "matrix" || return "$APASH_FUNCTION_FAILURE"
+    matrix[$cellIndex]="$value"             || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "matrix" "$matrixName" && return "$APASH_FUNCTION_SUCCESS"
+  else
+    local -n matrix="$matrixName"
+    matrix[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
+  fi
+  
   return "$APASH_FUNCTION_FAILURE"
 }
