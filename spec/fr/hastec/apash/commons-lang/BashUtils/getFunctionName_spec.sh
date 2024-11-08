@@ -4,7 +4,7 @@ Describe 'BashUtils.getFunctionName'
     apash.import "fr.hastec.apash.commons-lang.BashUtils.getFunctionName"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
 
   It 'fails when the input depth is invalid'
     When call BashUtils.getFunctionName -1

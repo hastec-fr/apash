@@ -39,7 +39,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 #
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
-Log.info() {
+Log.trace() {
   local inLineNumber="$1"
   local inMessage="$2"
   local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
