@@ -8,6 +8,9 @@
 # ### Since:
 # 0.1.0
 #
+# ### ChangeLogs:
+# - 0.2.0: Split file to .bash, .zsh and bash_4.2.53. Let the nearest POSIX code in .sh.
+#
 # ### Authors:
 # * Benjamin VARGIN
 #
@@ -43,4 +46,3 @@ StringUtils.lowerCase() {
   echo "$inString" | awk '{print tolower($0)}' && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
-

@@ -7,17 +7,16 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 # @name StringUtils.lowerCase
 # @brief Converts a String to lower case.
 # @description
-#   Demo of the way to include different version of bash in same file.
+#   Demo of the way to include different versions of the method in multiple files.
+#
 # ### Since:
 # 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
+# ### Reference:
+# For complete documentation, please refer to lowerCase.sh.
 StringUtils.lowerCase() {
   local inString="$1"
   echo "${inString,,}" && return "$APASH_FUNCTION_SUCCESS"
