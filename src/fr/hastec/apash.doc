@@ -50,7 +50,7 @@ apash.doc.getPathFromMethod(){
 apash.doc.getFullSummaryTable(){
   local APASH_DOC_HEADER
   local APASH_DOC_FOOTER
-  local fstFile="$APASH_HOME_DIR/doc/bash/fr/hastec/apacheFullSummaryTable.md"
+  local fstFile="$APASH_HOME_DIR/doc/fr/hastec/apacheFullSummaryTable.md"
   local rootPackage=""
   local methodPath=""
   local cumulatedDir=""
@@ -68,7 +68,7 @@ apash.doc.getFullSummaryTable(){
 
   while  IFS= read -r -d '' file; do
     brief=$(grep -m 1 "@brief" "$file" | sed 's/^.*@brief //1' )
-    rootPackage=$(echo "$file" | sed "s|^$APASH_HOME_DIR/src/bash/fr/hastec/||g")
+    rootPackage=$(echo "$file" | sed "s|^$APASH_HOME_DIR/src/fr/hastec/||g")
     methodPath=""
     cumulatedDir=""
     StringUtils.split dirs "$rootPackage" "/"

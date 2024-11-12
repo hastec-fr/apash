@@ -1,6 +1,6 @@
 Describe 'ArrayUtils.shuffle'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
+    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
     apash.import fr.hastec.apash.commons-lang.ArrayUtils.shuffle
     apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
   else

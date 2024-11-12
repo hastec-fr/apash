@@ -2,7 +2,6 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
 # @name ArrayUtils.getNumberOfElements

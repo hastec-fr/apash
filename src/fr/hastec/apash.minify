@@ -3,7 +3,7 @@ apash.minify(){
   echo '#!/usr/bin/env bash' > "$APASH_HOME_DIR/apash-bash-min.tmp"
   while IFS= read -r -d '' file; do
     sed -e '1d' "$file" -e '/apash.import/d' >> "$APASH_HOME_DIR/apash-bash-min.tmp"
-  done < <(find "$APASH_HOME_DIR/src/bash/fr/hastec/apash" -name "*.sh" -print0)
+  done < <(find "$APASH_HOME_DIR/src/fr/hastec/apash" -name "*.sh" -print0)
   docker run --rm -v "$APASH_HOME_DIR/apash-bash-min.tmp:/mnt/apash-bash-min.tmp" mvdan/shfmt -mn /mnt/apash-bash-min.tmp > apash-bash-min.sh
   rm "$APASH_HOME_DIR/apash-bash-min.tmp"
 }

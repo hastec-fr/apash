@@ -131,6 +131,6 @@ apash.test.compatibility.toMarkDown(){
     "
   done < <(tail -n +2 "$globalCampaignFile" | sort)
 
-  envsubst < "$APASH_HOME_DIR/assets/templates/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/bash/fr/hastec/apashCompatibilityTable.md"
+  envsubst < "$APASH_HOME_DIR/assets/templates/apashCompatibilityTemplate.md" > "$APASH_HOME_DIR/doc/fr/hastec/apashCompatibilityTable.md"
   unset APASH_SHELL_NAMES APASH_SHELL_VERSIONS APASH_FUNCTION_RESULTS
 }

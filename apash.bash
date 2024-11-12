@@ -156,7 +156,7 @@ showApashTestHelp(){
                         compatibility matrix.
 
   By default the shellspec command looks like:
-  $ shellspec --shell bash spec/bash
+  $ shellspec --shell bash spec/
 
   Example to override shellspec options:
   $ apash test --test-options "--shell bash --format tap" "\$APASH_HOME_DIR/spec"
@@ -188,7 +188,7 @@ executeApashCommand(){
   # Source main apash script if no argument has been passed.
   if [ $# -eq 0 ]; then
     # shellcheck disable=SC1091
-    . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh" && return
+    . "$APASH_HOME_DIR/src/fr/hastec/apash.sh" && return
   fi
 
   parseApashCommandArgs "$@"
@@ -297,7 +297,7 @@ executeApashSource(){
   parseApashSourceArgs "$@" || return
     
   # shellcheck disable=SC1091
-  . "$APASH_HOME_DIR/src/bash/fr/hastec/apash.sh"
+  . "$APASH_HOME_DIR/src/fr/hastec/apash.sh"
   if [ "$APASH_SOURCE_ALL" = "true" ]; then
     while IFS= read -r -d '' file; do
       apash.import "$file"
@@ -541,6 +541,6 @@ if [ $# -eq 0 ]; then
   executeApashSource
 else
   # Zsh requires to re-declare functions when subprocesses are called.
-  typeset -f "apash.import" > /dev/null || source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
+  typeset -f "apash.import" > /dev/null || source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
   executeApashCommand "$@"
 fi

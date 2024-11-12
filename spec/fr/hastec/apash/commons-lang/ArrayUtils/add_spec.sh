@@ -1,6 +1,6 @@
 Describe 'ArrayUtils.add'
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
+    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
     apash.import "fr.hastec.apash.commons-lang.ArrayUtils.add"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
@@ -43,7 +43,7 @@ Describe 'ArrayUtils.add'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArrayAPASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes when reference is an array and value is a string'

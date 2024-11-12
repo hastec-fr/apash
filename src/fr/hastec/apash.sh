@@ -34,5 +34,5 @@ if [ "$APASH_SHELL" = "zsh" ]; then
   APASH_ARRAY_LAST_INDEX=999999999999999999
 fi
 
-source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
-apash.import "$APASH_HOME_DIR/src/bash/fr/hastec/apash/util/Log.sh"
+source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
+apash.import "$APASH_HOME_DIR/src/fr/hastec/apash/util/Log.sh"
