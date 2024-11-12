@@ -5,7 +5,7 @@ apash.minify(){
   local lib vlib version
 
   # Create temporary directory if not exist.
-  [ ! -d "$apashTmpDir" ] && mkdir -p
+  [ ! -d "$apashTmpDir" ] && mkdir -p "$apashTmpDir"
   cat "$APASH_HOME_DIR/src/fr/hastec/apash.import" > "$apashTmpDir/apash-$shellName-min.tmp"
 
   # @todo: find a way to factorize it how to resolve the library. (as in apash.import, ApashUtils ?).
@@ -29,7 +29,7 @@ apash.minify(){
   echo '#!/usr/bin/env '"$shellName" > "apash-$shellName-min.sh"
   # @todo: Create a real minifier which does not take care about the logic (if possible) due to the mix of shells
   # Remove all lines starting by a hashtag, leading spaces and emptys lines.
-  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' "$APASH_HOME_DIR/.apashrc" "$apashTmpDir/apash-bash-min.tmp" >> "apash-$shellName-min.sh"
+  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' "$APASH_HOME_DIR/.apashrc" "$apashTmpDir/apash-bash-min.tmp" >> "$APASH_HOME_DIR/apash-$shellName-min.sh"
   rm "$apashTmpDir/apash-bash-min.tmp"
 
   # Minification of apash.import:
