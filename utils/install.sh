@@ -3,8 +3,8 @@
 set -e
 
 die() {
-  echo "!! $1 " >&2
-  echo "!! -----------------------------" >&2
+  echo "! $1 " >&2
+  echo "! -----------------------------" >&2
   exit 1
 }
 
@@ -56,7 +56,6 @@ echo ". Add apash initialisation to [$startup_script]"
 ) >>"$startup_script"
 
 ## Script is finished.
-. "$HOME/.apash/.apashrc"
-echo "Apash is installed. Let's try to use it: "
+echo "Apash is installed - OPEN A NEW terminal window to start using it:"
 echo "apash.import fr.hastec.apash.commons-lang.StringUtils.upperCase"
-echo "StringUtils.upperCase \"I say, let's try to use it !!\""
+echo "StringUtils.upperCase \"Do or Do not. There is no try.\""
