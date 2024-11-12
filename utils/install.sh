@@ -56,4 +56,7 @@ echo ". Add apash initialisation to [$startup_script]"
 ) >>"$startup_script"
 
 ## Script is finished.
-echo "Apash is installed - open a new terminal window to start using it"
+. "$HOME/.apash/.apashrc"
+echo "Apash is installed. Let's try to use it: "
+echo "apash.import fr.hastec.apash.commons-lang.StringUtils.upperCase"
+echo "StringUtils.upperCase \"I say, let's try to use it !!\""
