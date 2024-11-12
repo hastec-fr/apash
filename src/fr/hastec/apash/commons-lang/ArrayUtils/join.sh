@@ -2,6 +2,7 @@
 
 # Dependencies #####################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 
 # File description ###########################################################
 # @name ArrayUtils.join
@@ -30,6 +31,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.join  "myArray"              # "a b  c"
 #    ArrayUtils.join  "myArray"  ","         # "a,b,,c"
 #    ArrayUtils.join  "myArray"  "|1|"       # "a|1|b|1||1|c"
+#    
+#    myArray[6]="z"
+#    ArrayUtils.join  "myArray"  ","         # "a,b,,c,,z"
 # ```
 #
 # @arg $1 ref(string[]) Name of the array to get values.
@@ -43,15 +47,25 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 ArrayUtils.join() {
   local inArrayName="$1"
   local inDelimiter="${2:- }"
-  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
-  local -n inArray="$inArrayName"  
   local -i i
-  local outString="${inArray[0]}"
+  local outString=""
+  local length
 
-  # Trick with IFS does not accept delimiter with multiple chars.
-  for (( i=1; i < ${#inArray[@]}; i++ )); do
-    outString+="${inDelimiter}${inArray[i]}"
-  done
+  arrayLength=$(ArrayUtils.getLength "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    outString="${${(P)inArrayName}[APASH_ARRAY_FIRST_INDEX]}"
+    for (( i=APASH_ARRAY_FIRST_INDEX+1; i < APASH_ARRAY_FIRST_INDEX + arrayLength; i++ )); do
+      outString+="${inDelimiter}${${(P)inArrayName}[i]}"
+    done
+  else # bash
+    local -n inArray="$inArrayName"
+    outString="${inArray[0]}"
+    # Trick with IFS does not accept delimiter with multiple chars.
+    for (( i=APASH_ARRAY_FIRST_INDEX+1; i < APASH_ARRAY_FIRST_INDEX + arrayLength; i++ )); do
+      outString+="${inDelimiter}${inArray[i]}"
+    done
+  fi
 
   echo "$outString" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"

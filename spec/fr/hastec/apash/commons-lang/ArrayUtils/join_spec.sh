@@ -71,4 +71,12 @@ Describe 'ArrayUtils.join'
     The output should equal "a|1|b|1||1|c"
     The status should be success
   End
+
+  It 'passes even with discontinued indexes'
+    local myArray=("a" "b" "" "c")
+    myArray[APASH_ARRAY_FIRST_INDEX+5]="z"
+    When call ArrayUtils.join "myArray" ","
+    The output should equal "a,b,,c,,z"
+    The status should be success
+  End
 End
