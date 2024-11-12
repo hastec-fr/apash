@@ -16,5 +16,6 @@ else
   echo "$(date +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
 fi
 
-export APASH_HOME_DIR="$HOME/.apash"                      # $HOME/.apash
-export PATH="$PATH:$HOME/.local/bin:$APASH_HOME_DIR"      # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
+export APASH_HOME_DIR="$HOME/.apash"              # $HOME/.apash
+export PATH="$PATH:$APASH_HOME_DIR"               # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
+export APASH_LOG_LEVEL="$APASH_LOG_LEVEL_ERROR"   # 300 - Must be after sourcing of apash.

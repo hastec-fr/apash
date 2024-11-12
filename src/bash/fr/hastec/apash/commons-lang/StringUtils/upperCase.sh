@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+[ "$APASH_SHELL" = "bash" ] && apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
 # File description ###########################################################
 # @name StringUtils.upperCase
@@ -41,9 +42,10 @@ StringUtils.upperCase() {
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${(U)inString}" && return "$APASH_FUNCTION_SUCCESS"
-  elif [ "$APASH_SHELL" = "bash" ]; then
+  elif [ "$APASH_SHELL" = "bash" ] && \
+       ! VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.2"; then
     echo "${inString^^}" && return "$APASH_FUNCTION_SUCCESS"
-  else # POSIX
+  else # More POSIX
     echo "$inString" | awk '{print toupper($0)}' && return "$APASH_FUNCTION_SUCCESS"
   fi
 

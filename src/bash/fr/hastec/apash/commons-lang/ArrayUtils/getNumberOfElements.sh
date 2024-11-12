@@ -5,16 +5,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 # File description ###########################################################
-# @name ArrayUtils.getLength
-# @brief Returns the length of the specified array.
+# @name ArrayUtils.getNumberOfElements
+# @brief Returns the number of elements in the arrays.
 # @description
-#   Take care that the length of an array does not correspond to its last index.
-#   Array indexes are set to Long_MAX_VALUE (9223372036854775807).
-#   Setting this value does not mean that the length is 9223372036854775807.
-#   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
+#   This number correspond to the lenght in zsh and could be different in bash
+#   due to the discontinued indexes.
 #
 # ### Since:
-# 0.1.0
+# 0.2.0
 #
 # ### Authors:
 # * Benjamin VARGIN
@@ -34,40 +32,32 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # #### Example
 # ```bash
-#    ArrayUtils.getLength  ""             # failure - ""
-#    ArrayUtils.getLength  "myVar"        # failure - ""
-#
-#    declare -A myMap
-#    ArrayUtils.getLength  "myMap"        # failure - ""
-#
 #    myArray=("a" "b" "" "c")
-#    ArrayUtils.getLength  "myArray"      # 4
+#    ArrayUtils.getNumberOfElements  "myArray"      # 4
 #
-#    myArray[9223372036854775807]=z
-#    ArrayUtils.getLength  "myArray"      # 5 ([0]="a" [1]="b" [2]="" [3]="c" [9223372036854775807]="z")
+#    myArray[10]=z
+#    ArrayUtils.getNumberOfElements  "myArray"      # bash: 5, zsh: 10
 #
 #    myArray=()
-#    ArrayUtils.getLength  "myArray"      # 0
+#    ArrayUtils.getNumberOfElements  "myArray"      # 0
 # ```
 #
-# @stdout The length of the array, or empty if it's not an array or does not exists.
+# @stdout The number of element, or empty if it's not an array or does not exists.
 # @stderr None.
 #
 # @exitcode 0 When input array reference exists.
 # @exitcode 1 Otherwise.
 #
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
-ArrayUtils.getLength() {
+ArrayUtils.getNumberOfElements() {
   local inArrayName="$1"
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${#${(PA)inArrayName}[@]}" && return "$APASH_FUNCTION_SUCCESS"
   else # bash
-    local lastIndex
-    lastIndex="$(ArrayUtils.getLastIndex "$inArrayName")" || return "$APASH_FUNCTION_FAILURE"
-    [[ $lastIndex == $APASH_ARRAY_LAST_INDEX ]] && return "$APASH_FUNCTION_FAILURE"
-    echo "$((lastIndex+1))" && return "$APASH_FUNCTION_SUCCESS"
+    local -n inArray="$inArrayName"
+    echo "${#inArray[@]}" && return "$APASH_FUNCTION_SUCCESS"
   fi
 
   return "$APASH_FUNCTION_FAILURE"

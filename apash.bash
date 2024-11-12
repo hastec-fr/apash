@@ -315,17 +315,17 @@ executeApashTest(){
   # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     if [ "$APASH_SHELL" = "zsh" ]; then
-      APASH_TEST_MINIFIED=true shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else
       # shellcheck disable=SC2086
-      APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
     fi
   else
     if [ "$APASH_SHELL" = "zsh" ]; then
-      shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else
       # shellcheck disable=SC2086
-      shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     fi
   fi
 }
@@ -527,9 +527,7 @@ executePostInstall(){
 
   if ! grep -q "$apash_keyword" "$startup_script" ; then
     (
-      echo "export APASH_HOME_DIR=\"$APASH_HOME_DIR\"   ##$apash_keyword"
-      echo "export PATH=\"\$PATH:\$APASH_HOME_DIR\"    ##$apash_keyword"
-      echo ". \"\$APASH_HOME_DIR/apash\"              ##$apash_keyword"
+      echo ". \"\$APASH_HOME_DIR/.apashrc\"            ##$apash_keyword"
     ) >> "$startup_script"
   else
     echo "The apash install tags are already present in $startup_script."

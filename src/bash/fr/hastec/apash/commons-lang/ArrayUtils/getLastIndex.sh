@@ -62,12 +62,13 @@ ArrayUtils.getLastIndex() {
     local arrayLength=${#${(P)inArrayName}[@]}
     [[ $arrayLength == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
     echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? arrayLength -  1 : arrayLength))" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+  else # bash
+    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    [[ ${#inArray[@]} == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+    local apash_indexes=("${!inArray[@]}")
+    echo "${apash_indexes[-1]}" && return "$APASH_FUNCTION_SUCCESS"
+    # echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
   fi
-
-  local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-  [[ ${#inArray[@]} == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
-  echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_FUNCTION_SUCCESS"
   
   return "$APASH_FUNCTION_FAILURE"
 }

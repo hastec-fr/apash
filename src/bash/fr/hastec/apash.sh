@@ -26,6 +26,13 @@ export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
 
 export APASH_ARRAY_FIRST_INDEX=0
-[ "$APASH_SHELL" = "zsh" ] && [[ ! $(setopt) == *ksharrays* ]] && APASH_ARRAY_FIRST_INDEX=1
+export APASH_ARRAY_LAST_INDEX=9223372036854775807
+
+# Zsh start index at 1 and truncate values after 18 digits
+if [ "$APASH_SHELL" = "zsh" ]; then
+  [[ ! $(setopt) == *ksharrays* ]] && APASH_ARRAY_FIRST_INDEX=1
+  APASH_ARRAY_LAST_INDEX=999999999999999999
+fi
 
 source "$APASH_HOME_DIR/src/bash/fr/hastec/apash.import"
+apash.import "$APASH_HOME_DIR/src/bash/fr/hastec/apash/util/Log.sh"
