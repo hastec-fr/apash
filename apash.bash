@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-APASH_VERSION="0.2.0-snapshot"
 
 ##############################################################################
 # @name apash.bash
@@ -289,7 +288,7 @@ executeApashInit(){
 
 executeApashMinify(){
   parseApashMinifyArgs "$@" || return
-  apash.import "fr/hastec/apash.minify"
+  apash.import -f "fr/hastec/apash.minify"
   apash.minify
 }
 

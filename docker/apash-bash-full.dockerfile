@@ -1,6 +1,6 @@
 # @name: apash-bash-full
 # @description
-#   Based on apash-bash.dockerfile, it preloads all scripts contains in src/bash directory.
+#   Based on apash-bash.dockerfile, it preloads all scripts contains in src directory.
 #
 # @example
 # docker build -t docker.io/hastec/apash:0.1.0-full -f ./docker/apash-bash-full.dockerfile .

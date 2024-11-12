@@ -1,9 +1,39 @@
 #!/usr/bin/env bash
 apash.minify(){
-  echo '#!/usr/bin/env bash' > "$APASH_HOME_DIR/apash-bash-min.tmp"
-  while IFS= read -r -d '' file; do
-    sed -e '1d' "$file" -e '/apash.import/d' >> "$APASH_HOME_DIR/apash-bash-min.tmp"
+  local shellName=${1:-$APASH_SHELL}
+  local apashTmpDir="$APASH_HOME_DIR/tmp"
+  local lib vlib version
+
+  # Create temporary directory if not exist.
+  [ ! -d "$apashTmpDir" ] && mkdir -p
+  cat "$APASH_HOME_DIR/src/fr/hastec/apash.import" > "$apashTmpDir/apash-$shellName-min.tmp"
+
+  # @todo: find a way to factorize it how to resolve the library. (as in apash.import, ApashUtils ?).
+  while IFS= read -r -d '' lib; do
+    # Change lib in case a variant exist for the current shell.
+    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
+    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
+      # Overide the library whith a compatible version of the same shell
+      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
+        [ ! -r "$vlib" ] && continue
+        version="${vlib#*_}"
+        # Sort -V not present in zsh (so use manual numeric sort)
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+          lib="$vlib" && break
+        fi
+      done
+    fi
+    sed -e '1d' "$lib" -e '/apash.import/d' >> "$apashTmpDir/apash-bash-min.tmp"
   done < <(find "$APASH_HOME_DIR/src/fr/hastec/apash" -name "*.sh" -print0)
-  docker run --rm -v "$APASH_HOME_DIR/apash-bash-min.tmp:/mnt/apash-bash-min.tmp" mvdan/shfmt -mn /mnt/apash-bash-min.tmp > apash-bash-min.sh
-  rm "$APASH_HOME_DIR/apash-bash-min.tmp"
+
+  echo '#!/usr/bin/env '"$shellName" > "apash-$shellName-min.sh"
+  # @todo: Create a real minifier which does not take care about the logic (if possible) due to the mix of shells
+  # Remove all lines starting by a hashtag, leading spaces and emptys lines.
+  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' "$APASH_HOME_DIR/.apashrc" "$apashTmpDir/apash-bash-min.tmp" >> "apash-$shellName-min.sh"
+  rm "$apashTmpDir/apash-bash-min.tmp"
+
+  # Minification of apash.import:
+  # sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' $APASH_HOME_DIR/src/fr/hastec/apash.import | tr '\n' ';' | sed -e 's/then;/then /g' -e 's/else;/else /g' -e 's/elif;/elif /g' -e 's/do;/do /g' -e 's/{;/{ /g' > $APASH_HOME_DIR/src/fr/hastec/apash.import-min
+  # shfmt need to parse and so understand what the script is doing. Zsh piece of code break the minification.
+  #$APASH_DOCKER_SUDO docker run --rm -v "$apashTmpDir/apash-bash-min.tmp:/mnt/apash-bash-min.tmp" mvdan/shfmt -mn /mnt/apash-bash-min.tmp > apash-bash-min.sh
 }
