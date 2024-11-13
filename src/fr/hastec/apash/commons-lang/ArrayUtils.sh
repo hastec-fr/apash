@@ -33,6 +33,7 @@
 # |[get](ArrayUtils/get.md)|Gets the nTh element of an array or a default value if the index is out of bounds.|
 # |[getLastIndex](ArrayUtils/getLastIndex.md)|Return the last index of the given array.|
 # |[getLength](ArrayUtils/getLength.md)|Returns the length of the specified array.|
+# |[getNumberOfElements](ArrayUtils/getNumberOfElements.md)|Returns the number of elements in the arrays.|
 # |[indexOf](ArrayUtils/indexOf.md)|Finds the first index of the given value in the array starting at the given index.|
 # |[indexesOf](ArrayUtils/indexesOf.md)|Finds the indices of the given value in the array starting at the given index.|
 # |[init](ArrayUtils/init.md)|Defensive programming technique initialize an array.|
@@ -46,6 +47,7 @@
 # |[isSameLastIndex](ArrayUtils/isSameLastIndex.md)|Checks whether two arrays are the same length, return false if it's not an array.|
 # |[isSameLength](ArrayUtils/isSameLength.md)|Checks whether two arrays are the same length, return false if it's not an array.|
 # |[isSorted](ArrayUtils/isSorted.md)|This method checks whether the provided array is sorted according to natural ordering.|
+# |[join](ArrayUtils/join.md)|Return all elements of an array joined by an input string.|
 # |[lastIndexOf](ArrayUtils/lastIndexOf.md)|Finds the last index of the given value in the array starting at the given index.|
 # |[nullToEmpty](ArrayUtils/nullToEmpty.md)|Defensive programming technique to change a null reference to an empty Array|
 # |[remove](ArrayUtils/remove.md)|Removes the element at the specified position from the specified array.|

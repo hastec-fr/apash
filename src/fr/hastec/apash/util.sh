@@ -19,6 +19,7 @@
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
 # |[Array](util/Array.md)|Contains methods for performing basic numeric operations|
+# |[Log](util/Log.md)|Log a message with all provided informations|
 # |[Random](util/Random.md)|Contains methods for generating numbers|
 # <!-- apash.summaryTableEnd -->
 

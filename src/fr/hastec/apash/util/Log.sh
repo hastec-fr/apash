@@ -18,13 +18,23 @@ apash.import fr.hastec.apash.lang.Integer.sh
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
+# [](../../../.md) / [apash](../../apash.md) / [util](../util.md) / 
 # <!-- apash.parentEnd -->
 #
 # ### Method Summary
 # <!-- apash.summaryTableBegin -->
 # | Methods                  | Brief                                 |
 # |--------------------------|---------------------------------------|
+# |[debug](Log/debug.md)|Log a message with debug level|
+# |[entry](Log/entry.md)|Log the parent function call with its arguments.|
+# |[error](Log/error.md)|Log a message with error level|
+# |[exception](Log/exception.md)|Log an error message due to an unexpected behavior and print the stack.|
+# |[exit](Log/exit.md)|Log message before exiting from the calling function.|
+# |[fatal](Log/fatal.md)|Log a message with fatal level|
+# |[info](Log/info.md)|Log a message with info level|
+# |[message](Log/message.md)|Log a message with all provided informations|
+# |[trace](Log/trace.md)|Log a message with trace level|
+# |[warn](Log/warn.md)|Log a message with warn level|
 # <!-- apash.summaryTableEnd -->
 APASH_LOG_LEVEL_OFF=0
 APASH_LOG_LEVEL_FATAL=100

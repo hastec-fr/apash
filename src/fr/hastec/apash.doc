@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 # apash / commons-lang / ...
 apash.doc.getPathFromMethod(){
   local package=$1
-  local relativePackage=${package/src\/*\/fr\/hastec/}
+  local relativePackage=${package/src\/fr\/hastec/}
   local -a dirs=()
   local row=""
 

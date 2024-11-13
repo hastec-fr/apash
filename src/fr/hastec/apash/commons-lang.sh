@@ -24,6 +24,7 @@
 # |[CsvUtils](commons-lang/CsvUtils.md)|Operations on csv files.|
 # |[DateUtils](commons-lang/DateUtils.md)|Operations on dates.|
 # |[MapUtils](commons-lang/MapUtils.md)|Operations on maps.|
+# |[MatrixUtils](commons-lang/MatrixUtils.md)|Operations on matrixes.|
 # |[NumberUtils](commons-lang/NumberUtils.md)|Operations on Numeric values.|
 # |[StringUtils](commons-lang/StringUtils.md)|Operations on String considering null as empty string|
 # <!-- apash.summaryTableEnd -->

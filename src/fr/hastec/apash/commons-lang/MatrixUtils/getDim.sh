@@ -25,7 +25,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 #
 # ### Parents
 # <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
 # <!-- apash.parentEnd -->
 
 # Method description #########################################################
