@@ -5,7 +5,8 @@ Describe 'MatrixUtils.setDim'
     apash.import "fr.hastec.apash.commons-lang.MatrixUtils.setDim"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'fails when the input name does not refere to a matrix.'
     When call MatrixUtils.setDim 

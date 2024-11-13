@@ -4,7 +4,8 @@ Describe 'BashUtils.isVariableNameValid'
     apash.import "fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'fails when the input name is not a valid variable name'
     When call BashUtils.isVariableNameValid 

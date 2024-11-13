@@ -4,7 +4,8 @@ Describe 'StringUtils.countMatches'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.countMatches"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns 0 if string or substring are empty'
     When call StringUtils.countMatches "" ""

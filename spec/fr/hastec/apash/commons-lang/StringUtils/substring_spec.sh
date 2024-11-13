@@ -4,7 +4,8 @@ Describe 'StringUtils.substring'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.substring"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns empty when no arguments'
     When call StringUtils.substring

@@ -4,7 +4,8 @@ Describe 'StringUtils.replace'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.replace"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns an empty string when the input string is empty'
     When call StringUtils.replace "" "" ""

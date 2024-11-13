@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log.entry
+apash.import fr.hastec.apash.util.Log.exception
+apash.import fr.hastec.apash.util.Log.exit
+
 ##/
 # @name ApashUtils.doc
-# @brief Create a Markdown file associated to the input file.
+# @brief Generate a Markdown file according to comments of the input file.
 # @description
-#   Tags must be in comment sections and between tags: ##/ ... #/<br/>
+#   Markdown is generated according to comment sections between tags: "##/" and "#/".<br/>
 #   For multi lines, all # in the middle will be considered in the current documentation.
 #   ```bash
 #   ##/
@@ -13,6 +17,7 @@
 #   #  My second comment line
 #   #/
 #   ```
+#
 # ## History
 # @since 0.2.0
 #
@@ -25,12 +30,11 @@
 # ### Arguments
 # | #  | varName        | Type          | in/out   | Default    | Description                          |
 # |----|----------------|---------------|----------|------------|--------------------------------------|
-# | $1 | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
-# | $2 | inValue        | string        | in       |            | Value to add at the end of the array.|
+# | $1 | inFile         | string        | in       |            | Path of the file to analyze.         |
 #
 # ### Example
 # ```bash
-#    ApashUtils.doc  "myFile"    # Display the markdown content.
+#    ApashUtils.doc  "myFile"    # Display the markdown section to the standard output.
 # ```
 #
 # @stdout The markdown content of the input file.
@@ -40,8 +44,13 @@
 # @exitcode 1 When the file does not exists.
 #/
 ApashUtils.doc() {
+  Log.entry "$LINENO" "$@"
+
   local inFile="$1"
   local comments=""
+
+  [ ! -r "$inFile" ] && { Log.exception "$LINENO" "ApashUtils.doc-001" "InvalidFilePath"; return "$APASH_FUNCTION_FAILURE"; }
+
   comments="$(sed -n -e '/^\s*##\//,/^\s*#\//p' "$inFile" | sed -n -e 's/^\s*##\?\/\?//p')"
   comments="$(echo "$comments" | awk '
     BEGIN { blockCodeFlag = 0 }
@@ -65,22 +74,27 @@ ApashUtils.doc() {
       else if ($1 == "@stdout") { title="### Stdout" }
       else if ($1 == "@stderr") { title="### Stderr" }
       else if ($1 == "@see")    { title="### See also" }
-      print title; $1=""; gsub(/^\s+/, ""); if ($0 != "") { print "- "$0; }; next
+      print title; $1=""; gsub(/^\s+/, ""); if ($0 != "") { print "  * "$0; }; next
     }
+
+    # @exitcode flag must be successive or only the title is displayed.
     ! exitCodeFlag && /^\s*@exitcode\s+/ { exitCodeFlag=1; print "### Exit codes" }
     exitCodeFlag && /^\s*@exitcode\s+/ {
       $1=""; gsub(/^\s+/, "");
       if ($0 != "") {
-        printf "* **"$1"**: ";
+        printf "  * **"$1"**: ";
         $1=""; gsub(/^\s+/, "");
         print $0;
       }
       next
     }
-    /^\s*@apashPackage\s*$/ { print "### Package\n<!-- apash.packageBegin -->\n<!-- apash.packageEnd -->"; next}
+
+    # Custom Apash tags injected in the documentation (.md) and resolved by apash.doc as placeHolders.
+    /^\s*@apashPackage\s*$/      { print "### Package\n<!-- apash.packageBegin -->\n<!-- apash.packageEnd -->"; next}
     /^\s*@apashSummaryTable\s*$/ { print "### Method Summary\n<!-- apash.summaryTableBegin -->\n<!-- apash.summaryTableEnd -->"; next}
     { print $0; exitCodeFlag=0  }
-  ')"
-  echo "$comments"
-  return "$APASH_FUNCTION_FAILURE"
+  ')" || { Log.exception "$LINENO" "ApashUtils.doc-002"; return "$APASH_FUNCTION_FAILURE"; }
+  
+  echo "$comments" && { Log.exit "$LINENO" "ApashUtils.doc-003"; return "$APASH_FUNCTION_SUCCESS"; }
+  Log.exit "$LINENO" "ApashUtils.doc-004"; return "$APASH_FUNCTION_FAILURE"
 }

@@ -5,6 +5,7 @@ Describe 'ArrayUtils.isArrayIndexValid'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'fails when the inputs do not refere to an array or index not provided'
     When call ArrayUtils.isArrayIndexValid

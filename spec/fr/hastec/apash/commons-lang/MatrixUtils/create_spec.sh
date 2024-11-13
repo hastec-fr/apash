@@ -4,7 +4,8 @@ Describe 'MatrixUtils.create'
     apash.import "fr.hastec.apash.commons-lang.MatrixUtils.create"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'fails when the input name does not refere to an array or not have enough dimensions.'
     When call MatrixUtils.create 

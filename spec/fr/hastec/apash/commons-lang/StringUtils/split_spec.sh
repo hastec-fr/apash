@@ -4,7 +4,8 @@ Describe 'StringUtils.split'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   # @todo: check with shell spec the support of array for null length.
   It 'returns an empty array when the input string is empty'

@@ -5,6 +5,7 @@ Describe 'Random.nextInt'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   # https://github.com/shellspec/shellspec/blob/master/docs/references.md#matchers
   value() {

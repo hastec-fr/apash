@@ -4,7 +4,8 @@ Describe 'StringUtils.equals'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.equals"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'passes succeed without argument'
     When call StringUtils.equals

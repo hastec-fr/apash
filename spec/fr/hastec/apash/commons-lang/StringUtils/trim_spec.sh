@@ -4,7 +4,8 @@ Describe 'StringUtils.trim'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.trim"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns string without leading and tailing whitespaces but preserve middle spaces'
     When call StringUtils.trim "   Hello   World   "

@@ -4,7 +4,8 @@ Describe 'VersionUtils.isLowerOrEquals'
     apash.import "fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   # @todo: add test for empty strings
   It 'passes when the first version is equal to the second one'

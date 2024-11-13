@@ -5,6 +5,7 @@ Describe 'Log.exception'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'passes when inputs are consistents and level autorized'
     Skip if "is zsh" global_helper_is_zsh

@@ -4,7 +4,8 @@ Describe 'StringUtils.isEmpty'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.isEmpty"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'passes without argument'
     When call StringUtils.isEmpty

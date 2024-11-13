@@ -4,7 +4,8 @@ Describe 'StringUtils.abbreviate'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.abbreviate"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   # Failures
   It 'fails without valid max length'

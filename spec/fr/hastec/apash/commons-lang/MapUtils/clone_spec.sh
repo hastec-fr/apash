@@ -5,6 +5,7 @@ Describe 'MapUtils.clone'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'fails when the input name does not refer to an map'
     When call MapUtils.clone 

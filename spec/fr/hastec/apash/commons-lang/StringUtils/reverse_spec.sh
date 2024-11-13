@@ -4,7 +4,8 @@ Describe 'StringUtils.reverse'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.reverse"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns empty string input string is empty'
     When call StringUtils.reverse

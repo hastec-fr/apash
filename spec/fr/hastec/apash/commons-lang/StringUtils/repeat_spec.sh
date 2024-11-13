@@ -4,7 +4,8 @@ Describe 'StringUtils.repeat'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.repeat"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'fails when input is not a valid positive number'
     When call StringUtils.repeat a "a"

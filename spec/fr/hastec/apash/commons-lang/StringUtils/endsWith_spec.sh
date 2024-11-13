@@ -4,7 +4,8 @@ Describe 'StringUtils.endsWith'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.endsWith"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'passes with no arguments'
     When call StringUtils.endsWith

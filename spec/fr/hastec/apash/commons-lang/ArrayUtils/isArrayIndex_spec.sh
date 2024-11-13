@@ -6,6 +6,7 @@ Describe 'ArrayUtils.isArrayIndex'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'fails when the inputs is not a positive long number'
     When call ArrayUtils.isArrayIndex

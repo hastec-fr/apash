@@ -4,7 +4,8 @@ Describe 'StringUtils.containsOnly'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.containsOnly"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'fails when inputs string is not null but charsequence is'
     When call StringUtils.containsOnly "abc" ""

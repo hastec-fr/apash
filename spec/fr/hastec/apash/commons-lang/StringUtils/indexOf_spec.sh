@@ -4,7 +4,8 @@ Describe 'StringUtils.indexOf'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.indexOf"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns 0 without arguments'
     When call StringUtils.indexOf

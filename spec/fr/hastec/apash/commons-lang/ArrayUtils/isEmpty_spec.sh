@@ -5,6 +5,7 @@ Describe 'ArrayUtils.isEmpty'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'fails when the input do not refer to an array'
     When call ArrayUtils.isEmpty

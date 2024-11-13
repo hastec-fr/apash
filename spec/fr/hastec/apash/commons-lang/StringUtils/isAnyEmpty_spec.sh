@@ -5,6 +5,7 @@ Describe 'StringUtils.isAnyEmpty'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'passes without argument'
     When call StringUtils.isAnyEmpty

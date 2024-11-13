@@ -4,7 +4,8 @@ Describe 'Log.debug'
     apash.import "fr.hastec.apash.util.Log.debug"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'passes when inputs are consistents and level autorized'
     export APASH_LOG_LEVEL=$APASH_LOG_LEVEL_DEBUG

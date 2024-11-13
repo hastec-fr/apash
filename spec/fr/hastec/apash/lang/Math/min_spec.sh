@@ -5,6 +5,7 @@ Describe 'Math.min'
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 
   It 'returns empty value when at least one input is not parsable'
     When call Math.min

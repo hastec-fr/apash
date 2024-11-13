@@ -4,7 +4,8 @@ Describe 'StringUtils.rotate'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.rotate"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'returns empty string when shift is not parsable'
     When call StringUtils.rotate "abc" " "

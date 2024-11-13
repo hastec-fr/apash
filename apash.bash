@@ -315,14 +315,14 @@ executeApashTest(){
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     if [ "$APASH_SHELL" = "zsh" ]; then
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-    else
+    else # bash
       # shellcheck disable=SC2086
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
     fi
   else
     if [ "$APASH_SHELL" = "zsh" ]; then
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-    else
+    else # bash
       # shellcheck disable=SC2086
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     fi

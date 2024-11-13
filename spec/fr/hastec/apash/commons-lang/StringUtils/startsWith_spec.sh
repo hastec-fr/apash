@@ -4,7 +4,8 @@ Describe 'StringUtils.startsWith'
     apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
   else
     Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi    
+  fi
+  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
 
   It 'passes when the two arguments are empty'
     When call StringUtils.startsWith

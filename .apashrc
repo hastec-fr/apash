@@ -16,9 +16,9 @@ else
   echo "$(date +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
 fi
 
-export APASH_HOME_DIR="$HOME/.apash"              # $HOME/.apash
-export PATH="$PATH:$APASH_HOME_DIR"               # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
-export APASH_LOG_LEVEL="$APASH_LOG_LEVEL_ERROR"   # 300 - Must be after sourcing of apash.
-export APASH_LOG_STACK_TRACE="true"               # true - Print the stack trace related to the error.
+export APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"               # $HOME/.apash
+export PATH="$PATH:$APASH_HOME_DIR"                                     # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
+export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"$APASH_LOG_LEVEL_ERROR"}"   # 300 - Must be after sourcing of apash.
+export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"         # true - Print the stack trace related to the error.
 
 #export APASH_DOCKER_SUDO="sudo"                  # sudo - Comment to avoid sudo in front of docker commands.
