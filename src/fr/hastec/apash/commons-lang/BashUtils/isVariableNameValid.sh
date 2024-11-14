@@ -1,23 +1,19 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
-# @name BashUtils.isVariableNameValid
-# @brief Defensive programming technique to check that a variable name is valid
-# @description
-#
-# ### Since:
-# 0.2.0
-#
-# ### Authors:
-# * Benjamin VARGIN
-#
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-# <!-- apash.parentEnd -->
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 
-# Method description #########################################################
+##/
+# @name BashUtils.isVariableNameValid
+# @brief Defensive programming technique to check that a variable name is valid.
 # @description
+#
+# ## History
+# @since 0.2.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -44,7 +40,9 @@
 #
 # @exitcode 0 When the name is correct.
 # @exitcode 1 Otherwise.
+#/
 BashUtils.isVariableNameValid() {
+  Log.entry "$LINENO" "$@"
   local varName="$1"
 
   # If there is a single _, it does not

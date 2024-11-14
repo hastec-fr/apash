@@ -1,24 +1,20 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name BashUtils.declareArray
 # @brief Declare an array at global level with dynamic name.
 # @description
-#   In bash (4.3), the parentheses are required to ensure that array is initialized
+#   In bash (4.3), the parentheses are required to ensure that array is initialized.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -34,7 +30,9 @@
 #
 # @exitcode 0 When the variable is declared.
 # @exitcode 1 Otherwise.
+#/
 BashUtils.declareArray() {
+  Log.entry "$LINENO" "$@"
   local varName="$1"
   if [ "$APASH_SHELL" = "zsh" ]; then
     declare -g -a "$varName" && return "$APASH_FUNCTION_SUCCESS"

@@ -7,24 +7,16 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.isDate
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 
-# File description ###########################################################
+##/
 # @name DateUtils.add
 # @brief Adds a number of specified unity to a date, returning a new date.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [DateUtils](../DateUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -32,20 +24,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # | $2     | inAmount       | number        | in       |            | The amount of unity to add, may be negative. |
 # | $3     | inType         | string        | in       |            | The type of unity to add to the date.        |
 #
-# @example
-#    DateUtils.add ""                               ""       "hours" # failure - ""
-#    DateUtils.add "0"                              ""       "hours" # failure - ""
+# #### Example
+# ```bash
+#    DateUtils.add ""                               ""       "hours" # failure
+#    DateUtils.add "0"                              ""       "hours" # failure
 #    DateUtils.add "2022-03-14T14:30:45.123+0200"   "1"      "days"  # 2022-03-15T14:30:45.123+0200
 #    DateUtils.add "2022-03-14T14:30:45.123+0200"   "-1"     "days"  # 2022-03-13T14:30:45.123+0200
 #    DateUtils.add "2022-03-14T14:30:45.123+0200"   "1"      "hours" # 2022-03-14T15:30:45.123+0200
 #    DateUtils.add "2022-03-14T14:30:45.123+0200"   "-1"     "hours" # 2022-03-14T13:30:45.123+0200
-#    DateUtils.add "2022-03-14T14:30:45.123+0200"   "1.2"    "hour"  # failure - ""
+#    DateUtils.add "2022-03-14T14:30:45.123+0200"   "1.2"    "hour"  # failure
+# ```
 #
 # @stdout The new Date with the added amount.
 # @stderr None.
 #
 # @exitcode 0 When are using the correct format of date and integer.
 # @exitcode 1 Otherwise.
+#/
 DateUtils.add() {
   Log.entry "$LINENO" "$@"
   local inDate="$1"

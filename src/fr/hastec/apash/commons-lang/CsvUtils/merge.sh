@@ -1,48 +1,44 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.countMatches
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
 apash.import fr.hastec.apash.commons-lang.StringUtils.repeat
 apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 
-
-# File description ###########################################################
+##/
 # @name CsvUtils.merge
-# @brief Merge two csv files according to their columns keys
+# @brief Merge two csv files according to their columns keys.
 # @description
 #   ⚠️This is a utility feature not fully tested and not complete.
 #   It's currently used to generate compatibility matrix and requires
 #   more development to take delimiters (today only ",") and other use 
 #   cases into account.
 #   
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [CsvUtils](../CsvUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inFile1        | string        | in       |            | The first csv file to merge.          |
 # | $2     | inFile2        | string        | in       |            | The second csv file to merge          |
 #
-# @example
+# #### Example
+# ```bash
 #    CsvUtils.merge file1 file2  # Merge the csv files according to first column
+# ```
 #
 # @stdout The merge csv file.
 # @stderr None.
 #
 # @exitcode 0 When the result csv file is displayed.
 # @exitcode 1 Otherwise.
+#/
 CsvUtils.merge() {
   local inFile1="$1"
   local inFile2="$2"
