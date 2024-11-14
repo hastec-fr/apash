@@ -1,11 +1,5 @@
 Describe 'MapUtils.clone'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.MapUtils.clone"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.commons-lang.MapUtils.clone"
 
   It 'fails when the input name does not refer to an map'
     When call MapUtils.clone 

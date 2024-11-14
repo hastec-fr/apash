@@ -1,11 +1,5 @@
 Describe 'Log.exit'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.util.Log.exit"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.util.Log.exit"
 
   It 'passes when inputs are consistents and level autorized'
     export APASH_LOG_LEVEL=$APASH_LOG_LEVEL_TRACE

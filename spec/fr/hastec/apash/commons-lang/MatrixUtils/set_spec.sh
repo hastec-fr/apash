@@ -1,12 +1,6 @@
 Describe 'MatrixUtils.set'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.MatrixUtils.create"
-    apash.import "fr.hastec.apash.commons-lang.MatrixUtils.set"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.MatrixUtils.create"
+  apash.import "fr.hastec.apash.commons-lang.MatrixUtils.set"
 
   It 'fails when the input name does not refere to a matrix.'
     When call MatrixUtils.set 

@@ -1,18 +1,12 @@
 Describe 'StringUtils.split'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.StringUtils.split"
 
   # @todo: check with shell spec the support of array for null length.
   It 'returns an empty array when the input string is empty'
     When call StringUtils.split myArray "" ""
     The output should equal ""
     The status should be success
-    The value  "${#myArray[@]}" should eq 0
+    The value "${#myArray[@]}" should eq 0
   End
 
   It 'returns an empty array when the input string is empty'

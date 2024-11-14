@@ -1,11 +1,5 @@
 Describe 'VersionUtils.isLowerOrEquals'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals"
 
   # @todo: add test for empty strings
   It 'passes when the first version is equal to the second one'

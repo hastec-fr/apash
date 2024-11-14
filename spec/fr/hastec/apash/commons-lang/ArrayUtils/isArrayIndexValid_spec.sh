@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.isArrayIndexValid'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 
   It 'fails when the inputs do not refere to an array or index not provided'
     When call ArrayUtils.isArrayIndexValid

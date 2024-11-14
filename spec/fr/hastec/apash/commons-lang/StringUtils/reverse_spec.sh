@@ -1,11 +1,5 @@
 Describe 'StringUtils.reverse'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.StringUtils.reverse"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.StringUtils.reverse"
 
   It 'returns empty string input string is empty'
     When call StringUtils.reverse

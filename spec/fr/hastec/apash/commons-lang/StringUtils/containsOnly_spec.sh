@@ -1,11 +1,5 @@
 Describe 'StringUtils.containsOnly'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.StringUtils.containsOnly"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.StringUtils.containsOnly"
 
   It 'fails when inputs string is not null but charsequence is'
     When call StringUtils.containsOnly "abc" ""

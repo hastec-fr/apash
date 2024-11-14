@@ -1,11 +1,5 @@
 Describe 'StringUtils.leftPad'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.StringUtils.leftPad"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.StringUtils.leftPad"
 
   It 'returns an empty string when the number to pad is empty'
     When call StringUtils.leftPad "" "" ""

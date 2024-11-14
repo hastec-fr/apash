@@ -1,12 +1,6 @@
 Describe 'ArrayUtils.isArrayIndex'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
-    apash.import fr.hastec.apash.lang.Long
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
+  apash.import fr.hastec.apash.lang.Long
 
   It 'fails when the inputs is not a positive long number'
     When call ArrayUtils.isArrayIndex

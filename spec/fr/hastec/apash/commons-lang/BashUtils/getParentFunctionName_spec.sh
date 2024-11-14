@@ -1,11 +1,5 @@
 Describe 'BashUtils.getParentFunctionName'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF    
+  apash.import "fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName"
 
   # Can't evaluate due to shellspec functions
   # It 'fails when no current function exists'

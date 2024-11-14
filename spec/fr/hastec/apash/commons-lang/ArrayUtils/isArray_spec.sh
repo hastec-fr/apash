@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.isArray'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
   It 'fails when the input name does not refere an array'
     When call ArrayUtils.isArray
@@ -63,8 +57,8 @@ Describe 'ArrayUtils.isArray'
   End
 
   It 'passes when the input argument is an array'
-    local -a myArray
     Skip if "old bash" global_helper_is_shell_version_lower "bash" "4.3"
+    local -a myArray
     When call ArrayUtils.isArray "myArray"
     The output should equal ""
     The status should be success

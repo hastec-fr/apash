@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.anythingToEmpty'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.ArrayUtils.anythingToEmpty"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.commons-lang.ArrayUtils.anythingToEmpty"
 
   It 'fails when the input name is not a valid variable name'
     When call ArrayUtils.anythingToEmpty 

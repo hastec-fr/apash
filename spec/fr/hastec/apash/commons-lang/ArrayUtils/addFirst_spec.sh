@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.addFirst'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.ArrayUtils.addFirst"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.commons-lang.ArrayUtils.addFirst"
 
   It 'fails when the input name does not refer to an array'
     When call ArrayUtils.addFirst 
@@ -56,6 +50,14 @@ Describe 'ArrayUtils.addFirst'
     The status should be success
     The value "${#myArray[@]}" should eq 1
     The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+  End
+
+  It 'passes when no value is provided'
+    local myArray=()
+    When call ArrayUtils.addFirst "myArray"
+    The output should equal ""
+    The status should be success
+    The value "${#myArray[@]}" should eq 0
   End
 
   It 'passes when reference is an array and a value is declared'

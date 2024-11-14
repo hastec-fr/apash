@@ -1,11 +1,6 @@
 Describe 'DateUtils.addHours'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.DateUtils.addHours"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.commons-lang.DateUtils.addHours"
+  
   # Apply timezone for the tests
   export TZ="Europe/Paris"
 

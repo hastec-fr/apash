@@ -1,11 +1,5 @@
 Describe 'Random.nextInt'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.util.Random.nextInt"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.util.Random.nextInt"
 
   # https://github.com/shellspec/shellspec/blob/master/docs/references.md#matchers
   value() {

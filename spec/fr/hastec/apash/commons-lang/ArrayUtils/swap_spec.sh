@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.swap'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
 
   It 'fails when the input does not refer to an array'
     When call ArrayUtils.swap

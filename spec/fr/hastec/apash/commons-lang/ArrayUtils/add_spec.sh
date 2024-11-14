@@ -1,11 +1,5 @@
 Describe 'ArrayUtils.add'
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    Include "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-    apash.import "fr.hastec.apash.commons-lang.ArrayUtils.add"
-  else
-    Include "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
-  fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  apash.import "fr.hastec.apash.commons-lang.ArrayUtils.add"
 
   It 'fails when the input name does not refer to an array'
     When call ArrayUtils.add 
@@ -39,6 +33,14 @@ Describe 'ArrayUtils.add'
     The status should be failure
   End
 
+  It 'passes when no value should be added'
+    local myArray=()
+    When call ArrayUtils.add "myArray"
+    The output should equal ""
+    The status should be success
+    The value "${#myArray[@]}" should eq 0
+  End
+
   It 'passes when reference is an array and value is a string'
     When call ArrayUtils.add "myArray" "a"
     The output should equal ""
@@ -66,5 +68,17 @@ Describe 'ArrayUtils.add'
     The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
     The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
     The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq ""
+  End
+
+  It 'passes when indexes are discontinued.'
+    local myArray=("a" "foo bar")
+    myArray[APASH_ARRAY_FIRST_INDEX+3]="x"
+    When call ArrayUtils.add "myArray" "z"
+    The output should equal ""
+    The status should be success
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "x"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "z"
   End
 End
