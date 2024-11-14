@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.initWithValue
 # @brief Initialize an array for a specific width and value
 # @description
@@ -13,18 +13,15 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #   If it was an array, then reinitialize it.
 #   If it's an existing variable or map, just fail to protect overriding.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
 # ### Authors:
 # * Benjamin VARGIN
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -32,16 +29,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # | $2     | inWidth        | number        | in       | 0          | Number of array record to initialize.|
 # | $3     | inValue        | string        | in       | ""         | Value to initialize with.            |
 #
-# @description
 # #### Example
 # ```bash
-#    
-#    myVar="test" 
-#    ArrayUtils.initWithValue  "myVar"           # failure
-#
-#    declare -A myMap=([foo]=bar)
-#    ArrayUtils.initWithValue  "myMap"           # failure
-#
 #    ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
 #
 #    myArray=()
@@ -51,14 +40,16 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #    ArrayUtils.initWithValue  "myArray" 2 "ah!" # myArray=("ah!" "ah!")
 # ```
 #
-# @see [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the array is initialized.
 # @exitcode 1 Otherwise.
+#
+# @see [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
+#/
 ArrayUtils.initWithValue() {
+  Log.entry "$LINENO" "$@"
   local ioArrayName="$1"
   local inWidth="${2:-0}"
   local inValue="$3"

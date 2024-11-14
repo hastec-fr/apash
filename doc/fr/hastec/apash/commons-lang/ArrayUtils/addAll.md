@@ -7,73 +7,68 @@
   # Apash
 </div>
 
+
 # ArrayUtils.addAll
-
 Adds given elements at the end of an array.
+## Description
+   The array is automatically created if the variable is not declared.
+   Existing variables or maps are not overriden and the function fails.
 
-## Overview
-
-The array is automatically created if the variable is not declared.
-Existing variables or maps are not overriden and the function fails.
-
-### Since:
-0.1.0
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
 ### Authors:
-* Benjamin VARGIN
+  * 0.2.0 (hastec-fr): 
+    * Fix issue with discontinued indexes in bash.
+    * Consider no argument as success (nothing added).
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.addAll](#arrayutilsaddall)
-
-### ArrayUtils.addAll
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.          |
-| ${@:2} | inValues       | string...     | in       |            | Values to add at the end of the array.|
+ | #      | varName           | Type          | in/out   | Default    | Description                           |
+ |--------|-------------------|---------------|----------|------------|---------------------------------------|
+ | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.          |
+ | ${@:2} | $@                | string...     | in       |            | Values to add at the end of the array.|
 
 #### Example
-```bash
-ArrayUtils.addAll  ""       ""            # failure
+ ```bash
+    ArrayUtils.addAll  ""       ""            # failure
+    
+    myVar="test"
+    ArrayUtils.addAll  "myVar"  "a"           # failure
 
-myVar="test"
-ArrayUtils.addAll  "myVar"  "a"           # failure
+    declare -A myMap
+    ArrayUtils.addAll  "myMap"  "a"           # failure
 
-declare -A myMap
-ArrayUtils.addAll  "myMap"  "a"           # failure
+    ArrayUtils.addAll  "myArray"              # ()
+    ArrayUtils.addAll  "myArray"  "a"         # ("a")
+    ArrayUtils.addAll  "myArray"  "b" ""      # ("a" "b" "")
+    ArrayUtils.addAll  "myArray"  "c" "d"     # ("a" "b" "" "c" "d")
+    ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
 
-myArray=()
-ArrayUtils.addAll  "myArray"              # failure
-ArrayUtils.addAll  "myArray"  "a"         # ("a")
-ArrayUtils.addAll  "myArray"  "b" ""      # ("a" "b" "")
-ArrayUtils.addAll  "myArray"  "c" "d"     # ("a" "b" "" "c" "d")
-ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
-```
+    myArray=("a" "b")
+    myArray[APASH_ARRAY_FIRST_INDEX+3]="x"
+    ArrayUtils.addAll  "myArray" "foo bar" "z"   # ("a" "b" "" "x" "foo bar" "z")
+ ```
 
-#### Exit codes
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* **0**: When first argument is an array and at least one value is provided.
-* **1**: Otherwise.
+### Exit codes
+  * **0**: When first argument is an array and at least one value is provided.
+  * **1**: Otherwise.
 
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
-#### See also
-
-* For adding element in the middle of an array, please check [insert](./insert.md) method.
-
+### See also
+  * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.
+  * [ArrayUtil.add](./add.md): Adding a single elements at the end of an array.
+  * [ArrayUtil.addFirst](./addFirst.md): Adding an element at the beginning of an array.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

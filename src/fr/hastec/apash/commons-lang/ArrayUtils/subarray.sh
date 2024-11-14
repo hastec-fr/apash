@@ -1,30 +1,24 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.subarray
 # @brief Produces a new array containing the elements between the start and end indices.
 # @description
 #   The start index is inclusive, the end index exclusive. 
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
@@ -54,16 +48,18 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #
 #    myArray=("a" "b" "c" "d" "e")
 #    ArrayUtils.subarray  "mySubArray"  "myArray"  "1" "3"  "3"   # mySubArray=("a" "d" "e" "b" "c")
-#
 # ```
 #
 # @stdout None.
 # @stderr None.
 #
-# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
 # @exitcode 0 When the subarray is extracted.
 # @exitcode 1 When the input is not an array or the indexes are not integers.
+#
+# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
+#/
 ArrayUtils.subarray() {
+  Log.entry "$LINENO" "$@"
   local outSubArrayName="$1"
   local inArrayName="$2"
   local inStartIndex="$3"
@@ -86,8 +82,6 @@ ArrayUtils.subarray() {
 
   [[ $inStartIndex -gt $inEndIndex    ]] && return "$APASH_FUNCTION_SUCCESS"
 
-  
-  
   # shellcheck disable=SC2034
   # Subarray always start at the index 0, so the the first index is removed.
   outArray=("${inArray[@]:$inStartIndex-$APASH_ARRAY_FIRST_INDEX:$inEndIndex-$inStartIndex}")

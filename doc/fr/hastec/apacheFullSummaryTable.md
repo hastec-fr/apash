@@ -11,14 +11,15 @@
 |--------------------------|---------------------------------------|
 | [apash](apash.md) | Translation for shell scripts of some apache libraries. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) | Provides highly reusable utility methods. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a Markdown file according to comments of the input file. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) | Operations on arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [add](apash/commons-lang/ArrayUtils/add.md) | Adds a given element at the end of an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [addAll](apash/commons-lang/ArrayUtils/addAll.md) | Adds given elements at the end of an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [addFirst](apash/commons-lang/ArrayUtils/addFirst.md) | Adds given elements at the beginning of an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [anythingToEmpty](apash/commons-lang/ArrayUtils/anythingToEmpty.md) | Create an array even if the variable named was already declared. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [clone](apash/commons-lang/ArrayUtils/clone.md) | Copy an array into another array using references. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [concat](apash/commons-lang/ArrayUtils/concat.md) | Concatenate multiple arrays |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [contains](apash/commons-lang/ArrayUtils/contains.md) | Adds given elements at the end of an array. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [concat](apash/commons-lang/ArrayUtils/concat.md) | Concatenate multiple arrays. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [contains](apash/commons-lang/ArrayUtils/contains.md) | Checks if the value is in the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [countMatches](apash/commons-lang/ArrayUtils/countMatches.md) | Return the number of cells having the given value |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [get](apash/commons-lang/ArrayUtils/get.md) | Gets the nTh element of an array or a default value if the index is out of bounds. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getLastIndex](apash/commons-lang/ArrayUtils/getLastIndex.md) | Return the last index of the given array. |
@@ -51,7 +52,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [shuffle](apash/commons-lang/ArrayUtils/shuffle.md) | Randomly permutes the elements of the specified array randomness. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [subarray](apash/commons-lang/ArrayUtils/subarray.md) | Produces a new array containing the elements between the start and end indices. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [swap](apash/commons-lang/ArrayUtils/swap.md) | Swaps a series of elements in the given array. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [toArray](apash/commons-lang/ArrayUtils/toArray.md) | Create an array based on list of arguments |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [toArray](apash/commons-lang/ArrayUtils/toArray.md) | Create an array based on list of arguments. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) | Operations arround Bash languages |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [declareArray](apash/commons-lang/BashUtils/declareArray.md) | Declare an array at global level with dynamic name. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getFunctionName](apash/commons-lang/BashUtils/getFunctionName.md) | Display the name of the function according to the provided depth |
@@ -141,6 +142,7 @@
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) | Contains methods for performing basic numeric operations |
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) / [bubbleSort](apash/util/Array/bubbleSort.md) | Sorts the specified array into alphanumerical order with the bubble sort style. |
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) / [sort](apash/util/Array/sort.md) | Sorts the specified array into ascending natural order. |
+| [apash](apash.md) / [util](apash/util.md) / [Log-min](apash/util/Log-min.md) |  |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) | Log a message with all provided informations |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [debug](apash/util/Log/debug.md) | Log a message with debug level |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [entry](apash/util/Log/entry.md) | Log the parent function call with its arguments. |

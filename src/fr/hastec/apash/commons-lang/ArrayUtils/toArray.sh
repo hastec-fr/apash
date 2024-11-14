@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.toArray
-# @brief Create an array based on list of arguments
+# @brief Create an array based on list of arguments.
 # @description
 #   The toArray is stopped at the end of the array and as many as possible elements are toArrayed.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
@@ -42,7 +36,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # @exitcode 0 When list of argument are pushed to the array.
 # @exitcode 1 When the input is not an array.
+#/
 ArrayUtils.toArray() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
   local ioArrayName="$1" 
   shift

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
-
 # File description ###########################################################
 # @name BashUtils.getFunctionName
 # @brief Display the name of the function according to the provided depth
@@ -47,11 +44,11 @@ BashUtils.getFunctionName() {
   local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
   local functionName
 
-  ArrayUtils.isArrayIndex "$inDepth" || return "$APASH_FUNCTION_FAILURE"
-
   if [ "$APASH_SHELL" = "zsh" ]; then
+    [ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FUNCTION_FAILURE"
     functionName="${funcstack[inDepth]}"
   else # bash
+    [ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FUNCTION_FAILURE"
     functionName="${FUNCNAME[inDepth]}"
   fi
   

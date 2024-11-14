@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.isArrayIndex
 # @brief Check if the given index is a long positive integer.
 # @description
@@ -11,19 +12,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #   This function does not return if the array has the index, for that please 
 #   check the function isArrayIndexValid.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -46,7 +40,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #
 # @exitcode 0 Whether the given index is a long positive number.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.isArrayIndex() {
+  Log.entry "$LINENO" "$@"
   local inIndex="$1"
   NumberUtils.isLong "$inIndex" || return "$APASH_FUNCTION_FAILURE"
   [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_FAILURE"

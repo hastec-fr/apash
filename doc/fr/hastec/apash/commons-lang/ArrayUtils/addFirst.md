@@ -7,74 +7,55 @@
   # Apash
 </div>
 
+
 # ArrayUtils.addFirst
-
 Adds given elements at the beginning of an array.
+## Description
+   The array is automatically created if the variable is not declared.
+   Existing variables or maps are not overriden and the function fails.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-The array is automatically created if the variable is not declared.
-Existing variables or maps are not overriden and the function fails.
+### Changelogs:
+  * 0.2.0 (hastec-fr):  Consider no argument as success (nothing added).
 
-### Since:
-0.1.0
-
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.addFirst](#arrayutilsaddfirst)
-
-### ArrayUtils.addFirst
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
-| ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
+ | #      | varName           | Type          | in/out   | Default    | Description                          |
+ |--------|-------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.         |
+ | $2     | apash_inValue     | string...     | in       |            | Value to add at the beginning of the array.|
 
 #### Example
-```bash
-ArrayUtils.addFirst  ""       ""          # failure
+ ```bash
+    ArrayUtils.addFirst  "myArray"              # ()
+    ArrayUtils.addFirst  "myArray"  "a"         # ("a")
+    ArrayUtils.addFirst  "myArray"  "b"         # ("b" "a")
+    ArrayUtils.addFirst  "myArray"  ""          # ("" "a" "b")
+    ArrayUtils.addFirst  "myArray"  "c" "d"     # failure
+    ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
+ ```
 
-myVar="test"
-ArrayUtils.addFirst  "myVar"  "a"         # ("a")
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-declare -A myMap
-ArrayUtils.addFirst  "myMap"  "a"         # ("a")
+### Exit codes
+  * **0**: When first argument is an array and a value must be added.
+  * **1**: When none or more than 1 value must be added.
 
-myArray=()
-ArrayUtils.addFirst  "myArray"              # failure
-ArrayUtils.addFirst  "myArray"  "a"         # ("a")
-ArrayUtils.addFirst  "myArray"  "b"         # ("b" "a")
-ArrayUtils.addFirst  "myArray"  ""          # ("" "a" "b")
-ArrayUtils.addFirst  "myArray"  "c" "d"     # failure
-ArrayUtils.addFirst  "myArray"  "foo bar"   # ("foo bar" "" "b" "a")
-```
-
-#### Exit codes
-
-* **0**: When first argument is an array and a value must be added.
-* **1**: When none or more than 1 value must be added.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
-#### See also
-
-* For adding element in the middle of an array, please check [insert](./insert.md) method.
-
+### See also
+  * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.
+  * [ArrayUtil.add](./add.md): Adding a single elements at the end of an array.
+  * [ArrayUtil.addAll](./addAll.md): Adding multiple elements at the end of an array.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

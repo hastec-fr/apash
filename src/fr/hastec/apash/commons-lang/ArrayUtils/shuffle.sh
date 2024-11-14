@@ -1,28 +1,21 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
 apash.import fr.hastec.apash.util.Random.nextInt
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.shuffle
 # @brief Randomly permutes the elements of the specified array randomness.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
@@ -35,15 +28,16 @@ apash.import fr.hastec.apash.util.Random.nextInt
 #    ArrayUtils.shuffle    "myArray"                 # ("a" "b" "d" "c")
 # ```
 #
-# @arg $1 ref(string[]) Name of the array to shuffle. [Default: N/A]
-#
 # @stdout None.
 # @stderr None.
 #
-# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
 # @exitcode 0 When the array is shuffled.
 # @exitcode 1 When the input is not an array.
+#
+# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
+#/
 ArrayUtils.shuffle() {
+  Log.entry "$LINENO" "$@"
   local ioArrayName="$1"
   local i=0
   

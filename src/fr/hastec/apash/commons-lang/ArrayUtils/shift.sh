@@ -1,29 +1,23 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.shift
 # @brief Shifts the order of a series of elements in the given array.
 # @description
 #   This method does nothing for non existing array.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
@@ -49,16 +43,18 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #
 #    myArray=("a" "b" "c" "" "d")
 #    ArrayUtils.shift    "myArray"  "-1"              # ("b" "c" "" "d" "a")
-#
 # ```
 #
 # @stdout None.
 # @stderr None.
 #
-# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.6959
 # @exitcode 0 When the array is shifted.
 # @exitcode 1 When the input is not an array or the offset/indexes are not integers.
+#
+# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.6959
+#/
 ArrayUtils.shift() {
+  Log.entry "$LINENO" "$@"
   local ioArrayName="$1"
   local inOffset="${2:-0}"
   local inStartIndex="${3:-0}"

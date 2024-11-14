@@ -35,4 +35,3 @@ if [ "$APASH_SHELL" = "zsh" ]; then
 fi
 
 source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-apash.import "$APASH_HOME_DIR/src/fr/hastec/apash/util/Log.sh"

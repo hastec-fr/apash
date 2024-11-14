@@ -12,7 +12,7 @@ apash.import(){
     location="$APASH_SRC_DIR/"${l//./\/}
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$forceFlag" = "false" ] && typeset -f "$(basename "$(dirname "$l")").$(basename "${l%.*}")" > /dev/null 2>&1 && continue
+    [ "$forceFlag" = "false" ] && typeset -f "$(basename "$(dirname "$location")").$(basename "${location%.*}")" > /dev/null 2>&1 && continue
 
     # Import package
     if [ -d "$location" ]; then

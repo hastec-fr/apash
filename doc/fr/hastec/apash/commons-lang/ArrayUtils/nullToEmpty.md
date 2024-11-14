@@ -7,69 +7,56 @@
   # Apash
 </div>
 
-# ArrayUtils.nullToEmpty
 
+# ArrayUtils.nullToEmpty
 Defensive programming technique to change a null reference to an empty Array
 
-## Overview
+## Description
+   Only non referred variables are automatically transformed to emptyArray.
+   If array already exists, then nothing is done.
 
-Only non referred variables are automatically transformed to emptyArray.
-If array already exists, then nothing is done.
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
-
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.nullToEmpty](#arrayutilsnulltoempty)
-
-### ArrayUtils.nullToEmpty
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array if exists.        |
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array if exists.        |
 
 #### Example
-```bash
-ArrayUtils.nullToEmpty  ""                # failure
+ ```bash
+    ArrayUtils.nullToEmpty  ""                # failure
 
-myVar=test
-ArrayUtils.nullToEmpty  "myVar"           # failure
+    myVar=test
+    ArrayUtils.nullToEmpty  "myVar"           # failure
 
-declare -A myMap
-ArrayUtils.nullToEmpty  "myMap"           # failure
+    declare -A myMap
+    ArrayUtils.nullToEmpty  "myMap"           # failure
 
-ArrayUtils.nullToEmpty  "myUndefVar"      # myUndefVar=()
+    ArrayUtils.nullToEmpty  "myUndefVar"      # myUndefVar=()
 
-myArray=()
-ArrayUtils.nullToEmpty  "myArray"         # myArray=()
+    myArray=()
+    ArrayUtils.nullToEmpty  "myArray"         # myArray=()
 
-myArray=("a" "b" "c")
-ArrayUtils.nullToEmpty  "myArray"  "a"    # myArray=("a" "b" "c")
-```
+    myArray=("a" "b" "c")
+    ArrayUtils.nullToEmpty  "myArray"  "a"    # myArray=("a" "b" "c")
+ ```
 
-#### Exit codes
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* **0**: When the array is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the array is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

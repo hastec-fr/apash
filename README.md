@@ -28,7 +28,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Troubleshooting](#troubleshooting)
 - [Maintenance](#maintenance)
 - [License](#license)
-- [Explore the API](doc/bash/fr/hastec/apash.md) (or with the [Full Summary Table](doc/bash/fr/hastec/apacheFullSummaryTable.md))
+- [Explore the API](doc/fr/hastec/apash.md) (or with the [Full Summary Table](doc/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
 As other shell projects, unfortunately there is no standard way to install Apash. But below are the main ones.

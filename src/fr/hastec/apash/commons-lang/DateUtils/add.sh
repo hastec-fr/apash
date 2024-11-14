@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 apash.import fr.hastec.apash.commons-lang.DateUtils.isDate
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
@@ -46,6 +47,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # @exitcode 0 When are using the correct format of date and integer.
 # @exitcode 1 Otherwise.
 DateUtils.add() {
+  Log.entry "$LINENO" "$@"
   local inDate="$1"
   local inAmount="$2"
   local inType="$3"

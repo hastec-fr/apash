@@ -7,59 +7,45 @@
   # Apash
 </div>
 
+
 # ArrayUtils.toArray
+Create an array based on list of arguments.
+## Description
+   The toArray is stopped at the end of the array and as many as possible elements are toArrayed.
 
-Create an array based on list of arguments
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-## Overview
-
-The toArray is stopped at the end of the array and as many as possible elements are toArrayed.
-
-### Since:
-0.1.0
-
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.toArray](#arrayutilstoarray)
-
-### ArrayUtils.toArray
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default         | Description                          |
-|--------|----------------|---------------|----------|-----------------|--------------------------------------|
-| $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
-| ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
+ | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
 
 #### Example
-```bash
-myArray=()
-ArrayUtils.toArray    "myArray"                   # ()
-ArrayUtils.toArray    "myArray"  "2"              # (2)
-ArrayUtils.toArray    "myArray"  "a" "b" "c" "d"  # ("a" "b" "c" "d")
-ArrayUtils.toArray    "myArray"  "a" "2" "b"      # ("a" "2" "b")
-```
+ ```bash
+    myArray=()
+    ArrayUtils.toArray    "myArray"                   # ()
+    ArrayUtils.toArray    "myArray"  "2"              # (2)
+    ArrayUtils.toArray    "myArray"  "a" "b" "c" "d"  # ("a" "b" "c" "d")
+    ArrayUtils.toArray    "myArray"  "a" "2" "b"      # ("a" "2" "b")
+ ```
 
-#### Exit codes
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* **0**: When list of argument are pushed to the array.
-* **1**: When the input is not an array.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When list of argument are pushed to the array.
+  * **1**: When the input is not an array.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

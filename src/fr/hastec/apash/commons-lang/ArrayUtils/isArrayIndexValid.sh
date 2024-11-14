@@ -1,28 +1,24 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.isArrayIndexValid
 # @brief Returns whether a given array can safely be accessed at the given index.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
 # ### Authors:
 # * Benjamin VARGIN
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -31,12 +27,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # #### Example
 # ```bash
-#    ArrayUtils.isArrayIndexValid ""       ""     # false
-#    ArrayUtils.isArrayIndexValid "myVar"  "a"    # false
-#
-#    declare -A myMap
-#    ArrayUtils.isArrayIndexValid "myMap"  "a"    # false
-#
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.isArrayIndexValid "myArray" "1"                  # true
 #    ArrayUtils.isArrayIndexValid "myArray" "${#myArray}"        # false
@@ -51,7 +41,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # @exitcode 0 Whether the given index is safely-accessible in the given array.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.isArrayIndexValid() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
   local inIndex="$2"
   local lastIndex

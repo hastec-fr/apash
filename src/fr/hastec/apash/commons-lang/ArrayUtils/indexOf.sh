@@ -1,30 +1,28 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.indexOf
 # @brief Finds the first index of the given value in the array starting at the given index.
 # @description
-#   A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty
+#   A negative startIndex is treated as zero. 
+#   A startIndex larger than the array length will return an empty.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
 # ### Authors:
 # * Benjamin VARGIN
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -35,18 +33,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # #### Example
 # ```bash
 #    myIndexes=()
-#    ArrayUtils.indexOf  ""       ""         # failure - ""
-#    ArrayUtils.indexOf  "myVar"  "a"        # failure - ""
-#
-#    declare -A myMap
-#    ArrayUtils.indexOf  "myMap"  "a"        # failure - ""
-#
-#    myArray=("a" "b" )
-#
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.indexOf  "myArray" "b"       # ("1")
 #    ArrayUtils.indexOf  "myArray" ""        # ("2")
-#    ArrayUtils.indexOf  "myArray"           # failure - ""
+#    ArrayUtils.indexOf  "myArray"           # () - failure
 #
 #    myIndexes=(1 2)
 #    myArray=("a" "b")
@@ -61,7 +51,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #
 # @exitcode 0 When input array references exist and start index is an integer (when declared).
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.indexOf() {
+  Log.entry "$LINENO" "$@"
+
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
 

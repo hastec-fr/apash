@@ -7,69 +7,54 @@
   # Apash
 </div>
 
+
 # ArrayUtils.getNumberOfElements
-
 Returns the number of elements in the arrays.
+## Description
+   This number correspond to the lenght in zsh and could be different in bash
+   due to the discontinued indexes.
 
-## Overview
-
-This number correspond to the lenght in zsh and could be different in bash
-due to the discontinued indexes.
-
-### Since:
-0.2.0
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
 ### Authors:
-* Benjamin VARGIN
+ * Benjamin VARGIN
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-
-Method description #########################################################
-
-## Index
-
-* [ArrayUtils.getNumberOfElements](#arrayutilsgetnumberofelements)
-
-### ArrayUtils.getNumberOfElements
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 
 #### Example
-```bash
-myArray=("a" "b" "" "c")
-ArrayUtils.getNumberOfElements  "myArray"      # 4
+ ```bash
+    myArray=("a" "b" "" "c")
+    ArrayUtils.getNumberOfElements  "myArray"      # 4
 
-myArray[10]=z
-ArrayUtils.getNumberOfElements  "myArray"      # bash: 5, zsh: 10
+    myArray[10]=z
+    ArrayUtils.getNumberOfElements  "myArray"      # bash: 5, zsh: 10
 
-myArray=()
-ArrayUtils.getNumberOfElements  "myArray"      # 0
-```
+    myArray=()
+    ArrayUtils.getNumberOfElements  "myArray"      # 0
+ ```
 
-#### Exit codes
+### Stdout
+  * The number of element, or empty if it's not an array or does not exists.
+### Stderr
+  * None.
 
-* **0**: When input array reference exists.
-* **1**: Otherwise.
+### Exit codes
+  * **0**: When input array reference exists.
+  * **1**: Otherwise.
 
-#### Output on stdout
-
-* The number of element, or empty if it's not an array or does not exists.
-
-#### Output on stderr
-
-* None.
-
-#### See also
-
-* [ArrayUtils.getLastIndex](./getLastIndex.md)
-
+### See also
+  * [ArrayUtils.getLastIndex](./getLastIndex.md)
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

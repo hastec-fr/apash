@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.getLastIndex
 # @brief Return the last index of the given array.
 # @description
 #   Empty string is returned if the array is empty.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -30,13 +24,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # #### Example
 # ```bash
-#    myIndexes=()
-#    ArrayUtils.getLastIndex  ""               # failure - ""
-#    ArrayUtils.getLastIndex  "myVar"          # failure - ""
-#
-#    declare -A myMap
-#    ArrayUtils.getLastIndex  "myMap"          # failure - ""
-#
 #    myArray=()
 #    ArrayUtils.getLastIndex  "myArray"        # "-1"
 #
@@ -45,7 +32,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 #    myArray[9223372036854775807]=z
 #    ArrayUtils.getLastIndex  "myArray"        # 9223372036854775807
-#   
 #  ```
 #
 # @stdout The last index of the array.
@@ -53,11 +39,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # @exitcode 0 When input array references exist.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.getLastIndex() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
+
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 
-  # In zsh, all elements are declared, no hole in the array
+  # In zsh, no discontinued indexes in the array so it returns length minus the start index.
   if [ "$APASH_SHELL" = "zsh" ]; then
     local arrayLength=${#${(P)inArrayName}[@]}
     [[ $arrayLength == 0 ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"

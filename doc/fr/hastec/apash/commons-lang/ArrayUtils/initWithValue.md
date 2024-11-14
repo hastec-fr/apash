@@ -7,68 +7,56 @@
   # Apash
 </div>
 
+
 # ArrayUtils.initWithValue
-
 Initialize an array for a specific width and value
+## Description
+   The array is created if the variable is not declared.
+   If it was an array, then reinitialize it.
+   If it's an existing variable or map, just fail to protect overriding.
 
-## Overview
-
-The array is created if the variable is not declared.
-If it was an array, then reinitialize it.
-If it's an existing variable or map, just fail to protect overriding.
-
-### Since:
-0.2.0
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
 ### Authors:
-* Benjamin VARGIN
+ * Benjamin VARGIN
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
-## Index
-
-* [ArrayUtils.initWithValue](#arrayutilsinitwithvalue)
-
-### ArrayUtils.initWithValue
+#### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
+ | $2     | inWidth        | number        | in       | 0          | Number of array record to initialize.|
+ | $3     | inValue        | string        | in       | ""         | Value to initialize with.            |
 
 #### Example
-```bash
+ ```bash
+    ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
 
-myVar="test" 
-ArrayUtils.initWithValue  "myVar"           # failure
+    myArray=()
+    ArrayUtils.initWithValue  "myArray" 4 0     # myArray=(0 0 0 0)
 
-declare -A myMap=([foo]=bar)
-ArrayUtils.initWithValue  "myMap"           # failure
+    myArray=("a" "b" "c")
+    ArrayUtils.initWithValue  "myArray" 2 "ah!" # myArray=("ah!" "ah!")
+ ```
 
-ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-myArray=()
-ArrayUtils.initWithValue  "myArray" 4 0     # myArray=(0 0 0 0)
+### Exit codes
+  * **0**: When the array is initialized.
+  * **1**: Otherwise.
 
-myArray=("a" "b" "c")
-ArrayUtils.initWithValue  "myArray" 2 "ah!" # myArray=("ah!" "ah!")
-```
-
-#### Exit codes
-
-* **0**: When the array is initialized.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
-#### See also
-
-* [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
-
+### See also
+  * [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

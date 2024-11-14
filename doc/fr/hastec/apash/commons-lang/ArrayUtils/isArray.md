@@ -7,66 +7,51 @@
   # Apash
 </div>
 
-# ArrayUtils.isArray
 
+# ArrayUtils.isArray
 Check if the input name is an array or not.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.isArray](#arrayutilsisarray)
-
-### ArrayUtils.isArray
-
-*
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inVarName      | string        | in       |            | Name of the array.                   |
-
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | inVarName      | string        | in       |            | Name of the array.                   |
+ 
 #### Example
-```bash
-ArrayUtils.isArray  ""          # false
-ArrayUtils.isArray  "myVar"     # false
+ ```bash
+    ArrayUtils.isArray  ""          # false
+    ArrayUtils.isArray  "myVar"     # false
 
-declare -a myArray
-ArrayUtils.isArray  "myArray"   # true
+    declare -a myArray
+    ArrayUtils.isArray  "myArray"   # true
+   
+    myArray=()
+    ArrayUtils.isArray  "myArray"   # true
 
-myArray=()
-ArrayUtils.isArray  "myArray"   # true
+    declare -A myMap
+    ArrayUtils.isArray   "myMap"    # false
 
-declare -A myMap
-ArrayUtils.isArray   "myMap"    # false
+    myMap=(["foo"]="bar")
+    ArrayUtils.isArray   "myMap"    # false
+ ```
 
-myMap=(["foo"]="bar")
-ArrayUtils.isArray   "myMap"    # false
-```
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-#### Exit codes
-
-* **0**: Whe the corresponding variable is an array.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: Whe the corresponding variable is an array.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

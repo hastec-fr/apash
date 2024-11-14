@@ -1,31 +1,28 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.indexesOf
 # @brief Finds the indices of the given value in the array starting at the given index.
 # @description
 #   A negative startIndex is treated as zero. 
 #   A startIndex larger than the array length will return an empty.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
 # ### Authors:
 # * Benjamin VARGIN
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -37,13 +34,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # #### Example
 # ```bash
-#    myIndexes=()
-#    ArrayUtils.indexesOf "myIndexes" ""       ""     # failure - ()
-#    ArrayUtils.indexesOf "myIndexes" "myVar"  "a"    # failure - ()
-#
-#    declare -A myMap
-#    ArrayUtils.indexesOf "myIndexes" "myMap"  "a"    # failure - ()
-#
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "b"   # ("1" "4")
 #
@@ -59,7 +49,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # @exitcode 0 When input array references exist.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.indexesOf() {
+  Log.entry "$LINENO" "$@"
   local outIndexesName="$1"
   ArrayUtils.nullToEmpty "$outIndexesName" || return "$APASH_FUNCTION_FAILURE"
 

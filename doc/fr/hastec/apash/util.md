@@ -28,6 +28,7 @@ This implementation do reference to the [java implementation](https://docs.oracl
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 |[Array](util/Array.md)|Contains methods for performing basic numeric operations|
+|[Log-min](util/Log-min.md)||
 |[Log](util/Log.md)|Log a message with all provided informations|
 |[Random](util/Random.md)|Contains methods for generating numbers|
 <!-- apash.summaryTableEnd -->

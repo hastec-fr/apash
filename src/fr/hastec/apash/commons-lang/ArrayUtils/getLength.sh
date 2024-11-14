@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.getLength
 # @brief Returns the length of the specified array.
 # @description
@@ -13,20 +14,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #   Setting this value does not mean that the length is 9223372036854775807.
 #   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-#
-#
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -34,12 +27,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # #### Example
 # ```bash
-#    ArrayUtils.getLength  ""             # failure - ""
-#    ArrayUtils.getLength  "myVar"        # failure - ""
-#
-#    declare -A myMap
-#    ArrayUtils.getLength  "myMap"        # failure - ""
-#
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.getLength  "myArray"      # 4
 #
@@ -57,7 +44,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
+#/
 ArrayUtils.getLength() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
   ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
 

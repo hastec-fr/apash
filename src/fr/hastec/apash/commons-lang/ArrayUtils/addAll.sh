@@ -1,83 +1,83 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.addAll
 # @brief Adds given elements at the end of an array.
-#
 # @description
 #   The array is automatically created if the variable is not declared.
 #   Existing variables or maps are not overriden and the function fails.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
 # ### Authors:
-# * Benjamin VARGIN
+#  * 0.2.0 (hastec-fr): 
+#    * Fix issue with discontinued indexes in bash.
+#    * Consider no argument as success (nothing added).
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                           |
-# |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.          |
-# | ${@:2} | inValues       | string...     | in       |            | Values to add at the end of the array.|
+# | #      | varName           | Type          | in/out   | Default    | Description                           |
+# |--------|-------------------|---------------|----------|------------|---------------------------------------|
+# | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.          |
+# | ${@:2} | $@                | string...     | in       |            | Values to add at the end of the array.|
 #
 # #### Example
 # ```bash
-#    ArrayUtils.addAll  ""       ""            # failure
-#    
-#    myVar="test"
-#    ArrayUtils.addAll  "myVar"  "a"           # failure
-#
-#    declare -A myMap
-#    ArrayUtils.addAll  "myMap"  "a"           # failure
-#
-#    myArray=()
-#    ArrayUtils.addAll  "myArray"              # failure
+#    ArrayUtils.addAll  "myArray"              # ()
 #    ArrayUtils.addAll  "myArray"  "a"         # ("a")
 #    ArrayUtils.addAll  "myArray"  "b" ""      # ("a" "b" "")
 #    ArrayUtils.addAll  "myArray"  "c" "d"     # ("a" "b" "" "c" "d")
 #    ArrayUtils.addAll  "myArray"  "foo bar"   # ("a" "b" "" "c" "d" "foo bar")
+#
+#    myArray=("a" "b")
+#    myArray[APASH_ARRAY_FIRST_INDEX+3]="x"
+#    ArrayUtils.addAll  "myArray" "foo bar" "z"   # ("a" "b" "" "x" "foo bar" "z")
 # ```
 #
 # @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check [insert](./insert.md) method.
-#
 # @exitcode 0 When first argument is an array and at least one value is provided.
 # @exitcode 1 Otherwise.
+#
+# @see
+#  * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.
+#  * [ArrayUtil.add](./add.md): Adding a single elements at the end of an array.
+#  * [ArrayUtil.addFirst](./addFirst.md): Adding an element at the beginning of an array.
+#/
 ArrayUtils.addAll() {
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
-  
-  local ioArrayName="$1"
-  ArrayUtils.nullToEmpty "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  Log.entry "$LINENO" "$@"
+  local apash_ioArrayName="$1"
   shift
 
+  # @todo: Create functions addOne and addMany to force at least one entry.
+  # Create the array if it does not exists and succeed if no value should be added.
+  ArrayUtils.nullToEmpty "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  [ $# -eq 0 ] && return "$APASH_FUNCTION_SUCCESS"
+
+  # Get the array in local scope.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local outArray=()
-    ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
-  else
-    # shellcheck disable=SC2178
-    local -n outArray="$ioArrayName"
+    local apash_outArray=()
+    ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || return "$APASH_FUNCTION_FAILURE"
+  else # bash
+    local -n apash_outArray="$apash_ioArrayName"
   fi
   
-  # Return failure if the number of elements exceed the bounds.
-  ArrayUtils.isArrayIndex $((APASH_ARRAY_FIRST_INDEX + ${#outArray} + $# - 1)) ||  return "$APASH_FUNCTION_FAILURE"
-
+  # @todo: Find a way to determine if added value are not out of bound of indexes (insert, add* methods).
   # Add values at the end of the array
-  outArray+=("$@")
-  [ "$APASH_SHELL" = "zsh" ] && ArrayUtils.clone "outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  apash_outArray+=("$@")
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  fi
 
   return "$APASH_FUNCTION_SUCCESS"
 }

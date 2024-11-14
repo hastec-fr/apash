@@ -1,28 +1,21 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.insert
 # @brief Inserts elements into an array at the given index (starting from zero).
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -32,19 +25,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # #### Example
 # ```bash
-#    ArrayUtils.insert  ""       ""          # failure
-#    ArrayUtils.insert  "myVar"  "a"         # failure
-#
-#    declare -A myMap
-#    ArrayUtils.insert  "myMap"  "a"         # failure
-#
-#    ioArray=()
-#    ArrayUtils.insert  "0"           "ioArray"              # failure
-#    ArrayUtils.insert  "0"           "ioArray"  "a"         # ("a")
-#    ArrayUtils.insert  "${#ioArray}" "ioArray"  "b" ""      # ("a" "b" "")
-#    ArrayUtils.insert  "2"           "ioArray"  "c" "d"     # ("a" "b" "c" "d" "")
-#    ArrayUtils.insert  "1"           "ioArray"  "foo bar"   # ("a" "foo bar" "b" "c" "d" "")
-#    ArrayUtils.insert  "-1"          "ioArray" "test"      # failure - ("a" "foo bar" "b" "c" "d" "")
+#    myArray=()
+#    ArrayUtils.insert  "0"           "myArray"              # () - failure
+#    ArrayUtils.insert  "0"           "myArray"  "a"         # ("a")
+#    ArrayUtils.insert  "${#ioArray}" "myArray"  "b" ""      # ("a" "b" "")
+#    ArrayUtils.insert  "2"           "myArray"  "c" "d"     # ("a" "b" "c" "d" "")
+#    ArrayUtils.insert  "1"           "myArray"  "foo bar"   # ("a" "foo bar" "b" "c" "d" "")
+#    ArrayUtils.insert  "-1"          "myArray" "test"       # ("a" "foo bar" "b" "c" "d" "") - failure
 # ```
 #
 # @stdout None.
@@ -52,7 +39,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # @exitcode 0 When all elements are inserted.
 # @exitcode 1 When the index is not a positive number or reference is not an array or there are no value to insert.
+#/
 ArrayUtils.insert() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 3 ] && return "$APASH_FUNCTION_FAILURE"
 
   local inIndex="$1"

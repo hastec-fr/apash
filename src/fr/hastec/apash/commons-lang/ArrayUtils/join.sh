@@ -1,32 +1,22 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.join
 # @brief Return all elements of an array joined by an input string.
 #
-# @description
-# ### Authors:
-# * Benjamin VARGIN
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Example
 # ```bash
-#    ArrayUtils.join  ""       ""            # failure - ""
-#    ArrayUtils.join  "myVar"  "a"           # failure - ""
-#
-#    declare -A myMap
-#    ArrayUtils.join  "myMap"  "a"           # failure - ""
-#
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.join  "myArray"              # "a b  c"
 #    ArrayUtils.join  "myArray"  ","         # "a,b,,c"
@@ -44,12 +34,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 #
 # @exitcode 0 When first argument is an array.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.join() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
   local inDelimiter="${2:- }"
   local -i i
   local outString=""
-  local length
+  local arrayLength
 
   arrayLength=$(ArrayUtils.getLength "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
   

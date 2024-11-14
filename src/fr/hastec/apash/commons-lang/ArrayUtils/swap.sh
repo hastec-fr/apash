@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.lang.Math.min
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.swap
 # @brief Swaps a series of elements in the given array.
 # @description
@@ -14,19 +15,12 @@ apash.import fr.hastec.apash.lang.Math.min
 #   Negative indices are promoted to 0(zero).
 #   The swap is stopped at the end of the array and as many as possible elements are swapped.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
@@ -38,8 +32,8 @@ apash.import fr.hastec.apash.lang.Math.min
 # #### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.swap    "myArray"                 # failure - ""
-#    ArrayUtils.swap    "myArray"  "2"            # failure - ""
+#    ArrayUtils.swap    "myArray"                 # failure
+#    ArrayUtils.swap    "myArray"  "2"            # failure
 #    ArrayUtils.swap    "myArray"  "0" "2"        # ("c" "b" "a" "d")
 #
 #    myArray=("a" "b" "c" "d")
@@ -56,17 +50,18 @@ apash.import fr.hastec.apash.lang.Math.min
 #
 #    myArray=("a" "b" "c" "d" "e")
 #    ArrayUtils.swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
-#
 # ```
 #
 # @stdout None.
 # @stderr None.
 #
-# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
-#
 # @exitcode 0 When the array is swaped.
 # @exitcode 1 When the input is not an array or the offset/indexes are not integers.
+#
+# @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
+#/
 ArrayUtils.swap() {
+  Log.entry "$LINENO" "$@"
   local ioArrayName="$1"
   local inStartIndex="$2"
   local inEndIndex="$3"

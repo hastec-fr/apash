@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name ArrayUtils.isArray
 # @brief Check if the input name is an array or not.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description*
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -46,7 +40,9 @@
 #
 # @exitcode 0 Whe the corresponding variable is an array.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.isArray() {
+   Log.entry "$LINENO" "$@"
    local inVarName="$1"
    declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && return "$APASH_FUNCTION_SUCCESS"
    return "$APASH_FUNCTION_FAILURE"

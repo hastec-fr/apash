@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
@@ -8,25 +9,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeDuplicates
 apash.import fr.hastec.apash.util.Array.sort
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.removeAll
 # @brief Removes the elements at the specified positions from the specified array.
 # @description
 #   All remaining elements are shifted to the left.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -35,12 +29,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # #### Example
 # ```bash
-#    ArrayUtils.removeAll  ""       ""          # failure
-#    ArrayUtils.removeAll  "myVar"  "0"         # failure
-#
-#    declare -A myMap
-#    ArrayUtils.removeAll  "myMap"  "0"         # failure
-#
 #    myArray=("a" "b" "c" "" "d")
 #    ArrayUtils.removeAll  "myArray"            # failure
 #    ArrayUtils.removeAll  "myArray"  "4"       # ("a" "b" "c" "")
@@ -61,7 +49,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #
 # @exitcode 0 When first argument is an array and all indexes are valid numbers.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.removeAll() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
 
   local ioArrayName="$1"

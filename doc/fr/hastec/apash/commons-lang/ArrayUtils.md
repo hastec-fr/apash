@@ -36,8 +36,8 @@ Contrary to Java implementation, methods are generally modifying directly the in
 |[addFirst](ArrayUtils/addFirst.md)|Adds given elements at the beginning of an array.|
 |[anythingToEmpty](ArrayUtils/anythingToEmpty.md)|Create an array even if the variable named was already declared.|
 |[clone](ArrayUtils/clone.md)|Copy an array into another array using references.|
-|[concat](ArrayUtils/concat.md)|Concatenate multiple arrays|
-|[contains](ArrayUtils/contains.md)|Adds given elements at the end of an array.|
+|[concat](ArrayUtils/concat.md)|Concatenate multiple arrays.|
+|[contains](ArrayUtils/contains.md)|Checks if the value is in the given array.|
 |[countMatches](ArrayUtils/countMatches.md)|Return the number of cells having the given value|
 |[get](ArrayUtils/get.md)|Gets the nTh element of an array or a default value if the index is out of bounds.|
 |[getLastIndex](ArrayUtils/getLastIndex.md)|Return the last index of the given array.|
@@ -70,7 +70,7 @@ Contrary to Java implementation, methods are generally modifying directly the in
 |[shuffle](ArrayUtils/shuffle.md)|Randomly permutes the elements of the specified array randomness.|
 |[subarray](ArrayUtils/subarray.md)|Produces a new array containing the elements between the start and end indices.|
 |[swap](ArrayUtils/swap.md)|Swaps a series of elements in the given array.|
-|[toArray](ArrayUtils/toArray.md)|Create an array based on list of arguments|
+|[toArray](ArrayUtils/toArray.md)|Create an array based on list of arguments.|
 <!-- apash.summaryTableEnd -->
 
 

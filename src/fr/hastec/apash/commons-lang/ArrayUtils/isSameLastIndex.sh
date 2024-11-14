@@ -1,27 +1,20 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.isSameLastIndex
 # @brief Checks whether two arrays are the same length, return false if it's not an array.
-# @description
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -30,12 +23,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # #### Example
 # ```bash
-#    ArrayUtils.isSameLastIndex ""        ""          # false
-#    ArrayUtils.isSameLastIndex "myVar"   "myVar"     # false
-#
-#    declare -A myMap
-#    ArrayUtils.isSameLastIndex "myMap"    "myMap     # false
-#
 #    myArray=()
 #    ArrayUtils.isSameLastIndex "myArray"  "myArray"  # true
 #    ArrayUtils.isSameLastIndex "myArray"  ""         # false
@@ -59,7 +46,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # @exitcode 0 True if length of arrays matches.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.isSameLastIndex() {
+  Log.entry "$LINENO" "$@"
   local inArrayName1="$1"
   local inArrayName2="$2"
   local lastIndex1

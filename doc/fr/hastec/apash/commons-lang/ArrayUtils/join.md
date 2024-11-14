@@ -7,61 +7,42 @@
   # Apash
 </div>
 
-# ArrayUtils.join
 
+# ArrayUtils.join
 Return all elements of an array joined by an input string.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.join](#arrayutilsjoin)
-
-### ArrayUtils.join
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Example
-```bash
-ArrayUtils.join  ""       ""            # failure - ""
-ArrayUtils.join  "myVar"  "a"           # failure - ""
+ ```bash
+    myArray=("a" "b" "" "c")
+    ArrayUtils.join  "myArray"              # "a b  c"
+    ArrayUtils.join  "myArray"  ","         # "a,b,,c"
+    ArrayUtils.join  "myArray"  "|1|"       # "a|1|b|1||1|c"
+    
+    myArray[6]="z"
+    ArrayUtils.join  "myArray"  ","         # "a,b,,c,,z"
+ ```
 
-declare -A myMap
-ArrayUtils.join  "myMap"  "a"           # failure - ""
+ @arg $1 ref(string[]) Name of the array to get values.
+ @arg $2 string The delimiter which join values. (Default=" ")
 
-myArray=("a" "b" "" "c")
-ArrayUtils.join  "myArray"              # "a b  c"
-ArrayUtils.join  "myArray"  ","         # "a,b,,c"
-ArrayUtils.join  "myArray"  "|1|"       # "a|1|b|1||1|c"
+### Stdout
+  * A single string having all values of the array joined by the chosen delimiter.
+### Stderr
+  * None.
 
-myArray[6]="z"
-ArrayUtils.join  "myArray"  ","         # "a,b,,c,,z"
-```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array to get values.
-* **$2** (string): The delimiter which join values. (Default=" ")
-
-#### Exit codes
-
-* **0**: When first argument is an array.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* A single string having all values of the array joined by the chosen delimiter.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When first argument is an array.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

@@ -1,30 +1,24 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.removeDuplicates
 # @brief Removes elements which are present multiple times in the array.
 # @description
 #   All remaining elements are shifted to the left.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -49,11 +43,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #
 # @exitcode 0 When first argument is an array.
 # @exitcode 1 Otherwise.
+#/
 ArrayUtils.removeDuplicates() {
+  Log.entry "$LINENO" "$@"
   local ioArrayName="$1"
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
   local lastIndex
   local uniqueArray=()
+  
   lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
 
   if [ "$APASH_SHELL" = "zsh" ]; then

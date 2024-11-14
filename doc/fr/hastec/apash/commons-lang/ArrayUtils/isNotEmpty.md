@@ -7,65 +7,47 @@
   # Apash
 </div>
 
-# ArrayUtils.isNotEmpty
 
+# ArrayUtils.isNotEmpty
 Checks if an array exist and has at least one element.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
-
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.isNotEmpty](#arrayutilsisnotempty)
-
-### ArrayUtils.isNotEmpty
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 
 #### Example
-```bash
-ArrayUtils.isNotEmpty ""              # false
-ArrayUtils.isNotEmpty "myVar"         # false
+ ```bash
+    ArrayUtils.isNotEmpty "myArray"       # false
 
-declare -A myMap
-ArrayUtils.isNotEmpty "myMap"         # false
+    myArray=()
+    ArrayUtils.isNotEmpty "myArray"       # false
 
-myArray=()
-ArrayUtils.isNotEmpty "myArray"       # false
+    myArray=("a")
+    ArrayUtils.isNotEmpty "myArray"       # true 
 
-myArray=("a")
-ArrayUtils.isNotEmpty "myArray"       # true 
+    myArray=("")
+    ArrayUtils.isNotEmpty "myArray"       # true 
+ ```
 
-myArray=("")
-ArrayUtils.isNotEmpty "myArray"       # true 
-```
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-#### Exit codes
-
-* **0**: Whether the given array has at least one element.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: Whether the given array has at least one element.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

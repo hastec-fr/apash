@@ -1,48 +1,35 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.addFirst
 # @brief Adds given elements at the beginning of an array.
-#
 # @description
 #   The array is automatically created if the variable is not declared.
 #   Existing variables or maps are not overriden and the function fails.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ### Changelogs:
+#  * 0.2.0 (hastec-fr):  Consider no argument as success (nothing added).
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
-# | ${@:2} | inValues       | string...    | in       |            | Value to add at the beginning of the array.|
+# | #      | varName           | Type          | in/out   | Default    | Description                          |
+# |--------|-------------------|---------------|----------|------------|--------------------------------------|
+# | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.         |
+# | $2     | apash_inValue     | string...     | in       |            | Value to add at the beginning of the array.|
 #
 # #### Example
 # ```bash
-#    ArrayUtils.addFirst  ""       ""          # failure
-#
-#    myVar="test"
-#    ArrayUtils.addFirst  "myVar"  "a"         # ("a")
-#
-#    declare -A myMap
-#    ArrayUtils.addFirst  "myMap"  "a"         # ("a")
-#
-#    myArray=()
-#    ArrayUtils.addFirst  "myArray"              # failure
+#    ArrayUtils.addFirst  "myArray"              # ()
 #    ArrayUtils.addFirst  "myArray"  "a"         # ("a")
 #    ArrayUtils.addFirst  "myArray"  "b"         # ("b" "a")
 #    ArrayUtils.addFirst  "myArray"  ""          # ("" "a" "b")
@@ -53,31 +40,42 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @stdout None.
 # @stderr None.
 #
-# @see For adding element in the middle of an array, please check [insert](./insert.md) method.
-#
 # @exitcode 0 When first argument is an array and a value must be added.
 # @exitcode 1 When none or more than 1 value must be added.
+#
+# @see
+#  * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.
+#  * [ArrayUtil.add](./add.md): Adding a single elements at the end of an array.
+#  * [ArrayUtil.addAll](./addAll.md): Adding multiple elements at the end of an array.
+#/
 ArrayUtils.addFirst() {
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  local ref_ArrayUtilsAddFirst_inArrayName="$1"
-  ArrayUtils.nullToEmpty "$ref_ArrayUtilsAddFirst_inArrayName" || return "$APASH_FUNCTION_FAILURE"
-
-  local inValue="$2"
-  local ref_ArrayUtilsAddFirst_outArray=("$inValue")
-  local ref_ArrayUtilsAddFirst_inArray=()
+  Log.entry "$LINENO" "$@"
+  local apash_ioArrayName="$1"
+  local apash_inValue="$2"
+  # Prepare output array with expected value at the first position.
+  local apash_outArray=("$apash_inValue")
+  local apash_inArray=()
   local i
-  
-  ArrayUtils.clone "$ref_ArrayUtilsAddFirst_inArrayName" "ref_ArrayUtilsAddFirst_inArray" || return "$APASH_FUNCTION_FAILURE"
 
+  # Return imediatly if more than one value should be added.
+  [ $# -gt 2 ] && return "$APASH_FUNCTION_FAILURE"
+
+  # Create the array if it does not exists and fails if too many values should be added.
+  ArrayUtils.nullToEmpty "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  [ $# -lt 2 ] && return "$APASH_FUNCTION_SUCCESS"
+  
+  ArrayUtils.clone "$apash_ioArrayName" "apash_inArray" || return "$APASH_FUNCTION_FAILURE"
+
+  # Add the current array values to the output array.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    ref_ArrayUtilsAddFirst_outArray+=("${ref_ArrayUtilsAddFirst_inArray[@]}")
+    apash_outArray+=("${apash_inArray[@]}")
   else
-    # Need to preserve indexes in bash
-    for i in "${!ref_ArrayUtilsAddFirst_inArray[@]}"; do
-      # shellcheck disable=SC2034
-      ref_ArrayUtilsAddFirst_outArray[i+1]="${ref_ArrayUtilsAddFirst_inArray[i]}"
+    # Need to preserve indexes in bash (+1)
+    for i in "${!apash_inArray[@]}"; do
+      apash_outArray[i+1]="${apash_inArray[i]}"
     done
   fi
-  ArrayUtils.clone "ref_ArrayUtilsAddFirst_outArray" "$ref_ArrayUtilsAddFirst_inArrayName" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  return "$APASH_FUNCTION_SUCCESS"
 }

@@ -7,69 +7,47 @@
   # Apash
 </div>
 
+
 # ArrayUtils.getLastIndex
-
 Return the last index of the given array.
+## Description
+   Empty string is returned if the array is empty.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-Empty string is returned if the array is empty.
-
-### Since:
-0.2.0
-
-### Authors:
-* Benjamin VARGIN
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [ArrayUtils.getLastIndex](#arrayutilsgetlastindex)
-
-### ArrayUtils.getLastIndex
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
+<!-- apash.packageEnd -->
 
 #### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
 #### Example
-```bash
-myIndexes=()
-ArrayUtils.getLastIndex  ""               # failure - ""
-ArrayUtils.getLastIndex  "myVar"          # failure - ""
+ ```bash
+    myArray=()
+    ArrayUtils.getLastIndex  "myArray"        # "-1"
 
-declare -A myMap
-ArrayUtils.getLastIndex  "myMap"          # failure - ""
+    myArray=("a" "b" "" "c" "b")
+    ArrayUtils.getLastIndex  "myArray"        # 4
 
-myArray=()
-ArrayUtils.getLastIndex  "myArray"        # "-1"
+    myArray[9223372036854775807]=z
+    ArrayUtils.getLastIndex  "myArray"        # 9223372036854775807
+  ```
 
-myArray=("a" "b" "" "c" "b")
-ArrayUtils.getLastIndex  "myArray"        # 4
+### Stdout
+  * The last index of the array.
+### Stderr
+  * None.
 
-myArray[9223372036854775807]=z
-ArrayUtils.getLastIndex  "myArray"        # 9223372036854775807
-
-```
-
-#### Exit codes
-
-* **0**: When input array references exist.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* The last index of the array.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When input array references exist.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 
