@@ -1,30 +1,28 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.startsWith
 # @brief Check if a CharSequence starts with a specified prefix.
 # @description
 #   The prefix is a string (not a pattern).
-# ### Since:
-# 0.1.0
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
+# ## Interface
+# @apashPackage
 #
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inPrefix       | string        | in       |            | The prefix to find.                   |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.startsWith "" ""         # true
 #    StringUtils.startsWith "abcd" ""     # true
 #    StringUtils.startsWith "abcd" "ab"   # true
@@ -32,6 +30,7 @@
 #    StringUtils.startsWith ""     "a"    # false
 #    StringUtils.startsWith "abcd" "a.c"  # false
 #    StringUtils.startsWith "a.cd" "a.c"  # true
+# ```
 #
 # #### Implementation notes
 #   In zsh, pattern chararecters are interpreted even if they are between quotes.
@@ -41,7 +40,9 @@
 #
 # @exitcode 0 If the string starts with the prefix.
 # @exitcode 1 Otherwise.
+#/
 StringUtils.startsWith(){
+  Log.entry "$LINENO" "$@"
   local inString=$1
   local inPrefix=$2
 

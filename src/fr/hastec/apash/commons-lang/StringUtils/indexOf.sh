@@ -1,44 +1,41 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.indexOf
 # @brief Finds the first index of a substring occurence within another string.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inResearch     | string        | in       |            | The substring to find within the input string. |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.indexOf ""         ""   #  0
 #    StringUtils.indexOf "aabaabaa" ""   #  0
 #    StringUtils.indexOf "aabaabaa" "b"  #  2
 #    StringUtils.indexOf "aabaabaa" "ab" #  1
 #    StringUtils.indexOf "aabaabaa" "mn" # -1
+# ```
 #
 # @stdout The first index of the search, -1 if no match.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 If the index can be displayed.
 # @exitcode 1 Otherwise.
-#
-# @see [StringUtils](../StringUtils.md)
+#/
 StringUtils.indexOf() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local inResearch="$2"
   local index=-1

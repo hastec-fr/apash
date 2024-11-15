@@ -1,30 +1,28 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
-# File description ###########################################################
+##/
 # @name MatrixUtils.get
 # @brief Get a cell of an array according to its associated matrix.
-#
 # @description
 #   ⚠️ It is an experimental function.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+#
 # #### Example
 # ```bash
 #    # Use matrix representation of:
@@ -38,18 +36,17 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 #    MatrixUtils.get myMatrix          # a
 #    MatrixUtils.get myMatrix 0 0      # a   
 #    MatrixUtils.get myMatrix 1 1      # e
-#    MatrixUtils.get myMatrix 1 4      # failure - ""
+#    MatrixUtils.get myMatrix 1 4      # failure
 # ```
-#
-# @arg $1 ref(string[]) Name of the array if exists.
-# @arg $2 number... The number of element for a new dimension
 #
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
+#/
 MatrixUtils.get() {
+  Log.entry "$LINENO" "$@"
   local matrixName="$1"
   MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
   

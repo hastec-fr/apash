@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name StringUtils.split
 # @brief Splits the provided text into an array.
 # @description 
@@ -11,21 +12,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #   Splits the provided text into an array. Default separator is " "
 #   The separator is not included in the returned String array.
 #   Adjacent separators are treated as one separator. Leading and tailing separators
-#   are not considered.
+#   are not considered.<br/>
+#   @todo: Optimize this function.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -33,21 +28,24 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # | $2     | inString       | string        | in       |            | The string to split.                             |
 # | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.split myArray ""  ""                    # []
 #    StringUtils.split myArray ""  ":"                   # []
 #    StringUtils.split myArray "ab:cd:ef" ""             # ["ab:cd:ef"]
 #    StringUtils.split myArray "::ab::cd:::ef::" ":"     # ["ab", "cd", "ef"]
 #    StringUtils.split myArray $'ab\n\ncd\nef' $'\n'     # ["ab", "cd", "ef"]
 #    StringUtils.split myArray "abab::cd:ab:ef::ab" "ab" # ["::cd:", ":ef::"]
+# ```
 #
 # @stdout None.
 # @stderr None.
-#
-# @WARNING: Not optimized, but looks functional.
+# 
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
+#/
 StringUtils.split() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
   local inString="$2"
   local inDelimiter="${3:- }"
@@ -84,4 +82,3 @@ StringUtils.split() {
 
   return "$APASH_FUNCTION_SUCCESS"
 }
-

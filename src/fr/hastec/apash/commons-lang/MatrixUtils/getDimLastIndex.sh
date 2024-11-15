@@ -2,36 +2,34 @@
 # shellcheck disable=SC2068
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getDimOffset
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name MatrixUtils.getDimLastIndex
 # @brief Return the corresponding last index of the chosen dimension from the orginal array.
-#
 # @description
 #   ⚠️ It is an experimental function.
 #   For a two dimensional arrays it return the last index of a row.
+#   It transforms the last provided dimension and other missing dimensions
+#   to 0. Then it get the offset of the current dimension to calculate the 
+#   last index.
 # 
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# It transforms the last provided dimension and other missing dimensions
-# to 0. Then it get the offset of the current dimension to calculate the 
-# last index.
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 #
 # #### Example
 # ```bash
@@ -43,15 +41,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 #    MatrixUtils.getDimLastIndex "myMatrix" 2 0  # 8 - zsh: 9
 # ```
 #
-# @arg $1 ref(string[]) Name of the matrix.
-# @arg $2 number... The index per dimension.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
+#/
 MatrixUtils.getDimLastIndex() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
   local matrixName="$1"
   shift

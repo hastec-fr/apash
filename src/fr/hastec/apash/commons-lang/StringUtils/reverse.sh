@@ -1,43 +1,40 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 
-# File description ###########################################################
+##/
 # @name StringUtils.reverse
 # @brief Reverses a string.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to reverse.                |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.reverse             # ""
 #    StringUtils.reverse ""          # ""
 #    StringUtils.reverse "bat"       # "tab"
 #    StringUtils.reverse "bat man"   # "nam tab"
+# ```
 #
 # @stdout The reversed string.
 # @stderr None.
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 Otherwise.
+#/
 StringUtils.reverse() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local i
 
@@ -54,4 +51,3 @@ StringUtils.reverse() {
 
   return "$APASH_FUNCTION_FAILURE"
 }
-

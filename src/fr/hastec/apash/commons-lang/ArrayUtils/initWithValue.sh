@@ -7,7 +7,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 ##/
 # @name ArrayUtils.initWithValue
-# @brief Initialize an array for a specific width and value
+# @brief Initialize an array for a specific width and value.
 # @description
 #   The array is created if the variable is not declared.
 #   If it was an array, then reinitialize it.

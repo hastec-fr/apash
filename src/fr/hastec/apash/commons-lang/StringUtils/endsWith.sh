@@ -1,30 +1,28 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.endsWith
 # @brief Check if a string ends with a specified suffix.
 # @description
 #   The suffix is a string (not a pattern).
-# ### Since:
-# 0.1.0
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | Input string to check.                |
 # | $2     | inSuffix       | string        | in       |            | The suffix to find.                   |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.endsWith "" ""             # true
 #    StringUtils.endsWith "abcd"     ""     # true
 #    StringUtils.endsWith "abcd"     "cd"   # true
@@ -32,6 +30,7 @@
 #    StringUtils.endsWith ""         "c"    # false
 #    StringUtils.endsWith "apash"    ".sh"  # false
 #    StringUtils.endsWith "apash.sh" ".sh"  # false
+# ```
 #
 # #### Implementation notes
 #   In zsh, pattern chararecters are interpreted even if they are between quotes.
@@ -41,9 +40,9 @@
 #
 # @exitcode 0 If the string ends with the suffix.
 # @exitcode 1 Otherwise.
-#
-# @see [StringUtils](../StringUtils.md)
+#/
 StringUtils.endsWith(){
+  Log.entry "$LINENO" "$@"
   local inString=$1
   local inSuffix=$2
 

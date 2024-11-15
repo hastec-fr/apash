@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.substring
 # @brief Gets a substring from the specified String.
 # @description
@@ -9,19 +12,12 @@
 #   Any index minus 0 will be considered as 0 and any index over the length of the string
 #   will be considered as the length of the string.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default     | Description                           |
 # |--------|----------------|---------------|----------|-------------|---------------------------------------|
@@ -29,19 +25,23 @@
 # | $2 ?   | inPrefix       | string        | in       | 0           | The position to start from, negative means count back from the end of the String by this many characters. |
 # | $3 ?   | inPrefix       | string        | in       | ${#inString}| The position to end at (exclusive), negative means count back from the end of the String by this many characters. |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.substring ""              # return ""
 #    StringUtils.substring "abc"  0   2    # return "ab"
 #    StringUtils.substring "abc" -2  -1    # return "b"
 #    StringUtils.substring "abc" -4   2    # return "ab"
 #    StringUtils.substring "abc"  2   6    # return "c"
+# ```
 #
-# @stdout substring from start position to end position, empty if empty String input
-# @stderr None
+# @stdout substring from start position to end position, empty if empty String input.
+# @stderr None.
 #
 # @exitcode 0 If the string can be displayed.
 # @exitcode 1 Otherwise.
+#/
 StringUtils.substring() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local start=${2:-0}
   local end=${3:-${#inString}}

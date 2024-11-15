@@ -1,27 +1,20 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 apash.import fr.hastec.apash.commons-lang.MapUtils.init
 
-# File description ###########################################################
+##/
 # @name MapUtils.clone
 # @brief Copy a map into another map using references.
-# @description
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
@@ -49,7 +42,6 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 #    declare -A myArray=([foo]="bar" [key]="val")
 #    declare -A myClone=([bat]="man")
 #    MapUtils.clone     "myArray"  "myClone"   # myClone={ [foo]="bar" [key]="val" }
-#
 # ```
 #
 # @stdout None.
@@ -57,7 +49,9 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 #
 # @exitcode 0 When input arguments are maps.
 # @exitcode 1 Otherwise.
+#/
 MapUtils.clone() {
+  Log.entry "$LINENO" "$@"
   local ref_MapUtils_clone_inMapName="$1"
   local ref_MapUtils_clone_outMapName="$2"
   MapUtils.isMap   "$ref_MapUtils_clone_inMapName"  || return "$APASH_FUNCTION_FAILURE"

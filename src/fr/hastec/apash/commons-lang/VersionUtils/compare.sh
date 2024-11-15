@@ -1,35 +1,32 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLongPositive
 apash.import fr.hastec.apash.commons-lang.StringUtils.splitAny
 apash.import fr.hastec.apash.commons-lang.NumberUtils.max
 
-# File description ###########################################################
+##/
 # @name VersionUtils.isLower
-# @brief Compare two versions and determine if the first one is lower than the second one
+# @brief Compare two versions and determine if the first one is lower than the second one.
 # @description
-#   Please not that for a real comparison, both 
-# ### Since:
-# 0.2.0
+#   As convention, any piece of comparison would be considered as alphanumeric if at least 1
+#   char is not a digit. Otherwise, a numeric comparison is applied.
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [VersionUtils](../VersionUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The first version to check            |
 # | $2     | inString       | string        | in       |            | The second version to check           |
 #
-# @example
+# #### Example
+# ```bash
 #    VersionUtils.isLower "1.2.0"          "1.2.0"         # 0
 #    VersionUtils.isLower "1.2.1"          "1.10.0"        # 0
 #    VersionUtils.isLower "1.2.0-alpha2"   "1.2.0-alpha10" # 0
@@ -38,13 +35,16 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.max
 #    VersionUtils.isLower "1.2.0-alpha10"  "1.2.0-alpha2"  # 1
 #    VersionUtils.isLower "1.2.0-final"    "1.2.0-alpha2"  # 1
 #    VersionUtils.isLower "1.2.0"          "1.2.0-alpha2"  # 1
+# ```
 #
 # @stdout Return -1: when v1 < v2, 0; v1 = v2, 1: v1 > v2, "": when an error occurs.
 # @stderr None.
 #
 # @exitcode 0 If the first version is less or equals than the second one.
 # @exitcode 1 Otherwise
+#/
 VersionUtils.compare() {
+  Log.entry "$LINENO" "$@"
   local version1="$1"
   local version2="$2"
   local vArray1=()

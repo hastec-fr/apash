@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name MatrixUtils.getIndex
 # @brief Return the corresponding array index according to virtual dimensions.
-#
 # @description
 #   ⚠️ It is an experimental function.
 #   Negative indexes are not supported for the moment.
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# ## Interface
+# @apashPackage
+#
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+#
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
@@ -35,15 +37,14 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 #    MatrixUtils.getIndex "myMatrix" 3 1  # failure - Out of bounds even if the array has more elements.
 # ```
 #
-# @arg $1 ref(string[]) Name of the matrix.
-# @arg $2 number... The index at each dimension.
-#
 # @stdout None
 # @stderr None.
 #
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
+#/
 MatrixUtils.getIndex() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
   local matrixName="$1"
   shift
@@ -89,4 +90,3 @@ MatrixUtils.getIndex() {
   echo "$cellIndex" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
-

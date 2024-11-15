@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
@@ -8,7 +9,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isVariable
 apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 
-# File description ###########################################################
+##/
 # @name ArrayUtils.init
 # @brief Defensive programming technique initialize a map.
 # @description
@@ -16,24 +17,17 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #   If it was a map, then reinitialize it.
 #   If it's an existing variable or an array, just fail to protect overriding.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | ioMapName      | ref(string{}) | in/out   |            | Name of the map to initialize.       |
 #
-# @description
 # #### Example
 # ```bash
 #    
@@ -51,7 +45,6 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #
 #    declare -A myMap=([foo]=bar)
 #    MapUtils.init  "myMap"         # myMap={ [foo]=bar }
-
 # ```
 #
 # @stdout None.
@@ -59,7 +52,9 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #
 # @exitcode 0 When the map is created.
 # @exitcode 1 Otherwise.
+#/
 MapUtils.init() {
+  Log.entry "$LINENO" "$@"
   local ref_MapUtils_init_ioMapName="$1"
   BashUtils.isVariableNameValid "$ref_MapUtils_init_ioMapName" || return "$APASH_FUNCTION_FAILURE"
   BashUtils.isVariable "$ref_MapUtils_init_ioMapName" && return "$APASH_FUNCTION_FAILURE"

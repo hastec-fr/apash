@@ -1,41 +1,38 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.trim
 # @brief Remove whitespaces characters from both ends of the input string.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to trim.                   |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.trim ""                 # ""
 #    StringUtils.trim "     "            # ""
 #    StringUtils.trim "  Hello  World  " # "Hello  World"
+# ```
 #
-# @arg $1 string Input string to trim.
-#
-# @stdout the trimmed string
-# @stderr None
+# @stdout the trimmed string.
+# @stderr None.
 #
 # @exitcode 0 If the string can be displayed.
 # @exitcode 1 Otherwise.
+#/
 StringUtils.trim() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local trimmedString=""
 

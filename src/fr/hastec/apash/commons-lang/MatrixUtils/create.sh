@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 
-# File description ###########################################################
+##/
 # @name MatrixUtils.create
 # @brief Create a side array simulating dimensions on an existing array.
 #
@@ -18,20 +19,18 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 #   From Matrix point of view, the first index is 0 (even in zsh).
 #   The real array start from 1 but MatrixUtils consider it as 0.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@             | number...     | in       |                 | Number of element per dimension.     |
+#
 # #### Example
 # ```bash
 #    MatrixUtils.create  "myMatrix" 3    # failure; does not create array with 1 dimension
@@ -41,15 +40,14 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 #    MatrixUtils.create  "myMatrix" 3 3  # myMatrix=(1 2 3 4 5 6 7 8 9); apash_dim_myMatrix=(3 3)
 # ```
 #
-# @arg $1 ref(string[]) Name of the array.
-# @arg $2 number... The number of element per dimension.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the matrix is created.
 # @exitcode 1 Otherwise.
+#/
 MatrixUtils.create() {
+  Log.entry "$LINENO" "$@"
   # If less than 2 dimensions are provided then return.
   [[ $# -lt 3 ]] && return "$APASH_FUNCTION_FAILURE"
 

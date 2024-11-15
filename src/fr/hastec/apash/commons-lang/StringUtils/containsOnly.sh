@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.containsOnly
 # @brief Checks if the CharSequence contains only certain characters.
 # @description 
@@ -9,40 +12,36 @@
 #   An empty sequence of character to search with a non empty input 
 #   string returns false.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inSequence     | string        | in       |            | The sequence of characters which should compose the input string. |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.constainsOnly ""     ""     # true
 #    StringUtils.constainsOnly ""     "ab"   # true
 #    StringUtils.constainsOnly "ab"   ""     # false
 #    StringUtils.constainsOnly "abab" "abc"  # true
 #    StringUtils.constainsOnly "ab1"  "abc"  # false
 #    StringUtils.constainsOnly "abz"  "abc"  # false
-# 
+# ```
+#
 # @stdout None.
 # @stderr None
 #
 # @exitcode 0 True if the input string contains only provided characters.
 # @exitcode 1 Otherwise.
-#
+#/
 StringUtils.containsOnly(){
+  Log.entry "$LINENO" "$@"
   local inString=$1
   local inSequence=$2
 

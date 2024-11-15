@@ -1,43 +1,42 @@
 #!/usr/bin/env bash
+
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 [ "$APASH_SHELL" = "bash" ] && apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
-# File description ###########################################################
+##/
 # @name StringUtils.upperCase
 # @brief Converts a String to upper case.
-# @description 
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to upper case.             |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.upperCase ""              # ""
 #    StringUtils.upperCase "abc"           # "ABC"
 #    StringUtils.upperCase "aBc"           # "ABC"
 #    StringUtils.upperCase "a123b"         # "A123B"
 #    StringUtils.upperCase "ABC"           # "ABC"
 #    StringUtils.upperCase "crème brûlée"  # "CRÈME BRÛLÉE"
+# ```
 #
 # @stdout The upper cased string
 # @stderr None.
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 Otherwise.
+#/
 StringUtils.upperCase() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
@@ -51,4 +50,3 @@ StringUtils.upperCase() {
 
   return "$APASH_FUNCTION_FAILURE"
 }
-

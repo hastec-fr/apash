@@ -1,30 +1,29 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 
-# File description ###########################################################
+##/
 # @name MatrixUtils.getDimOffsetOffset
 # @brief Return the corresponding offset before to fall on the next cell of the same dimension.
-#
 # @description
 #   ⚠️ It is an experimental function.
 #   For a two dimensional array it return the length of a row.
 #   For a cell, keep at least an offset of 1.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
+# #### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+#
 # #### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
@@ -35,15 +34,14 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 #    MatrixUtils.getDimOffset "myMatrix"      # 9
 # ```
 #
-# @arg $1 ref(string[]) Name of the matrix.
-# @arg $2 number... The index per dimension.
-#
 # @stdout None.
 # @stderr None.
 #
 # @exitcode 0 When the array is created.
 # @exitcode 1 Otherwise.
+#/
 MatrixUtils.getDimOffset() {
+  Log.entry "$LINENO" "$@"
   [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
   local matrixName="$1"
   shift

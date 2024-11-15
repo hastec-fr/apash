@@ -1,26 +1,19 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 
-# File description ###########################################################
+##/
 # @name StringUtils.rightPad
 # @brief Right pad a string with a specified string.
-# @description 
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -28,7 +21,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # | $2     | inSize         | number        | in       |            | The size to pad to.                   |
 # | $3 ?   | inReplacement  | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.rightPad ""     ""    ""      # failure - ""
 #    StringUtils.rightPad ""     "3"   "z"     # "zzz"
 #    StringUtils.rightPad "bat"  "3"   "yz"    # "bat"
@@ -36,13 +30,16 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #    StringUtils.rightPad "bat"  "8"   "yz"    # "batyzyzy"
 #    StringUtils.rightPad "bat"  "-1"  "z"     # "bat"
 #    StringUtils.rightPad "bat"  "5"   ""      # "bat   "
+# ```
 #
 # @stdout Right padded string or original string if no padding is necessary.
 # @stderr None.
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 When the size is not a positive numeric or the result cannot be displayed.
+#/
 StringUtils.rightPad() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local inSize="$2"
   local inPadString="${3:- }"
@@ -71,4 +68,3 @@ StringUtils.rightPad() {
 
   return "$APASH_FUNCTION_FAILURE"
 }
-

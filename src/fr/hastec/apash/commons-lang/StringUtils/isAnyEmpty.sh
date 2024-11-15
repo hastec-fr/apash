@@ -1,29 +1,25 @@
 #!/usr/bin/env bash
 
-# File description ###########################################################
+# Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
+
+##/
 # @name StringUtils.isAnyEmpty
 # @brief Checks if one of the input string is empty ("").
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | ${@:1} | inStrings      | string...     | in       |            | The strings to check.                 |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.isAnyEmpty                  # true
 #    StringUtils.isAnyEmpty ""               # true
 #    StringUtils.isAnyEmpty "     "          # false
@@ -33,13 +29,16 @@
 #    StringUtils.isAnyEmpty "  bob  " ""     # true
 #    StringUtils.isAnyEmpty " "       "bar"  # false
 #    StringUtils.isAnyEmpty "foo"     "bar"  # false
+# ```
 #
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 If at least one element is empty, or no element provided.
 # @exitcode 1 If all arguments are not empty.
+#/
 StringUtils.isAnyEmpty() {
+  Log.entry "$LINENO" "$@"
   # Return succes if no argument
   [ $# -eq 0 ] &&  return "$APASH_FUNCTION_SUCCESS"
 

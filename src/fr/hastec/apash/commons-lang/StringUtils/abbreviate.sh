@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 # Dependencies #####################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
 apash.import fr.hastec.apash.commons-lang.StringUtils.isEmpty
 apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 
-# File description ###########################################################
+##/
 # @name StringUtils.abbreviate
 # @brief Abbreviates a String using ellipses.
 # @description
@@ -15,19 +16,12 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 #   Translated the function from
 #   [java documentation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/StringUtils.html#line.339)
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
 # #### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
@@ -36,7 +30,8 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # | $3 ?   | inOffsets      | number        | in       | 0          | Left edge of source String.                          |
 # | $4 ?   | inMarker       | string        | in       | ...        | The string used as replacement marker.               |
 #
-# @example
+# #### Example
+# ```bash
 #    StringUtils.abbreviate ""              # ""
 #    StringUtils.abbreviate ""        4     # ""
 #    StringUtils.abbreviate "abcdefg" 6     # "abc..."
@@ -44,13 +39,16 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 #    StringUtils.abbreviate "abcdefg" 8     # "abcdefg"
 #    StringUtils.abbreviate "abcdefg" 4     # "a..."
 #    StringUtils.abbreviate "abcdefg" 3     # failure - ""
+# ```
 #
 # @stdout The abbreviated string.
 # @stderr None.
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 when the width is not an integer or is too small.
+#/
 StringUtils.abbreviate() {
+  Log.entry "$LINENO" "$@"
   local inString="$1"
   local inMaxWidth="$2"
   local inOffset="${3:-0}"
@@ -99,4 +97,3 @@ StringUtils.abbreviate() {
   echo "$inMarker$(StringUtils.substring "$inString" $((${#inString} - (inMaxWidth - abbrevMarkerLength))))" && return "$APASH_FUNCTION_SUCCESS"
   return "$APASH_FUNCTION_FAILURE"
 }
-
