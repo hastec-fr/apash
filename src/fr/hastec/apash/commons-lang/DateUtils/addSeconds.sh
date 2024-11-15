@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.DateUtils.add
 
@@ -14,13 +14,13 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inDate         | date          | in       |            | The date in UTC format.               |
 # | $2 ?   | inAmount       | number        | in       | 0          | The amount of seconds to add, may be negative. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    DateUtils.addSeconds ""                               ""    # failure
 #    DateUtils.addSeconds "0"                              ""    # failure

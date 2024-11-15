@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 [ "$APASH_SHELL" = "bash" ] && apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
@@ -14,12 +14,12 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to upper case.             |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.upperCase ""              # ""
 #    StringUtils.upperCase "abc"           # "ABC"

@@ -21,12 +21,12 @@ Checks if an array exist and has at least one element.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.isNotEmpty "myArray"       # false
 

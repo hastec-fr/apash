@@ -7,31 +7,30 @@
   # Apash
 </div>
 
-# Lang
 
+ <!-- @class -->
+# Long
 Contains related information about Long int.
+## Description
+   It refers to a 64 bits integer.
+   The maximum positive long int is the maximum index that an array could have.
+   Bash uses a long as index for 64 bits systems.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-It refers to a 64 bits integer.
-The maximum positive long int is the maximum index that an array could have.
-Bash uses a long as index for 64 bits systems.
-
-### Since:
-0.2.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 
-<!-- apash.parentEnd -->
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [lang](../lang.md) / 
+<!-- apash.packageEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

@@ -21,14 +21,14 @@ Inserts elements into an array at the given index (starting from zero).
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
  | $2     | ref_ArrayUtilsInsert_ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
  | ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 
-#### Example
+### Example
  ```bash
     myArray=()
     ArrayUtils.insert  "0"           "myArray"              # () - failure

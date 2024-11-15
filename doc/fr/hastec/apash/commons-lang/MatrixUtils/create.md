@@ -7,55 +7,52 @@
   # Apash
 </div>
 
-# MatrixUtils.create
 
+# MatrixUtils.create
 Create a side array simulating dimensions on an existing array.
 
-## Overview
+## Description
+   ⚠️ It is an experimental function.
+   The side array store dimensions of the expected matrix.
+   It does not fix bounds of the array. It's just a view of the mind
+   on how to access a cell on a multi-dimensional array.
+   ⚠️WARNING: 
+   From Matrix point of view, the first index is 0 (even in zsh).
+   The real array start from 1 but MatrixUtils consider it as 0.
 
-⚠️ It is an experimental function.
-The side array store dimensions of the expected matrix.
-It does not fix bounds of the array. It's just a view of the mind
-on how to access a cell on a multi-dimensional array.
-⚠️WARNING: 
-From Matrix point of view, the first index is 0 (even in zsh).
-The real array start from 1 but MatrixUtils consider it as 0.
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-### Since:
-0.2.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@             | number...     | in       |                 | Number of element per dimension.     |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    MatrixUtils.create  "myMatrix" 3    # failure; does not create array with 1 dimension
+    MatrixUtils.create  "myMatrix" 3 3  # myMatrix=(); apash_dim_myMatrix=(3 3)
 
-## Index
+    myMatrix=(1 2 3 4 5 6 7 8 9)
+    MatrixUtils.create  "myMatrix" 3 3  # myMatrix=(1 2 3 4 5 6 7 8 9); apash_dim_myMatrix=(3 3)
+ ```
 
-* [MatrixUtils.create](#matrixutilscreate)
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-### MatrixUtils.create
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array.
-* **$2** (number...): The number of element per dimension.
-
-#### Exit codes
-
-* **0**: When the matrix is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the matrix is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

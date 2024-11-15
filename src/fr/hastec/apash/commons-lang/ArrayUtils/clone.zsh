@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.init

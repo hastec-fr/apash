@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLongPositive
 apash.import fr.hastec.apash.commons-lang.StringUtils.splitAny
@@ -19,13 +19,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.max
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The first version to check            |
 # | $2     | inString       | string        | in       |            | The second version to check           |
 #
-# #### Example
+# ### Example
 # ```bash
 #    VersionUtils.isLower "1.2.0"          "1.2.0"         # 0
 #    VersionUtils.isLower "1.2.1"          "1.10.0"        # 0

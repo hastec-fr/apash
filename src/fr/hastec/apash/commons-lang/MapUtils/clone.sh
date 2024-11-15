@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 apash.import fr.hastec.apash.commons-lang.MapUtils.init
@@ -15,13 +15,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inMapName      | ref(string{}) | in       |            | Name of the map to clone.            |
 # | $2     | outMapName     | ref(string{}) | out      |            | Name of the map which will receive the clone.|
 #
-# #### Example
+# ### Example
 # ```bash
 #    MapUtils.clone  ""       ""               # failure
 #

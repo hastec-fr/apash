@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 ##/
 # @name ArrayUtils.countMatches
-# @brief Return the number of cells having the given value
+# @brief Return the number of cells having the given value.
 #
 # ## History
 # @since 0.2.0 (hastec-fr)
@@ -14,13 +14,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName           | Type          | in/out   | Default    | Description                          |
 # |--------|-------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_inArrayName | ref(string[]) | in       |            | Name of the array to check.          |
 # | $2     | apash_inValue     | string        | in       | ""         | Value to find in the array.          |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "a" "c" "" "")
 #    ArrayUtils.countMatches  "myArray"              # 3

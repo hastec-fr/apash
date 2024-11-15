@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
@@ -19,13 +19,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName            | Type          | in/out   | Default    | Description                          |
 # |--------|--------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated values. |
 # | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.        |
 #
-# #### Example
+# ### Example
 # ```bash
 #    local outArray=()
 #    myArray1=("a" "b" "c")

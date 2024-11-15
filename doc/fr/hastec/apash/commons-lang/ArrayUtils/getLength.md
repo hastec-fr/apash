@@ -26,12 +26,12 @@ Returns the length of the specified array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "c")
     ArrayUtils.getLength  "myArray"      # 4

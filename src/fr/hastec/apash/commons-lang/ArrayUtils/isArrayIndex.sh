@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
@@ -18,12 +18,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inIndex        | number        | in       |            | The index number to analyse          |
 # 
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.isArrayIndex "0"                    # true (false for zsh starting at 1)
 #    ArrayUtils.isArrayIndex "1"                    # true

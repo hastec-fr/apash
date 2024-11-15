@@ -7,56 +7,41 @@
   # Apash
 </div>
 
+
 # MatrixUtils.create
-
 Display each virtual indexes of the matrix.
+## Description
+   ⚠️ It is an experimental function.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    MatrixUtils.create  "myMatrix" 3    # myMatrix=(); apash_dim_myMatrix=(3)
+    MatrixUtils.create  "myMatrix" 3 4  # myMatrix=(); apash_dim_myMatrix=(3 4)
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * None
+### Stderr
+  * None.
 
-Method description #########################################################
-
-## Index
-
-* [MatrixUtils.toString](#matrixutilstostring)
-
-### MatrixUtils.toString
-
-#### Example
-```bash
-MatrixUtils.create  "myMatrix" 3    # myMatrix=(); apash_dim_myMatrix=(3)
-MatrixUtils.create  "myMatrix" 3 4  # myMatrix=(); apash_dim_myMatrix=(3 4)
-```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the matrix to display.
-
-#### Exit codes
-
-* **0**: When the array is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the array is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

@@ -25,12 +25,12 @@ Defensive programming technique initialize an array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ref_ArrayUtils_init_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.init  "myArray"         # myArray=()
 

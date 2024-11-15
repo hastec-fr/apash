@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.commons-lang.BashUtils.getFunctionName
 
 ##/
@@ -16,11 +16,11 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getFunctionName
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 #
-# #### Example
+# ### Example
 # ```bash
 #    BashUtils.getParentFunctionName                                 # failure - ""
 #    myCaller(){ BashUtils.getParentFunctionName ; }; myCaller       # failure - ""

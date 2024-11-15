@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 # apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
@@ -15,7 +15,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Changelogs:
+# ### ChangeLogs:
 #  * 0.2.0 (hastec-fr):
 #    * Fix issue with discontinued indexes in bash.
 #    * Consider no argument as success (nothing added).

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 apash.import fr.hastec.apash.util.Log.entry
@@ -16,14 +16,14 @@ apash.import fr.hastec.apash.util.Log.exit
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to pad out.                |
 # | $2     | inString       | string        | in       |            | The size to pad to.                   |
 # | $3 ?   | inString       | string        | in       | " "        | The string to pad with, empty treated as single space (default). |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.leftPad ""     ""    ""      # failure - ""
 #    StringUtils.leftPad ""     "3"   "z"     # "zzz"

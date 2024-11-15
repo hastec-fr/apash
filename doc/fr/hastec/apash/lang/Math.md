@@ -7,22 +7,23 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # Math
-
 Contains methods for performing basic numeric operations
+## Description
+   Such as the elementary exponential, logarithm, square root, and trigonometric functions.
+   This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Math.html).
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-Such as the elementary exponential, logarithm, square root, and trigonometric functions.
-This implementation do reference to the [java oracle implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Math.html).
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [lang](../lang.md) / 
-<!-- apash.parentEnd -->
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [lang](../lang.md) / 
+<!-- apash.packageEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
@@ -32,8 +33,6 @@ This implementation do reference to the [java oracle implementation](https://doc
 |[max](Math/max.md)|Returns the greater of two number values.|
 |[min](Math/min.md)|Returns the smaller of two number values.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

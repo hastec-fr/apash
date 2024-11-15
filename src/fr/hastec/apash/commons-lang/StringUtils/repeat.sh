@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLongPositive
 apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
@@ -15,13 +15,13 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inNumber       | number        | in       |            | The number of time string is repeated.|
 # | $2     | inString       | string        | in       |            | The string to repeat.                 |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.repeat 3 "a"       # "aaa"
 #    StringUtils.repeat 2 "ab"      # "abab"

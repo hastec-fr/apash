@@ -7,60 +7,50 @@
   # Apash
 </div>
 
+
 # MatrixUtils.getIndex
-
 Return the corresponding array index according to virtual dimensions.
+## Description
+   ⚠️ It is an experimental function.
+   Negative indexes are not supported for the moment.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
-Negative indexes are not supported for the moment.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    myMatrix=(1 2 3 4 5 6 7 8 9)
+    MatrixUtils.create myMatrix 3 3
+    MatrixUtils.getIndex "myMatrix" 0 1  # 1
+    MatrixUtils.getIndex "myMatrix" 1 0  # 3
+    MatrixUtils.getIndex "myMatrix" 1    # 3
+    MatrixUtils.getIndex "myMatrix" 1 2  # 5
+    MatrixUtils.getIndex "myMatrix" 2 1  # 7
+    MatrixUtils.getIndex "myMatrix" 1 4  # failure - Out of bounds 
+    MatrixUtils.getIndex "myMatrix" 3 1  # failure - Out of bounds even if the array has more elements.
+ ```
 
-## Index
+### Stdout
+  * None
+### Stderr
+  * None.
 
-* [MatrixUtils.getIndex](#matrixutilsgetindex)
-
-### MatrixUtils.getIndex
-
-#### Example
-```bash
-myMatrix=(1 2 3 4 5 6 7 8 9)
-MatrixUtils.create myMatrix 3 3
-MatrixUtils.getIndex "myMatrix" 0 1  # 1
-MatrixUtils.getIndex "myMatrix" 1 0  # 3
-MatrixUtils.getIndex "myMatrix" 1    # 3
-MatrixUtils.getIndex "myMatrix" 1 2  # 5
-MatrixUtils.getIndex "myMatrix" 2 1  # 7
-MatrixUtils.getIndex "myMatrix" 1 4  # failure - Out of bounds 
-MatrixUtils.getIndex "myMatrix" 3 1  # failure - Out of bounds even if the array has more elements.
-```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the matrix.
-* **$2** (number...): The index at each dimension.
-
-#### Exit codes
-
-* **0**: When the array is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the array is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

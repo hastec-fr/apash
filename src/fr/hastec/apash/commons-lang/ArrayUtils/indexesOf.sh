@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
@@ -17,13 +17,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
@@ -32,7 +29,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # | $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
 #
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.indexesOf "myIndexes" "myArray" "b"   # ("1" "4")

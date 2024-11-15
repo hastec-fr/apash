@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
@@ -13,19 +13,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            | The array to inspect                 |
 # | $2     | inIndex        | number        | in       |            | The index of the array to be inspected.  |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "c" "b")
 #    ArrayUtils.isArrayIndexValid "myArray" "1"                  # true

@@ -7,27 +7,27 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # DateUtils
-
 Operations on dates.
+## Description
+   This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/DateUtils.html)
+   The date should be always a string in UTC format before any manipulations:
+   ```bash
+       date +"%FT%T.%3N%z"
+   ```
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/DateUtils.html)
-The date should be always a string in UTC format before any manipulations:
-```bash
-date +"%FT%T.%3N%z"
-```
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
@@ -42,8 +42,6 @@ date +"%FT%T.%3N%z"
 |[addYears](DateUtils/addYears.md)|Adds a number of years to a date returning a new date.|
 |[isDate](DateUtils/isDate.md)|Check if the input string has an UTC valid format (used accross all apash date functions)|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

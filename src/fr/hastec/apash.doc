@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# <!-- @package -->
-# @name apash
-# @brief Generate apash documentation
+##/
+# @name apash.doc
+# @brief Generate apash documentation.
 # @description
-#     Generate the different Markdown documentations
+#     Generate the different Markdown documentations.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# [Main page](../../../../README.md)
+# ## Interface
+# @apashPackage
 #
 # ### Full Methods Summary Table
 # | Methods                  | Brief                                 |
@@ -19,8 +19,7 @@
 # |getFullSummaryTable|Generate Markdown file with all methods available|
 # |apash.substitutePlaceHolders|Allow to substitute placehoders in script file by dynamic informations|
 # |apash.doc|Generate all the documentation|
-
-
+#/
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
 apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 
@@ -161,7 +160,7 @@ apash.doc() {
 
   # Generate individuals scripts documents
   APASH_DOC_HEADER="$APASH_DOC_HEADER" APASH_DOC_FOOTER="$APASH_DOC_FOOTER" \
-  find "$APASH_HOME_DIR/src" -type f -name "doc.sh" -exec bash -c '
+  find "$APASH_HOME_DIR/src/fr" -type f -name "*.sh" -exec bash -c '
     file_path="$(dirname "$1")"
     file_name="$(basename "$1")"
     doc_path="$(echo $file_path | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/doc|1")"

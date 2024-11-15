@@ -7,65 +7,46 @@
   # Apash
 </div>
 
-# StringUtils.lowerCase
 
+# StringUtils.lowerCase
 Converts a String to lower case.
 
-## Overview
-
-### Since:
-0.1.0
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
 ### ChangeLogs:
-- 0.2.0: Split file to .bash, .zsh and bash_4.2.53. Let the nearest POSIX code in .sh.
+ - 0.2.0: Split file to .bash, .zsh and bash_4.2.53. Let the nearest POSIX code in .sh.
 
-### Authors:
-* Benjamin VARGIN
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inString       | string        | in       |            | The string to lower case.             |
 
-## Index
+### Example
+ ```bash
+    StringUtils.upperCase ""              # ""
+    StringUtils.upperCase "ABC"           # "abc"
+    StringUtils.upperCase "AbC"           # "abc"
+    StringUtils.upperCase "A123B"         # "a123b"
+    StringUtils.upperCase "abc"           # "abc"
+    StringUtils.upperCase "CRÈME BRÛLÉE"  # "crème brûlée"
+ ```
 
-* [StringUtils.lowerCase](#stringutilslowercase)
+### Stdout
+  * The lower cased string
+### Stderr
+  * None.
 
-### StringUtils.lowerCase
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inString       | string        | in       |            | The string to lower case.             |
-
-#### Example
-
-```bash
-StringUtils.upperCase ""              # ""
-StringUtils.upperCase "ABC"           # "abc"
-StringUtils.upperCase "AbC"           # "abc"
-StringUtils.upperCase "A123B"         # "a123b"
-StringUtils.upperCase "abc"           # "abc"
-StringUtils.upperCase "CRÈME BRÛLÉE"  # "crème brûlée"
-```
-
-#### Arguments
-
-* $1 string
-
-#### Exit codes
-
-* **0**: When result is displayed.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* The lower cased string
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When result is displayed.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

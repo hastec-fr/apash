@@ -1,29 +1,19 @@
 #!/usr/bin/env bash
 
-# <!-- @package -->
+##/
+# <!-- @class -->
 # @name Array
-# @brief Contains methods for performing basic numeric operations
+# @brief Contains methods for performing basic numeric operations.
 # @description
 #   This package contains various methods for manipulating arrays.
 #   This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html).
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../.md) / [apash](../../apash.md) / [util](../util.md) / 
-# <!-- apash.parentEnd -->
+# ## Interface
+# @apashPackage
 #
-# ### Method Summary
-# <!-- apash.summaryTableBegin -->
-# | Methods                  | Brief                                 |
-# |--------------------------|---------------------------------------|
-# |[bubbleSort](Array/bubbleSort.md)|Sorts the specified array into alphanumerical order with the bubble sort style.|
-# |[sort](Array/sort.md)|Sorts the specified array into ascending natural order.|
-# <!-- apash.summaryTableEnd -->
-
-
-
-
-
+# @apashSummaryTable
+#/
+util.Array() { true; }

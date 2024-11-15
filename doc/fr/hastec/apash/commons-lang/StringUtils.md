@@ -7,21 +7,22 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # StringUtils
+Operations on String considering null as empty string.
+## Description
+   This implementation do reference to the [java apache implementation](http://commons.apache.org/proper/commons-lang/javadocs/api-3.1/org/apache/commons/lang3/StringUtils.html).
 
-Operations on String considering null as empty string
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-## Overview
-
-This implementation do reference to the [java apache implementation](http://commons.apache.org/proper/commons-lang/javadocs/api-3.1/org/apache/commons/lang3/StringUtils.html)
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
@@ -55,8 +56,6 @@ This implementation do reference to the [java apache implementation](http://comm
 |[trim](StringUtils/trim.md)|Remove whitespaces characters from both ends of the input string.|
 |[upperCase](StringUtils/upperCase.md)|Converts a String to upper case.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

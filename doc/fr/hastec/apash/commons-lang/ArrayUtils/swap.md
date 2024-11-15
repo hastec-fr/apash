@@ -25,7 +25,7 @@ Swaps a series of elements in the given array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to swap.           |
@@ -33,7 +33,7 @@ Swaps a series of elements in the given array.
  | $3     | inEndIndex     | number        | in       |                 | The index of the second element in the series to swap  |
  | $4     | inLen          | number        | in       | 1               | The number of elements to swap starting with the given indices. |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "c" "d")
     ArrayUtils.swap    "myArray"                 # failure

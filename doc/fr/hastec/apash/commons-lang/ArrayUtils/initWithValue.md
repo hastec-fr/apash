@@ -9,7 +9,7 @@
 
 
 # ArrayUtils.initWithValue
-Initialize an array for a specific width and value
+Initialize an array for a specific width and value.
 ## Description
    The array is created if the variable is not declared.
    If it was an array, then reinitialize it.
@@ -19,23 +19,20 @@ Initialize an array for a specific width and value
 ### Since
   * 0.2.0 (hastec-fr)
 
-### Authors:
- * Benjamin VARGIN
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
  | $2     | inWidth        | number        | in       | 0          | Number of array record to initialize.|
  | $3     | inValue        | string        | in       | ""         | Value to initialize with.            |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
 

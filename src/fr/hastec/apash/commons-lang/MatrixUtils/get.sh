@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
@@ -17,13 +17,13 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 # | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 #
-# #### Example
+# ### Example
 # ```bash
 #    # Use matrix representation of:
 #    #   0 1 2

@@ -7,66 +7,51 @@
   # Apash
 </div>
 
-# MapUtils.isMap
 
+# MapUtils.isMap
 Check if the input name is an map or not.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inDate         | string        | in       |            | Name of the hashmap to check.         |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    MapUtils.isMap  ""                # false
+    MapUtils.isMap  "myVar"           # false
 
-## Index
+    declare -a myArray
+    MapUtils.isMap  "myArray"         # false
+   
+    myArray=()
+    MapUtils.isMap  "myArray"         # false
 
-* [MapUtils.isMap](#maputilsismap)
+    declare -A myMap
+    MapUtils.isMap   "myMap"          # true
 
-### MapUtils.isMap
+    declare -A myMap=(["foo"]="bar" ["key"]="value")
+    MapUtils.containsKey   "myMap"    # true
+ ```
 
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inDate         | string        | in       |            | Name of the hashmap to check.         |
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-#### Example
-```bash
-MapUtils.isMap  ""                # false
-MapUtils.isMap  "myVar"           # false
-
-declare -a myArray
-MapUtils.isMap  "myArray"         # false
-
-myArray=()
-MapUtils.isMap  "myArray"         # false
-
-declare -A myMap
-MapUtils.isMap   "myMap"          # true
-
-declare -A myMap=(["foo"]="bar" ["key"]="value")
-MapUtils.containsKey   "myMap"    # true
-
-```
-
-#### Exit codes
-
-* **0**: When the corresponding variable is a hashmap.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the corresponding variable is a hashmap.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

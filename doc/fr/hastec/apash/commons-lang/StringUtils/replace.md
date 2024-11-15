@@ -7,61 +7,46 @@
   # Apash
 </div>
 
-# StringUtils.replace
 
+# StringUtils.replace
 Replaces all occurrences of a String within another String.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inString       | string        | in       |            | The string to modify.                 |
+ | $2     | inSubstring    | string        | in       |            | The substring to search.              |
+ | $3     | inReplacement  | string        | in       |            | The string which replaces the substring found. |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    StringUtils.replace ""     ""    ""   # ""
+    StringUtils.replace ""     "a"   "d"  # ""
+    StringUtils.replace "any"  ""    "d"  # "any"
+    StringUtils.replace "any"  "a"   "de" # "deny"
+    StringUtils.replace "aba"  "a"   ""   # "b"
+    StringUtils.replace "aba"  "a"   "z"  # "zbz"
+    StringUtils.replace "aba"  "z"   "x"  # "aba"
+ ```
 
-## Index
+### Stdout
+  * The text with any replacements processed
+### Stderr
+  * None.
 
-* [StringUtils.replace](#stringutilsreplace)
-
-### StringUtils.replace
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inString       | string        | in       |            | The string to modify.                 |
-| $2     | inSubstring    | string        | in       |            | The substring to search.              |
-| $3     | inReplacement  | string        | in       |            | The string which replaces the substring found. |
-
-#### Example
-
-```bash
-StringUtils.replace ""     ""    ""   # ""
-StringUtils.replace ""     "a"   "d"  # ""
-StringUtils.replace "any"  ""    "d"  # "any"
-StringUtils.replace "any"  "a"   "de" # "deny"
-StringUtils.replace "aba"  "a"   ""   # "b"
-StringUtils.replace "aba"  "a"   "z"  # "zbz"
-StringUtils.replace "aba"  "z"   "x"  # "aba"
-```
-
-#### Exit codes
-
-* **0**: When result is displayed.
-* **1**: otherwise.
-
-#### Output on stdout
-
-* The text with any replacements processed
-
-#### Output on stderr
-
-* None
-
+### Exit codes
+  * **0**: When result is displayed.
+  * **1**: otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

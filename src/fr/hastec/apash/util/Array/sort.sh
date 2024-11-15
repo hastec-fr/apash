@@ -1,36 +1,30 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 apash.import fr.hastec.apash.util.Array.bubbleSort
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
-# File description ###########################################################
+##/
 # @name Array.sort
 # @brief Sorts the specified array into ascending natural order.
 # @description
 #   Non array reference will be transformed to empty array.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Array](../Array.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c")
 #    Array.sort "myArray"  # ("a" "b" "c")
@@ -53,7 +47,9 @@ apash.import fr.hastec.apash.util.Array.bubbleSort
 #
 # @exitcode 0 True Whether the array is sorted according to natural ordering.
 # @exitcode 1 Otherwise.
+#/
 Array.sort() {
+  Log.entry "$LINENO" "$@"
   local inArrayName="$1"
   ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
   

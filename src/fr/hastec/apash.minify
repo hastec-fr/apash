@@ -1,4 +1,35 @@
 #!/usr/bin/env bash
+
+##/
+# @name apash.minify
+# @brief Tool to regroup and reduce methods into a single file.
+# @description
+#   This minifier does not fit all use cases, but work for apash purposes.
+#   It removes all lines starting by a hashtag, leading spaces and emptys lines.
+#   @todo: Create a real minifier (like mvdan/shfmt ) which accept to have 
+#   different piece of code from different shell in the same source.L  
+#
+# ## History
+# @since 0.2.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | shellName      | string        | in       |                 | Which shell is used for the import   |
+#
+# ### Example
+# ```bash
+#    apash.minify     # Minify using the current APASH_SHELL.
+#    apash.minify zsh # Minify using zsh code.
+# ```
+# 
+# @stdout the script content minified.
+# @stderr None.
+#
+#/
 apash.minify(){
   local shellName=${1:-$APASH_SHELL}
   local apashTmpDir="$APASH_HOME_DIR/tmp"

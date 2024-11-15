@@ -7,56 +7,41 @@
   # Apash
 </div>
 
-# StringUtils.reverse
 
+# StringUtils.reverse
 Reverses a string.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inString       | string        | in       |            | The string to reverse.                |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    StringUtils.reverse             # ""
+    StringUtils.reverse ""          # ""
+    StringUtils.reverse "bat"       # "tab"
+    StringUtils.reverse "bat man"   # "nam tab"
+ ```
 
-## Index
+### Stdout
+  * The reversed string.
+### Stderr
+  * None.
 
-* [StringUtils.reverse](#stringutilsreverse)
-
-### StringUtils.reverse
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inString       | string        | in       |            | The string to reverse.                |
-
-#### Example
-
-```bash
-StringUtils.reverse             # ""
-StringUtils.reverse ""          # ""
-StringUtils.reverse "bat"       # "tab"
-StringUtils.reverse "bat man"   # "nam tab"
-```
-
-#### Exit codes
-
-* **0**: When result is displayed.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* The reversed string.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When result is displayed.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

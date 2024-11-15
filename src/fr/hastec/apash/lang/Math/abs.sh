@@ -1,32 +1,26 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 
-# File description ###########################################################
+##/
 # @name Math.abs
 # @brief Checks whether the given String is a parsable number, then return without minus sign (absolute value).
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [lang](../../lang.md) / [Math](../Math.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inNumber       | number        | in       |            | The number to evaluate.               |
 #
-# @example
+# ### Example
+# ```bash
 #    Math.abs  ""       # failure - ""
 #    Math.abs  "a"      # failure - ""
 #    Math.abs  "a12"    # failure - ""
@@ -40,6 +34,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #    Math.abs  "1."     # failure - ""
 #    Math.abs  ".1"     # .1
 #    Math.abs  "-.12"   # .12
+# ```
 #
 # @stdout None.
 # @stderr None.
@@ -47,7 +42,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 # @exitcode 0 When the input string is a parsable number.
 # @exitcode 1 When the input string contains characters other than digits and a minus before
 #             and a potential dot with meaning numbers.
+#/
 Math.abs() {
+  Log.entry "$LINENO" "$@"
   local inNumber="$1"
 
   NumberUtils.isParsable "$inNumber" || return "$APASH_FUNCTION_FAILURE"

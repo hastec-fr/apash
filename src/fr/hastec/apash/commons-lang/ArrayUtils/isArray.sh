@@ -12,12 +12,12 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inVarName      | string        | in       |            | Name of the array.                   |
 # 
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.isArray  ""          # false
 #    ArrayUtils.isArray  "myVar"     # false

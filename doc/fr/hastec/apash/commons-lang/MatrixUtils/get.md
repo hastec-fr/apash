@@ -7,49 +7,52 @@
   # Apash
 </div>
 
+
 # MatrixUtils.get
-
 Get a cell of an array according to its associated matrix.
+## Description
+   ⚠️ It is an experimental function.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    # Use matrix representation of:
+    #   0 1 2
+    # 0 a b c
+    # 1 d e f
+    # 2 g h i
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+    local myMatrix=("a" "b" "c" "d" "e" "f" "g" "h" "i")
+    MatrixUtils.create "myMatrix" 3 3
+    MatrixUtils.get myMatrix          # a
+    MatrixUtils.get myMatrix 0 0      # a   
+    MatrixUtils.get myMatrix 1 1      # e
+    MatrixUtils.get myMatrix 1 4      # failure
+ ```
 
-## Index
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* [MatrixUtils.get](#matrixutilsget)
-
-### MatrixUtils.get
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array if exists.
-* **$2** (number...): The number of element for a new dimension
-
-#### Exit codes
-
-* **0**: When the array is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the array is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

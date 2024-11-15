@@ -18,21 +18,18 @@ Returns the number of elements in the arrays.
 ### Since
   * 0.2.0 (hastec-fr)
 
-### Authors:
- * Benjamin VARGIN
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "c")
     ArrayUtils.getNumberOfElements  "myArray"      # 4

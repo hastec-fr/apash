@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
@@ -14,13 +14,13 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inNumber1      | number        | in       |            | The first number to compare.          |
 # | $2     | inNumber2      | number        | in       |            | The second number to compare.         |
 #
-# #### Example
+# ### Example
 # ```bash
 #    NumberUtils.compare "" ""     # failure - ""
 #    NumberUtils.compare "0" ""    # failure - ""

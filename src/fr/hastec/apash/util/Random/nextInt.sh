@@ -1,34 +1,27 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.lang.Integer.sh
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 
 # File description ###########################################################
 # @name Random.nextInt
 # @brief Returns a pseudorandomly chosen int value.
-# @description
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Random](../Random.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | minValue       | number        | in       |            | The least value that can be returned. |
 # | $2     | maxValue       | number        | in       |            | The upper bound (exclusive) for the returned value. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    Random.nextInt
 #    Array.sort "myArray"  # ("a" "b" "c")
@@ -51,6 +44,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 #
 # @exitcode 0 When the number is displayed.
 # @exitcode 1 If the minValue is greater than the maxValue, or numbers are not Integers.
+#/
 Random.nextInt() {
   local minValue="$1"
   local maxValue="$2"

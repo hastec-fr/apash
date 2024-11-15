@@ -1,31 +1,24 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-# Dependencies ##############################################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.lang.Integer.sh
 apash.import fr.hastec.apash.util.Log.sh
 apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 
-# File description ###########################################################
+##/
 # @name LogUtils.logger
-# @brief Log a message with all provided informations
+# @brief Log a message with all provided informations.
 # @description 
 #   By default the message is pushed to the error channel.
 #   
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Log](../Log.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inLevel        | string        | in       |            | The message to log.                   |
@@ -34,14 +27,17 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # | $4     | inMessage      | string        | in       |            | The message to log.                   |
 # | $5     | inChannel      | number        | in       | 2          | The number to check.                  |
 #
-# @example
+# ### Example
+# ```bash
 #    LogUtils.logger $APASH_LOG_LEVEL_INFO apash $LINENO "Hello World"  # &2: 2024-11-06T08:27:11.213+0000 [INFO] apash (1): Hello World
+# ```
 #
 # @stdout None.
 # @stderr The message to log (if the channel has not been changed).
 #
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
+#/
 Log.message() {
   local inLevel="$1"
   local inFunction="$2"

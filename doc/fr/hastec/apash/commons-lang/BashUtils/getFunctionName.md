@@ -7,60 +7,45 @@
   # Apash
 </div>
 
+
 # BashUtils.getFunctionName
-
 Display the name of the function according to the provided depth
+## Description
+   Bash and zsh provide stack of the called function with environment variables ($FUNCNAME and $funcstack).
+   By default, the caller of this function is retreived (depth=1).
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
+ 
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
+<!-- apash.packageEnd -->
 
-Bash and zsh provide stack of the called function with environment variables ($FUNCNAME and $funcstack).
-By default, the caller of this function is retreived (depth=1).
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
 
-### Since:
-0.2.0
+### Example
+ ```bash
+    BashUtils.getFunctionName  0                          # BashUtils.getFunctionName
+    myCaller(){ BashUtils.getFunctionName   ; }; myCaller # myCaller
+    myCaller(){ BashUtils.getFunctionName  1; }; myCaller # myCaller
+ ```
+### Implementation note
+ No check on system array (funcstack not detected as an array).
 
-### Authors:
-* Benjamin VARGIN
+### Stdout
+  * The function name.
+### Stderr
+  * None.
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [BashUtils.getFunctionName](#bashutilsgetfunctionname)
-
-### BashUtils.getFunctionName
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
-
-#### Example
-```bash
-BashUtils.getFunctionName  0                          # BashUtils.getFunctionName
-myCaller(){ BashUtils.getFunctionName   ; }; myCaller # myCaller
-myCaller(){ BashUtils.getFunctionName  1; }; myCaller # myCaller
-
-```
-#### Implementation note
-No check on system array (funcstack not detected as an array).
-
-#### Exit codes
-
-* **0**: When the function name is returned.
-* **1**: When the index is not valid.
-
-#### Output on stdout
-
-* The function name.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the function name is returned.
+  * **1**: When the index is not valid.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

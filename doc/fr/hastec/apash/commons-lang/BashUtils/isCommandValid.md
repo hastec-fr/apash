@@ -7,54 +7,41 @@
   # Apash
 </div>
 
+
 # BashUtils.isCommandValid
-
 Defensive programming technique to check that a variable name is valid
+## Description
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | commandName    | string        | in       |            | Command to analyse                    |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    BashUtils.isCommandValid  ""                # false
+    BashUtils.isCommandValid  "apashnotexist"   # false
+    BashUtils.isCommandValid  "command"         # true
+ ```
 
-## Index
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* [BashUtils.isCommandValid](#bashutilsiscommandvalid)
-
-### BashUtils.isCommandValid
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | commandName    | string        | in       |            | Command to analyse                    |
-
-#### Example
-```bash
-BashUtils.isCommandValid  ""                # false
-BashUtils.isCommandValid  "apashnotexist"   # false
-BashUtils.isCommandValid  "command"         # true
-```
-
-#### Exit codes
-
-* **0**: When the command name is correct.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the command name is correct.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

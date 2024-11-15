@@ -7,61 +7,42 @@
   # Apash
 </div>
 
+
 # MatrixUtils.getDim
-
 Return the corresponding array according to virtual dimensions.
+## Description
+   ⚠️ It is an experimental function.
+   The simple case on a two dimensional array is to retreive a row.
+   For more dimensions, it returns an array containing all sub dimensions
+   of the current offset.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
-The simple case on a two dimensional array is to retreive a row.
-For more dimensions, it returns an array containing all sub dimensions
-of the current offset.
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 
-### Since:
-0.2.0
+### Example
+ ```bash
+    myMatrix=(1 2 3 4 5 6 7 8 9)
+    MatrixUtils.create "mySubArray" "myMatrix" 3 3
+    MatrixUtils.getDim "mySubArray" "myMatrix" 0 1  # (1)
+    MatrixUtils.getDim "mySubArray" "myMatrix" 0    # (1 2 3)
+    MatrixUtils.getDim "mySubArray" "myMatrix" 1    # (4 5 6)
+ ```
 
-### Authors:
-* Benjamin VARGIN
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [MatrixUtils.getDim](#matrixutilsgetdim)
-
-### MatrixUtils.getDim
-
-#### Example
-```bash
-myMatrix=(1 2 3 4 5 6 7 8 9)
-MatrixUtils.create "mySubArray" "myMatrix" 3 3
-MatrixUtils.getDim "mySubArray" "myMatrix" 0 1  # (1)
-MatrixUtils.getDim "mySubArray" "myMatrix" 0    # (1 2 3)
-MatrixUtils.getDim "mySubArray" "myMatrix" 1    # (4 5 6)
-```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the matrix.
-* **$2** (number...): The index per dimension.
-
-#### Exit codes
-
-* **0**: When the subarray is returned.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the subarray is returned.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

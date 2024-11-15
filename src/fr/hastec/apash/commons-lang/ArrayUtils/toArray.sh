@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
@@ -16,13 +16,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
 # | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=()
 #    ArrayUtils.toArray    "myArray"                   # ()

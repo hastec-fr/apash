@@ -7,25 +7,24 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # MapUtils
-
 Operations on maps.
+## Description
+   This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/MapUtils.html)<br/>
+   ⚠️WARNING: Contrary to Java implementation, apash methods are modifying directly the input map given by reference.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/MapUtils.html)
-### WARNING
-Contrary Java implementation methods are generally modifying directly the input map given by reference.
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
@@ -36,8 +35,6 @@ Contrary Java implementation methods are generally modifying directly the input 
 |[init](MapUtils/init.md)|Defensive programming technique initialize a map.|
 |[isMap](MapUtils/isMap.md)|Check if the input name is an map or not.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

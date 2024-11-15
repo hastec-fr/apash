@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -13,13 +13,13 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inSubstring    | string        | in       |            | The substring to count.               |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.countMatches ""     ""      # 0
 #    StringUtils.countMatches ""     "a"     # 0

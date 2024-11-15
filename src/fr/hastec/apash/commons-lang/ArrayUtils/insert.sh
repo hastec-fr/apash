@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
@@ -16,14 +16,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
 # | $2     | ref_ArrayUtilsInsert_ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
 # | ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=()
 #    ArrayUtils.insert  "0"           "myArray"              # () - failure

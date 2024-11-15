@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
@@ -15,7 +15,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 # ## Interface
 # @apashPackage
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.join  "myArray"              # "a b  c"

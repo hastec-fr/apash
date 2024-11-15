@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -13,14 +13,14 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to modify.                 |
 # | $2     | inSubstring    | string        | in       |            | The substring to search.              |
 # | $3     | inReplacement  | string        | in       |            | The string which replaces the substring found. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.replace ""     ""    ""   # ""
 #    StringUtils.replace ""     "a"   "d"  # ""

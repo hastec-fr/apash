@@ -21,12 +21,12 @@ Check if the input name is an array or not.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inVarName      | string        | in       |            | Name of the array.                   |
  
-#### Example
+### Example
  ```bash
     ArrayUtils.isArray  ""          # false
     ArrayUtils.isArray  "myVar"     # false

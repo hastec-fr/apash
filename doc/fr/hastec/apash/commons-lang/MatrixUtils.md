@@ -7,23 +7,26 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # MatrixUtils
-
 Operations on matrixes.
+## Description
+   ⚠️WARNING: It is an experimental function.
+   Bash does not accept multi-dimensionals arrays.
+   The purpose of the MatrixUtil is to simulate it with a one dimensional array
+   Negative indexes are not supported for the moment.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
-Bash does not accept multi-dimensionals arrays.
-The purpose of the MatrixUtil is to simulate it with a one dimensional array
-Negative indexes are not supported for the moment.
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
@@ -39,8 +42,6 @@ Negative indexes are not supported for the moment.
 |[setDim](MatrixUtils/setDim.md)|Apply massive modification to a given dimension.|
 |[toString](MatrixUtils/toString.md)|Display each virtual indexes of the matrix.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

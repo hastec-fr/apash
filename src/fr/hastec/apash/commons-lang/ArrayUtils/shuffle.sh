@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
@@ -16,12 +16,12 @@ apash.import fr.hastec.apash.util.Random.nextInt
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
 #    ArrayUtils.shuffle    "myArray"                 # ("b" "a"  "d" "c")

@@ -24,12 +24,12 @@ Create an array even if the variable named was already declared.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.anythingToEmpty  "myArray"         # myArray=()
 

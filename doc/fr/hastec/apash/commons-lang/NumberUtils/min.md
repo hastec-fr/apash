@@ -7,65 +7,50 @@
   # Apash
 </div>
 
+
 # NumberUtils.min
-
 Returns the smaller value of a list of numbers.
+## Description
+   If the arguments have the same value, the result is that same value
+   but the first number format is returned.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-If the arguments have the same value, the result is that same value
-but the first number format is returned.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.1.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    NumberUtils.min  ""       ""       ""       # failure - ""
+    NumberUtils.min  "a"      "1"      "2"      # failure - ""
+    NumberUtils.min  "0"      "1"      ""       # failure - ""
+    NumberUtils.min  "0"      "2"      "1"      # 0
+    NumberUtils.min  "2"      "-3"     "0"      # -3
+    NumberUtils.min  "-2"     "-3"     "-4"     # -4
+    NumberUtils.min  "0.123"  ".099"   "-1"     # -1
+    NumberUtils.min  "-.123"  "-0.123"  ".123"  # -.123
+    NumberUtils.min  "000"    "0"      "00"     # 000
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * Returns the greater value from a list of numbers.
+         In case of equality, the first number format is returned.
+### Stderr
+  * None.
 
-## Index
-
-* [NumberUtils.min](#numberutilsmin)
-
-### NumberUtils.min
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
-
-#### Example
-
-```bash
-NumberUtils.min  ""       ""       ""       # failure - ""
-NumberUtils.min  "a"      "1"      "2"      # failure - ""
-NumberUtils.min  "0"      "1"      ""       # failure - ""
-NumberUtils.min  "0"      "2"      "1"      # 0
-NumberUtils.min  "2"      "-3"     "0"      # -3
-NumberUtils.min  "-2"     "-3"     "-4"     # -4
-NumberUtils.min  "0.123"  ".099"   "-1"     # -1
-NumberUtils.min  "-.123"  "-0.123"  ".123"  # -.123
-NumberUtils.min  "000"    "0"      "00"     # 000
-```
-
-#### Exit codes
-
-* **0**: When all inputs are parsable numbers.
-* **1**: When at least one input is not a parsable.
-
-#### Output on stdout
-
-* Returns the greater value from a list of numbers.
-  In case of equality, the first number format is returned.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When all inputs are parsable numbers.
+  * **1**: When at least one input is not a parsable.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

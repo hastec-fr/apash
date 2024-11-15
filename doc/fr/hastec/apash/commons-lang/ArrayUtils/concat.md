@@ -23,13 +23,13 @@ Concatenate multiple arrays.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName            | Type          | in/out   | Default    | Description                          |
  |--------|--------------------|---------------|----------|------------|--------------------------------------|
  | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated values. |
  | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.        |
 
-#### Example
+### Example
  ```bash
     local outArray=()
     myArray1=("a" "b" "c")

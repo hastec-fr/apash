@@ -7,56 +7,47 @@
   # Apash
 </div>
 
+
 # MatrixUtils.create
-
 Set the value of a cell according to the dimensions of the matrix.
+## Description
+   ⚠️ It is an experimental function.
+    Note that index in matrix start from 0 (even in zsh).
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
-Note that index in matrix start from 0 (even in zsh).
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | $2     | value          | string        | in       |                 | The new value.                       |
+ | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    myMatrix=(1 2 3 4 5 6 7 8 9)
+    MatrixUtils.create myMatrix 3 3
+    MatrixUtils.set "myMatrix" "a" 0 0  # (a 2 3 4 5 6 7 8 9)
+    MatrixUtils.set "myMatrix" "b" 0 2  # (a 2 b 4 5 6 7 8 9)
+    MatrixUtils.set "myMatrix" "c" 1 1  # (a 2 b 4 c 6 7 8 9)
+ ```
 
-## Index
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* [MatrixUtils.set](#matrixutilsset)
-
-### MatrixUtils.set
-
-#### Example
-```bash
-myMatrix=(1 2 3 4 5 6 7 8 9)
-MatrixUtils.create myMatrix 3 3
-MatrixUtils.set "myMatrix" "a" 0 0  # (a 2 3 4 5 6 7 8 9)
-MatrixUtils.set "myMatrix" "b" 0 2  # (a 2 b 4 5 6 7 8 9)
-MatrixUtils.set "myMatrix" "c" 1 1  # (a 2 b 4 c 6 7 8 9)
-```
-
-#### Arguments
-
-* **$1** (string): The new value.
-* **$2** (number...): The index per dimension.
-
-#### Exit codes
-
-* **0**: When the cell is updated.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the cell is updated.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

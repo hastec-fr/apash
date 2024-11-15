@@ -7,64 +7,50 @@
   # Apash
 </div>
 
+
 # StringUtils.splitAny
-
 Splits the provided text into an array according to the multiple inputs strings.
+## Description
+   Non array reference will be transformed to empty array.
+   Default separator is " "
+   The separator is not included in the returned String array.
+   Adjacent separators are treated as one separator. Leading and tailing separators
+   are not considered. Strings are split in the order of the matching. <br/>
+   @todo: Optimize this function.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-Non array reference will be transformed to empty array.
-Default separator is " "
-The separator is not included in the returned String array.
-Adjacent separators are treated as one separator. Leading and tailing separators
-are not considered. Strings are split in the order of the matching.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
+ | $2     | inString       | string        | in       |            | The string to split.                             |
+ | $3     | inDelimiters   | string...     | in       | " "        | The delimiter (can be a sequence of characters). |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    StringUtils.split myArray "ab:c,d:e,f" ":" ","           # ["ab", c, d, e, f ]
+    StringUtils.split myArray ":,:ab::c,d:::e,f:,:" ":" ","  # ["ab", c, d, e, f ]
+    StringUtils.split myArray $'ab\n\ncd\nef' $'\n'          # ["ab", "cd", "ef"]
+    StringUtils.split myArray "abab::cd:ab:ef::ab" "ab"      # ["::cd:", ":ef::"]
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-## Index
-
-* [StringUtils.splitAny](#stringutilssplitany)
-
-### StringUtils.splitAny
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
-| $2     | inString       | string        | in       |            | The string to split.                             |
-| $3     | inDelimiters   | string...     | in       | " "        | The delimiter (can be a sequence of characters). |
-
-#### Example
-
-```bash
-StringUtils.split myArray "ab:c,d:e,f" ":" ","           # ["ab", c, d, e, f ]
-StringUtils.split myArray ":,:ab::c,d:::e,f:,:" ":" ","  # ["ab", c, d, e, f ]
-StringUtils.split myArray $'ab\n\ncd\nef' $'\n'          # ["ab", "cd", "ef"]
-StringUtils.split myArray "abab::cd:ab:ef::ab" "ab"      # ["::cd:", ":ef::"]
-```
-
-#### Exit codes
-
-* **0**: When result array exists.
-* **1**: When input array does not exists.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When result array exists.
+  * **1**: When input array does not exists.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

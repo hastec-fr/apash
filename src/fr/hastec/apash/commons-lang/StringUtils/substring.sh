@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -18,14 +18,14 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default     | Description                           |
 # |--------|----------------|---------------|----------|-------------|---------------------------------------|
 # | $1     | inString       | string        | in       |             | The String to get the substring from. |
 # | $2 ?   | inPrefix       | string        | in       | 0           | The position to start from, negative means count back from the end of the String by this many characters. |
 # | $3 ?   | inPrefix       | string        | in       | ${#inString}| The position to end at (exclusive), negative means count back from the end of the String by this many characters. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.substring ""              # return ""
 #    StringUtils.substring "abc"  0   2    # return "ab"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 
@@ -13,18 +13,15 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inDate         | date          | in       |            | The date to check                     |
 #
-# #### Example
+# ### Example
 # ```bash
 #    DateUtils.isDate ""                              # false
 #    DateUtils.isDate "20240914"                      # false

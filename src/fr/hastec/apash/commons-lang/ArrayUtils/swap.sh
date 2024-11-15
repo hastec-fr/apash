@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
@@ -21,7 +21,7 @@ apash.import fr.hastec.apash.lang.Math.min
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to swap.           |
@@ -29,7 +29,7 @@ apash.import fr.hastec.apash.lang.Math.min
 # | $3     | inEndIndex     | number        | in       |                 | The index of the second element in the series to swap  |
 # | $4     | inLen          | number        | in       | 1               | The number of elements to swap starting with the given indices. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
 #    ArrayUtils.swap    "myArray"                 # failure

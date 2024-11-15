@@ -6,36 +6,29 @@
 # @description
 #   <More details and note about the feature>
 #
-# ### Since:
-# <The current version: 0.1.0>
+# ## History
+#  @since <The current version: 0.1.0> (authors,)
 #
 # ### ChangeLogs:
-# - <version 0.2.0>: <Single modification>
-#   - <Modification 1>
-#   - <Modification 2>
+# * <version 0.2.0> (authors,): <Single modification>
+#   * <Modification 1>
+#   * <Modification 2>
 #
-# ### Authors:
-# * <Authors>
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# <!-- apash.parentEnd -->
-#
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | <varName>      | string        | in       |            | <Description  of the variable.>       |
 #
-# #### Example
+# ### Example
 # ```bash
-#    ArrayUtils.add  "myArray"              # failure
-#    ArrayUtils.add  "myArray"  "a"         # ("a")
-#    ArrayUtils.add  "myArray"  "b"         # ("a" "b")
-#    ArrayUtils.add  "myArray"  ""          # ("a" "b" "")
-#    ArrayUtils.add  "myArray"  "foo bar"   # ("a" "b" "" "foo bar")
-#    ArrayUtils.add  "myArray"  "c" "d"     # failure
+#    <Package>.<method>  "arg1"             # failure
+#    <Package>.<method>  "arg1" "args2"     # "Scalar result"
+#    <Package>.<method>  "arg1" "args2"     # ("Array result")
+#    <Package>.<method>  "arg1" "args2"     # {"Map result"}
+#    <Package>.<method>  "arg1" "args2"     # myVar1="myVal1", myVar2="myVal2"(multi outputs).
 # ```
 #
 # @stdout Put a dot at the end of the comments.
@@ -43,3 +36,5 @@
 #
 # @exitcode 0 When result is displayed.
 # @exitcode 1 Otherwise.
+#/
+Package.method() { true; }

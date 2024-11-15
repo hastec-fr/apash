@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
@@ -19,12 +19,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "a" "c")
 #    ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c")

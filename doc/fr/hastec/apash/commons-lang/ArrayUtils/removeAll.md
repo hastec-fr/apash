@@ -23,13 +23,13 @@ Removes the elements at the specified positions from the specified array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
  | ${@:2} | inIndexes      | numbers...    | in       |            |  The indexes of the array to remove. |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "c" "" "d")
     ArrayUtils.removeAll  "myArray"            # failure

@@ -21,14 +21,14 @@ Gets the nTh element of an array or a default value if the index is out of bound
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
  | $2     | inIndex        | string        | in       |            | Index of the array.                  |
  | $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "c")
     ArrayUtils.get  "myArray"              # ""  - failure

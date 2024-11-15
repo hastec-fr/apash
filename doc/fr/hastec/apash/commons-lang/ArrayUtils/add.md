@@ -18,7 +18,7 @@ Adds a given element at the end of an array.
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Changelogs:
+### ChangeLogs:
   * 0.2.0 (hastec-fr):
     * Fix issue with discontinued indexes in bash.
     * Consider no argument as success (nothing added).

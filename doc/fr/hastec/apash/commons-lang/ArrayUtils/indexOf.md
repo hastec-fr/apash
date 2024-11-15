@@ -18,23 +18,20 @@ Finds the first index of the given value in the array starting at the given inde
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Authors:
- * Benjamin VARGIN
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
  | $2     | inValue        | string        | in       |            | Value to find.                       |
  | $3 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
 
-#### Example
+### Example
  ```bash
     myIndexes=()
     myArray=("a" "b" "" "c" "b")

@@ -21,7 +21,7 @@ Return all elements of an array joined by an input string.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "c")
     ArrayUtils.join  "myArray"              # "a b  c"

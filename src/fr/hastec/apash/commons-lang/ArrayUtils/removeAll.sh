@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
@@ -21,13 +21,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 # | ${@:2} | inIndexes      | numbers...    | in       |            |  The indexes of the array to remove. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c" "" "d")
 #    ArrayUtils.removeAll  "myArray"            # failure

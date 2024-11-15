@@ -18,8 +18,8 @@ Adds given elements at the end of an array.
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Authors:
-  * 0.2.0 (hastec-fr): 
+### ChangeLogs:
+  * 0.2.0 (hastec-fr):
     * Fix issue with discontinued indexes in bash.
     * Consider no argument as success (nothing added).
 
@@ -29,22 +29,14 @@ Adds given elements at the end of an array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName           | Type          | in/out   | Default    | Description                           |
  |--------|-------------------|---------------|----------|------------|---------------------------------------|
  | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.          |
  | ${@:2} | $@                | string...     | in       |            | Values to add at the end of the array.|
 
-#### Example
+### Example
  ```bash
-    ArrayUtils.addAll  ""       ""            # failure
-    
-    myVar="test"
-    ArrayUtils.addAll  "myVar"  "a"           # failure
-
-    declare -A myMap
-    ArrayUtils.addAll  "myMap"  "a"           # failure
-
     ArrayUtils.addAll  "myArray"              # ()
     ArrayUtils.addAll  "myArray"  "a"         # ("a")
     ArrayUtils.addAll  "myArray"  "b" ""      # ("a" "b" "")

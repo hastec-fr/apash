@@ -15,21 +15,18 @@ This method checks whether the provided array is sorted according to natural ord
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Authors:
- * Benjamin VARGIN
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
-#### Example
+### Example
  ```bash
     myArray=()
     ArrayUtils.isSorted "myArray"  # true

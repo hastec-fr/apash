@@ -9,7 +9,7 @@
 
 
 # ArrayUtils.countMatches
-Return the number of cells having the given value
+Return the number of cells having the given value.
 
 ## History
 ### Since
@@ -21,13 +21,13 @@ Return the number of cells having the given value
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName           | Type          | in/out   | Default    | Description                          |
  |--------|-------------------|---------------|----------|------------|--------------------------------------|
  | $1     | apash_inArrayName | ref(string[]) | in       |            | Name of the array to check.          |
  | $2     | apash_inValue     | string        | in       | ""         | Value to find in the array.          |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "a" "c" "" "")
     ArrayUtils.countMatches  "myArray"              # 3

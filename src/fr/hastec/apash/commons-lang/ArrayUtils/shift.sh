@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.swap
@@ -18,7 +18,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
@@ -26,7 +26,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # | $3 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
 # | $4 ?   | inEndIndex     | number        | in       | lastIndex+1     |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c" "" "d")
 #    ArrayUtils.shift    "myArray"                    # ("a" "b" "c" "" "d")

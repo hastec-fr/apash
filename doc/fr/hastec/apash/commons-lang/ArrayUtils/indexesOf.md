@@ -18,16 +18,13 @@ Finds the indices of the given value in the array starting at the given index.
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Authors:
- * Benjamin VARGIN
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
@@ -36,7 +33,7 @@ Finds the indices of the given value in the array starting at the given index.
  | $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
 
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "" "c" "b")
     ArrayUtils.indexesOf "myIndexes" "myArray" "b"   # ("1" "4")

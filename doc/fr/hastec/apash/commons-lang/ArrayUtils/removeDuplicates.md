@@ -23,12 +23,12 @@ Removes elements which are present multiple times in the array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "a" "c")
     ArrayUtils.removeDuplicates  "myArray"    # ("a" "b" "c")

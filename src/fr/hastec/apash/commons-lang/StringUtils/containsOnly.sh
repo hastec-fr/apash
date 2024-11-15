@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -18,13 +18,13 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inSequence     | string        | in       |            | The sequence of characters which should compose the input string. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.constainsOnly ""     ""     # true
 #    StringUtils.constainsOnly ""     "ab"   # true

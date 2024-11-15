@@ -1,33 +1,18 @@
 #!/usr/bin/env bash
+
+##/
 # <!-- @class -->
 # @name CsvUtils
 # @brief Operations on csv files.
 # @description
 #   Apash utilitary function on csv files.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-# <!-- apash.parentEnd -->
-#
+# ## Interface
+# @apashPackage
 # 
-# ### Method Summary
-# <!-- apash.summaryTableBegin -->
-# | Methods                  | Brief                                 |
-# |--------------------------|---------------------------------------|
-# |[merge](CsvUtils/merge.md)|Merge two csv files according to their columns keys|
-# <!-- apash.summaryTableEnd -->
-
-
-
-
-
-
-
-
-
-
-
+# @apashSummaryTable
+#/
+commons-lang.CsvUtils() { true; }

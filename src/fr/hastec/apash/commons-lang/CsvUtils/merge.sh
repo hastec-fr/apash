@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.countMatches
 apash.import fr.hastec.apash.commons-lang.StringUtils.split
@@ -22,13 +22,13 @@ apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inFile1        | string        | in       |            | The first csv file to merge.          |
 # | $2     | inFile2        | string        | in       |            | The second csv file to merge          |
 #
-# #### Example
+# ### Example
 # ```bash
 #    CsvUtils.merge file1 file2  # Merge the csv files according to first column
 # ```

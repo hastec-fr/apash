@@ -9,9 +9,9 @@
 
 
 # ApashUtils.doc
-Create a Markdown file associated to the input file.
+Generate a Markdown file according to comments of the input file.
 ## Description
-   Tags must be in comment sections and between tags: ##/ ... #/<br/>
+   Markdown is generated according to comment sections between tags: "##/" and "#/".<br/>
    For multi lines, all # in the middle will be considered in the current documentation.
    ```bash
    ##/
@@ -19,12 +19,10 @@ Create a Markdown file associated to the input file.
    #  My second comment line
    #/
    ```
+
 ## History
 ### Since
-- 0.2.0
-
-### Authors:
- * 0.2.0: hastec-fr
+  * 0.2.0
 
 ## Interface
 ### Package
@@ -35,22 +33,21 @@ Create a Markdown file associated to the input file.
 ### Arguments
  | #  | varName        | Type          | in/out   | Default    | Description                          |
  |----|----------------|---------------|----------|------------|--------------------------------------|
- | $1 | ioArrayName    | ref(string[]) | in & out |            | Name of the array to modify.         |
- | $2 | inValue        | string        | in       |            | Value to add at the end of the array.|
+ | $1 | inFile         | string        | in       |            | Path of the file to analyze.         |
 
 ### Example
  ```bash
-    ApashUtils.doc  "myFile"    # Display the markdown content.
+    ApashUtils.doc  "myFile"    # Display the markdown section to the standard output.
  ```
 
 ### Stdout
-- The markdown content of the input file.
+  * The markdown content of the input file.
 ### Stderr
-- None.
+  * None.
 
 ### Exit codes
-* **0**: When markdown is displayed.
-* **1**: When the file does not exists.
+  * **0**: When markdown is displayed.
+  * **1**: When the file does not exists.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

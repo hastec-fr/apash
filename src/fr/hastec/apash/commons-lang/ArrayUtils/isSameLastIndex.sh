@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
@@ -15,13 +15,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
 # | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=()
 #    ArrayUtils.isSameLastIndex "myArray"  "myArray"  # true

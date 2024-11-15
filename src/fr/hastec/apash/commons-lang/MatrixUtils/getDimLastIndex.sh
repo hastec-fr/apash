@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2068
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 apash.import fr.hastec.apash.commons-lang.MatrixUtils.getDimOffset
@@ -25,13 +25,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 # | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myMatrix=(1 2 3 4 5 6 7 8 9)
 #    MatrixUtils.create myMatrix 3 3

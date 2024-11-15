@@ -1,36 +1,30 @@
 #!/usr/bin/env bash
 
-# Dependencies ##############################################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log.message
 apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 apash.import fr.hastec.apash.lang.Math.min
 
-# File description ###########################################################
+##/
 # @name Log.exception
 # @brief Log an error message due to an unexpected behavior and print the stack.
 # @description
 #   The message is mandatory pushed to error channel.
 #
-# ### Since:
-# 0.2.0
+# ## History
+# @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
+# ## Interface
+# @apashPackage
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Log](../Log.md) / 
-# <!-- apash.parentEnd -->
-
-# Method description #########################################################
-# @description
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default   | Description                           |
 # |--------|----------------|---------------|----------|-----------|---------------------------------------|
 # | $1     | inLineNumber   | number        | in       |           | The line number of the log.           |
 # | $2     | inLabel        | string        | in       |           | The corresponding exit label.         |
 #
-# @example
+# ### Example
+# ```bash
 #    cat <<EOF
 #    apash.import fr.hastec.apash.util.Log.exception
 #    myFunc() { Log.exception "$LINENO" "myFunc-001" "InvalidNumber"; }
@@ -44,12 +38,14 @@ apash.import fr.hastec.apash.lang.Math.min
 #                  #       at myFunc(./test.sh:2)
 #                  #       at myGrandFunc(./test.sh:5)
 #                  #       at main(./test.sh:8)
+# ```
 #
 # @stdout None.
 # @stderr The message to log.
 #
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
+#/
 Log.exception() {
   [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_FUNCTION_SUCCESS"
   local inLineNumber="$1"

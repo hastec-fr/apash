@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
@@ -16,21 +16,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-#  * 0.2.0 (hastec-fr): 
+# ### ChangeLogs:
+#  * 0.2.0 (hastec-fr):
 #    * Fix issue with discontinued indexes in bash.
 #    * Consider no argument as success (nothing added).
 #
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName           | Type          | in/out   | Default    | Description                           |
 # |--------|-------------------|---------------|----------|------------|---------------------------------------|
 # | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.          |
 # | ${@:2} | $@                | string...     | in       |            | Values to add at the end of the array.|
 #
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.addAll  "myArray"              # ()
 #    ArrayUtils.addAll  "myArray"  "a"         # ("a")

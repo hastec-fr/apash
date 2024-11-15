@@ -7,60 +7,47 @@
   # Apash
 </div>
 
+
 # MatrixUtils.isMatrix
-
 Check if all elements defining a matrix are respected.
+## Description
+   ⚠️ It is an experimental function.
+   Considered as a matrix, an array which has its side array.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-⚠️ It is an experimental function.
-Considered as a matrix, an array which has its side array.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default         | Description                          |
+ |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    MatrixUtils.isMatrix  "myMatrix"  # false
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MatrixUtils](../MatrixUtils.md) / 
-<!-- apash.parentEnd -->
+    myMatrix=(1 2 3 4 5 6)
+    MatrixUtils.isMatrix  "myMatrix"  # false
 
-## Index
+    MatrixUtils.create myMatrix 3
+    MatrixUtils.isMatrix  "myMatrix"  # true
+ ```
 
-* [MatrixUtils.isMatrix](#matrixutilsismatrix)
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-### MatrixUtils.isMatrix
-
-#### Example
-```bash
-MatrixUtils.isMatrix  "myMatrix"  # false
-
-myMatrix=(1 2 3 4 5 6)
-MatrixUtils.isMatrix  "myMatrix"  # false
-
-MatrixUtils.create myMatrix 3
-MatrixUtils.isMatrix  "myMatrix"  # true
-```
-
-#### Arguments
-
-* **$1** (ref(string[])): Name of the array if exists.
-
-#### Exit codes
-
-* **0**: When the matrix exists.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the matrix exists.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

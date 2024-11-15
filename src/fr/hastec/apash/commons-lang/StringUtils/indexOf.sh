@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -13,13 +13,13 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to check.                  |
 # | $2     | inResearch     | string        | in       |            | The substring to find within the input string. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.indexOf ""         ""   #  0
 #    StringUtils.indexOf "aabaabaa" ""   #  0

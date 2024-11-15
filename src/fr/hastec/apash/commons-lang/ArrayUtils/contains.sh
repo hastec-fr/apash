@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
@@ -17,13 +17,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName           | Type          | in/out   | Default    | Description                          |
 # |--------|-------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_inArrayName | ref(string[]) | in       |            | Name of the array to check.          |
 # | $2     | apash_inValue     | string        | in       |            | Value to find in the array.          |
 #
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.contains  ""       ""            # false
 #    ArrayUtils.contains  "myVar"  "a"           # false

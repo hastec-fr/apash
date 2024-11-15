@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 apash.import fr.hastec.apash.lang.Math.abs
@@ -19,13 +19,13 @@ apash.import fr.hastec.apash.lang.Math.abs
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to rotate.                 |
 # | $2 ?   | inNbChars      | number        | in       | 0          | Number of time to shift.              |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.rotate ""          ""      # ""
 #    StringUtils.rotate "abcdefg"   "0"     # "abcdefg"

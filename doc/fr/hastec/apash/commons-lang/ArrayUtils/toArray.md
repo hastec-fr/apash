@@ -23,13 +23,13 @@ Create an array based on list of arguments.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
  | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
 
-#### Example
+### Example
  ```bash
     myArray=()
     ArrayUtils.toArray    "myArray"                   # ()

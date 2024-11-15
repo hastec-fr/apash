@@ -25,12 +25,12 @@ Check if the given index is a long positive integer.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inIndex        | number        | in       |            | The index number to analyse          |
  
-#### Example
+### Example
  ```bash
     ArrayUtils.isArrayIndex "0"                    # true (false for zsh starting at 1)
     ArrayUtils.isArrayIndex "1"                    # true

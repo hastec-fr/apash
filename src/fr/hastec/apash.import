@@ -1,5 +1,64 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
+
+##/
+# @name apash.import
+# @brief Import a source to the current session.
+# @description
+#   Source can be imported individually or per package.
+#   It accepts the . or / separators.
+#   Intermediate packages must not have dots in the name ".".
+#
+# ## Implementation Notes
+#   Below how the methods are resolved according to the file name.
+#   The leaf files correspond to Methods. Their names must:
+#   - Indicate which shell is concerned by the script (.sh: default, .zsh, .bash...)
+#   - Indicate a version relative to the shell if necessary. The version is separated by an underscore and numbers separated by dots.
+#   Example:
+#   ```bash
+#   lowerCase.sh          # Default script picked up by the import when no shell or version match.
+#   lowerCase.bash        # Pick this file when the APASH_SHELL is bash.
+#   lowerCase.bash_4.2.53 # Pick this file when the APASH_SHELL is bash and 
+#                         # APASH_SHELL_VERSION lower than 4.2.53.
+#                         # NOT RECOMMANDED, because if a 4.2.54 is out, the file is not picked.
+#   lowerCase.bash_4.2    # So prefer to avoid the last patch number in order to take patched versions into account (specially for latest version).
+#   ```
+#
+# ## History
+# @since 0.1.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $@     | $@             | string...     | in       |                 | Name of element to import            |
+#
+# ### Options
+# | option | description   |
+# |--------|---------------|
+# | -f     | Force the import of the element even it has been already imported (not recusive).|
+#
+# ### Example
+# ```bash
+#    apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone       # Import the method ArrayUtils.clone.
+#    apash.import -f fr.hastec.apash.commons-lang.ArrayUtils.clone    # Re-Import the method ArrayUtils.clone.
+#
+#    apash.import  fr/hastec/apash/commons-lang/ArrayUtils/add        # Import the method ArrayUtils.add.
+#    apash.import  fr/hastec/apash/commons-lang/ArrayUtils/addAll.sh  # Import the method ArrayUtils.addAll.
+#
+#    apash.import fr.hastec.apash.util.Log                            # Import all methods under Log directory.
+#
+#    apash.import fr.hastec.apash.commons-lang.StringUtils.lowerCase \
+#                 fr.hastec.apash.commons-lang.StringUtils.upperCase  # Import both methods upper/lower cases.
+# ```
+#
+# @stdout None.
+# @stderr None.
+#
+# @todo: Optimize a maximum this function to reduce loading time.
+#/
 apash.import(){
   local lib vlib version
   local libs=()

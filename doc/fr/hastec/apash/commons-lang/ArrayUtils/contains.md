@@ -24,13 +24,13 @@ Checks if the value is in the given array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName           | Type          | in/out   | Default    | Description                          |
  |--------|-------------------|---------------|----------|------------|--------------------------------------|
  | $1     | apash_inArrayName | ref(string[]) | in       |            | Name of the array to check.          |
  | $2     | apash_inValue     | string        | in       |            | Value to find in the array.          |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.contains  ""       ""            # false
     ArrayUtils.contains  "myVar"  "a"           # false

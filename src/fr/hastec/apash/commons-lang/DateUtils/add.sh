@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 apash.import fr.hastec.apash.commons-lang.DateUtils.isDate
@@ -17,14 +17,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inDate         | date          | in       |            | The date in UTC format.               |
 # | $2     | inAmount       | number        | in       |            | The amount of unity to add, may be negative. |
 # | $3     | inType         | string        | in       |            | The type of unity to add to the date.        |
 #
-# #### Example
+# ### Example
 # ```bash
 #    DateUtils.add ""                               ""       "hours" # failure
 #    DateUtils.add "0"                              ""       "hours" # failure

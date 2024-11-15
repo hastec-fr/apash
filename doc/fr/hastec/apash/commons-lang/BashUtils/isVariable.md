@@ -7,66 +7,51 @@
   # Apash
 </div>
 
+
 # BashUtils.isVariable
-
 Defensive programming technique to check that a variable exists.
+## Description
+   Arrays and Maps are not considered as variables.
+   If you need to consider arrays and maps then use BashUtils.isDeclared.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
+ 
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
+<!-- apash.packageEnd -->
 
-Arrays and Maps are not considered as variables.
-If you need to consider arrays and maps then use BashUtils.isDeclared.
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | varName        | string        | in       |            | Variable name to check.               |
 
-### Since:
-0.2.0
+### Example
+ ```bash
+    BashUtils.isVariable  ""              # false
+    BashUtils.isVariable  "myVar"         # false
 
-### Authors:
-* Benjamin VARGIN
+    myVar=myValue
+    BashUtils.isVariable  "myVar"         # true
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-<!-- apash.parentEnd -->
+    declare -a myArray=()
+    BashUtils.isVariable  "myArray"       # false
 
-## Index
+    declare -A myMap=([foo]=bar)
+    BashUtils.isVariable  "myMap"         # false
+ ```
 
-* [BashUtils.isVariable](#bashutilsisvariable)
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-### BashUtils.isVariable
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | varName        | string        | in       |            | Variable name to check.               |
-
-#### Example
-```bash
-BashUtils.isVariable  ""              # false
-BashUtils.isVariable  "myVar"         # false
-
-myVar=myValue
-BashUtils.isVariable  "myVar"         # true
-
-declare -a myArray=()
-BashUtils.isVariable  "myArray"       # false
-
-declare -A myMap=([foo]=bar)
-BashUtils.isVariable  "myMap"         # false
-
-```
-
-#### Exit codes
-
-* **0**: When the input name corresponds to a variable (not including arrays and maps).
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the input name corresponds to a variable (not including arrays and maps).
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

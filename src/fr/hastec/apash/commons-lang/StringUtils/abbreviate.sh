@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to abbreviate.             |
@@ -30,7 +30,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # | $3 ?   | inOffsets      | number        | in       | 0          | Left edge of source String.                          |
 # | $4 ?   | inMarker       | string        | in       | ...        | The string used as replacement marker.               |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.abbreviate ""              # ""
 #    StringUtils.abbreviate ""        4     # ""

@@ -23,13 +23,13 @@ Copy an array into another array using references.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName                             | Type          | in/out   | Default    | Description                          |
  |--------|-------------------------------------|---------------|----------|------------|--------------------------------------|
  | $1     | apash_ArrayUtils_clone_inArrayName  | ref(string[]) | in       |            | Name of the array to clone.          |
  | $2     | apash_ArrayUtils_clone_outArrayName | ref(string[]) | out      |            | Name of the array which will receive the clone.|
 
-#### Example
+### Example
  ```bash
     ArrayUtils.clone  ""       ""               # failure
 

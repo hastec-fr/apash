@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 
 ##/
@@ -16,12 +16,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
 #
-# #### Example
+# ### Example
 # ```bash
 #    BashUtils.getLineNumber  0                          # BashUtils.getLineNumber
 #    myCaller(){ BashUtils.getLineNumber   ; }; myCaller # myCaller

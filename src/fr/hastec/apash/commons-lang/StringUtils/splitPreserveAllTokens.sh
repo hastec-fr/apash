@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 
@@ -20,14 +20,14 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
 # | $2     | inString       | string        | in       |            | The string to split.                             |
 # | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.splitPreserveAllTokens myArray ""  ""                    # []
 #    StringUtils.splitPreserveAllTokens myArray ""  ":"                   # []

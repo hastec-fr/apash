@@ -7,22 +7,23 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # Random
+Contains methods for generating numbers.
+## Description
+   This package contains various methods for generating numbers.
+   This implementation do reference to the [java implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/random/package-summary.html).
 
-Contains methods for generating numbers
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-## Overview
-
-This package contains various methods for generating numbers.
-This implementation do reference to the [java implementation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/random/package-summary.html).
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [util](../util.md) / 
-<!-- apash.parentEnd -->
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [util](../util.md) / 
+<!-- apash.packageEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
@@ -30,8 +31,6 @@ This implementation do reference to the [java implementation](https://docs.oracl
 |--------------------------|---------------------------------------|
 |[nextInt](Random/nextInt.md)|Returns a pseudorandomly chosen int value.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

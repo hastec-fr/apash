@@ -13,12 +13,12 @@
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
 #
-# #### Example
+# ### Example
 # ```bash
 #    BashUtils.getFunctionName  0                          # BashUtils.getFunctionName
 #    myCaller(){ BashUtils.getFunctionName   ; }; myCaller # myCaller

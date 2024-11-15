@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 
@@ -14,12 +14,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | The string to reverse.                |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.reverse             # ""
 #    StringUtils.reverse ""          # ""

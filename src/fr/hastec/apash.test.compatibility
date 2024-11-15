@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Dependencies #################################################################
 apash.import "fr.hastec.apash.commons-lang.StringUtils.upperCase"
 apash.import "fr.hastec.apash.commons-lang.StringUtils.startsWith"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.containsKey"
@@ -9,6 +10,35 @@ apash.import "fr.hastec.apash.commons-lang.StringUtils.splitPreserveAllTokens"
 apash.import "fr.hastec.apash.commons-lang.ArrayUtils.remove"
 apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 
+##/
+# @name apash.test.compatibility
+# @brief Pass tests for different shell and versions, output the compatibility matrix.
+# @description
+#   Loop on predefined shell and version for all methods and build the file
+#   hosting the compatibility matrix.
+#   It should be called from apash main script.
+#   @todo: create a way to test only one method.
+#   @todo: create a way to test the ready versions (with minified).
+#
+# ## History
+# @since 0.2.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | shellName      | string        | in       |                 | Which shell is used for the import   |
+#
+# ### Example
+# ```bash
+#    apash test --compatibility
+# ```
+# 
+# @stdout the script content minified.
+# @stderr None.
+#/
 apash.test.compatibility(){
   local globalCampaignDir="$APASH_HOME_DIR/tmp"
   local globalCampaignFile="$globalCampaignDir/apash_campaign_${APASH_VERSION}.res"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
@@ -15,14 +15,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
 # | $2     | inIndex        | string        | in       |            | Index of the array.                  |
 # | $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.get  "myArray"              # ""  - failure

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
@@ -15,13 +15,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | outArrayName   | ref(string[]) | out      |            | Name of the array containing keys.    |
 # | $2     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
 #
-# #### Example
+# ### Example
 # ```bash
 #    declare -A myMap=(["foo"]="bar" ["key"]="value")
 #    MapUtils.getKeys  "myArray" "myMap"          # myArray=(foo bar)

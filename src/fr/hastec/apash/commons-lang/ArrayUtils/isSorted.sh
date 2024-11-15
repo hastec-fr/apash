@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
@@ -12,18 +12,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=()
 #    ArrayUtils.isSorted "myArray"  # true

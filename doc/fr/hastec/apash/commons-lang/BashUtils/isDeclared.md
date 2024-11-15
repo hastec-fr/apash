@@ -7,69 +7,55 @@
   # Apash
 </div>
 
+
 # BashUtils.isDeclared
-
 Defensive programming technique to check that a variable is declared.
+## Description
+   Arrays and Maps are considered as declared too.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-Arrays and Maps are considered as declared too.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | varName        | string        | in       |            | Variable name to check.               |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    BashUtils.isDeclared  ""              # false
+    BashUtils.isDeclared  "myVar"         # false
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-<!-- apash.parentEnd -->
+    myVar=myValue
+    BashUtils.isDeclared  "myVar"         # true
 
-## Index
+    declare -a myArray=()
+    BashUtils.isDeclared  "myArray"       # true
 
-* [BashUtils.isDeclared](#bashutilsisdeclared)
+    declare -A myMap=([foo]=bar)
+    BashUtils.isDeclared  "myMap"         # true
+ ```
 
-### BashUtils.isDeclared
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | varName        | string        | in       |            | Variable name to check.               |
+### Exit codes
+  * **0**: When the variable is declared (even an array or a map).
+  * **1**: Otherwise.
 
-#### Example
-```bash
-BashUtils.isDeclared  ""              # false
-BashUtils.isDeclared  "myVar"         # false
-
-myVar=myValue
-BashUtils.isDeclared  "myVar"         # true
-
-declare -a myArray=()
-BashUtils.isDeclared  "myArray"       # true
-
-declare -A myMap=([foo]=bar)
-BashUtils.isDeclared  "myMap"         # true
-
-```
-
-#### Exit codes
-
-* **0**: When the variable is declared (even an array or a map).
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
-#### See also
-
-* [](#)
-
+### See also
+ - [BashUtils.isDeclared](./isDeclared.md), 
+ - [ArrayUtils.isArray](../ArrayUtils/isArray.md),
+ - [MapUtils.isMap](../MapUtils/isMap.md)
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

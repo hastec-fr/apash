@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
@@ -23,12 +23,12 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | ioMapName      | ref(string{}) | in/out   |            | Name of the map to initialize.       |
 #
-# #### Example
+# ### Example
 # ```bash
 #    
 #    myVar="test" 

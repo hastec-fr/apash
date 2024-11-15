@@ -25,12 +25,12 @@ Defensive programming technique to change a null reference to an empty Array
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array if exists.        |
 
-#### Example
+### Example
  ```bash
     ArrayUtils.nullToEmpty  ""                # failure
 

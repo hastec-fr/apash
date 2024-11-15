@@ -1,29 +1,18 @@
 #!/usr/bin/env bash
 
+##/
 # <!-- @package -->
 # @name util
 # @brief Provides miscellaneous utility.
 # @description
 #   This implementation do reference to the [java implementation](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html).
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# <!-- apash.parentBegin -->
-# [](../../.md) / [apash](../apash.md) / 
-# <!-- apash.parentEnd -->
+# ## Interface
+# @apashPackage
 #
-# ### Method Summary
-# <!-- apash.summaryTableBegin -->
-# | Methods                  | Brief                                 |
-# |--------------------------|---------------------------------------|
-# |[Array](util/Array.md)|Contains methods for performing basic numeric operations|
-# |[Log](util/Log.md)|Log a message with all provided informations|
-# |[Random](util/Random.md)|Contains methods for generating numbers|
-# <!-- apash.summaryTableEnd -->
-
-
-
-
-
+# @apashSummaryTable
+#/
+apash.util() { true; }

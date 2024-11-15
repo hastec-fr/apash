@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
@@ -27,7 +27,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # | $3     | inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
 # | $4     | inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
 #    ArrayUtils.subarray  "mySubArray"  "myArray"                 # failure - ""

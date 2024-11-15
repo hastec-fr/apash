@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -13,12 +13,12 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | ${@:1} | inStrings      | string...     | in       |            | The strings to check.                 |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.isAnyEmpty                  # true
 #    StringUtils.isAnyEmpty ""               # true

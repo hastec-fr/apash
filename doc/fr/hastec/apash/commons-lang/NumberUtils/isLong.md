@@ -7,68 +7,53 @@
   # Apash
 </div>
 
+
 # NumberUtils.isLong
-
 Checks whether the String contains has the form of a valid long integer.
+## Description
+   Numbers with and "." will return false. Only numbers with 
+   optional minus first and digits after are considered as valid.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-Numbers with and "." will return false. Only numbers with 
-optional minus first and digits after are considered as valid.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inNumber       | number        | in       |            | The number to check.                  |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    NumberUtils.isLong ""                      # false
+    NumberUtils.isLong "a"                     # false
+    NumberUtils.isLong "a12"                   # false
+    NumberUtils.isLong "-12"                   # true
+    NumberUtils.isLong "--12"                  # false
+    NumberUtils.isLong "1-2"                   # false
+    NumberUtils.isLong "1.2"                   # false
+    NumberUtils.isLong " 12"                   # false
+    NumberUtils.isLong "123"                   # true
+    NumberUtils.isLong "000"                   # true
+    NumberUtils.isLong "-9223372036854775808"  # true
+    NumberUtils.isLong "9223372036854775807"   # true
+    NumberUtils.isLong "9223372036854775808"   # false
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [NumberUtils](../NumberUtils.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-## Index
-
-* [NumberUtils.isLong](#numberutilsislong)
-
-### NumberUtils.isLong
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inNumber       | number        | in       |            | The number to check.                  |
-
-#### Example
-
-```bash
-NumberUtils.isLong ""                      # false
-NumberUtils.isLong "a"                     # false
-NumberUtils.isLong "a12"                   # false
-NumberUtils.isLong "-12"                   # true
-NumberUtils.isLong "--12"                  # false
-NumberUtils.isLong "1-2"                   # false
-NumberUtils.isLong "1.2"                   # false
-NumberUtils.isLong " 12"                   # false
-NumberUtils.isLong "123"                   # true
-NumberUtils.isLong "000"                   # true
-NumberUtils.isLong "-9223372036854775808"  # true
-NumberUtils.isLong "9223372036854775807"   # true
-NumberUtils.isLong "9223372036854775808"   # false
-```
-
-#### Exit codes
-
-* **0**: When the input string is a long integer.
-* **1**: When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the input string is a long integer.
+  * **1**: When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

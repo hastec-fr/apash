@@ -7,26 +7,24 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # ArrayUtils
-
 Operations on arrays.
+## Description
+   This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html)<br/>
+   ⚠️WARNING: Contrary to Java implementation, apash methods are generally modifying directly the input array given by reference.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-This implementation do reference to the [java apache implementation](https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html)
-
-### Since:
-0.1.0
-
-### WARNING
-Contrary to Java implementation, methods are generally modifying directly the input array given by reference.
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
@@ -38,7 +36,7 @@ Contrary to Java implementation, methods are generally modifying directly the in
 |[clone](ArrayUtils/clone.md)|Copy an array into another array using references.|
 |[concat](ArrayUtils/concat.md)|Concatenate multiple arrays.|
 |[contains](ArrayUtils/contains.md)|Checks if the value is in the given array.|
-|[countMatches](ArrayUtils/countMatches.md)|Return the number of cells having the given value|
+|[countMatches](ArrayUtils/countMatches.md)|Return the number of cells having the given value.|
 |[get](ArrayUtils/get.md)|Gets the nTh element of an array or a default value if the index is out of bounds.|
 |[getLastIndex](ArrayUtils/getLastIndex.md)|Return the last index of the given array.|
 |[getLength](ArrayUtils/getLength.md)|Returns the length of the specified array.|
@@ -46,7 +44,7 @@ Contrary to Java implementation, methods are generally modifying directly the in
 |[indexOf](ArrayUtils/indexOf.md)|Finds the first index of the given value in the array starting at the given index.|
 |[indexesOf](ArrayUtils/indexesOf.md)|Finds the indices of the given value in the array starting at the given index.|
 |[init](ArrayUtils/init.md)|Defensive programming technique initialize an array.|
-|[initWithValue](ArrayUtils/initWithValue.md)|Initialize an array for a specific width and value|
+|[initWithValue](ArrayUtils/initWithValue.md)|Initialize an array for a specific width and value.|
 |[insert](ArrayUtils/insert.md)|Inserts elements into an array at the given index (starting from zero).|
 |[isArray](ArrayUtils/isArray.md)|Check if the input name is an array or not.|
 |[isArrayIndex](ArrayUtils/isArrayIndex.md)|Check if the given index is a long positive integer.|
@@ -72,8 +70,6 @@ Contrary to Java implementation, methods are generally modifying directly the in
 |[swap](ArrayUtils/swap.md)|Swaps a series of elements in the given array.|
 |[toArray](ArrayUtils/toArray.md)|Create an array based on list of arguments.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

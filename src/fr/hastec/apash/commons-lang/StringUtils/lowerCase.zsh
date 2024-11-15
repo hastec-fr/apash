@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/

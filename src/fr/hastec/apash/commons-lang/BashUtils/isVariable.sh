@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
@@ -19,12 +19,12 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | varName        | string        | in       |            | Variable name to check.               |
 #
-# #### Example
+# ### Example
 # ```bash
 #    BashUtils.isVariable  ""              # false
 #    BashUtils.isVariable  "myVar"         # false

@@ -23,12 +23,12 @@ Return the last index of the given array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
-#### Example
+### Example
  ```bash
     myArray=()
     ArrayUtils.getLastIndex  "myArray"        # "-1"

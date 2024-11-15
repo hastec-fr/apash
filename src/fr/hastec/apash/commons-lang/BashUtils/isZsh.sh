@@ -10,11 +10,11 @@
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 #
-# #### Example
+# ### Example
 # ```bash
 #    # From bash
 #    BashUtils.isZsh  ""                # false

@@ -7,58 +7,43 @@
   # Apash
 </div>
 
+
 # BashUtils.getLineNumber
-
 Display the line number of the executed function.
+## Description
+   Bash provides stack of the called function with environment variables ($BASH_LINENO)
+   Other shells must provide the current line number of the caller with $LINENO.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
+ 
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
+<!-- apash.packageEnd -->
 
-Bash provides stack of the called function with environment variables ($BASH_LINENO)
-Other shells must provide the current line number of the caller with $LINENO.
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
 
-### Since:
-0.2.0
+### Example
+ ```bash
+    BashUtils.getLineNumber  0                          # BashUtils.getLineNumber
+    myCaller(){ BashUtils.getLineNumber   ; }; myCaller # myCaller
+    myCaller(){ BashUtils.getLineNumber  1; }; myCaller # myCaller
+ ```
 
-### Authors:
-* Benjamin VARGIN
+### Stdout
+  * The function name.
+### Stderr
+  * None.
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [BashUtils](../BashUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [BashUtils.getLineNumber](#bashutilsgetlinenumber)
-
-### BashUtils.getLineNumber
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inDepth        | string        | in       | APASH_ARRAY_FIRST_INDEX+1 | The depth of the function to retreive.|
-
-#### Example
-```bash
-BashUtils.getLineNumber  0                          # BashUtils.getLineNumber
-myCaller(){ BashUtils.getLineNumber   ; }; myCaller # myCaller
-myCaller(){ BashUtils.getLineNumber  1; }; myCaller # myCaller
-
-```
-
-#### Exit codes
-
-* **0**: When the function name is returned.
-* **1**: When the index is not valid.
-
-#### Output on stdout
-
-* The function name.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the function name is returned.
+  * **1**: When the index is not valid.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

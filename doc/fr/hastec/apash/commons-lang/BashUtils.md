@@ -7,22 +7,23 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # StringUtils
-
 Operations arround Bash languages
+## Description
+   No corresponding implementation in Apache library
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-No corresponding implementation in Apache library
-
-### Since:
-0.1.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
@@ -34,11 +35,9 @@ No corresponding implementation in Apache library
 |[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
 |[isDeclared](BashUtils/isDeclared.md)|Defensive programming technique to check that a variable is declared.|
 |[isVariable](BashUtils/isVariable.md)|Defensive programming technique to check that a variable exists.|
-|[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid|
-|[isZsh](BashUtils/isZsh.md)|Determine if current APASH_SHELL is zsh|
+|[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid.|
+|[isZsh](BashUtils/isZsh.md)|Determine if current APASH_SHELL is zsh.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

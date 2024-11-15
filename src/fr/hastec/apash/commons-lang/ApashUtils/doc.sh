@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log.entry
 apash.import fr.hastec.apash.util.Log.exception
 apash.import fr.hastec.apash.util.Log.exit
@@ -20,9 +20,6 @@ apash.import fr.hastec.apash.util.Log.exit
 #
 # ## History
 # @since 0.2.0
-#
-# ### Authors:
-# * 0.2.0: hastec-fr
 #
 # ## Interface
 # @apashPackage

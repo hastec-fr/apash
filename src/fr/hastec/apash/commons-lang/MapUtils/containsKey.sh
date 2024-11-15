@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 
@@ -14,13 +14,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
 # | $2     | inKey          | string        | in       |            | Key to check.                         |
 #
-# #### Example
+# ### Example
 # ```bash
 #    declare -A myMap=(["foo"]="bar" ["key"]="value")
 #    MapUtils.containsKey   "myMap"          # false

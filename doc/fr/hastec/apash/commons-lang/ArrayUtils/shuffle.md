@@ -21,12 +21,12 @@ Randomly permutes the elements of the specified array randomness.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
  | $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
 
-#### Example
+### Example
  ```bash
     myArray=("a" "b" "c" "d")
     ArrayUtils.shuffle    "myArray"                 # ("b" "a"  "d" "c")

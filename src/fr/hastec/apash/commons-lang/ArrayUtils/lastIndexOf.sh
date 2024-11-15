@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
@@ -19,14 +19,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to check.         |
 # | $2     | inValue        | string        | in       |            |  Value to find.                      |
 # | $3 ?   | inStart        | number        | in       | 0          |  The index to start searching at .   |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myIndexes=()
 #    myArray=("a" "b" "" "c" "b")

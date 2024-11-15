@@ -278,7 +278,13 @@ executeApashAction(){
 executeApashDoc(){
     parseApashDocArgs "$@" || return
     apash.import -f "fr/hastec/apash.doc"
-    apash.doc
+    if [ -z "$APASH_HOME_DIR" ] || [ ! -d "$APASH_HOME_DIR" ]; then
+      echo "This operation is not allowed when the APASH directory does not exists"
+      APASH_EXIT_REQUIRED=true && return
+    fi
+    # @todo: put a progress bar.
+    echo "This operation could take few minutes..."
+    (cd "$APASH_HOME_DIR" && apash.doc)
 }
 
 executeApashInit(){
@@ -300,7 +306,7 @@ executeApashSource(){
   if [ "$APASH_SOURCE_ALL" = "true" ]; then
     while IFS= read -r -d '' file; do
       apash.import "$file"
-    done < <(find "$APASH_HOME_DIR/src/bash" -name "*.sh" ! -name "apash.sh" ! -name "apashDoc.sh" -print0)
+    done < <(find "$APASH_HOME_DIR/src/" -name "*.sh" ! -name "apash.sh" -print0)
   fi
 }
 

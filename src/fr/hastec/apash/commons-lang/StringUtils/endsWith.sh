@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -15,13 +15,13 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString       | string        | in       |            | Input string to check.                |
 # | $2     | inSuffix       | string        | in       |            | The suffix to find.                   |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.endsWith "" ""             # true
 #    StringUtils.endsWith "abcd"     ""     # true

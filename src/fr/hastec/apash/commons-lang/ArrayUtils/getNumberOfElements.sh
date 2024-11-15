@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
@@ -14,18 +14,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ## History
 # @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 #
-# #### Example
+# ### Example
 # ```bash
 #    myArray=("a" "b" "" "c")
 #    ArrayUtils.getNumberOfElements  "myArray"      # 4

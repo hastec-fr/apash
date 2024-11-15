@@ -18,7 +18,7 @@ Adds given elements at the beginning of an array.
 ### Since
   * 0.1.0 (hastec-fr)
 
-### Changelogs:
+### ChangeLogs:
   * 0.2.0 (hastec-fr):  Consider no argument as success (nothing added).
 
 ## Interface
@@ -27,13 +27,13 @@ Adds given elements at the beginning of an array.
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName           | Type          | in/out   | Default    | Description                          |
  |--------|-------------------|---------------|----------|------------|--------------------------------------|
  | $1     | apash_ioArrayName | ref(string[]) | in & out |            | Name of the array to modify.         |
  | $2     | apash_inValue     | string...     | in       |            | Value to add at the beginning of the array.|
 
-#### Example
+### Example
  ```bash
     ArrayUtils.addFirst  "myArray"              # ()
     ArrayUtils.addFirst  "myArray"  "a"         # ("a")

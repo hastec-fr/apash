@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.lang.Math.max
 
@@ -17,12 +17,12 @@ apash.import fr.hastec.apash.lang.Math.max
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
 #
-# #### Example
+# ### Example
 # ```bash
 #    NumberUtils.max  ""       ""       ""       # failure - ""
 #    NumberUtils.max  "a"      "1"      "2"      # failure - ""

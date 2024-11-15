@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
@@ -17,13 +17,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName                             | Type          | in/out   | Default    | Description                          |
 # |--------|-------------------------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_ArrayUtils_clone_inArrayName  | ref(string[]) | in       |            | Name of the array to clone.          |
 # | $2     | apash_ArrayUtils_clone_outArrayName | ref(string[]) | out      |            | Name of the array which will receive the clone.|
 #
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.clone  ""       ""               # failure
 #

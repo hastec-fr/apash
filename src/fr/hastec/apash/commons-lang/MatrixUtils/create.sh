@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
@@ -25,13 +25,13 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 # | ${@:2} | $@             | number...     | in       |                 | Number of element per dimension.     |
 #
-# #### Example
+# ### Example
 # ```bash
 #    MatrixUtils.create  "myMatrix" 3    # failure; does not create array with 1 dimension
 #    MatrixUtils.create  "myMatrix" 3 3  # myMatrix=(); apash_dim_myMatrix=(3 3)

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
@@ -16,20 +16,17 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ## History
 # @since 0.2.0 (hastec-fr)
 #
-# ### Authors:
-# * Benjamin VARGIN
-#
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 # | $2     | inWidth        | number        | in       | 0          | Number of array record to initialize.|
 # | $3     | inValue        | string        | in       | ""         | Value to initialize with.            |
 #
-# #### Example
+# ### Example
 # ```bash
 #    ArrayUtils.initWithValue  "myArray" 3       # myArray=("" "" "")
 #

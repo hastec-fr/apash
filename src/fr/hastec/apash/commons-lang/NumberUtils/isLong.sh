@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.lang.Long.sh
 
@@ -17,12 +17,12 @@ apash.import fr.hastec.apash.lang.Long.sh
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inNumber       | number        | in       |            | The number to check.                  |
 #
-# #### Example
+# ### Example
 # ```bash
 #    NumberUtils.isLong ""                      # false
 #    NumberUtils.isLong "a"                     # false

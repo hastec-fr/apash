@@ -7,56 +7,41 @@
   # Apash
 </div>
 
+
 # Log.entry
-
 Log the parent function call with its arguments.
+## Description
+   The message is mandatory pushed to error channel.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-The message is mandatory pushed to error channel.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [util](../../util.md) / [Log](../Log.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default   | Description                           |
+ |--------|----------------|---------------|----------|-----------|---------------------------------------|
+ | $1     | inLineNumber   | number        | in       |           | The line number of the log.           |
+ | $2     | inMessage      | string        | in       |           | The message to log.                   |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    Log.debug $LINENO "Hello World"  # &2: 2024-11-06T08:27:11.213+0000 [DEBUG] apash (1): Hello World
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [util](../../util.md) / [Log](../Log.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * None.
+### Stderr
+  * The message to log.
 
-## Index
-
-* [Log.entry](#logentry)
-
-### Log.entry
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default   | Description                           |
-|--------|----------------|---------------|----------|-----------|---------------------------------------|
-| $1     | inLineNumber   | number        | in       |           | The line number of the log.           |
-| $2     | inMessage      | string        | in       |           | The message to log.                   |
-
-#### Example
-
-```bash
-Log.debug $LINENO "Hello World"  # &2: 2024-11-06T08:27:11.213+0000 [DEBUG] apash (1): Hello World
-```
-
-#### Exit codes
-
-* **0**: When the message has been logged.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* The message to log.
-
+### Exit codes
+  * **0**: When the message has been logged.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

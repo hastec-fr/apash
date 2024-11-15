@@ -7,58 +7,43 @@
   # Apash
 </div>
 
+
 # DateUtils.isDate
-
 Check if the input string has an UTC valid format (used accross all apash date functions)
+## Description
+   Let the date command trying to parse the value.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-Let the date command trying to parse the value.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [DateUtils](../DateUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.1.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inDate         | date          | in       |            | The date to check                     |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    DateUtils.isDate ""                              # false
+    DateUtils.isDate "20240914"                      # false
+    DateUtils.isDate "2024-09-14T10:30"              # false
+    DateUtils.isDate "2022-03-15T14:30:45.123+0000"  # true
+ ```
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [DateUtils](../DateUtils.md) / 
-<!-- apash.parentEnd -->
+### Stdout
+  * The new Date with the amount added.
+### Stderr
+  * None.
 
-## Index
-
-* [DateUtils.isDate](#dateutilsisdate)
-
-### DateUtils.isDate
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inDate         | date          | in       |            | The date to check                     |
-
-#### Example
-
-```bash
-DateUtils.isDate ""                              # false
-DateUtils.isDate "20240914"                      # false
-DateUtils.isDate "2024-09-14T10:30"              # false
-DateUtils.isDate "2022-03-15T14:30:45.123+0000"  # true
-```
-
-#### Exit codes
-
-* **0**: When are using the correct format of date and integer.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* The new Date with the amount added.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When are using the correct format of date and integer.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

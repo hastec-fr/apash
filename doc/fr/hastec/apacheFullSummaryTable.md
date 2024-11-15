@@ -9,8 +9,9 @@
 
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-| [apash](apash.md) | Translation for shell scripts of some apache libraries. |
+| [apash](apash.md) | Translation for shell scripts of some apache libraries and more. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) | Provides highly reusable utility methods. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) | Utility functions specific to apash. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a Markdown file according to comments of the input file. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) | Operations on arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [add](apash/commons-lang/ArrayUtils/add.md) | Adds a given element at the end of an array. |
@@ -20,7 +21,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [clone](apash/commons-lang/ArrayUtils/clone.md) | Copy an array into another array using references. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [concat](apash/commons-lang/ArrayUtils/concat.md) | Concatenate multiple arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [contains](apash/commons-lang/ArrayUtils/contains.md) | Checks if the value is in the given array. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [countMatches](apash/commons-lang/ArrayUtils/countMatches.md) | Return the number of cells having the given value |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [countMatches](apash/commons-lang/ArrayUtils/countMatches.md) | Return the number of cells having the given value. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [get](apash/commons-lang/ArrayUtils/get.md) | Gets the nTh element of an array or a default value if the index is out of bounds. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getLastIndex](apash/commons-lang/ArrayUtils/getLastIndex.md) | Return the last index of the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getLength](apash/commons-lang/ArrayUtils/getLength.md) | Returns the length of the specified array. |
@@ -28,7 +29,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [indexOf](apash/commons-lang/ArrayUtils/indexOf.md) | Finds the first index of the given value in the array starting at the given index. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [indexesOf](apash/commons-lang/ArrayUtils/indexesOf.md) | Finds the indices of the given value in the array starting at the given index. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [init](apash/commons-lang/ArrayUtils/init.md) | Defensive programming technique initialize an array. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [initWithValue](apash/commons-lang/ArrayUtils/initWithValue.md) | Initialize an array for a specific width and value |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [initWithValue](apash/commons-lang/ArrayUtils/initWithValue.md) | Initialize an array for a specific width and value. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [insert](apash/commons-lang/ArrayUtils/insert.md) | Inserts elements into an array at the given index (starting from zero). |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [isArray](apash/commons-lang/ArrayUtils/isArray.md) | Check if the input name is an array or not. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [isArrayIndex](apash/commons-lang/ArrayUtils/isArrayIndex.md) | Check if the given index is a long positive integer. |
@@ -61,10 +62,10 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isCommandValid](apash/commons-lang/BashUtils/isCommandValid.md) | Defensive programming technique to check that a variable name is valid |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isDeclared](apash/commons-lang/BashUtils/isDeclared.md) | Defensive programming technique to check that a variable is declared. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariable](apash/commons-lang/BashUtils/isVariable.md) | Defensive programming technique to check that a variable exists. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariableNameValid](apash/commons-lang/BashUtils/isVariableNameValid.md) | Defensive programming technique to check that a variable name is valid |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isZsh](apash/commons-lang/BashUtils/isZsh.md) | Determine if current APASH_SHELL is zsh |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariableNameValid](apash/commons-lang/BashUtils/isVariableNameValid.md) | Defensive programming technique to check that a variable name is valid. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isZsh](apash/commons-lang/BashUtils/isZsh.md) | Determine if current APASH_SHELL is zsh. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [CsvUtils](apash/commons-lang/CsvUtils.md) | Operations on csv files. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [CsvUtils](apash/commons-lang/CsvUtils.md) / [merge](apash/commons-lang/CsvUtils/merge.md) | Merge two csv files according to their columns keys |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [CsvUtils](apash/commons-lang/CsvUtils.md) / [merge](apash/commons-lang/CsvUtils/merge.md) | Merge two csv files according to their columns keys. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) | Operations on dates. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [add](apash/commons-lang/DateUtils/add.md) | Adds a number of specified unity to a date, returning a new date. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) / [addDays](apash/commons-lang/DateUtils/addDays.md) | Adds a number of days to a date returning a new date. |
@@ -101,7 +102,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [isParsable](apash/commons-lang/NumberUtils/isParsable.md) | Checks whether the given String is a parsable number. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [max](apash/commons-lang/NumberUtils/max.md) | Returns the greater value of a list of numbers. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [min](apash/commons-lang/NumberUtils/min.md) | Returns the smaller value of a list of numbers. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) | Operations on String considering null as empty string |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) | Operations on String considering null as empty string. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [abbreviate](apash/commons-lang/StringUtils/abbreviate.md) | Abbreviates a String using ellipses. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [containsOnly](apash/commons-lang/StringUtils/containsOnly.md) | Checks if the CharSequence contains only certain characters. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [countMatches](apash/commons-lang/StringUtils/countMatches.md) | Counts how many times the substring appears in the larger string. |
@@ -129,7 +130,8 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [substring](apash/commons-lang/StringUtils/substring.md) | Gets a substring from the specified String. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [trim](apash/commons-lang/StringUtils/trim.md) | Remove whitespaces characters from both ends of the input string. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [upperCase](apash/commons-lang/StringUtils/upperCase.md) | Converts a String to upper case. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [VersionUtils](apash/commons-lang/VersionUtils.md) / [compare](apash/commons-lang/VersionUtils/compare.md) | Compare two versions and determine if the first one is lower than the second one |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [VersionUtils](apash/commons-lang/VersionUtils.md) | Operations on string version. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [VersionUtils](apash/commons-lang/VersionUtils.md) / [compare](apash/commons-lang/VersionUtils/compare.md) | Compare two versions and determine if the first one is lower than the second one. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [VersionUtils](apash/commons-lang/VersionUtils.md) / [isLowerOrEquals](apash/commons-lang/VersionUtils/isLowerOrEquals.md) | Compare two versions and determine if the first one is lower than the second one |
 | [apash](apash.md) / [lang](apash/lang.md) | Provides methods that are fundamental to the design script.  |
 | [apash](apash.md) / [lang](apash/lang.md) / [Integer](apash/lang/Integer.md) | Contains related information about Integers. |
@@ -139,22 +141,21 @@
 | [apash](apash.md) / [lang](apash/lang.md) / [Math](apash/lang/Math.md) / [max](apash/lang/Math/max.md) | Returns the greater of two number values. |
 | [apash](apash.md) / [lang](apash/lang.md) / [Math](apash/lang/Math.md) / [min](apash/lang/Math/min.md) | Returns the smaller of two number values. |
 | [apash](apash.md) / [util](apash/util.md) | Provides miscellaneous utility. |
-| [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) | Contains methods for performing basic numeric operations |
+| [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) | Contains methods for performing basic numeric operations. |
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) / [bubbleSort](apash/util/Array/bubbleSort.md) | Sorts the specified array into alphanumerical order with the bubble sort style. |
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) / [sort](apash/util/Array/sort.md) | Sorts the specified array into ascending natural order. |
-| [apash](apash.md) / [util](apash/util.md) / [Log-min](apash/util/Log-min.md) |  |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) | Log a message with all provided informations |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [debug](apash/util/Log/debug.md) | Log a message with debug level |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) | Log a message with all provided informations. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [debug](apash/util/Log/debug.md) | Log a message with debug level. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [entry](apash/util/Log/entry.md) | Log the parent function call with its arguments. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [error](apash/util/Log/error.md) | Log a message with error level |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [exception](apash/util/Log/exception.md) | Log an error message due to an unexpected behavior and print the stack. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [exit](apash/util/Log/exit.md) | Log message before exiting from the calling function. |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [fatal](apash/util/Log/fatal.md) | Log a message with fatal level |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [info](apash/util/Log/info.md) | Log a message with info level |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [message](apash/util/Log/message.md) | Log a message with all provided informations |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [trace](apash/util/Log/trace.md) | Log a message with trace level |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [warn](apash/util/Log/warn.md) | Log a message with warn level |
-| [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) | Contains methods for generating numbers |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [fatal](apash/util/Log/fatal.md) | Log a message with fatal level. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [info](apash/util/Log/info.md) | Log a message with info level. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [message](apash/util/Log/message.md) | Log a message with all provided informations. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [trace](apash/util/Log/trace.md) | Log a message with trace level. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [warn](apash/util/Log/warn.md) | Log a message with warn level. |
+| [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) | Contains methods for generating numbers. |
 | [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) / [nextInt](apash/util/Random/nextInt.md) | Returns a pseudorandomly chosen int value. |
 
 

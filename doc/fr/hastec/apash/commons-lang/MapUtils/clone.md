@@ -7,72 +7,57 @@
   # Apash
 </div>
 
-# MapUtils.clone
 
+# MapUtils.clone
 Copy a map into another map using references.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-### Since:
-0.2.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | inMapName      | ref(string{}) | in       |            | Name of the map to clone.            |
+ | $2     | outMapName     | ref(string{}) | out      |            | Name of the map which will receive the clone.|
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    MapUtils.clone  ""       ""               # failure
 
-## Index
+    myVar="dummy"
+    ArrayUtils.clone  "myVar"  "myClone"      # failure
 
-* [MapUtils.clone](#maputilsclone)
+    declare -a myClone
+    MapUtils.clone  "myVar"  "myClone"        # failure
 
-### MapUtils.clone
+    declare -A myMap=()
+    declare -A myClone=([foo]="bar")
+    MapUtils.clone     "myArray"  "myClone"   # myClone={}
+   
+    declare -A myArray=([foo]="bar" [key]="val")
+    declare -A myClone=()
+    MapUtils.clone     "myArray"  "myClone"   # myClone=([foo]="bar" [key]="val")
+ 
+    declare -A myArray=([foo]="bar" [key]="val")
+    declare -A myClone=([bat]="man")
+    MapUtils.clone     "myArray"  "myClone"   # myClone={ [foo]="bar" [key]="val" }
+ ```
 
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                          |
-|--------|----------------|---------------|----------|------------|--------------------------------------|
-| $1     | inMapName      | ref(string{}) | in       |            | Name of the map to clone.            |
-| $2     | outMapName     | ref(string{}) | out      |            | Name of the map which will receive the clone.|
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-#### Example
-```bash
-MapUtils.clone  ""       ""               # failure
-
-myVar="dummy"
-ArrayUtils.clone  "myVar"  "myClone"      # failure
-
-declare -a myClone
-MapUtils.clone  "myVar"  "myClone"        # failure
-
-declare -A myMap=()
-declare -A myClone=([foo]="bar")
-MapUtils.clone     "myArray"  "myClone"   # myClone={}
-
-declare -A myArray=([foo]="bar" [key]="val")
-declare -A myClone=()
-MapUtils.clone     "myArray"  "myClone"   # myClone=([foo]="bar" [key]="val")
-
-declare -A myArray=([foo]="bar" [key]="val")
-declare -A myClone=([bat]="man")
-MapUtils.clone     "myArray"  "myClone"   # myClone={ [foo]="bar" [key]="val" }
-
-```
-
-#### Exit codes
-
-* **0**: When input arguments are maps.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When input arguments are maps.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

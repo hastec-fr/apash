@@ -7,64 +7,56 @@
   # Apash
 </div>
 
+
 # ArrayUtils.init
-
 Defensive programming technique initialize a map.
+## Description
+   The map is created if the variable is not declared.
+   If it was a map, then reinitialize it.
+   If it's an existing variable or an array, just fail to protect overriding.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-The map is created if the variable is not declared.
-If it was a map, then reinitialize it.
-If it's an existing variable or an array, just fail to protect overriding.
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Since:
-0.2.0
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                          |
+ |--------|----------------|---------------|----------|------------|--------------------------------------|
+ | $1     | ioMapName      | ref(string{}) | in/out   |            | Name of the map to initialize.       |
 
-### Authors:
-* Benjamin VARGIN
+### Example
+ ```bash
+    
+    myVar="test" 
+    MapUtils.init  "myVar"         # failure
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [MapUtils](../MapUtils.md) / 
-<!-- apash.parentEnd -->
-
-## Index
-
-* [MapUtils.init](#maputilsinit)
-
-### MapUtils.init
-
-#### Example
-```bash
-
-myVar="test" 
-MapUtils.init  "myVar"         # failure
-
-myArray=("a" "b" "c")
-MapUtils.init  "myArray"       # failure
+    myArray=("a" "b" "c")
+    MapUtils.init  "myArray"       # failure
 
 
-MapUtils.init  "myMap"         # myMap={}
+    MapUtils.init  "myMap"         # myMap={}
 
-declare -A myMap=()
-MapUtils.init  "myMap"         # myMap={}
+    declare -A myMap=()
+    MapUtils.init  "myMap"         # myMap={}
 
-declare -A myMap=([foo]=bar)
-MapUtils.init  "myMap"         # myMap={ [foo]=bar }
+    declare -A myMap=([foo]=bar)
+    MapUtils.init  "myMap"         # myMap={ [foo]=bar }
+ ```
 
-#### Exit codes
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* **0**: When the map is created.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: When the map is created.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

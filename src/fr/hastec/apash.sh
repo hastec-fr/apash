@@ -1,27 +1,23 @@
 #!/usr/bin/env bash
 
+##/
 # <!-- @package -->
 # @name apash
-# @brief Translation for shell scripts of some apache libraries.
+# @brief Translation for shell scripts of some apache libraries and more.
 # @description
-#     Provides highly reusable utility methods.
+#   Provides highly reusable utility methods.
+#   Declare global variables used accross the functions.
 #
-# ### Since:
-# 0.1.0
+# ## History
+# @since 0.1.0 (hastec-fr)
 #
-# ### Parents
-# [Main page](../../../../README.md)
+# ## Interface
+# @apashPackage
 #
-# ### Method Summary
-# <!-- apash.summaryTableBegin -->
-# | Methods                  | Brief                                 |
-# |--------------------------|---------------------------------------|
-# |[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
-# |[lang](apash/lang.md)|Provides methods that are fundamental to the design script. |
-# |[util](apash/util.md)|Provides miscellaneous utility.|
-# <!-- apash.summaryTableEnd -->
+# @apashSummaryTable
+#/
 
-# Declaration of global variables
+# Global variables
 export APASH_FUNCTION_SUCCESS=0
 export APASH_FUNCTION_FAILURE=1
 

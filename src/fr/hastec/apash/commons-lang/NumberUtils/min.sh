@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.lang.Math.min
 
@@ -17,12 +17,12 @@ apash.import fr.hastec.apash.lang.Math.min
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | ${@:1} | inNumbers      | number...     | in       |            | List of number to evaluate.           |
 #
-# #### Example
+# ### Example
 # ```bash
 #    NumberUtils.min  ""       ""       ""       # failure - ""
 #    NumberUtils.min  "a"      "1"      "2"      # failure - ""

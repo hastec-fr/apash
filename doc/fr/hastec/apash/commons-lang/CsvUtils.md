@@ -7,31 +7,29 @@
   # Apash
 </div>
 
+
+ <!-- @class -->
 # CsvUtils
-
 Operations on csv files.
+## Description
+   Apash utilitary function on csv files.
 
-## Overview
+## History
+### Since
+  * 0.2.0 (hastec-fr)
 
-Apash utilitary function on csv files.
-
-### Since:
-0.2.0
-
-### Parents
-<!-- apash.parentBegin -->
-[](../../../.md) / [apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
-<!-- apash.parentEnd -->
-
-
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../apash.md) / [commons-lang](../commons-lang.md) / 
+<!-- apash.packageEnd -->
+ 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[merge](CsvUtils/merge.md)|Merge two csv files according to their columns keys|
+|[merge](CsvUtils/merge.md)|Merge two csv files according to their columns keys.|
 <!-- apash.summaryTableEnd -->
-
-
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

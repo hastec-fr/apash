@@ -7,59 +7,40 @@
   # Apash
 </div>
 
-# StringUtils.trim
 
+# StringUtils.trim
 Remove whitespaces characters from both ends of the input string.
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inString       | string        | in       |            | The string to trim.                   |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    StringUtils.trim ""                 # ""
+    StringUtils.trim "     "            # ""
+    StringUtils.trim "  Hello  World  " # "Hello  World"
+ ```
 
-## Index
+### Stdout
+  * the trimmed string.
+### Stderr
+  * None.
 
-* [StringUtils.trim](#stringutilstrim)
-
-### StringUtils.trim
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inString       | string        | in       |            | The string to trim.                   |
-
-#### Example
-
-```bash
-StringUtils.trim ""                 # ""
-StringUtils.trim "     "            # ""
-StringUtils.trim "  Hello  World  " # "Hello  World"
-```
-
-#### Arguments
-
-* **$1** (string): Input string to trim.
-
-#### Exit codes
-
-* **0**: If the string can be displayed.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* the trimmed string
-
-#### Output on stderr
-
-* None
-
+### Exit codes
+  * **0**: If the string can be displayed.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

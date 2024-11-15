@@ -7,63 +7,50 @@
   # Apash
 </div>
 
+
 # StringUtils.startsWith
-
 Check if a CharSequence starts with a specified prefix.
+## Description
+   The prefix is a string (not a pattern).
 
-## Overview
+## History
+### Since
+  * 0.1.0 (hastec-fr)
 
-The prefix is a string (not a pattern).
-### Since:
-0.1.0
+## Interface
+### Package
+<!-- apash.packageBegin -->
+[apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
+<!-- apash.packageEnd -->
 
-### Authors:
-* Benjamin VARGIN
+### Arguments
+ | #      | varName        | Type          | in/out   | Default    | Description                           |
+ |--------|----------------|---------------|----------|------------|---------------------------------------|
+ | $1     | inString       | string        | in       |            | The string to check.                  |
+ | $2     | inPrefix       | string        | in       |            | The prefix to find.                   |
 
-### Parents
-<!-- apash.parentBegin -->
-[](../../../../.md) / [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [StringUtils](../StringUtils.md) / 
-<!-- apash.parentEnd -->
+### Example
+ ```bash
+    StringUtils.startsWith "" ""         # true
+    StringUtils.startsWith "abcd" ""     # true
+    StringUtils.startsWith "abcd" "ab"   # true
+    StringUtils.startsWith "abcd" "abd"  # false
+    StringUtils.startsWith ""     "a"    # false
+    StringUtils.startsWith "abcd" "a.c"  # false
+    StringUtils.startsWith "a.cd" "a.c"  # true
+ ```
 
-Method description #########################################################
+#### Implementation notes
+   In zsh, pattern chararecters are interpreted even if they are between quotes.
 
-## Index
+### Stdout
+  * None.
+### Stderr
+  * None.
 
-* [StringUtils.startsWith](#stringutilsstartswith)
-
-### StringUtils.startsWith
-
-#### Arguments
-| #      | varName        | Type          | in/out   | Default    | Description                           |
-|--------|----------------|---------------|----------|------------|---------------------------------------|
-| $1     | inString       | string        | in       |            | The string to check.                  |
-| $2     | inPrefix       | string        | in       |            | The prefix to find.                   |
-
-#### Example
-
-```bash
-StringUtils.startsWith "" ""         # true
-StringUtils.startsWith "abcd" ""     # true
-StringUtils.startsWith "abcd" "ab"   # true
-StringUtils.startsWith "abcd" "abd"  # false
-StringUtils.startsWith ""     "a"    # false
-StringUtils.startsWith "abcd" "a.c"  # false
-StringUtils.startsWith "a.cd" "a.c"  # true
-```
-
-#### Exit codes
-
-* **0**: If the string starts with the prefix.
-* **1**: Otherwise.
-
-#### Output on stdout
-
-* None.
-
-#### Output on stderr
-
-* None.
-
+### Exit codes
+  * **0**: If the string starts with the prefix.
+  * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

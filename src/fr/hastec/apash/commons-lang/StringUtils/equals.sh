@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies #####################################
+# Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
 ##/
@@ -13,13 +13,13 @@ apash.import fr.hastec.apash.util.Log
 # ## Interface
 # @apashPackage
 #
-# #### Arguments
+# ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | inString1      | string        | in       |            | First string to compare.              |
 # | $2     | inString2      | string        | in       |            | Second string to compare.             |
 #
-# #### Example
+# ### Example
 # ```bash
 #    StringUtils.equals "" ""        # true
 #    StringUtils.equals "abc" "abc"  # true

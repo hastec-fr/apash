@@ -21,13 +21,13 @@ Checks whether two arrays are the same length, return false if it's not an array
 [apash](../../../apash.md) / [commons-lang](../../commons-lang.md) / [ArrayUtils](../ArrayUtils.md) / 
 <!-- apash.packageEnd -->
 
-#### Arguments
+### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
  | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
  | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 
-#### Example
+### Example
  ```bash
     myArray=()
     ArrayUtils.isSameLastIndex "myArray"  "myArray"  # true
