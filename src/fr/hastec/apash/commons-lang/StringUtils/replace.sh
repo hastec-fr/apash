@@ -38,13 +38,13 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 otherwise.
 #/
 StringUtils.replace() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inSubstring="$2"
   local inReplacement="$3"
 
-  [ -z "$inSubstring" ] && echo "${inString}" && return "$APASH_FUNCTION_SUCCESS"
-  echo "${inString//"$inSubstring"/"$inReplacement"}" && return "$APASH_FUNCTION_SUCCESS"
+  [ -z "$inSubstring" ] && echo "${inString}"         && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  echo "${inString//"$inSubstring"/"$inReplacement"}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

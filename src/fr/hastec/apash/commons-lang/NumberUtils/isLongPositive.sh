@@ -41,9 +41,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 #/
 NumberUtils.isLongPositive() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber="$1"
-  NumberUtils.isLong "$inNumber" || return "$APASH_FUNCTION_FAILURE"
-  [[ $inNumber -ge 0 ]] || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  NumberUtils.isLong "$inNumber" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inNumber -ge 0 ]]          || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

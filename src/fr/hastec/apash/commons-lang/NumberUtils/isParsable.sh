@@ -44,11 +44,11 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 When the input string contains characters other than digits and a minus before and a potential dot with meaning numbers.
 #/
 NumberUtils.isParsable() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber="$1"
   local pattern="^-?[0-9]*\.?[0-9]+$"
 
-  [[ $inNumber =~ $pattern ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

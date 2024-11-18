@@ -35,27 +35,27 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.indexOf() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inResearch="$2"
   local index=-1
 
   # Case when string is empty but not the inResearch
   if [[ -z "$inString" &&  -n "$inResearch" ]]; then
-    echo "$index" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Case when researh is empty but not the input string
   if [[ -n "$inString" &&  -z "$inResearch" ]]; then
-    echo "0" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Case when both are empty
   if [[ -z "$inString" &&  -z "$inResearch" ]]; then
-    echo "0" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi  
 
   # Find character index in string (preffered to expr: SC2308)
@@ -64,6 +64,6 @@ StringUtils.indexOf() {
   index=${inString%%"${inResearch}"*}
   [ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#index}))
 
-  echo "$index" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

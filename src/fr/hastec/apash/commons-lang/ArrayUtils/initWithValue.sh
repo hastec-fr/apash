@@ -46,19 +46,19 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @see [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
 #/
 ArrayUtils.initWithValue() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local inWidth="${2:-0}"
   local inValue="$3"
   local -i i
   local ref_ArrayUtils_initWithValue_outArray=()
 
-  NumberUtils.isLong "$inWidth" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   for ((i=0 ; i < inWidth; i++)); do
     ref_ArrayUtils_initWithValue_outArray+=("$inValue")
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_initWithValue_outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "ref_ArrayUtils_initWithValue_outArray" "$ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

@@ -40,17 +40,17 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isArrayIndexValid() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
   local inIndex="$2"
   local lastIndex
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isDigits "$inIndex"   || return "$APASH_FUNCTION_FAILURE"
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName")  || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isDigits "$lastIndex" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isDigits "$inIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isDigits "$lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ $inIndex -gt $lastIndex ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inIndex -gt $lastIndex ]]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

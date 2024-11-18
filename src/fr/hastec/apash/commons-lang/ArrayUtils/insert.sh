@@ -41,13 +41,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 When the index is not a positive number or reference is not an array or there are no value to insert.
 #/
 ArrayUtils.insert() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 3 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 3 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local inIndex="$1"
   local ref_ArrayUtilsInsert_ioArrayName="$2"
-  ArrayUtils.isArray "$ref_ArrayUtilsInsert_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArrayIndex "$inIndex"                     || return "$APASH_FUNCTION_FAILURE"  
+  ArrayUtils.isArray "$ref_ArrayUtilsInsert_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArrayIndex "$inIndex"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
   shift 2
   local inValues=("$@")
   local i j
@@ -57,7 +57,7 @@ ArrayUtils.insert() {
     ref_ArrayUtilsInsert_outArray=("${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
                                    "${inValues[@]}" \
                                    "${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX))}")
-    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n ref_ArrayUtilsInsert_ioArray="$ref_ArrayUtilsInsert_ioArrayName"
     local isInserted=false
@@ -83,8 +83,8 @@ ArrayUtils.insert() {
         ref_ArrayUtilsInsert_outArray[i+inIndex]="${inValues[i]}"
       done
     fi
-    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

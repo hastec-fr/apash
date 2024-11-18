@@ -47,8 +47,8 @@ apash.import fr.hastec.apash.util.Log
 # - [MapUtils.isMap](../MapUtils/isMap.md)
 #/
 BashUtils.isDeclared() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local varName="$1"
-  declare -p "$varName" > /dev/null 2>&1 && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

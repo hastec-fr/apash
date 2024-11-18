@@ -36,9 +36,9 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 # @exitcode 1 Otherwise.
 #/
 DateUtils.addDays() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inDate="$1"
   local inAmount="${2:-0}"
-  DateUtils.add "$inDate" "$inAmount" "days" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  DateUtils.add "$inDate" "$inAmount" "days" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

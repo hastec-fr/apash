@@ -45,12 +45,12 @@ apash.import fr.hastec.apash.lang.Integer.sh
 # @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 32bits Integer.
 #/
 NumberUtils.isInteger() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber="$1"
 
-  [[ ! $inNumber =~ ^-?[0-9]+$ ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ $inNumber -gt $Integer_MAX_VALUE ]] && return "$APASH_FUNCTION_FAILURE"
-  [[ $inNumber -lt $Integer_MIN_VALUE ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ ! $inNumber =~ ^-?[0-9]+$ ]]        && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inNumber -gt $Integer_MAX_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inNumber -lt $Integer_MIN_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

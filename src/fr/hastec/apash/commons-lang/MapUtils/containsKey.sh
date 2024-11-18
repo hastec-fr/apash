@@ -35,22 +35,22 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # @exitcode 1 Otherwise.
 #
 MapUtils.containsKey() {
-   Log.entry "$LINENO" "$@"
+   Log.in $LINENO "$@"
    local inMapName="$1"
    local inKey="$2"
    local k
 
-   MapUtils.isMap "$inMapName" || return "$APASH_FUNCTION_FAILURE"
+   MapUtils.isMap "$inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
    if [ "$APASH_SHELL" = "zsh" ]; then
       for k in "${(@kP)inMapName}"; do
-         [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
+         [[ "$k" == "$inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       done
    else
       local -n inMap="$inMapName"
       for k in "${!inMap[@]}"; do
-         [[ "$k" == "$inKey" ]] && return "$APASH_FUNCTION_SUCCESS"
+         [[ "$k" == "$inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       done
    fi
-   return "$APASH_FUNCTION_FAILURE"
+   Log.out $LINENO; return "$APASH_FAILURE"
 }

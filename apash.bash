@@ -47,7 +47,7 @@ APASH_TEST_OPTIONS="--directory $APASH_HOME_DIR --shell $APASH_SHELL "
 APASH_EXIT_REQUIRED=false        # Flag set to true when an issue occurs.
 
 APASH_EXIT_REQUIRED=1
-APASH_FUNCTION_SUCCESS=0
+APASH_SUCCESS=0
 
 # Helps ######################################################################
 showApashHelp(){
@@ -367,7 +367,7 @@ parseApashInitArgs() {
     esac
     shift
   done
-  return $APASH_FUNCTION_SUCCESS
+  return $APASH_SUCCESS
 }
 
 parseApashDocArgs() {
@@ -398,7 +398,7 @@ parseApashDocArgs() {
     esac
     shift
   done
-  return $APASH_FUNCTION_SUCCESS
+  return $APASH_SUCCESS
 }
 
 parseApashMinifyArgs() {
@@ -429,7 +429,7 @@ parseApashMinifyArgs() {
     esac
     shift
   done
-  return $APASH_FUNCTION_SUCCESS
+  return $APASH_SUCCESS
 }
 
 parseApashSourceArgs() {
@@ -464,7 +464,7 @@ parseApashSourceArgs() {
     esac
     shift
   done
-  return $APASH_FUNCTION_SUCCESS
+  return $APASH_SUCCESS
 }
 
 parseApashTestArgs() {
@@ -513,7 +513,7 @@ parseApashTestArgs() {
     esac
     shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
   done
-  return $APASH_FUNCTION_SUCCESS
+  return $APASH_SUCCESS
 }
 
 # LEVEL 3 - Sub action according to arguments ##################################

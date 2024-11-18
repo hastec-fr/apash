@@ -40,13 +40,13 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.compare
 # @exitcode 0 If the first version is less or equals than the second one.
 # @exitcode 1 Otherwise.
 VersionUtils.isLowerOrEquals() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local version1="$1"
   local version2="$2"
   local comp
   
   # Errors are considered as if the version is greater.
-  comp=$(VersionUtils.compare "$version1" "$version2")
-  [[ "$comp" == "-1" || "$comp" == "0" ]] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  comp=$(VersionUtils.compare "$version1" "$version2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [[ "$comp" == "-1" || "$comp" == "0" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

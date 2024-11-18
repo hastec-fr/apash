@@ -44,8 +44,8 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.getIndex() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local matrixName="$1"
   shift
   local indexes=("$@")
@@ -53,7 +53,7 @@ MatrixUtils.getIndex() {
   local -i cellIndex=APASH_ARRAY_FIRST_INDEX
   local -i i
 
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local matrixDim=()
@@ -63,14 +63,14 @@ MatrixUtils.getIndex() {
   fi
 
   # If more indexes are provided than dimension present in the matrix, then fails.
-  [[ ${#indexes[@]} -gt ${#matrixDim[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ ${#indexes[@]} -gt ${#matrixDim[@]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Return failure if the index is greater than dimensions
   # even if the array has additional elements.
   # Add the index 0 for each missing dimensions.
   for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; i++)); do
     [[ -z "${indexes[i]}" ]] && indexes[i]=0
-    [[ ${indexes[i]} -ge ${matrixDim[i]} ]] && return "$APASH_FUNCTION_FAILURE"
+    [[ ${indexes[i]} -ge ${matrixDim[i]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
   # Sum dimension (@todo: protect overflow).
@@ -87,6 +87,6 @@ MatrixUtils.getIndex() {
 
   # Return the cell position.
   cellIndex=$(( cellIndex + ${indexes[-1]}))  
-  echo "$cellIndex" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$cellIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

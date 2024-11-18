@@ -54,7 +54,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.6959
 #/
 ArrayUtils.shift() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local inOffset="${2:-0}"
   local inStartIndex="${3:-0}"
@@ -64,24 +64,24 @@ ArrayUtils.shift() {
   local lastIndex
 
   local ref_ArrayUtils_shift_outArray=()
-  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_shift_outArray" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_shift_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Set the default value to the last index + 1
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   [ -z "$inEndIndex" ] && inEndIndex=$((lastIndex+1))
 
-  NumberUtils.isLong "$inOffset"     || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inOffset"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -ge $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -ge $lastIndex ]]               && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
   
   distance=$((inEndIndex - inStartIndex))
-  [[ $distance -le 1 ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $distance -le 1 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   inOffset=$((inOffset%(distance)))
     
@@ -102,7 +102,7 @@ ArrayUtils.shift() {
     fi
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_shift_outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "ref_ArrayUtils_shift_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

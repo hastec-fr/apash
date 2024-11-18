@@ -48,31 +48,31 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 # @exitcode 1 when the width is not an integer or is too small.
 #/
 StringUtils.abbreviate() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inMaxWidth="$2"
   local inOffset="${3:-0}"
   local inMarker="${4:-...}"
   local offset=$inOffset
 
-  NumberUtils.isLong "$inMaxWidth" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inOffset"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inMaxWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inOffset"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if (! StringUtils.isEmpty "$inString") && [[ $inMarker = "" && $inMaxWidth -gt 0 ]]; then
-    StringUtils.substring "$inString" 0 "$inMaxWidth" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    StringUtils.substring "$inString" 0 "$inMaxWidth" && return "$APASH_SUCCESS"
+    return "$APASH_FAILURE"
   elif StringUtils.isAnyEmpty "$inString" "$inMarker"; then
-    echo "$inString" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$inString" && return "$APASH_SUCCESS"
+    return "$APASH_FAILURE"
   fi
 
   local abbrevMarkerLength=${#inMarker}
   local minAbbrevWidth=$((abbrevMarkerLength + 1))
   local minAbbrevWidthOffset=$((abbrevMarkerLength + abbrevMarkerLength + 1))
 
-  [[ $inMaxWidth -lt $minAbbrevWidth ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $inMaxWidth -lt $minAbbrevWidth ]] && return "$APASH_FAILURE"
   
-  [[ ${#inString} -le $inMaxWidth ]] && echo "$inString" && return "$APASH_FUNCTION_SUCCESS"
+  [[ ${#inString} -le $inMaxWidth ]] && echo "$inString" && return "$APASH_SUCCESS"
   
   [[ $offset -gt ${#inString} ]] && offset=${#inString}
 
@@ -81,19 +81,19 @@ StringUtils.abbreviate() {
   fi
 
   if (( offset <= abbrevMarkerLength + 1 )); then
-    echo "$(StringUtils.substring "$inString" 0 $((inMaxWidth - abbrevMarkerLength)))$inMarker" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$(StringUtils.substring "$inString" 0 $((inMaxWidth - abbrevMarkerLength)))$inMarker" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   if ((inMaxWidth < minAbbrevWidthOffset)); then
-    return "$APASH_FUNCTION_FAILURE"
+    Log.out $LINENO; return "$APASH_FAILURE"
   fi
 
   if (( offset + inMaxWidth - abbrevMarkerLength < ${#inString} )); then
-    echo "$inMarker$(StringUtils.abbreviate "$(StringUtils.substring "$inString" "$offset")" $((inMaxWidth - abbrevMarkerLength)) 0 "$inMarker")" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$inMarker$(StringUtils.abbreviate "$(StringUtils.substring "$inString" "$offset")" $((inMaxWidth - abbrevMarkerLength)) 0 "$inMarker")" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
   
-  echo "$inMarker$(StringUtils.substring "$inString" $((${#inString} - (inMaxWidth - abbrevMarkerLength))))" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$inMarker$(StringUtils.substring "$inString" $((${#inString} - (inMaxWidth - abbrevMarkerLength))))" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  return "$APASH_SUCCESS"
 }

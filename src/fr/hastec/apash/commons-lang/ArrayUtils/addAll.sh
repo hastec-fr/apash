@@ -55,19 +55,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 #  * [ArrayUtil.addFirst](./addFirst.md): Adding an element at the beginning of an array.
 #/
 ArrayUtils.addAll() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_ioArrayName="$1"
   shift
 
   # @todo: Create functions addOne and addMany to force at least one entry.
   # Create the array if it does not exists and succeed if no value should be added.
-  ArrayUtils.nullToEmpty "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -eq 0 ] && return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [ $# -eq 0 ] && return "$APASH_SUCCESS"
 
   # Get the array in local scope.
   if [ "$APASH_SHELL" = "zsh" ]; then
     local apash_outArray=()
-    ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
     local -n apash_outArray="$apash_ioArrayName"
   fi
@@ -76,8 +76,8 @@ ArrayUtils.addAll() {
   # Add values at the end of the array
   apash_outArray+=("$@")
   if [ "$APASH_SHELL" = "zsh" ]; then
-    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

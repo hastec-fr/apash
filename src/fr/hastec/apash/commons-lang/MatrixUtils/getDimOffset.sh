@@ -41,15 +41,15 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.getDimOffset() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local matrixName="$1"
   shift
   local indexes=("$@")
   local dimOffset=0
   local -i i
 
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
 
   # Initiliaze the first time with the first dimension then multiply it by the others.
@@ -67,6 +67,6 @@ MatrixUtils.getDimOffset() {
   # Keep at least one cell.
   [ "$dimOffset" -le 0 ] && dimOffset=1
 
-  echo "$dimOffset" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$dimOffset" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

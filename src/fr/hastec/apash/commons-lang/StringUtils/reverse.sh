@@ -34,20 +34,20 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # @exitcode 1 Otherwise.
 #/
 StringUtils.reverse() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local i
 
   if BashUtils.isCommandValid "rev"; then
-    echo "$inString" | rev && return "$APASH_FUNCTION_SUCCESS"
+    echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     # @WARNING: Degraded mode (rev command not found)
     # Loop through the string in reverse order
     for (( i=${#inString}-1; i>=0; i-- )); do
         reversed_string="$reversed_string${inString:$i:1}"
     done
-    echo "$reversed_string" && return "$APASH_FUNCTION_SUCCESS"
+    echo "$reversed_string" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

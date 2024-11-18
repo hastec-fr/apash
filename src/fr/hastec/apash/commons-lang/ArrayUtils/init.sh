@@ -48,25 +48,25 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @see [nullToEmpty](./nullToEmpty.md), [anythingToEmpty](./anythingToEmpty.md)
 #/
 ArrayUtils.init() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ref_ArrayUtils_init_ioArrayName="$1"
-  BashUtils.isVariableNameValid "$ref_ArrayUtils_init_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  BashUtils.isVariable "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_FAILURE"
-  MapUtils.isMap "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isVariableNameValid "$ref_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  BashUtils.isVariable "$ref_ArrayUtils_init_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MapUtils.isMap "$ref_ArrayUtils_init_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the variable is not declared, then create the corresponding global value.
   if ! BashUtils.isDeclared "$ref_ArrayUtils_init_ioArrayName"; then
-    BashUtils.declareArray "$ref_ArrayUtils_init_ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    BashUtils.declareArray "$ref_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Only way found in zsh to reset an existing array and preserving its original scope
   # P: pointer, A: consider the pointed value as array and provide an existing empty array.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PA)ref_ArrayUtils_init_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && return "$APASH_FUNCTION_SUCCESS"
+    : ${(PA)ref_ArrayUtils_init_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n ref_ArrayUtils_init_outArray="$ref_ArrayUtils_init_ioArrayName"
-    ref_ArrayUtils_init_outArray=() && return "$APASH_FUNCTION_SUCCESS"
+    ref_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

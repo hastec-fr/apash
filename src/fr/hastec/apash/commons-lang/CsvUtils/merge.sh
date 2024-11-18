@@ -40,6 +40,7 @@ apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 # @exitcode 1 Otherwise.
 #/
 CsvUtils.merge() {
+  Log.in $LINENO "$@"
   local inFile1="$1"
   local inFile2="$2"
   local -A functionMap=()
@@ -79,5 +80,5 @@ CsvUtils.merge() {
     fi
     echo "${functionMap[$functionName]}"
   done 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

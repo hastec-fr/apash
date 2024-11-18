@@ -46,18 +46,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.contains() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_inArrayName="$1"
   local apash_inValue="$2"
   local apash_value=""
 
   # If no array and value passed or array is invalid, then fails.
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$apash_inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  [ $# -ne 2 ] && return "$APASH_FAILURE"
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local inArray=()
-    ArrayUtils.clone "$apash_inArrayName" inArray || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "$apash_inArrayName" inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     # shellcheck disable=SC2178
     local -n inArray="$apash_inArrayName"
@@ -65,8 +65,8 @@ ArrayUtils.contains() {
   
   # For each value in the array, check if it matches with the expected value.
   for apash_value in "${inArray[@]}"; do
-    [[ "$apash_value" == "$apash_inValue" ]] && return "$APASH_FUNCTION_SUCCESS"
+    [[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

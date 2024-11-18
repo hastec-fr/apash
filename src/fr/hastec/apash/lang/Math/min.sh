@@ -45,30 +45,30 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 # @exitcode 1 When the input strings are not parsable.
 #/
 Math.min() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNum1="$1"
   local inNum2="$2"
   local min
 
   # @todo: Change the isParsable with isNumber
-  NumberUtils.isParsable "$inNum1" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isParsable "$inNum2" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isParsable "$inNum1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isParsable "$inNum2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if BashUtils.isCommandValid "bc"; then
     min=$(echo "if ($inNum1 > $inNum2) 1 else 0" | bc -lq)
     if [[ $min -eq 0 ]]; then
-      echo "$inNum1" && return "$APASH_FUNCTION_SUCCESS"
+      echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     else
-      echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
+      echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     fi
   else
     # @WARNING: Degraded mode (bc command not found)
     if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 > inNum2)}'; then
-      echo "$inNum2" && return "$APASH_FUNCTION_SUCCESS"
+      echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     else
-      echo "$inNum1" && return "$APASH_FUNCTION_SUCCESS"      
+      echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }  
     fi
   fi
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

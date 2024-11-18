@@ -36,17 +36,17 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.upperCase() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${(U)inString}" && return "$APASH_FUNCTION_SUCCESS"
+    echo "${(U)inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   elif [ "$APASH_SHELL" = "bash" ] && \
        ! VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.2"; then
-    echo "${inString^^}" && return "$APASH_FUNCTION_SUCCESS"
+    echo "${inString^^}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # More POSIX
-    echo "$inString" | awk '{print toupper($0)}' && return "$APASH_FUNCTION_SUCCESS"
+    echo "$inString" | awk '{print toupper($0)}' && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

@@ -50,32 +50,32 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.indexOf() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
 
   # If no value to find explicitly declared, then return
-  [[ $# -lt 2 ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local inArrayName="$1"
   local inValue="$2"
   local inStart="${3:-0}"
   local i
   local lastIndex
-  NumberUtils.isLong "$inStart" || return "$APASH_FUNCTION_FAILURE"
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
     for ((i = inStart; i < lastIndex+1 ; i++)); do
-      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && echo "$i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     done
   else
-    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    local -n inArray="$inArrayName"
     for ((i = inStart; i < lastIndex+1 ; i++)); do
-      [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && return "$APASH_FUNCTION_SUCCESS"
+      [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     done
   fi
   
   # Return default value if not found
-  echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

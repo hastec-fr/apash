@@ -48,19 +48,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isSorted() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
     local ref_ArrayUtils_sorted_inArray=()
-    ArrayUtils.clone "$inArrayName" ref_ArrayUtils_sorted_inArray
+    ArrayUtils.clone "$inArrayName" ref_ArrayUtils_sorted_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     local -n ref_ArrayUtils_sorted_inArray="$inArrayName"
   fi
 
   for (( i=$APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#ref_ArrayUtils_sorted_inArray[@]}-1; i++ )); do
-    [[ "${ref_ArrayUtils_sorted_inArray[i]}" > "${ref_ArrayUtils_sorted_inArray[i+1]}" ]] && return "$APASH_FUNCTION_FAILURE"
+    [[ "${ref_ArrayUtils_sorted_inArray[i]}" > "${ref_ArrayUtils_sorted_inArray[i+1]}" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   done
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

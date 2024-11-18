@@ -51,27 +51,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.removeAllOccurrences() {
-  Log.entry "$LINENO" "$@"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -ne 2 ] && return "$APASH_FAILURE"
 
   local ioArrayName="$1"
   local inValue="$2"
   local lastIndex
   local i
 
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local outArray=()
-  ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get all indexes to remove
   for ((i=lastIndex; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
     if [[ "${outArray[i]}" == "$inValue" ]]; then
-      ArrayUtils.remove "outArray" $i || return "$APASH_FUNCTION_FAILURE"
+      ArrayUtils.remove "outArray" $i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     fi
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

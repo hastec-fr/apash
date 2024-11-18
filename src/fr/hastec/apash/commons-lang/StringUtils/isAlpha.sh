@@ -37,8 +37,8 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 contains other things than letters.
 #/
 StringUtils.isAlpha() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local pattern="^[[:alpha:]]+$"
-  [[ $1 =~ $pattern ]] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  [[ $1 =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

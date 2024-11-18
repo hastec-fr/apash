@@ -30,5 +30,7 @@
 # @exitcode 1 Otherwise.
 #/
 BashUtils.isZsh() {
-  [[ "$APASH_SHELL" == "zsh" ]] && retun "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

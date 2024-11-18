@@ -41,17 +41,17 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isNotEmpty() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
 
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [[ $APASH_SHELL == "zsh" ]]; then
-    [[ ${#${(P)inArrayName}[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
+    [[ ${#${(P)inArrayName}[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n inArray="$inArrayName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-    [[ ${#inArray[@]} -eq 0 ]] && return "$APASH_FUNCTION_FAILURE"
+    local -n inArray="$inArrayName"
+    [[ ${#inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   fi
   
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -46,20 +46,19 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.get() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local matrixName="$1"
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local -i cellIndex=0
   shift
   
-  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
+  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${${(P)matrixName}[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+    echo "${${(P)matrixName}[$cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
     local -n matrix="$matrixName"
-    echo "${matrix[$cellIndex]}" && return "$APASH_FUNCTION_SUCCESS"
+    echo "${matrix[$cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
-
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

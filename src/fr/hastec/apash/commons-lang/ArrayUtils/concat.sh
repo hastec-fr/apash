@@ -41,23 +41,23 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.concat() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_outArrayName="$1"
   local apash_outArray=()
   local apash_arrayName
   local -i i counter=0
 
   # If no array passed, then fails.
-  [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
+  [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift
 
   # Fails if one of the argument does not refer to an array.
   for apash_arrayName in "$@"; do
-    ArrayUtils.isArray "$apash_arrayName" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.isArray "$apash_arrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
   # Initialize the output array.
-  ArrayUtils.nullToEmpty "$apash_outArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.nullToEmpty "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # For each array, concatenate the content to the output array
   for apash_arrayName in "$@"; do
@@ -73,13 +73,13 @@ ArrayUtils.concat() {
       for i in "${!apash_inArray[@]}"; do
         apash_outArray[counter+i]="${apash_inArray[i]}"
       done
-      counter=$(ArrayUtils.getLastIndex "apash_outArray") || return "$APASH_FUNCTION_FAILURE"
+      counter=$(ArrayUtils.getLastIndex "apash_outArray") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
       ((counter++))
     fi
   done
 
   # Push the result to the desired array.
-  ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

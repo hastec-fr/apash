@@ -34,11 +34,11 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 # @exitcode 1 Otherwise.
 #/
 StringUtils.repeat() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber="$1"
   local inString="$2"
   
-  NumberUtils.isLongPositive "$inNumber" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [[ $APASH_SHELL == "zsh" ]] && \
       VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
@@ -47,9 +47,9 @@ StringUtils.repeat() {
     for ((i=0; i < inNumber; i++)); do
       outString+="$inString"
     done
-    echo "$outString" && return "$APASH_FUNCTION_SUCCESS"
+    echo "$outString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    printf "%0.s$inString" $(seq 1 "$inNumber") && return "$APASH_FUNCTION_SUCCESS"
+    printf "%0.s$inString" $(seq 1 "$inNumber") && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

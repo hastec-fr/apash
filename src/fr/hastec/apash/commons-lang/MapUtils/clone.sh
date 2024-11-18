@@ -51,24 +51,24 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 # @exitcode 1 Otherwise.
 #/
 MapUtils.clone() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ref_MapUtils_clone_inMapName="$1"
   local ref_MapUtils_clone_outMapName="$2"
-  MapUtils.isMap   "$ref_MapUtils_clone_inMapName"  || return "$APASH_FUNCTION_FAILURE"
-  MapUtils.init    "$ref_MapUtils_clone_outMapName" || return "$APASH_FUNCTION_FAILURE"
+  MapUtils.isMap   "$ref_MapUtils_clone_inMapName"  || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  MapUtils.init    "$ref_MapUtils_clone_outMapName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PAA)ref_MapUtils_clone_outMapName::="${(AAkv@)${(P)1}}"} && return "$APASH_FUNCTION_SUCCESS"
+    : ${(PAA)ref_MapUtils_clone_outMapName::="${(AAkv@)${(P)1}}"} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    local -n ref_MapUtils_clone_inMap="$ref_MapUtils_clone_inMapName"   2> /dev/null || return "$APASH_FUNCTION_FAILURE"
-    local -n ref_MapUtils_clone_outMap="$ref_MapUtils_clone_outMapName" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"
+    local -n ref_MapUtils_clone_inMap="$ref_MapUtils_clone_inMapName"
+    local -n ref_MapUtils_clone_outMap="$ref_MapUtils_clone_outMapName"
     local key
 
     for key in "${!ref_MapUtils_clone_inMap[@]}"; do
       # shellcheck disable=SC2034
       ref_MapUtils_clone_outMap["$key"]="${ref_MapUtils_clone_inMap["$key"]}"
     done
-    return "$APASH_FUNCTION_SUCCESS"
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

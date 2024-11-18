@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 MapUtils.isMap() {
-   Log.entry "$LINENO" "$@"
-   declare -p "$1" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " && return "$APASH_FUNCTION_SUCCESS"
-   return "$APASH_FUNCTION_FAILURE"
+   Log.in $LINENO "$@"
+   declare -p "$1" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " || { Log.out $LINENO; return "$APASH_FAILURE"; }
+   Log.out $LINENO; return "$APASH_SUCCESS"
 }

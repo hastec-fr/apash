@@ -37,18 +37,18 @@ apash.import fr.hastec.apash.util.Random.nextInt
 # @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
 #/
 ArrayUtils.shuffle() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local i=0
   
   local outArray=()
-  ArrayUtils.clone "$ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   for (( i = ${#outArray[@]} ; i > 1 ; i-- )); do
-    ArrayUtils.swap "outArray" $((i - 1)) "$(Random.nextInt 0 $i)"
+    ArrayUtils.swap "outArray" $((i - 1)) "$(Random.nextInt 0 $i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

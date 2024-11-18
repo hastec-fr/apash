@@ -42,15 +42,15 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 BashUtils.isVariableNameValid() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local varName="$1"
 
   # If there is a single _, it does not
-  [ "$varName" = "_" ] && return "$APASH_FUNCTION_FAILURE"
+  [ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 
   # Restrict locally name to ASCII letters (prevent issue on accents by example)
   local LC_COLLATE=C
-  [[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

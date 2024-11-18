@@ -44,10 +44,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #             and a potential dot with meaning numbers.
 #/
 Math.abs() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber="$1"
 
-  NumberUtils.isParsable "$inNumber" || return "$APASH_FUNCTION_FAILURE"
-  echo "${inNumber#-}" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isParsable "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "${inNumber#-}"               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

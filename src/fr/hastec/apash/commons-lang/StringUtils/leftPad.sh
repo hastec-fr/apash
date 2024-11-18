@@ -3,8 +3,6 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
-apash.import fr.hastec.apash.util.Log.entry
-apash.import fr.hastec.apash.util.Log.exit
 
 ##/
 # @name StringUtils.leftPad
@@ -41,22 +39,20 @@ apash.import fr.hastec.apash.util.Log.exit
 # @exitcode 1 When the size is not a positive numeric or the result cannot be displayed.
 #/
 StringUtils.leftPad() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inSize="$2"
   local inPadString="${3:- }"
   local leftPadString=""
-  
-  Log.entry "$LINENO" "$@"
 
   # Check if the second argument is a valid number.
-  NumberUtils.isDigits "$inSize" || { Log.exit "$LINENO" "StringUtils.leftPad-001"; return "$APASH_FUNCTION_FAILURE"; }
+  NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get the number of missing characters.
   local padCount=$((inSize - ${#inString}))
 
   # If the padding size is less than the string, then return the string itself.
-  [[ $padCount -le 0 ]] && echo "$inString" && { Log.exit "$LINENO" "StringUtils.leftPad-002"; return "$APASH_FUNCTION_SUCCESS"; }
+  [[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Calculate how much time the pad string can be added
   # and how much letter if some space are remaining.
@@ -68,7 +64,7 @@ StringUtils.leftPad() {
   leftPadString="${leftPadString// /"$inPadString"}"
   leftPadString+="${inPadString:0:$padNbRemaining}"
 
-  echo "${leftPadString}${inString}" && { Log.exit "$LINENO" "StringUtils.leftPad-003"; return "$APASH_FUNCTION_SUCCESS"; }
+  echo "${leftPadString}${inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  Log.exit "$LINENO" "StringUtils.leftPad-004"; return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

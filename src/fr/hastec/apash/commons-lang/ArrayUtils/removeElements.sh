@@ -48,15 +48,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeElement
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.removeElements() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local ioArrayRef="$1"
-  ArrayUtils.isArray "$ioArrayRef" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayRef" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   for value in "$@"; do
-    ArrayUtils.removeElement "$ioArrayRef" "$value" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.removeElement "$ioArrayRef" "$value" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

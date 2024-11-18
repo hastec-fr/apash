@@ -38,6 +38,6 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 DateUtils.addMonths() {
   local inDate="$1"
   local inAmount="${2:-0}"
-  DateUtils.add "$inDate" "$inAmount" "months" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  DateUtils.add "$inDate" "$inAmount" "months" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

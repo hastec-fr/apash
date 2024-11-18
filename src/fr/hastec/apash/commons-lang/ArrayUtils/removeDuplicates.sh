@@ -45,12 +45,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.removeDuplicates() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local lastIndex
   local uniqueArray=()
   
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     for ((i=APASH_ARRAY_FIRST_INDEX; i <= lastIndex ; i++)); do
@@ -63,6 +63,6 @@ ArrayUtils.removeDuplicates() {
     done
   fi
 
-  ArrayUtils.clone "uniqueArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.clone "uniqueArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

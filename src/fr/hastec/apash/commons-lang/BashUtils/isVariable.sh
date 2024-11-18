@@ -46,10 +46,10 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # @exitcode 1 Otherwise.
 #/
 BashUtils.isVariable() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local varName="$1"
-  BashUtils.isDeclared "$varName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray   "$varName" && return "$APASH_FUNCTION_FAILURE"
-  MapUtils.isMap       "$varName" && return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

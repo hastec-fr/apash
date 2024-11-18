@@ -42,9 +42,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isArrayIndex() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inIndex="$1"
-  NumberUtils.isLong "$inIndex" || return "$APASH_FUNCTION_FAILURE"
-  [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  NumberUtils.isLong "$inIndex"               || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

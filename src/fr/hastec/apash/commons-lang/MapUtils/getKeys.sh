@@ -34,12 +34,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 Otherwise.
 #/
 MapUtils.getKeys() {
-   Log.entry "$LINENO" "$@"
+   Log.in $LINENO "$@"
    local outArrayName="$1"
    local inMapName="$2"
    local outArray=()
    
-   MapUtils.isMap "$inMapName" || return "$APASH_FUNCTION_FAILURE"
+   MapUtils.isMap "$inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
    if [ "$APASH_SHELL" = "zsh" ]; then
       outArray=("${(@kP)inMapName}")
@@ -47,6 +47,6 @@ MapUtils.getKeys() {
       local -n inMap="$inMapName"
       outArray=("${!inMap[@]}")
    fi
-   ArrayUtils.clone "outArray" "$outArrayName" && return "$APASH_FUNCTION_SUCCESS"
-   return "$APASH_FUNCTION_FAILURE"
+   ArrayUtils.clone "outArray" "$outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+   Log.out $LINENO; return "$APASH_SUCCESS"
 }

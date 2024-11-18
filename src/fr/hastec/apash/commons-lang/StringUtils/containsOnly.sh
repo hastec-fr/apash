@@ -41,17 +41,17 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.containsOnly(){
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString=$1
   local inSequence=$2
 
   # Returns true if input string is empty.
-  [[ -z $inString ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ -z $inString ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Fail when input string is not empty but sequence is.
-  [[ -n $inString && -z $inSequence ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 
   # Check by regexp that string is composed only by chars in the sequence.
-  [[ $inString =~ ^[$inSequence]*$ ]] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  [[ $inString =~ ^[$inSequence]*$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

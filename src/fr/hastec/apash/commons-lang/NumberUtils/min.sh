@@ -43,17 +43,17 @@ apash.import fr.hastec.apash.lang.Math.min
 # @exitcode 1 When at least one input is not a parsable.
 #/
 NumberUtils.min() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local min="$1"
 
-  NumberUtils.isParsable "$min" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isParsable "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift
 
   for n in "$@"; do
-    NumberUtils.isParsable "$n" || return "$APASH_FUNCTION_FAILURE"
-    min=$(Math.min "$min" "$n" || return "$APASH_FUNCTION_FAILURE")
+    NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    min=$(Math.min "$min" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
   
-  echo "$min" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -36,11 +36,11 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 # @exitcode 1 Otherwise.
 #/
 DateUtils.isDate() {
-    Log.entry "$LINENO" "$@"
+    Log.in $LINENO "$@"
   local inDate="$1"
   local datePattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\+[0-9]{4}$"
 
-  [[ ! $inDate =~ $datePattern ]] && return "$APASH_FUNCTION_FAILURE"
-  date -d "$inDate" > /dev/null 2>&1 && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  [[ ! $inDate =~ $datePattern ]]    && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  date -d "$inDate" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

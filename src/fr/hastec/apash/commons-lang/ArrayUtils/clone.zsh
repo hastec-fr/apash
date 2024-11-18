@@ -18,15 +18,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @see [clone](./clone.md).
 #/
 ArrayUtils.clone() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_ArrayUtils_clone_inArrayName="$1"
   local apash_ArrayUtils_clone_outArrayName="$2"
-  ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.exception "$LINENO" "zsh.ArrayUtils.clone-001"; return "$APASH_FUNCTION_FAILURE"; }
-  ArrayUtils.init "$apash_ArrayUtils_clone_outArrayName"    || { Log.exception "$LINENO" "zsh.ArrayUtils.clone-002"; return "$APASH_FUNCTION_FAILURE"; }
+  ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.init "$apash_ArrayUtils_clone_outArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Add special case when only a single empty element is present in the array
-  [[ ${#${(P)1}[@]} == 1 && ${${(P)1}[@]} == "" ]] && : ${(PA)apash_ArrayUtils_clone_outArrayName::=""} && return "$APASH_FUNCTION_SUCCESS"
-  : ${(PA)apash_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || { Log.exception "$LINENO" "zsh.ArrayUtils.clone-003"; return "$APASH_FUNCTION_FAILURE"; }
-  Log.exit "$LINENO" "zsh.ArrayUtils.clone-004"; return "$APASH_FUNCTION_SUCCESS"
+  if [[ ${#${(P)1}[@]} == 1 && ${${(P)1}[@]} == "" ]]; then
+    : ${(PA)apash_ArrayUtils_clone_outArrayName::=""} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  fi
+  : ${(PA)apash_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }
-

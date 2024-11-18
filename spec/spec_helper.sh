@@ -31,14 +31,14 @@ spec_helper_configure() {
 }
 
 global_helper_is_zsh(){
-  [ "$APASH_SHELL" = "zsh" ] && return "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
+  [ "$APASH_SHELL" = "zsh" ] && return "$APASH_SUCCESS" || return "$APASH_FAILURE"
 }
 
 global_helper_is_bash(){
-  [ "$APASH_SHELL" = "bash" ] && return "$APASH_FUNCTION_SUCCESS" || return "$APASH_FUNCTION_FAILURE"
+  [ "$APASH_SHELL" = "bash" ] && return "$APASH_SUCCESS" || return "$APASH_FAILURE"
 }
 
 global_helper_is_shell_version_lower(){
-  [ "$APASH_SHELL" != "$1" ] && return "$APASH_FUNCTION_FAILURE"
-  VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "$2" && return "$APASH_FUNCTION_SUCCESS"
+  [ "$APASH_SHELL" != "$1" ] && return "$APASH_FAILURE"
+  VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "$2" && return "$APASH_SUCCESS"
 }

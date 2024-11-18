@@ -51,32 +51,32 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.removeAll() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local ioArrayName="$1"
   local indexes=()
   local index=""
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift  
   
   for index in "$@"; do
-    ArrayUtils.isArrayIndexValid "$ioArrayName" "$index"  || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.isArrayIndexValid "$ioArrayName" "$index"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     indexes+=("$index")
   done
   
-  ArrayUtils.removeDuplicates "indexes" || return "$APASH_FUNCTION_FAILURE"
-  Array.sort "indexes"                  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.removeDuplicates "indexes" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Array.sort "indexes"                  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Create local array to prevent partial modification.
   local ref_ArrayUtils_removeAll_outArray=()
-  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_removeAll_outArray" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   for ((i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
-    ArrayUtils.remove "ref_ArrayUtils_removeAll_outArray" "${indexes[i]}" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.remove "ref_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_removeAll_outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "ref_ArrayUtils_removeAll_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

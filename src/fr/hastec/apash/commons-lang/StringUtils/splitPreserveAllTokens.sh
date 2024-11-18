@@ -44,7 +44,7 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 # @exitcode 1 When input array does not exists.
 #/
 StringUtils.splitPreserveAllTokens() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"  
   local inString="$2"
   local inDelimiter="${3:- }"
@@ -67,7 +67,7 @@ StringUtils.splitPreserveAllTokens() {
   done
   [ -n "$currentString" ] && outArray+=("$currentString")
 
-  ArrayUtils.clone "outArray" "$ioArrayName"
+  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

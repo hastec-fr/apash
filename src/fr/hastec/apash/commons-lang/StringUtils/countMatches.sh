@@ -36,18 +36,18 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.countMatches() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inSubstring="$2"
   local -i count=0
 
   if [[ -z $inString || -z $inSubstring ]]; then
-    echo "$count" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$count" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   count=$(echo "$inString" | grep -o "$inSubstring" | wc -l)
-  echo "$count" && return "$APASH_FUNCTION_SUCCESS"
+  echo "$count" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

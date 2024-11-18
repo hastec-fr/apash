@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-# apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 [ "$APASH_SHELL" = "zsh" ] && apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
@@ -54,27 +54,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #  * [ArrayUtil.addFirst](./addFirst.md): Adding an element at the beginning of an array.
 #/
 ArrayUtils.add() {
-  # Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_ioArrayName="$1"
   local apash_inValue="$2"  
 
   # Return if more than 1 value should be added.
-  [ $# -gt 2 ] && return "$APASH_FUNCTION_SUCCESS"
+  [ $# -gt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Create the array if it does not exists and succeed if no value should be added.
-  ArrayUtils.nullToEmpty "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Add the value.
   if [ "$APASH_SHELL" = "zsh" ]; then
     local outArray=()
-    ArrayUtils.clone "$apash_ioArrayName" "outArray" || return "$APASH_FUNCTION_FAILURE"
-    outArray+=("$apash_inValue")                     || return "$APASH_FUNCTION_FAILURE"
-    ArrayUtils.clone "outArray" "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+    ArrayUtils.clone "$apash_ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    ArrayUtils.clone "outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     local -n apash_inArray="$apash_ioArrayName"
-    apash_inArray+=("$apash_inValue") || return "$APASH_FUNCTION_FAILURE"
+    apash_inArray+=("$apash_inValue") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
   
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

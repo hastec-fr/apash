@@ -41,27 +41,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.get() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
   local inIndex="$2"
   local inDefaultValue="$3"
   
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Check if the index is valid for the array
   if ! ArrayUtils.isArrayIndexValid "$inArrayName" "$inIndex"; then
-    [[ $# -ne 3 ]] && return "$APASH_FUNCTION_FAILURE"
-    echo "$inDefaultValue" || return "$APASH_FUNCTION_FAILURE"
-    return "$APASH_FUNCTION_SUCCESS"
+    [[ $# -ne 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    echo "$inDefaultValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Display the value of the corresponding array index.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${${(P)inArrayName}[$inIndex]}" || return "$APASH_FUNCTION_FAILURE"
+    echo "${${(P)inArrayName}[$inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     local -n inArray="$inArrayName"
-    echo "${inArray[$inIndex]}" || return "$APASH_FUNCTION_FAILURE"
+    echo "${inArray[$inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

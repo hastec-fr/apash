@@ -42,27 +42,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.set() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local matrixName="$1"
   local value="$2"
   local -i cellIndex=$APASH_ARRAY_FIRST_INDEX
   shift 2
 
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
-  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix "$matrixName"                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # @todo: find a way in zsh to set directly the cell instead of cloning.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    # ${(P)matrixName}[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
+    # ${(P)matrixName}[$cellIndex]="$value" && return "$APASH_SUCCESS"
     local matrix=()
-    ArrayUtils.clone "$matrixName" "matrix" || return "$APASH_FUNCTION_FAILURE"
-    matrix[$cellIndex]="$value"             || return "$APASH_FUNCTION_FAILURE"
-    ArrayUtils.clone "matrix" "$matrixName" && return "$APASH_FUNCTION_SUCCESS"
+    ArrayUtils.clone "$matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    matrix[$cellIndex]="$value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    ArrayUtils.clone "matrix" "$matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n matrix="$matrixName"
-    matrix[$cellIndex]="$value" && return "$APASH_FUNCTION_SUCCESS"
+    matrix[$cellIndex]="$value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
   
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

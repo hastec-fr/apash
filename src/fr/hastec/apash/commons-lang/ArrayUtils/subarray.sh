@@ -59,7 +59,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
 #/
 ArrayUtils.subarray() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local outSubArrayName="$1"
   local inArrayName="$2"
   local inStartIndex="$3"
@@ -68,25 +68,25 @@ ArrayUtils.subarray() {
   local outArray=()
   local lastIndex
 
-  ArrayUtils.isArray "$inArrayName"  || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  ArrayUtils.clone "$inArrayName" "inArray" || return "$APASH_FUNCTION_FAILURE"
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$inArrayName" "inArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
 
-  [[ $inStartIndex -gt $inEndIndex    ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -gt $inEndIndex    ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # shellcheck disable=SC2034
   # Subarray always start at the index 0, so the the first index is removed.
   outArray=("${inArray[@]:$inStartIndex-$APASH_ARRAY_FIRST_INDEX:$inEndIndex-$inStartIndex}")
 
-  ArrayUtils.clone "outArray" "$outSubArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "outArray" "$outSubArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

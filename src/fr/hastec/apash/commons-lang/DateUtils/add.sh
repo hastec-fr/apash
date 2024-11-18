@@ -42,7 +42,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 # @exitcode 1 Otherwise.
 #/
 DateUtils.add() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inDate="$1"
   local inAmount="$2"
   local inType="$3"
@@ -50,9 +50,9 @@ DateUtils.add() {
   local type="$inType"
   local types=("years" "months" "weeks" "days" "hours" "minutes" "seconds" "milliseconds")
 
-  ArrayUtils.contains "types" "$inType" || return "$APASH_FUNCTION_FAILURE"
-  DateUtils.isDate    "$inDate"         || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong  "$inAmount"       || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.contains "types" "$inType" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  DateUtils.isDate    "$inDate"         || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong  "$inAmount"       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Change the unity in cas of milliseconds.
   if [ "$inType" = "milliseconds" ]; then
@@ -60,6 +60,6 @@ DateUtils.add() {
     amount=$(printf "%.3f\n" "$(echo "scale=3; $inAmount / 1000" | bc)")
   fi
 
-  date -d "$inDate + $amount $type" "$DateUtils_UTC_FORMAT" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  date -d "$inDate + $amount $type" "$DateUtils_UTC_FORMAT" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -48,13 +48,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isSameLastIndex() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName1="$1"
   local inArrayName2="$2"
   local lastIndex1
   local lastIndex2
-  lastIndex1=$(ArrayUtils.getLastIndex "$inArrayName1") || return "$APASH_FUNCTION_FAILURE"
-  lastIndex2=$(ArrayUtils.getLastIndex "$inArrayName2") || return "$APASH_FUNCTION_FAILURE"
-  [[ $lastIndex1 -ne $lastIndex2 ]] && return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  lastIndex1=$(ArrayUtils.getLastIndex "$inArrayName1") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex2=$(ArrayUtils.getLastIndex "$inArrayName2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [[ $lastIndex1 -ne $lastIndex2 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

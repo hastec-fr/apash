@@ -42,8 +42,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.getDim() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local inArrayName="$1"
   local matrixName="$2"
   shift 2
@@ -51,14 +51,14 @@ MatrixUtils.getDim() {
   local start=$APASH_ARRAY_FIRST_INDEX
   local length=0
 
-  ArrayUtils.nullToEmpty "$inArrayName"                            || return "$APASH_FUNCTION_FAILURE"
-  MatrixUtils.isMatrix   "$matrixName"                             || return "$APASH_FUNCTION_FAILURE"
-  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")      || return "$APASH_FUNCTION_FAILURE"
-  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}") || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.nullToEmpty "$inArrayName"                            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix   "$matrixName"                             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Keep at least one cell
   [[ $length -le 0 ]] && length=1
-  ArrayUtils.subarray "$inArrayName" "$matrixName" "$start" $((start + length)) || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.subarray "$inArrayName" "$matrixName" "$start" $((start + length)) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

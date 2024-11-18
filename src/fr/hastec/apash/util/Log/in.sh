@@ -5,7 +5,7 @@ apash.import fr.hastec.apash.util.Log.message
 apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 
 ##/
-# @name Log.entry
+# @name Log.in
 # @brief Log the parent function call with its arguments.
 # @description 
 #   The message is mandatory pushed to error channel.
@@ -33,8 +33,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.entry() {
-  [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_FUNCTION_SUCCESS"
+Log.in() {
+  [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="$1"
   local parentFunction
   local args
@@ -47,6 +47,6 @@ Log.entry() {
     args+="'$arg' "
   done
 
-  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
+  return "$APASH_FAILURE"
 }

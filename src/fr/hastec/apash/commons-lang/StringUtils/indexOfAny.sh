@@ -41,27 +41,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @see https://stackoverflow.com/questions/10953833/passing-multiple-distinct-arrays-to-a-shell-function
 #/
 StringUtils.indexOfAny() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local researchName="$2"  
   local index=-1
   local i r
   local researh=()
-  ArrayUtils.clone "$researchName" "research"
+  ArrayUtils.clone "$researchName" "research" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the researsh is empty then return -1.
   if [[ ${#research[@]} -eq 0 ]]; then
-    echo "$index" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "$index" && return "$APASH_SUCCESS"
+    return "$APASH_FAILURE"
   fi
 
   # For each reseach, apply the function indexOf
   # and keep the minimum index if string has been found.
   for r in "${research[@]}"; do
-    i=$(StringUtils.indexOf "$inString" "$r")
+    i=$(StringUtils.indexOf "$inString" "$r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     [[ $i -ge 0  && ($index -eq -1 || $i -lt $index) ]] && index=$i
   done
 
-  echo "$index" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

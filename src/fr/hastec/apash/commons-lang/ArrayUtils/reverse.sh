@@ -50,7 +50,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 1 When the input is not an array or the indexes are not integers.
 #/
 ArrayUtils.reverse() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local inStartIndex="${2:-0}"
   local inEndIndex="${3}"
@@ -58,20 +58,20 @@ ArrayUtils.reverse() {
   local outArray=()
   local lastIndex
   
-  ArrayUtils.clone "$ioArrayName" "outArray"  || return "$APASH_FUNCTION_FAILURE"
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName")  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "outArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   [[ -z "$inEndIndex" ]] && inEndIndex=$((lastIndex+1))
 
-  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -ge $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -ge $lastIndex ]]               && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
   
-  [[ "$inStartIndex" -ge "$inEndIndex" ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ "$inStartIndex" -ge "$inEndIndex" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     
   while [[ $inStartIndex -lt $inEndIndex ]]; do
     swap=${outArray[inStartIndex]}
@@ -81,7 +81,7 @@ ArrayUtils.reverse() {
     inEndIndex=$((inEndIndex - 1))
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -48,14 +48,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #/
 Array.bubbleSort() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
-  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local lastIndex
   local temp i j
   local outArray=()
   ArrayUtils.clone "$inArrayName" "outArray"
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Performing Bubble sort
   for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+lastIndex+1; i++)); do
@@ -67,7 +67,7 @@ Array.bubbleSort() {
       fi
     done
   done
-  ArrayUtils.clone "outArray" "$inArrayName"
+  ArrayUtils.clone "outArray" "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

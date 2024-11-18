@@ -42,8 +42,8 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isArray() {
-   Log.entry "$LINENO" "$@"
+   Log.in $LINENO "$@"
    local inVarName="$1"
-   declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && return "$APASH_FUNCTION_SUCCESS"
-   return "$APASH_FUNCTION_FAILURE"
+   declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+   Log.out $LINENO; return "$APASH_FAILURE"
 }

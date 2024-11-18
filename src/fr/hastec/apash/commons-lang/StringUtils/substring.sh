@@ -41,7 +41,7 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.substring() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local start=${2:-0}
   local end=${3:-${#inString}}
@@ -60,12 +60,12 @@ StringUtils.substring() {
 
   # If same index, or start greater than end, then return empty
   if [[ $start -ge $end ]]; then
-    echo "" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   local substring=${inString:$start:$((end - start))}
 
-  echo "$substring" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$substring" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

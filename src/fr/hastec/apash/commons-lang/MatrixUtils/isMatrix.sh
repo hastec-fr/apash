@@ -42,27 +42,27 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.isMatrix() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
   local apashDimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
   local -i i
 
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$apashDimMatrixName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName"        || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apashDimMatrixName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 
   # Check that dimensions are correct values.
   if [ "$APASH_SHELL" = "zsh" ]; then
     for i in "${${(P)apashDimMatrixName}[@]}"; do
-      ArrayUtils.isArrayIndex "$i" || return "$APASH_FUNCTION_FAILURE"
-      [ "$i" -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+      ArrayUtils.isArrayIndex "$i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+      [ "$i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
     done
   else
     local -n inMatrixDim="$apashDimMatrixName"
     for i in "${inMatrixDim[@]}"; do
-      ArrayUtils.isArrayIndex "$i" || return "$APASH_FUNCTION_FAILURE"
-      [ "$i" -eq 0 ] && return "$APASH_FUNCTION_FAILURE"
+      ArrayUtils.isArrayIndex "$i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+      [ "$i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
     done
   fi
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

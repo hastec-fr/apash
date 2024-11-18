@@ -46,10 +46,10 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #  * [init](./init.md): Initiliaze only if the input is an array.
 #/
 ArrayUtils.anythingToEmpty() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
-  BashUtils.isVariableNameValid "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isVariableNameValid "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   unset "$ioArrayName"
-  BashUtils.declareArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.declareArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  return "$APASH_SUCCESS"
 }

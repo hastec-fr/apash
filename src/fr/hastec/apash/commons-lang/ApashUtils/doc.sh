@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.util.Log.entry
+apash.import fr.hastec.apash.util.Log.in
 apash.import fr.hastec.apash.util.Log.exception
 apash.import fr.hastec.apash.util.Log.exit
 
@@ -41,12 +41,12 @@ apash.import fr.hastec.apash.util.Log.exit
 # @exitcode 1 When the file does not exists.
 #/
 ApashUtils.doc() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
 
   local inFile="$1"
   local comments=""
 
-  [ ! -r "$inFile" ] && { Log.exception "$LINENO" "ApashUtils.doc-001" "InvalidFilePath"; return "$APASH_FUNCTION_FAILURE"; }
+  [ ! -r "$inFile" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   comments="$(sed -n -e '/^\s*##\//,/^\s*#\//p' "$inFile" | sed -n -e 's/^\s*##\?\/\?//p')"
   comments="$(echo "$comments" | awk '
@@ -90,8 +90,8 @@ ApashUtils.doc() {
     /^\s*@apashPackage\s*$/      { print "### Package\n<!-- apash.packageBegin -->\n<!-- apash.packageEnd -->"; next}
     /^\s*@apashSummaryTable\s*$/ { print "### Method Summary\n<!-- apash.summaryTableBegin -->\n<!-- apash.summaryTableEnd -->"; next}
     { print $0; exitCodeFlag=0  }
-  ')" || { Log.exception "$LINENO" "ApashUtils.doc-002"; return "$APASH_FUNCTION_FAILURE"; }
+  ')" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  echo "$comments" && { Log.exit "$LINENO" "ApashUtils.doc-003"; return "$APASH_FUNCTION_SUCCESS"; }
-  Log.exit "$LINENO" "ApashUtils.doc-004"; return "$APASH_FUNCTION_FAILURE"
+  echo "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

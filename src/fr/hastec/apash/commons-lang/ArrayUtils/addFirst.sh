@@ -49,7 +49,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #  * [ArrayUtil.addAll](./addAll.md): Adding multiple elements at the end of an array.
 #/
 ArrayUtils.addFirst() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_ioArrayName="$1"
   local apash_inValue="$2"
   # Prepare output array with expected value at the first position.
@@ -58,13 +58,13 @@ ArrayUtils.addFirst() {
   local i
 
   # Return imediatly if more than one value should be added.
-  [ $# -gt 2 ] && return "$APASH_FUNCTION_FAILURE"
+  [ $# -gt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Create the array if it does not exists and fails if too many values should be added.
-  ArrayUtils.nullToEmpty "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  [ $# -lt 2 ] && return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
-  ArrayUtils.clone "$apash_ioArrayName" "apash_inArray" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$apash_ioArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Add the current array values to the output array.
   if [ "$APASH_SHELL" = "zsh" ]; then
@@ -76,6 +76,6 @@ ArrayUtils.addFirst() {
     done
   fi
 
-  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

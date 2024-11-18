@@ -33,10 +33,10 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 #/
 StringUtils.isBlank() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local trimmedString  
-  trimmedString=$(StringUtils.trim "$inString")
-  [ -z "$trimmedString" ] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  trimmedString=$(StringUtils.trim "$inString") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [ -z "$trimmedString" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

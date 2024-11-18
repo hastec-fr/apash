@@ -45,7 +45,7 @@ apash.import fr.hastec.apash.lang.Math.abs
 # @exitcode 1 When the shift is not a valid number.
 #/
 StringUtils.rotate() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inNbChars="${2:-0}"
   local outString=""
@@ -53,9 +53,9 @@ StringUtils.rotate() {
   [[ -z $inNbChars ]] && inNbChars=0
 
   # Check if the second argument is a valid number.
-  NumberUtils.isInteger "$inNbChars" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isInteger "$inNbChars" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ ${#inString} -eq 0 ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ ${#inString} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Calculate a modulo of the rotation in case shift is greater than
   # string length.
@@ -71,7 +71,7 @@ StringUtils.rotate() {
     outString="${inString:$inNbChars}${inString:0:$inNbChars}"
   fi
 
-  echo "$outString" && return "$APASH_FUNCTION_SUCCESS"
+  echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

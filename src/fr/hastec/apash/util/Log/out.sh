@@ -20,11 +20,10 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # | #      | varName        | Type          | in/out   | Default   | Description                           |
 # |--------|----------------|---------------|----------|-----------|---------------------------------------|
 # | $1     | inLineNumber   | number        | in       |           | The line number of the log.           |
-# | $2     | inLabel        | string        | in       |           | The corresponding exit label.         |
 #
 # ### Example
 # ```bash
-#    Log.exit "$LINENO" "StringUtils.leftPad-002" # &2: 2024-11-06T08:27:11.213+0000 [TRACE] StringUtils.leftPad (7): Out StringUtils.leftPad-002
+#    Log.exit $LINENO "StringUtils.leftPad-002" # &2: 2024-11-06T08:27:11.213+0000 [TRACE] StringUtils.leftPad (7): Out StringUtils.leftPad-002
 # ```
 #
 # @stdout None.
@@ -33,15 +32,14 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.exit() {
-  [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_FUNCTION_SUCCESS"
+Log.out() {
+  [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="$1"
-  local inLabel="$2"
   local parentFunction
-  local outMessage="Out $inLabel"
+  local outMessage="Out "
   local args
   local arg
-  shift 2
+  shift 1
 
   parentFunction="$(BashUtils.getParentFunctionName)"
 
@@ -50,6 +48,6 @@ Log.exit() {
   done
   [ -n "${args[*]}" ] && outMessage="$outMessage { $args}"
 
-  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
+  return "$APASH_FAILURE"
 }

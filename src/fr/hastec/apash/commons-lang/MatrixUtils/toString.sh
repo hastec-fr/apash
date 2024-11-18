@@ -38,16 +38,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.toString() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local matrixName="$1"
   local -i i
   local _apash_matrix_toString
 
-  MatrixUtils.isMatrix "$matrixName" || return "$APASH_FUNCTION_FAILURE"
+  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local matrix=()
-    ArrayUtils.clone "$matrixName" "matrix"
+    ArrayUtils.clone "$matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
     local -n matrix="$matrixName"
     local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
@@ -73,5 +73,5 @@ MatrixUtils.toString() {
     done
   done
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 #/
 StringUtils.isEmpty() {
-  Log.entry "$LINENO" "$@"
-  [ -z "$1" ] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ -z "$1" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

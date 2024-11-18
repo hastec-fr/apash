@@ -42,16 +42,16 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.endsWith(){
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString=$1
   local inSuffix=$2
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    [[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && return "$APASH_FUNCTION_SUCCESS"
+    [[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
     # The string is between quotes to prevent the interpretation of pattern symbols in bash.
     # @todo: endsWithPattern
-    [[ "$inString" =~ "${inSuffix}"$ ]] && return "$APASH_FUNCTION_SUCCESS"
+    [[ "$inString" =~ "${inSuffix}"$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  { Log.out $LINENO; return "$APASH_FAILURE"; }
 }

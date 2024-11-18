@@ -36,14 +36,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.countMatches() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_inArrayName="$1"
   local apash_inValue="$2"
   local apash_value
   local -i apash_counter=0
 
   # Check if it's an array then count the number of occurence of the value inside.
-  ArrayUtils.isArray "$apash_inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
     for apash_value in "${${(P)apash_inArrayName}[@]}"; do
       [[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
@@ -56,6 +56,6 @@ ArrayUtils.countMatches() {
   fi
   
   # Return the number of occurence encountered.
-  echo "$apash_counter" || return "$APASH_FUNCTION_FAILURE"
-  return "$APASH_FUNCTION_SUCCESS"
+  echo "$apash_counter" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

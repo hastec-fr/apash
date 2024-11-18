@@ -61,7 +61,7 @@ apash.import fr.hastec.apash.lang.Math.min
 # @see https://commons.apache.org/proper/commons-lang/javadocs/api-release/src-html/org/apache/commons/lang3/ArrayUtils.html#line.8286
 #/
 ArrayUtils.swap() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ioArrayName="$1"
   local inStartIndex="$2"
   local inEndIndex="$3"
@@ -71,16 +71,16 @@ ArrayUtils.swap() {
   local ref_ArrayUtils_swap_outArray=()
   local lastIndex
 
-  NumberUtils.isLong "$inStartIndex" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inEndIndex"   || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inLen"        || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inLen"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_swap_outArray"          || return "$APASH_FUNCTION_FAILURE"
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_swap_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName")            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Nothing to swap.
-  [[ $inStartIndex -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
-  [[ $inEndIndex   -gt $lastIndex ]] && return "$APASH_FUNCTION_SUCCESS"
+  [[ $inStartIndex -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $inEndIndex   -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
   [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
@@ -91,7 +91,7 @@ ArrayUtils.swap() {
     ref_ArrayUtils_swap_outArray[inStartIndex]=${ref_ArrayUtils_swap_outArray[$inEndIndex]}
     ref_ArrayUtils_swap_outArray[inEndIndex]=$swap
   done
-  ArrayUtils.clone "ref_ArrayUtils_swap_outArray" "$ioArrayName"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.clone "ref_ArrayUtils_swap_outArray" "$ioArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

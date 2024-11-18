@@ -54,23 +54,23 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @exitcode 1 Otherwise.
 #/
 MapUtils.init() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local ref_MapUtils_init_ioMapName="$1"
-  BashUtils.isVariableNameValid "$ref_MapUtils_init_ioMapName" || return "$APASH_FUNCTION_FAILURE"
-  BashUtils.isVariable "$ref_MapUtils_init_ioMapName" && return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$ref_MapUtils_init_ioMapName" && return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isVariableNameValid "$ref_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  BashUtils.isVariable "$ref_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$ref_MapUtils_init_ioMapName"            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the variable is not declared, then create the corresponding global value.
   if ! BashUtils.isDeclared "$ref_MapUtils_init_ioMapName"; then
-    BashUtils.declareArray "$ref_MapUtils_init_ioMapName" && return "$APASH_FUNCTION_SUCCESS"
-    return "$APASH_FUNCTION_FAILURE"
+    BashUtils.declareArray "$ref_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PAA)ref_MapUtils_init_ioMapName::=${(kv)MaptUtils_EMPTY_MAP}} && return "$APASH_FUNCTION_SUCCESS"
+    : ${(PAA)ref_MapUtils_init_ioMapName::=${(kv)MaptUtils_EMPTY_MAP}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n ref_ArrayUtils_init_outArray="$ref_MapUtils_init_ioMapName"
-    ref_ArrayUtils_init_outArray=() && return "$APASH_FUNCTION_SUCCESS"
+    ref_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

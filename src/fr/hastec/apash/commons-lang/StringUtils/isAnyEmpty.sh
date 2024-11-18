@@ -38,13 +38,13 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 If all arguments are not empty.
 #/
 StringUtils.isAnyEmpty() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   # Return succes if no argument
-  [ $# -eq 0 ] &&  return "$APASH_FUNCTION_SUCCESS"
+  [ $# -eq 0 ] &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # For each argument, determine if it's an array and if an element is empty
   for s in "$@"; do
-    [[ -z $s ]] && return "$APASH_FUNCTION_SUCCESS"
+    [[ -z $s ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

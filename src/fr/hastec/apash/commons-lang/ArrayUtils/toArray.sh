@@ -38,8 +38,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 When the input is not an array.
 #/
 ArrayUtils.toArray() {
-  Log.entry "$LINENO" "$@"
-  [ $# -lt 1 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local ioArrayName="$1" 
   shift
 
@@ -47,7 +47,6 @@ ArrayUtils.toArray() {
   # shellcheck disable=SC2034
   outArray=("$@")
 
-  ArrayUtils.clone "outArray" "$ioArrayName" ||  return "$APASH_FUNCTION_FAILURE"
-
-  return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

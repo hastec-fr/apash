@@ -39,20 +39,20 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 # @exitcode 1 When the size is not a positive numeric or the result cannot be displayed.
 #/
 StringUtils.rightPad() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inSize="$2"
   local inPadString="${3:- }"
   local rightPadString=""
 
   # Check if the second argument is a valid number.
-  NumberUtils.isDigits "$inSize" || return "$APASH_FUNCTION_FAILURE" 
+  NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get the number of missing characters.
   local padCount=$((inSize - ${#inString}))
 
   # If the padding size is less than the string, then return the string itself.
-  [[ $padCount -le 0 ]] && echo "$inString" && return "$APASH_FUNCTION_SUCCESS"
+  [[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Calculate how much time the pad string can be added
   # and how much letter if some space are remaining.
@@ -64,7 +64,7 @@ StringUtils.rightPad() {
   rightPadString="${rightPadString// /"$inPadString"}"
   rightPadString+="${inPadString:0:$padNbRemaining}"
 
-  echo "${inString}${rightPadString}" && return "$APASH_FUNCTION_SUCCESS"
+  echo "${inString}${rightPadString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

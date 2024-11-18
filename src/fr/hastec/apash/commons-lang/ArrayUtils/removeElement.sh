@@ -47,18 +47,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.removeElement() {
-  Log.entry "$LINENO" "$@"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local ioArrayName="$1"
   local inValue="$2"
   local index
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get the index to remove
   index=$(ArrayUtils.indexOf "$ioArrayName" "$inValue")
-  [[ "$index" = "$ArrayUtils_INDEX_NOT_FOUND" ]] && return "$APASH_FUNCTION_SUCCESS"
-  ArrayUtils.remove "$ioArrayName" "$index" || return "$APASH_FUNCTION_FAILURE"
+  [[ "$index" = "$ArrayUtils_INDEX_NOT_FOUND" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  ArrayUtils.remove "$ioArrayName" "$index"      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

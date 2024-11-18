@@ -38,13 +38,13 @@ BashUtils.getFunctionName() {
   local functionName
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    [ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FUNCTION_FAILURE"
+    [ "$inDepth" -gt "${#funcstack[@]}" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
     functionName="${funcstack[inDepth]}"
   else # bash
-    [ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FUNCTION_FAILURE"
+    [ "$inDepth" -gt "${#FUNCNAME[@]}" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
     functionName="${FUNCNAME[inDepth]}"
   fi
   
-  echo "$functionName" && return "$APASH_FUNCTION_SUCCESS" 
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$functionName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

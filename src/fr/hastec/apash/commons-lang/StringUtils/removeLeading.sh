@@ -39,11 +39,11 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 otherwise.
 #/
 StringUtils.remove() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
   local inSubstring="$2"
 
-  echo "${inString//"$inSubstring"/}" && return "$APASH_FUNCTION_SUCCESS"
+  echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

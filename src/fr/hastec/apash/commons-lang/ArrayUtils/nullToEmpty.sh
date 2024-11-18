@@ -52,16 +52,16 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.nullToEmpty() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
-  BashUtils.isVariableNameValid "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Fails if the variable is declared and not an array
-  BashUtils.isDeclared "$inArrayName" && return "$APASH_FUNCTION_FAILURE"
+  BashUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Declare the array with dynamic name
-  BashUtils.declareArray "$inArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  BashUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

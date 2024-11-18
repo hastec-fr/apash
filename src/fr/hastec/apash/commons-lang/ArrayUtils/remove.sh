@@ -46,14 +46,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.remove() {
-  Log.entry "$LINENO" "$@"
-  [ $# -ne 2 ] && return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local ioArrayName="$1"
   local inIndex="$2"
   local i
-  ArrayUtils.isArray "$ioArrayName" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$ioArrayName"                       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local ref_ArrayUtilsRemove_outArray=()
 
@@ -61,7 +61,7 @@ ArrayUtils.remove() {
     ref_ArrayUtilsRemove_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
                                    "${${(P)ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX+1))}")
   else
-    ArrayUtils.clone "$ioArrayName" ref_ArrayUtilsRemove_outArray
+    ArrayUtils.clone "$ioArrayName" ref_ArrayUtilsRemove_outArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     unset "ref_ArrayUtilsRemove_outArray[$inIndex]"
 
     # Shift to the left all next cells
@@ -71,7 +71,7 @@ ArrayUtils.remove() {
       unset "ref_ArrayUtilsRemove_outArray[$i]"
     done
   fi
-  ArrayUtils.clone "ref_ArrayUtilsRemove_outArray" "$ioArrayName" && return "$APASH_FUNCTION_SUCCESS"
+  ArrayUtils.clone "ref_ArrayUtilsRemove_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

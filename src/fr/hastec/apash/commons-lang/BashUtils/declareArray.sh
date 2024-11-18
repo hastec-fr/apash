@@ -32,12 +32,12 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 BashUtils.declareArray() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local varName="$1"
   if [ "$APASH_SHELL" = "zsh" ]; then
-    declare -g -a "$varName" && return "$APASH_FUNCTION_SUCCESS"
+    declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
-    declare -g -a "$varName=()" && return "$APASH_FUNCTION_SUCCESS"
+    declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

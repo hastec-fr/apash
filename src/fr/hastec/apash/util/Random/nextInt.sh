@@ -52,14 +52,14 @@ Random.nextInt() {
   [[ -z $minValue && $# -lt 1 ]] && minValue=$Integer_MIN_VALUE
   [[ -z $maxValue && $# -lt 2 ]] && maxValue=$Integer_MAX_VALUE
 
-  NumberUtils.isInteger "$minValue" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isInteger "$maxValue" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isInteger "$minValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isInteger "$maxValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $minValue -gt $maxValue ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $minValue -gt $maxValue ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Generate a random number within the range (maxValue is excluded)
   # echo $(( RANDOM * (maxValue - minValue + 1) / 32768 + minValue ))
-  echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue ))
+  echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue )) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

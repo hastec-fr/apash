@@ -47,15 +47,15 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @exitcode 1 Otherwise.
 #/
 MatrixUtils.create() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   # If less than 2 dimensions are provided then return.
-  [[ $# -lt 3 ]] && return "$APASH_FUNCTION_FAILURE"
+  [[ $# -lt 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local inArrayName="$1"
   local matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
   local dim
   local nbDim="$APASH_ARRAY_FIRST_INDEX"
-  ArrayUtils.nullToEmpty "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift
 
   local dimensions=("$@")
@@ -67,10 +67,10 @@ MatrixUtils.create() {
   for dim in "${dimensions[@]}"; do
     if ! ArrayUtils.isArrayIndex "$dim" || [[ $dim -eq 0 ]]  ; then
       unset "$matrixDim"
-      return "$APASH_FUNCTION_FAILURE"
+      return "$APASH_FAILURE"
     fi
     (( "${matrixDim}[$nbDim]=$dim" ))
     nbDim=$((nbDim+1))
   done
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

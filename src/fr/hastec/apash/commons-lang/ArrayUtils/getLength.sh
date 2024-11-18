@@ -46,18 +46,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
 #/
 ArrayUtils.getLength() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
-  ArrayUtils.isArray "$inArrayName" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${#${(PA)inArrayName}[@]}" && return "$APASH_FUNCTION_SUCCESS"
+    echo "${#${(PA)inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
     local lastIndex
-    lastIndex="$(ArrayUtils.getLastIndex "$inArrayName")" || return "$APASH_FUNCTION_FAILURE"
-    [[ $lastIndex == $APASH_ARRAY_LAST_INDEX ]] && return "$APASH_FUNCTION_FAILURE"
-    echo "$((lastIndex+1))" && return "$APASH_FUNCTION_SUCCESS"
+    lastIndex="$(ArrayUtils.getLastIndex "$inArrayName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    [[ $lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    echo "$((lastIndex+1))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

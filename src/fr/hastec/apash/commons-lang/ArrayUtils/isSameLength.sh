@@ -47,18 +47,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.isSameLength() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName1="$1"
   local inArrayName2="$2"
-  ArrayUtils.isArray "$inArrayName1" || return "$APASH_FUNCTION_FAILURE"
-  ArrayUtils.isArray "$inArrayName2" || return "$APASH_FUNCTION_FAILURE"
+  ArrayUtils.isArray "$inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ $APASH_SHELL = "zsh" ]; then
-    [[ ${#${(P)inArrayName1}[@]} -ne ${#${(P)inArrayName2}[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+    [[ ${#${(P)inArrayName1}[@]} -ne ${#${(P)inArrayName2}[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n inArray1="$inArrayName1" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-    local -n inArray2="$inArrayName2" 2> /dev/null || return "$APASH_FUNCTION_FAILURE"  
-    [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && return "$APASH_FUNCTION_FAILURE"
+    local -n inArray1="$inArrayName1"  
+    local -n inArray2="$inArrayName2"  
+    [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   fi
-  return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

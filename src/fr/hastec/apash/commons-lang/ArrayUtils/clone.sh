@@ -53,11 +53,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.clone() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local apash_ArrayUtils_clone_inArrayName="$1"
   local apash_ArrayUtils_clone_outArrayName="$2"
-  ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.exception "$LINENO" "ArrayUtils.clone-001"; return "$APASH_FUNCTION_FAILURE"; }
-  ArrayUtils.init    "$apash_ArrayUtils_clone_outArrayName" || { Log.exception "$LINENO" "ArrayUtils.clone-002"; return "$APASH_FUNCTION_FAILURE"; }
+  ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.init    "$apash_ArrayUtils_clone_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local -n apash_ArrayUtils_clone_inArrayName="$apash_ArrayUtils_clone_inArrayName"
   local -n apash_ArrayUtils_clone_outArray="$apash_ArrayUtils_clone_outArrayName"
@@ -70,5 +70,5 @@ ArrayUtils.clone() {
     apash_ArrayUtils_clone_outArray[i]="${apash_ArrayUtils_clone_inArrayName[i]}"
   done
 
-  Log.exit "$LINENO" "ArrayUtils.clone-003"; return "$APASH_FUNCTION_SUCCESS"
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

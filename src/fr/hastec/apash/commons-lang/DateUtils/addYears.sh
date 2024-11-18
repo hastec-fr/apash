@@ -37,9 +37,9 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 # @exitcode 1 Otherwise.
 #/
 DateUtils.addYears() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inDate="$1"
   local inAmount="${2:-0}"
-  DateUtils.add "$inDate" "$inAmount" "years" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  DateUtils.add "$inDate" "$inAmount" "years" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

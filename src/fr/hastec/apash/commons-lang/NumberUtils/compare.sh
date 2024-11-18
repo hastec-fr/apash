@@ -37,14 +37,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 1 When inputs are not integers.
 #/
 NumberUtils.compare() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inNumber1="$1"
   local inNumber2="$2"
 
-  NumberUtils.isLong "$inNumber1" || return "$APASH_FUNCTION_FAILURE"
-  NumberUtils.isLong "$inNumber2" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isLong "$inNumber1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$inNumber2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  echo $((inNumber1 - inNumber2)) && return "$APASH_FUNCTION_SUCCESS"
+  echo $((inNumber1 - inNumber2)) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

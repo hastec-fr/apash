@@ -41,6 +41,6 @@ Log.warn() {
   local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
   local inChannel="${4:-2}"
 
-  Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+  return "$APASH_FAILURE"
 }

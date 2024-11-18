@@ -49,8 +49,8 @@ Log.message() {
   [ -z "$inLevelStr" ] && inLevelStr="Custom-$inLevel"
 
   # Return immediatly if the provided level is greater than the Apash global log level.
-  [ "$inLevel" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_FUNCTION_SUCCESS"
-  echo "$(date +"%FT%T.%3N%z") [$inLevelStr] $inFunction ($inLineNumber): $inMessage" >&"$inChannel" && return "$APASH_FUNCTION_SUCCESS"
+  [ "$inLevel" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+  echo "$(date +"%FT%T.%3N%z") [$inLevelStr] $inFunction ($inLineNumber): $inMessage" >&"$inChannel" && return "$APASH_SUCCESS"
 
-  return "$APASH_FUNCTION_FAILURE"
+  return "$APASH_FAILURE"
 }

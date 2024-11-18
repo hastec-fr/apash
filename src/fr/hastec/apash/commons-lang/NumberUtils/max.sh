@@ -43,17 +43,17 @@ apash.import fr.hastec.apash.lang.Math.max
 # @exitcode 1 When at least one input is not a parsable.
 #/
 NumberUtils.max() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local max="$1"
 
-  NumberUtils.isParsable "$max" || return "$APASH_FUNCTION_FAILURE"
+  NumberUtils.isParsable "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift
 
   for n in "$@"; do
-    NumberUtils.isParsable "$n" || return "$APASH_FUNCTION_FAILURE"
-    max=$(Math.max "$max" "$n" || return "$APASH_FUNCTION_FAILURE")
+    NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    max=$(Math.max "$max" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
   
-  echo "$max" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

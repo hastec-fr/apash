@@ -44,14 +44,14 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.max
 # @exitcode 1 Otherwise
 #/
 VersionUtils.compare() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local version1="$1"
   local version2="$2"
   local vArray1=()
   local vArray2=()
   local i
 
-  [[ "$version1" == "$version2" ]] && echo "0" && return "$APASH_FUNCTION_SUCCESS"
+  [[ "$version1" == "$version2" ]] && echo "0" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
   StringUtils.splitAny "vArray1" "$version1" "." "-"
   StringUtils.splitAny "vArray2" "$version2" "." "-"
@@ -63,28 +63,28 @@ VersionUtils.compare() {
     # Check if it's the pre-release numbers
     # and if one of the version has reached its end.
     if [[ $i -lt $((APASH_ARRAY_FIRST_INDEX+4)) ]]; then
-      [[ -n "${vArray1[i]}" && -z "${vArray2[i]}" ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
-      [[ -z "${vArray1[i]}" && -n "${vArray2[i]}" ]] && echo "1" && return "$APASH_FUNCTION_SUCCESS"
+      [[ -n "${vArray1[i]}" && -z "${vArray2[i]}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+      [[ -z "${vArray1[i]}" && -n "${vArray2[i]}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     else
-      [[ -n "${vArray1[i]}" && -z "${vArray2[i]}" ]] && echo "1" && return "$APASH_FUNCTION_SUCCESS"
-      [[ -z "${vArray1[i]}" && -n "${vArray2[i]}" ]] && echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+      [[ -n "${vArray1[i]}" && -z "${vArray2[i]}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+      [[ -z "${vArray1[i]}" && -n "${vArray2[i]}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     fi
 
     if NumberUtils.isLongPositive "${vArray1[i]}" \
     && NumberUtils.isLongPositive "${vArray2[i]}" ; then
       if [[ ${vArray1[i]} -lt  ${vArray2[i]}  ]]; then
-        echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+        echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       else
-        echo "1" && return "$APASH_FUNCTION_SUCCESS"
+        echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       fi
     else # At least one fied is not numeric, then check alphanumeric order
        if [[ "${vArray1[i]}" <  "${vArray2[i]}"  ]]; then
-        echo "-1" && return "$APASH_FUNCTION_SUCCESS"
+        echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       else
-        echo "1" && return "$APASH_FUNCTION_SUCCESS"
+        echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       fi
     fi
   done
  
-  return "$APASH_FUNCTION_FAILURE"
+  Log.out $LINENO; return "$APASH_FAILURE"
 }

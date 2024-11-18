@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.equals() {
-  Log.entry "$LINENO" "$@"
-  [[ "$1" == "$2" ]] && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.in $LINENO "$@"
+  [[ "$1" == "$2" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  { Log.out $LINENO; return "$APASH_FAILURE"; }
 }

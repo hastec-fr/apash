@@ -38,8 +38,8 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 1 Otherwise.
 #/
 StringUtils.lowerCase() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inString="$1"
-  echo "$inString" | awk '{print tolower($0)}' && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$inString" | awk '{print tolower($0)}' || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  return "$APASH_SUCCESS"
 }

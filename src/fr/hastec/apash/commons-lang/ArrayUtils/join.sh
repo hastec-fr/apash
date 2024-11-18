@@ -36,14 +36,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.join() {
-  Log.entry "$LINENO" "$@"
+  Log.in $LINENO "$@"
   local inArrayName="$1"
   local inDelimiter="${2:- }"
   local -i i
   local outString=""
   local arrayLength
 
-  arrayLength=$(ArrayUtils.getLength "$inArrayName") || return "$APASH_FUNCTION_FAILURE"
+  arrayLength=$(ArrayUtils.getLength "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [ "$APASH_SHELL" = "zsh" ]; then
     outString="${${(P)inArrayName}[APASH_ARRAY_FIRST_INDEX]}"
@@ -59,6 +59,6 @@ ArrayUtils.join() {
     done
   fi
 
-  echo "$outString" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

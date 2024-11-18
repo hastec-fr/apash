@@ -27,7 +27,7 @@ apash.import fr.hastec.apash.lang.Math.min
 # ```bash
 #    cat <<EOF
 #    apash.import fr.hastec.apash.util.Log.exception
-#    myFunc() { Log.exception "$LINENO" "myFunc-001" "InvalidNumber"; }
+#    myFunc() { Log.exception $LINENO "myFunc-001" "InvalidNumber"; }
 #    myGrandFunc() { 
 #        echo test
 #        myFunc;
@@ -46,8 +46,8 @@ apash.import fr.hastec.apash.lang.Math.min
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.exception() {
-  [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_FUNCTION_SUCCESS"
+Log.ex() {
+  [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="$1"
   local inLabel="$2"
   local inException="${3:-UnexpectedException}"
@@ -79,6 +79,6 @@ Log.exception() {
 
   parentFunction="$(BashUtils.getParentFunctionName)"
 
-  Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_FUNCTION_SUCCESS"
-  return "$APASH_FUNCTION_FAILURE"
+  Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
+  return "$APASH_FAILURE"
 }
