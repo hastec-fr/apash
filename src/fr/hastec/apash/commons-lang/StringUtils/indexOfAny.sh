@@ -2,6 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
@@ -43,23 +44,29 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 StringUtils.indexOfAny() {
   Log.in $LINENO "$@"
   local inString="$1"
-  local researchName="$2"  
-  local index=-1
+  local researchName="$2"
+  local index="$ArrayUtils_INDEX_NOT_FOUND"
   local i r
   local researh=()
-  ArrayUtils.clone "$researchName" "research" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  
+  # If the array cannot be clone (because it's not an array)
+  # Then return index not found.
+  if ! ArrayUtils.clone "$researchName" "research"; then
+    echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_SUCCESS"
+    return "$APASH_FAILURE"
+  fi
 
   # If the researsh is empty then return -1.
   if [[ ${#research[@]} -eq 0 ]]; then
-    echo "$index" && return "$APASH_SUCCESS"
-    return "$APASH_FAILURE"
+    echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # For each reseach, apply the function indexOf
   # and keep the minimum index if string has been found.
   for r in "${research[@]}"; do
     i=$(StringUtils.indexOf "$inString" "$r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    [[ $i -ge 0  && ($index -eq -1 || $i -lt $index) ]] && index=$i
+    [[ $i -ge 0  && ($index -eq $ArrayUtils_INDEX_NOT_FOUND || $i -lt $index) ]] && index=$i
   done
 
   echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

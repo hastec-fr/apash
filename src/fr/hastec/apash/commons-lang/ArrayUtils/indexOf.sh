@@ -57,7 +57,7 @@ ArrayUtils.indexOf() {
 
   local inArrayName="$1"
   local inValue="$2"
-  local inStart="${3:-0}"
+  local inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
   local i
   local lastIndex
   NumberUtils.isLong "$inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

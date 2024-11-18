@@ -57,11 +57,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 ArrayUtils.addAll() {
   Log.in $LINENO "$@"
   local apash_ioArrayName="$1"
-  shift
 
   # @todo: Create functions addOne and addMany to force at least one entry.
   # Create the array if it does not exists and succeed if no value should be added.
   ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  
+  shift
   [ $# -eq 0 ] && return "$APASH_SUCCESS"
 
   # Get the array in local scope.

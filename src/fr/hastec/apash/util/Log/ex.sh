@@ -6,7 +6,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 apash.import fr.hastec.apash.lang.Math.min
 
 ##/
-# @name Log.exception
+# @name Log.ex
 # @brief Log an error message due to an unexpected behavior and print the stack.
 # @description
 #   The message is mandatory pushed to error channel.
@@ -26,8 +26,8 @@ apash.import fr.hastec.apash.lang.Math.min
 # ### Example
 # ```bash
 #    cat <<EOF
-#    apash.import fr.hastec.apash.util.Log.exception
-#    myFunc() { Log.exception $LINENO "myFunc-001" "InvalidNumber"; }
+#    apash.import fr.hastec.apash.util.Log.ex
+#    myFunc() { Log.ex $LINENO "myFunc-001" "InvalidNumber"; }
 #    myGrandFunc() { 
 #        echo test
 #        myFunc;
@@ -49,10 +49,8 @@ apash.import fr.hastec.apash.lang.Math.min
 Log.ex() {
   [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="$1"
-  local inLabel="$2"
-  local inException="${3:-UnexpectedException}"
   local parentFunction
-  local outMessage="Exception $inException at $inLabel"
+  local outMessage="Exception"
   local i
 
   if [ "$APASH_LOG_STACK_TRACE" = "true" ]; then
@@ -79,6 +77,6 @@ Log.ex() {
 
   parentFunction="$(BashUtils.getParentFunctionName)"
 
-  Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
-  return "$APASH_FAILURE"
+  Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
+  return "$APASH_SUCCESS"
 }

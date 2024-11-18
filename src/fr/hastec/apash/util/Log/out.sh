@@ -5,7 +5,7 @@ apash.import fr.hastec.apash.util.Log.message
 apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 
 ##/
-# @name Log.exit
+# @name Log.out
 # @brief Log message before exiting from the calling function.
 # @description 
 #   The message is mandatory pushed to error channel.
@@ -23,7 +23,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 #
 # ### Example
 # ```bash
-#    Log.exit $LINENO "StringUtils.leftPad-002" # &2: 2024-11-06T08:27:11.213+0000 [TRACE] StringUtils.leftPad (7): Out StringUtils.leftPad-002
+#    Log.out $LINENO "StringUtils.leftPad-002" # &2: 2024-11-06T08:27:11.213+0000 [TRACE] StringUtils.leftPad (7): Out StringUtils.leftPad-002
 # ```
 #
 # @stdout None.
@@ -36,7 +36,7 @@ Log.out() {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="$1"
   local parentFunction
-  local outMessage="Out "
+  local outMessage="Out"
   local args
   local arg
   shift 1

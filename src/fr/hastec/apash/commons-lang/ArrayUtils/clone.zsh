@@ -27,6 +27,7 @@ ArrayUtils.clone() {
   # Add special case when only a single empty element is present in the array
   if [[ ${#${(P)1}[@]} == 1 && ${${(P)1}[@]} == "" ]]; then
     : ${(PA)apash_ArrayUtils_clone_outArrayName::=""} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
   fi
   : ${(PA)apash_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"

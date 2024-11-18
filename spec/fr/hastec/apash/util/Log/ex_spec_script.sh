@@ -2,12 +2,12 @@
 
 if [ "$APASH_TEST_MINIFIED" != "true" ]; then
   [ "$APASH_SHELL" = "zsh" ] && . apash source
-  apash.import "fr.hastec.apash.util.Log.exception"
+  apash.import "fr.hastec.apash.util.Log.ex"
 else
   . $APASH_HOME_DIR/apash-$APASH_SHELL-min.sh
 fi
 
-myCaller(){ Log.exception 1 "myCaller-001" "InvalidNumber" ; }
+myCaller(){ Log.ex 1 "myCaller-001" "InvalidNumber" ; }
 myGrandCaller(){ myCaller; }
 
 myGrandCaller

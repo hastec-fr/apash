@@ -35,6 +35,6 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getFunctionName
 #/
 BashUtils.getParentFunctionName() {
   # Parent(3) -> Caller (2)-> getParentFunctionName(1) -> getFunctionName(0)
-  BashUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || { Log.out $LINENO; return "$APASH_FAILURE"; }
-  Log.out $LINENO; return "$APASH_SUCCESS"
+  BashUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
+  return "$APASH_SUCCESS"
 }

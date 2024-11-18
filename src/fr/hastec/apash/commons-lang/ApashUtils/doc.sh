@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.util.Log.in
-apash.import fr.hastec.apash.util.Log.exception
-apash.import fr.hastec.apash.util.Log.exit
+apash.import fr.hastec.apash.util.Log
 
 ##/
 # @name ApashUtils.doc
