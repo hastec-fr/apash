@@ -67,10 +67,10 @@ ArrayUtils.add() {
 
   # Add the value.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local outArray=()
-    ArrayUtils.clone "$apash_ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    ArrayUtils.clone "outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_outArray=()
+    ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    apash_outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     local -n apash_inArray="$apash_ioArrayName"
     apash_inArray+=("$apash_inValue") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
