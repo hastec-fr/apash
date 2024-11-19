@@ -20,7 +20,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
 #
 # ### Example
 # ```bash
@@ -44,15 +44,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.getNumberOfElements() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
+  local apash_inArrayName="$1"
   
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${#${(PA)inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    echo "${#${(PA)apash_inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
-    local -n inArray="$inArrayName"
-    echo "${#inArray[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local -n apash_inArray="$apash_inArrayName"
+    echo "${#apash_inArray[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
   Log.out $LINENO; return "$APASH_FAILURE"

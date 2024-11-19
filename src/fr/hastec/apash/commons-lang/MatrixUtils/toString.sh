@@ -10,7 +10,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 
 ##/
 # @name MatrixUtils.create
-# @brief Display each virtual indexes of the matrix.
+# @brief Display each virtual indexes of the apash_matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #
@@ -23,7 +23,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the apash_matrix.                  |
 #
 # ### Example
 # ```bash
@@ -39,36 +39,36 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 #/
 MatrixUtils.toString() {
   Log.in $LINENO "$@"
-  local matrixName="$1"
-  local -i i
-  local _apash_matrix_toString
+  local apash_matrixName="$1"
+  local -apash_i apash_i
+  local apash_matrix_toString
 
-  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local matrix=()
-    ArrayUtils.clone "$matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_matrix=()
+    ArrayUtils.clone "$apash_matrixName" "apash_matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
-    local -n matrix="$matrixName"
-    local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
+    local -n apash_matrix="$apash_matrixName"
+    local -n apash_matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
   fi
   
-  ArrayUtils.clone "matrixDim" "_apash_matrix_toString"
+  ArrayUtils.clone "apash_matrixDim" "apash_matrix_toString"
 
-  for (( i=0; i < ${#matrixDim[@]}; i++ )); do
-    [[ $i == 0 ]] && totalIndexes=${matrixDim[i]} || totalIndexes=$((totalIndexes * matrixDim[i]))
-    _apash_matrix_toString[i]=0
+  for (( apash_i=0; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
+    [[ $apash_i == 0 ]] && totalIndexes=${apash_matrixDim[apash_i]} || totalIndexes=$((totalIndexes * apash_matrixDim[apash_i]))
+    apash_matrix_toString[apash_i]=0
   done
   
-  for (( i=0; i < totalIndexes; i++ )); do
-    echo "$matrixName($(ArrayUtils.join _apash_matrix_toString ","))=${matrix[i]} "
+  for (( apash_i=0; apash_i < totalIndexes; apash_i++ )); do
+    echo "$apash_matrixName($(ArrayUtils.join apash_matrix_toString ","))=${apash_matrix[apash_i]} "
 
     # Refresh dimensions indexes by incrementing the last one.
-    _apash_matrix_toString[-1]=$((_apash_matrix_toString[-1]+1))
-    for (( j=${#_apash_matrix_toString[@]}-1; j > 0; j--)); do
-      if [[ ${_apash_matrix_toString[j]} -ge ${matrixDim[j]} ]]; then
-        _apash_matrix_toString[j]=0
-        _apash_matrix_toString[j-1]=$((_apash_matrix_toString[j-1]+1))
+    apash_matrix_toString[-1]=$((apash_matrix_toString[-1]+1))
+    for (( j=${#apash_matrix_toString[@]}-1; j > 0; j--)); do
+      if [[ ${apash_matrix_toString[j]} -ge ${apash_matrixDim[j]} ]]; then
+        apash_matrix_toString[j]=0
+        apash_matrix_toString[j-1]=$((apash_matrix_toString[j-1]+1))
       fi
     done
   done

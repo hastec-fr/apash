@@ -16,11 +16,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
-# | $2     | inIndex        | string        | in       |            | Index of the array.                  |
-# | $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
+# | $2     | apash_inIndex        | string        | in       |            | Index of the array.                  |
+# | $3?    | apash_inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
 #
 # ### Example
 # ```bash
@@ -42,25 +42,25 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 #/
 ArrayUtils.get() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  local inIndex="$2"
-  local inDefaultValue="$3"
+  local apash_inArrayName="$1"
+  local apash_inIndex="$2"
+  local apash_inDefaultValue="$3"
   
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Check if the index is valid for the array
-  if ! ArrayUtils.isArrayIndexValid "$inArrayName" "$inIndex"; then
+  if ! ArrayUtils.isArrayIndexValid "$apash_inArrayName" "$apash_inIndex"; then
     [[ $# -ne 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    echo "$inDefaultValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    echo "$apash_inDefaultValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Display the value of the corresponding array index.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${${(P)inArrayName}[$inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    echo "${${(P)apash_inArrayName}[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n inArray="$inArrayName"
-    echo "${inArray[$inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local -n apash_inArray="$apash_inArrayName"
+    echo "${apash_inArray[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
 
   Log.out $LINENO; return "$APASH_SUCCESS"

@@ -17,8 +17,8 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
-# | $2     | inKey          | string        | in       |            | Key to check.                         |
+# | $1     | apash_inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
+# | $2     | apash_inKey          | string        | in       |            | Key to check.                         |
 #
 # ### Example
 # ```bash
@@ -36,20 +36,20 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 #
 MapUtils.containsKey() {
    Log.in $LINENO "$@"
-   local inMapName="$1"
-   local inKey="$2"
-   local k
+   local apash_inMapName="$1"
+   local apash_inKey="$2"
+   local apash_k
 
-   MapUtils.isMap "$inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+   MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
    if [ "$APASH_SHELL" = "zsh" ]; then
-      for k in "${(@kP)inMapName}"; do
-         [[ "$k" == "$inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+      for apash_k in "${(@kP)apash_inMapName}"; do
+         [[ "$apash_k" == "$apash_inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       done
    else
-      local -n inMap="$inMapName"
-      for k in "${!inMap[@]}"; do
-         [[ "$k" == "$inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+      local -n inMap="$apash_inMapName"
+      for apash_k in "${!inMap[@]}"; do
+         [[ "$apash_k" == "$apash_inKey" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
       done
    fi
    Log.out $LINENO; return "$APASH_FAILURE"

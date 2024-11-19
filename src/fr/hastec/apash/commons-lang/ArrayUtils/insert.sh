@@ -19,9 +19,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inIndex        | number        | in       |            | Positive index of the array to insert values. |
-# | $2     | ref_ArrayUtilsInsert_ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
-# | ${@:3} | inValues       | string...     | in       |            | Values to insert at the indicated index.      |
+# | $1     | apash_inIndex        | number        | in       |            | Positive index of the array to insert values. |
+# | $2     | apash_ioArrayName    | ref(string[]) | in       |            | Name of the array to modify.                  |
+# | ${@:3} | apash_inValues       | string...     | in       |            | Values to insert at the indicated index.      |
 #
 # ### Example
 # ```bash
@@ -44,46 +44,47 @@ ArrayUtils.insert() {
   Log.in $LINENO "$@"
   [ $# -lt 3 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inIndex="$1"
-  local ref_ArrayUtilsInsert_ioArrayName="$2"
-  ArrayUtils.isArray "$ref_ArrayUtilsInsert_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  ArrayUtils.isArrayIndex "$inIndex"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
+  local apash_inIndex="$1"
+  local apash_ioArrayName="$2"
+  ArrayUtils.isArray "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArrayIndex "$apash_inIndex"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
   shift 2
-  local inValues=("$@")
-  local i j
+  local apash_inValues=("$@")
+  local apash_i 
+  local apash_j
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local ref_ArrayUtilsInsert_outArray=()
-    ref_ArrayUtilsInsert_outArray=("${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
-                                   "${inValues[@]}" \
-                                   "${${(P)ref_ArrayUtilsInsert_ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX))}")
-    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local apash_outArray=()
+    apash_outArray=("${${(P)apash_ioArrayName}[@]:0:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+                    "${apash_inValues[@]}" \
+                    "${${(P)apash_ioArrayName}[@]:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}")
+    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    local -n ref_ArrayUtilsInsert_ioArray="$ref_ArrayUtilsInsert_ioArrayName"
-    local isInserted=false
+    local -n apash_ioArray="$apash_ioArrayName"
+    local apash_isInserted=false
     # Need to preserve indexes in bash
-    for i in "${!ref_ArrayUtilsInsert_ioArray[@]}"; do
-      if [[ $i -lt inIndex ]]; then
-        ref_ArrayUtilsInsert_outArray[i]="${ref_ArrayUtilsInsert_ioArray[i]}"
-      elif [[ $i -ge inIndex ]]; then
-        if [[ $isInserted == false ]]; then
-          for ((j=0; j < ${#inValues[@]}; j++ )); do
-            ref_ArrayUtilsInsert_outArray[j+inIndex]=${inValues[j]}
+    for apash_i in "${!apash_ioArray[@]}"; do
+      if [[ $apash_i -lt apash_inIndex ]]; then
+        apash_outArray[apash_i]="${apash_ioArray[apash_i]}"
+      elif [[ $apash_i -ge apash_inIndex ]]; then
+        if [[ $apash_isInserted == false ]]; then
+          for ((apash_j=0; apash_j < ${#apash_inValues[@]}; apash_j++ )); do
+            apash_outArray[apash_j+apash_inIndex]=${apash_inValues[apash_j]}
           done
-          isInserted=true
+          apash_isInserted=true
         fi
-        ref_ArrayUtilsInsert_outArray[i+${#inValues[@]}]="${ref_ArrayUtilsInsert_ioArray[i]}"
+        apash_outArray[apash_i+${#apash_inValues[@]}]="${apash_ioArray[apash_i]}"
       fi
     done
     
     # If the value have not been insert because after the last element
     # Then insert it at the demanded index.
-    if [[ $isInserted == false ]]; then
-      for ((i=0; i < ${#inValues[@]}; i++ )); do
-        ref_ArrayUtilsInsert_outArray[i+inIndex]="${inValues[i]}"
+    if [[ $apash_isInserted == false ]]; then
+      for ((apash_i=0; apash_i < ${#apash_inValues[@]}; apash_i++ )); do
+        apash_outArray[apash_i+apash_inIndex]="${apash_inValues[apash_i]}"
       done
     fi
-    ArrayUtils.clone "ref_ArrayUtilsInsert_outArray" "$ref_ArrayUtilsInsert_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
 
   Log.out $LINENO; return "$APASH_FAILURE"

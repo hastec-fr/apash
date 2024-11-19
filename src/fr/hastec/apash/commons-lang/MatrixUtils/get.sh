@@ -7,7 +7,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 ##/
 # @name MatrixUtils.get
-# @brief Get a cell of an array according to its associated matrix.
+# @brief Get a cell of an array according to its associated apash_matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #
@@ -20,12 +20,12 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the apash_matrix.                  |
 # | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
 #
 # ### Example
 # ```bash
-#    # Use matrix representation of:
+#    # Use apash_matrix representation of:
 #    #   0 1 2
 #    # 0 a b c
 #    # 1 d e f
@@ -47,18 +47,18 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 #/
 MatrixUtils.get() {
   Log.in $LINENO "$@"
-  local matrixName="$1"
-  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_matrixName="$1"
+  MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local -i cellIndex=0
+  local -i apash_cellIndex=0
   shift
   
-  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_cellIndex=$(MatrixUtils.getIndex "$apash_matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${${(P)matrixName}[$cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    echo "${${(P)apash_matrixName}[$apash_cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
-    local -n matrix="$matrixName"
-    echo "${matrix[$cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local -n apash_matrix="$apash_matrixName"
+    echo "${apash_matrix[$apash_cellIndex]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
   Log.out $LINENO; return "$APASH_FAILURE"
 }

@@ -22,9 +22,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to check.         |
-# | $2     | inValue        | string        | in       |            |  Value to find.                      |
-# | $3 ?   | inStart        | number        | in       | 0          |  The index to start searching at .   |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            |  Name of the array to check.         |
+# | $2     | apash_inValue        | string        | in       |            |  Value to find.                      |
+# | $3 ?   | apash_inStart        | number        | in       | 0          |  The index to start searching at .   |
 #
 # ### Example
 # ```bash
@@ -53,23 +53,24 @@ ArrayUtils.lastIndexOf() {
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inArrayName="$1"
-  local inValue="$2"
-  local inStart="${3:-0}"
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="$1"
+  local apash_inValue="$2"
+  local apash_inStart="${3:-0}"
+  local apash_i
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
 
   if [ "$APASH_SHELL" =  "zsh" ]; then
-    local ref_ArrayUtils_lastIndexOf_inArray=()
-    ArrayUtils.clone "$inArrayName" "ref_ArrayUtils_lastIndexOf_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_inArray=()
+    ArrayUtils.clone "$apash_inArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n ref_ArrayUtils_lastIndexOf_inArray="$inArrayName"
+    local -n apash_inArray="$apash_inArrayName"
   fi
 
-  for ((i=APASH_ARRAY_FIRST_INDEX+${#ref_ArrayUtils_lastIndexOf_inArray[@]}-1; i >= inStart  ; i--)); do
-    [[ "${ref_ArrayUtils_lastIndexOf_inArray[i]}" == "$inValue" ]] && echo "$i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  for ((apash_i=APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i >= apash_inStart  ; apash_i--)); do
+    [[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
   
   # Return default value if not found

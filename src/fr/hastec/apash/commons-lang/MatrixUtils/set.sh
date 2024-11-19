@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 ##/
 # @name MatrixUtils.create
-# @brief Set the value of a cell according to the dimensions of the matrix.
+# @brief Set the apash_value of a cell according to the dimensions of the matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #    Note that index in matrix start from 0 (even in zsh).
@@ -23,7 +23,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
-# | $2     | value          | string        | in       |                 | The new value.                       |
+# | $2     | apash_value          | string        | in       |                 | The new apash_value.                       |
 # | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
 #
 # ### Example
@@ -44,24 +44,24 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 MatrixUtils.set() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local matrixName="$1"
-  local value="$2"
-  local -i cellIndex=$APASH_ARRAY_FIRST_INDEX
+  local apash_matrixName="$1"
+  local apash_value="$2"
+  local -i apash_cellIndex=$APASH_ARRAY_FIRST_INDEX
   shift 2
 
-  MatrixUtils.isMatrix "$matrixName"                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  cellIndex=$(MatrixUtils.getIndex "$matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix "$apash_matrixName"                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_cellIndex=$(MatrixUtils.getIndex "$apash_matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # @todo: find a way in zsh to set directly the cell instead of cloning.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    # ${(P)matrixName}[$cellIndex]="$value" && return "$APASH_SUCCESS"
+    # ${(P)apash_matrixName}[$apash_cellIndex]="$apash_value" && return "$APASH_SUCCESS"
     local matrix=()
-    ArrayUtils.clone "$matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    matrix[$cellIndex]="$value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    ArrayUtils.clone "matrix" "$matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    matrix[$apash_cellIndex]="$apash_value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    local -n matrix="$matrixName"
-    matrix[$cellIndex]="$value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local -n matrix="$apash_matrixName"
+    matrix[$apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
   
   Log.out $LINENO; return "$APASH_FAILURE"

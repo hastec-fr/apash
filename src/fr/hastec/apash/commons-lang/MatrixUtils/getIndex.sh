@@ -10,7 +10,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # @brief Return the corresponding array index according to virtual dimensions.
 # @description
 #   ⚠️ It is an experimental function.
-#   Negative indexes are not supported for the moment.
+#   Negative apash_indexes are not supported for the moment.
 #
 # ## History
 # @since 0.2.0 (hastec-fr)
@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
-# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | ${@:2} | $@             | number...     | in       |                 | apash_indexes per dimension.               |
 #
 # ### Example
 # ```bash
@@ -46,47 +46,47 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 MatrixUtils.getIndex() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local matrixName="$1"
+  local apash_matrixName="$1"
   shift
-  local indexes=("$@")
-  local -i offset=0
-  local -i cellIndex=APASH_ARRAY_FIRST_INDEX
-  local -i i
+  local apash_indexes=("$@")
+  local -i apash_offset=0
+  local -i apash_cellIndex=APASH_ARRAY_FIRST_INDEX
+  local -i apash_i
 
-  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local matrixDim=()
-    ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}" "matrixDim"
+    ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}" "matrixDim"
   else # bash
-    local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
+    local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
   fi
 
-  # If more indexes are provided than dimension present in the matrix, then fails.
-  [[ ${#indexes[@]} -gt ${#matrixDim[@]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  # If more apash_indexes are provided than dimension present in the matrix, then fails.
+  [[ ${#apash_indexes[@]} -gt ${#matrixDim[@]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Return failure if the index is greater than dimensions
   # even if the array has additional elements.
   # Add the index 0 for each missing dimensions.
-  for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; i++)); do
-    [[ -z "${indexes[i]}" ]] && indexes[i]=0
-    [[ ${indexes[i]} -ge ${matrixDim[i]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; apash_i++)); do
+    [[ -z "${apash_indexes[apash_i]}" ]] && apash_indexes[apash_i]=0
+    [[ ${apash_indexes[apash_i]} -ge ${matrixDim[apash_i]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
   # Sum dimension (@todo: protect overflow).
-  offset=${matrixDim[-1]}
-  for ((i=APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}-2; i > APASH_ARRAY_FIRST_INDEX; i--)); do
-    offset=$((offset * matrixDim[i] ))
+  apash_offset=${matrixDim[-1]}
+  for ((apash_i=APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}-2; apash_i > APASH_ARRAY_FIRST_INDEX; apash_i--)); do
+    apash_offset=$((apash_offset * matrixDim[apash_i] ))
   done
 
-  # Calculate the cell position by adding the offset of each dimensions.
-  for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i++)); do
-    cellIndex=$((cellIndex + (indexes[i] * offset)))
-    offset=$((offset - matrixDim[i]))
+  # Calculate the cell position by adding the apash_offset of each dimensions.
+  for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_indexes[@]}-1; apash_i++)); do
+    apash_cellIndex=$((apash_cellIndex + (apash_indexes[apash_i] * apash_offset)))
+    apash_offset=$((apash_offset - matrixDim[apash_i]))
   done
 
   # Return the cell position.
-  cellIndex=$(( cellIndex + ${indexes[-1]}))  
-  echo "$cellIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_cellIndex=$(( apash_cellIndex + ${apash_indexes[-1]}))  
+  echo "$apash_cellIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

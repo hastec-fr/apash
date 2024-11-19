@@ -18,8 +18,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | outArrayName   | ref(string[]) | out      |            | Name of the array containing keys.    |
-# | $2     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
+# | $1     | apash_outArrayName   | ref(string[]) | out      |            | Name of the array containing keys.    |
+# | $2     | apash_inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
 #
 # ### Example
 # ```bash
@@ -35,18 +35,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 MapUtils.getKeys() {
    Log.in $LINENO "$@"
-   local outArrayName="$1"
-   local inMapName="$2"
-   local outArray=()
+   local apash_outArrayName="$1"
+   local apash_inMapName="$2"
+   local apash_outArray=()
    
-   MapUtils.isMap "$inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+   MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
    if [ "$APASH_SHELL" = "zsh" ]; then
-      outArray=("${(@kP)inMapName}")
+      apash_outArray=("${(@kP)apash_inMapName}")
    else # bash
-      local -n inMap="$inMapName"
-      outArray=("${!inMap[@]}")
+      local -n inMap="$apash_inMapName"
+      apash_outArray=("${!inMap[@]}")
    fi
-   ArrayUtils.clone "outArray" "$outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+   ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
    Log.out $LINENO; return "$APASH_SUCCESS"
 }

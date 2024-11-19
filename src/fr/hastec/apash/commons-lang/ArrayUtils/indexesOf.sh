@@ -24,9 +24,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
 # | $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
-# | $2     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
-# | $3     | inValue        | string        | in       |            | Value to find.                       |
-# | $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+# | $2     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $3     | apash_inValue        | string        | in       |            | Value to find.                       |
+# | $4 ?   | apash_inStart        | number        | in       | 0          | The index to start searching at.     |
 #
 #
 # ### Example
@@ -49,29 +49,29 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 ArrayUtils.indexesOf() {
   Log.in $LINENO "$@"
-  local outIndexesName="$1"
-  ArrayUtils.nullToEmpty "$outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_outIndexesName="$1"
+  ArrayUtils.nullToEmpty "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inArrayName="$2"
-  local inValue="$3"
-  local inStart="${4:-0}"
-  local i
-  local outIndexes=()
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="$2"
+  local apash_inValue="$3"
+  local apash_inStart="${4:-0}"
+  local apash_i
+  local apash_outIndexes=()
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArrayName[@]} ; i++)); do
-      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && outIndexes+=("$i")
+    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArrayName[@]} ; apash_i++)); do
+      [[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
     done
   else
-    local -n inArray="$inArrayName"
-    for ((i = inStart; i < APASH_ARRAY_FIRST_INDEX+${#inArray[@]} ; i++)); do
-      [[ "${inArray[i]}" == "$inValue" ]] && outIndexes+=("$i")
+    local -n apash_inArray="$apash_inArrayName"
+    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]} ; apash_i++)); do
+      [[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
     done
   fi
 
-  ArrayUtils.clone outIndexes "$outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone apash_outIndexes "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

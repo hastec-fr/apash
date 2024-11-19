@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+# | $1     | apash_ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 #
 # ### Example
 # ```bash
@@ -46,23 +46,24 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 ArrayUtils.removeDuplicates() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
-  local lastIndex
-  local uniqueArray=()
+  local apash_ioArrayName="$1"
+  local apash_lastIndex
+  local apash_uniqueArray=()
+  local apash_i
   
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((i=APASH_ARRAY_FIRST_INDEX; i <= lastIndex ; i++)); do
-      ArrayUtils.contains "uniqueArray" "${${(P)ioArrayName}[i]}" || uniqueArray+=("${${(P)ioArrayName}[i]}")
+    for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++)); do
+      ArrayUtils.contains "apash_uniqueArray" "${${(P)apash_ioArrayName}[apash_i]}" || apash_uniqueArray+=("${${(P)apash_ioArrayName}[apash_i]}")
     done
   else
-    local -n ioArray="$ioArrayName"
-    for ((i=APASH_ARRAY_FIRST_INDEX; i <= lastIndex ; i++)); do
-      ArrayUtils.contains "uniqueArray" "${ioArray[i]}" || uniqueArray+=( "${ioArray[i]}")
+    local -n ioArray="$apash_ioArrayName"
+    for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++)); do
+      ArrayUtils.contains "apash_uniqueArray" "${ioArray[apash_i]}" || apash_uniqueArray+=( "${ioArray[apash_i]}")
     done
   fi
 
-  ArrayUtils.clone "uniqueArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_uniqueArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

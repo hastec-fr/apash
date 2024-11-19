@@ -17,7 +17,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 #
 # ### Example
 # ```bash
@@ -41,15 +41,15 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.isEmpty() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
+  local apash_inArrayName="$1"
 
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    [[ ${#${(P)inArrayName}[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+    [[ ${#${(P)apash_inArrayName}[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n inArray="$inArrayName"
-    [[ ${#inArray[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+    local -n apash_inArray="$apash_inArrayName"
+    [[ ${#apash_inArray[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   fi
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

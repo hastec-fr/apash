@@ -37,28 +37,28 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 #/
 ArrayUtils.join() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  local inDelimiter="${2:- }"
-  local -i i
-  local outString=""
-  local arrayLength
+  local apash_inArrayName="$1"
+  local apash_inDelimiter="${2:- }"
+  local -i apash_i
+  local apash_outString=""
+  local apash_arrayLength
 
-  arrayLength=$(ArrayUtils.getLength "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_arrayLength=$(ArrayUtils.getLength "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [ "$APASH_SHELL" = "zsh" ]; then
-    outString="${${(P)inArrayName}[APASH_ARRAY_FIRST_INDEX]}"
-    for (( i=APASH_ARRAY_FIRST_INDEX+1; i < APASH_ARRAY_FIRST_INDEX + arrayLength; i++ )); do
-      outString+="${inDelimiter}${${(P)inArrayName}[i]}"
+    apash_outString="${${(P)apash_inArrayName}[APASH_ARRAY_FIRST_INDEX]}"
+    for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX + apash_arrayLength; apash_i++ )); do
+      apash_outString+="${apash_inDelimiter}${${(P)apash_inArrayName}[apash_i]}"
     done
   else # bash
-    local -n inArray="$inArrayName"
-    outString="${inArray[0]}"
+    local -n apash_inArray="$apash_inArrayName"
+    apash_outString="${apash_inArray[0]}"
     # Trick with IFS does not accept delimiter with multiple chars.
-    for (( i=APASH_ARRAY_FIRST_INDEX+1; i < APASH_ARRAY_FIRST_INDEX + arrayLength; i++ )); do
-      outString+="${inDelimiter}${inArray[i]}"
+    for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX + apash_arrayLength; apash_i++ )); do
+      apash_outString+="${apash_inDelimiter}${apash_inArray[apash_i]}"
     done
   fi
 
-  echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "$apash_outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

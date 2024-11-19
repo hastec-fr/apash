@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
-# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | ${@:2} | $@             | number...     | in       |                 | apash_indexes per dimension.               |
 #
 # ### Example
 # ```bash
@@ -43,30 +43,30 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 MatrixUtils.getDimOffset() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local matrixName="$1"
+  local apash_matrixName="$1"
   shift
-  local indexes=("$@")
-  local dimOffset=0
-  local -i i
+  local apash_indexes=("$@")
+  local apash_dimOffset=0
+  local -i apash_i
 
-  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
+  MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
 
   # Initiliaze the first time with the first dimension then multiply it by the others.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((i=${#indexes[@]}; i < ${#${(P)apash_dimMatrixName}[@]}; i++ )); do
-      [[ $dimOffset -gt 0 ]] && dimOffset=$((dimOffset * ${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+i]})) || dimOffset=${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+i]}
+    for ((apash_i=${#apash_indexes[@]}; apash_i < ${#${(P)apash_dimMatrixName}[@]}; apash_i++ )); do
+      [[ $apash_dimOffset -gt 0 ]] && apash_dimOffset=$((apash_dimOffset * ${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+apash_i]})) || apash_dimOffset=${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+apash_i]}
     done
   else # bash
-    local -n matrixDim="$apash_dimMatrixName"
-    for ((i=${#indexes[@]}; i < ${#matrixDim[@]}; i++ )); do
-      [[ $dimOffset -gt 0 ]] && dimOffset=$((dimOffset * matrixDim[i])) || dimOffset=${matrixDim[i]}
+    local -n apash_matrixDim="$apash_dimMatrixName"
+    for ((apash_i=${#apash_indexes[@]}; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
+      [[ $apash_dimOffset -gt 0 ]] && apash_dimOffset=$((apash_dimOffset * apash_matrixDim[apash_i])) || apash_dimOffset=${apash_matrixDim[apash_i]}
     done
   fi
   
   # Keep at least one cell.
-  [ "$dimOffset" -le 0 ] && dimOffset=1
+  [ "$apash_dimOffset" -le 0 ] && apash_dimOffset=1
 
-  echo "$dimOffset" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "$apash_dimOffset" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

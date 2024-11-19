@@ -20,7 +20,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 #
 # ### Example
 # ```bash
@@ -42,21 +42,21 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 ArrayUtils.getLastIndex() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
+  local apash_inArrayName="$1"
 
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # In zsh, no discontinued indexes in the array so it returns length minus the start index.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local arrayLength=${#${(P)inArrayName}[@]}
-    [[ $arrayLength == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? arrayLength -  1 : arrayLength))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local apash_arrayLength=${#${(P)apash_inArrayName}[@]}
+    [[ $apash_arrayLength == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? apash_arrayLength -  1 : apash_arrayLength))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
-    local -n inArray="$inArrayName"
-    [[ ${#inArray[@]} == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-    local apash_indexes=("${!inArray[@]}")
+    local -n apash_inArray="$apash_inArrayName"
+    [[ ${#apash_inArray[@]} == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local apash_indexes=("${!apash_inArray[@]}")
     echo "${apash_indexes[-1]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-    # echo "${!inArray[@]}" | awk '{print $NF}' && return "$APASH_SUCCESS"
+    # echo "${!apash_inArray[@]}" | awk '{print $NF}' && return "$APASH_SUCCESS"
   fi
   
   Log.out $LINENO; return "$APASH_FAILURE"

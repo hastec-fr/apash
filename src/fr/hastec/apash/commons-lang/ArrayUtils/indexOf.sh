@@ -23,9 +23,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
-# | $2     | inValue        | string        | in       |            | Value to find.                       |
-# | $3 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $2     | apash_inValue        | string        | in       |            | Value to find.                       |
+# | $3 ?   | apash_inStart        | number        | in       | 0          | The index to start searching at.     |
 #
 # ### Example
 # ```bash
@@ -55,23 +55,23 @@ ArrayUtils.indexOf() {
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inArrayName="$1"
-  local inValue="$2"
-  local inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
-  local i
-  local lastIndex
-  NumberUtils.isLong "$inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="$1"
+  local apash_inValue="$2"
+  local apash_inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
+  local apash_i
+  local apash_lastIndex
+  NumberUtils.isLong "$apash_inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && inStart=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((i = inStart; i < lastIndex+1 ; i++)); do
-      [[ "${${(P)inArrayName}[i]}" == "$inValue" ]] && echo "$i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    for ((apash_i = apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++)); do
+      [[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     done
   else
-    local -n inArray="$inArrayName"
-    for ((i = inStart; i < lastIndex+1 ; i++)); do
-      [[ "${inArray[i]}" == "$inValue" ]] && echo "$i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local -n apash_inArray="$apash_inArrayName"
+    for ((apash_i = apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++)); do
+      [[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     done
   fi
   

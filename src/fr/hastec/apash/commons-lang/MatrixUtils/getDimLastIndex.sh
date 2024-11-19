@@ -29,7 +29,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
-# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | ${@:2} | $@             | number...     | in       |                 | apash_indexes per dimension.               |
 #
 # ### Example
 # ```bash
@@ -50,30 +50,30 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 MatrixUtils.getDimLastIndex() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local matrixName="$1"
+  local apash_matrixName="$1"
   shift
-  local indexes=("$@")
-  local -i dimOffset
-  local -i lastIndex
+  local apash_indexes=("$@")
+  local -i apash_dimOffset
+  local -i apash_lastIndex
 
-  MatrixUtils.isMatrix "$matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Get the current index position in the original array.
-  curIndex=$(MatrixUtils.getIndex "$matrixName" ${indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local matrixDim=()
-    ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}" "matrixDim" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_matrixDim=()
+    ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}" "apash_matrixDim" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
-    local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${matrixName}"
+    local -n apash_matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
   fi
 
   # If all dimensions are provided, then remove the last offset
   # to be at the beginning of the dimension. 
   # For the calculation of the dim offset, we consider the row and not the cell.
-  if [[ ${#indexes[@]} -eq ${#matrixDim[@]} ]]; then
-    firstIndex=$((curIndex-indexes[-1]))
-    unset 'indexes[${#indexes[@]}-1]'
+  if [[ ${#apash_indexes[@]} -eq ${#apash_matrixDim[@]} ]]; then
+    firstIndex=$((curIndex-apash_indexes[-1]))
+    unset 'apash_indexes[${#apash_indexes[@]}-1]'
   else
     # It means that we are at the beginning of a dimension.
     firstIndex=$curIndex
@@ -81,11 +81,11 @@ MatrixUtils.getDimLastIndex() {
 
   # Get the offset of the current dimension. If it was a cell, the last dimension is removed 
   # to get the corresponding dimension (row)
-  dimOffset=$(MatrixUtils.getDimOffset "$matrixName" ${indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_dimOffset=$(MatrixUtils.getDimOffset "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  # The lastIndex of the dimension is the first index + offset of the dimension - 1.
-  lastIndex=$((firstIndex + dimOffset - 1))
+  # The apash_lastIndex of the dimension is the first index + offset of the dimension - 1.
+  apash_lastIndex=$((firstIndex + apash_dimOffset - 1))
   
-  echo "$lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "$apash_lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

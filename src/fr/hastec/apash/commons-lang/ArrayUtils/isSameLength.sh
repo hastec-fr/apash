@@ -17,8 +17,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
-# | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
+# | $1     | apash_inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
+# | $2     | apash_inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 #
 # ### Example
 # ```bash
@@ -48,17 +48,17 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.isSameLength() {
   Log.in $LINENO "$@"
-  local inArrayName1="$1"
-  local inArrayName2="$2"
-  ArrayUtils.isArray "$inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  ArrayUtils.isArray "$inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName1="$1"
+  local apash_inArrayName2="$2"
+  ArrayUtils.isArray "$apash_inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ $APASH_SHELL = "zsh" ]; then
-    [[ ${#${(P)inArrayName1}[@]} -ne ${#${(P)inArrayName2}[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+    [[ ${#${(P)apash_inArrayName1}[@]} -ne ${#${(P)apash_inArrayName2}[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n inArray1="$inArrayName1"  
-    local -n inArray2="$inArrayName2"  
-    [[ ${#inArray1[@]} -ne ${#inArray2[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+    local -n apash_inArray1="$apash_inArrayName1"  
+    local -n apash_inArray2="$apash_inArrayName2"  
+    [[ ${#apash_inArray1[@]} -ne ${#apash_inArray2[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   fi
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

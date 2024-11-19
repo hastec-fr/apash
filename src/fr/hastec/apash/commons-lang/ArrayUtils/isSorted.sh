@@ -18,7 +18,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 #
 # ### Example
 # ```bash
@@ -49,17 +49,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.isSorted() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="$1"
+  local apash_i
+  ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local ref_ArrayUtils_sorted_inArray=()
-    ArrayUtils.clone "$inArrayName" ref_ArrayUtils_sorted_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_inArray=()
+    ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
-    local -n ref_ArrayUtils_sorted_inArray="$inArrayName"
+    local -n apash_inArray="$apash_inArrayName"
   fi
 
-  for (( i=$APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+${#ref_ArrayUtils_sorted_inArray[@]}-1; i++ )); do
-    [[ "${ref_ArrayUtils_sorted_inArray[i]}" > "${ref_ArrayUtils_sorted_inArray[i+1]}" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i++ )); do
+    [[ "${apash_inArray[apash_i]}" > "${apash_inArray[apash_i+1]}" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   done
 
   Log.out $LINENO; return "$APASH_SUCCESS"

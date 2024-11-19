@@ -49,8 +49,8 @@ ArrayUtils.countMatches() {
       [[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
     done
   else
-    local -n inArray="$apash_inArrayName"
-    for apash_value in "${inArray[@]}"; do
+    local -n apash_inArray="$apash_inArrayName"
+    for apash_value in "${apash_inArray[@]}"; do
       [[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
     done
   fi

@@ -56,15 +56,15 @@ ArrayUtils.contains() {
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local inArray=()
-    ArrayUtils.clone "$apash_inArrayName" inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    local apash_inArray=()
+    ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     # shellcheck disable=SC2178
-    local -n inArray="$apash_inArrayName"
+    local -n apash_inArray="$apash_inArrayName"
   fi 
   
   # For each value in the array, check if it matches with the expected value.
-  for apash_value in "${inArray[@]}"; do
+  for apash_value in "${apash_inArray[@]}"; do
     [[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
 

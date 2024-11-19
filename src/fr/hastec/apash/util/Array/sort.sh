@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.util.Array.bubbleSort
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
+# | $1     | apash_inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
 #
 # ### Example
 # ```bash
@@ -50,17 +50,17 @@ apash.import fr.hastec.apash.util.Array.bubbleSort
 #/
 Array.sort() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="$1"
+  ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local ref_Array_sort_inArray=("${(o)${(P)inArrayName}[@]}")
-    ArrayUtils.clone "ref_Array_sort_inArray" "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local apash_inArray=("${(o)${(P)apash_inArrayName}[@]}")
+    ArrayUtils.clone "apash_inArray" "$apash_inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else # bash
-    local -n inArray="$inArrayName"
+    local -n inArray="$apash_inArrayName"
     [[ ${#inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     if VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.3"; then
-      Array.bubbleSort "$inArrayName" &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
+      Array.bubbleSort "$apash_inArrayName" &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
     else
       readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     fi
