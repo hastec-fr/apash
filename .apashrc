@@ -21,4 +21,9 @@ export PATH="$PATH:$APASH_HOME_DIR"                                     # $PATH:
 export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"$APASH_LOG_LEVEL_ERROR"}"   # 300 - Must be after sourcing of apash.
 export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"         # true - Print the stack trace related to the error.
 
+# Log black/white list allow to filter which should trace or not.
+# Let it empty to disabled it, or add functions separated by : as the PATH: "StringUtils.leftPad:StringUtils.rightPad"
+export APASH_LOG_BLACKLIST=""   # If function is in the list, then prevent trace logging of this function.
+export APASH_LOG_WHITELIST=""   # If function is present in this list, then allow only trace logging of this function.
+
 #export APASH_DOCKER_SUDO="sudo"                  # sudo - Comment to avoid sudo in front of docker commands.

@@ -63,8 +63,8 @@ ArrayUtils.shift() {
   local distance_offset=0
   local lastIndex
 
-  local ref_ArrayUtils_shift_outArray=()
-  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_shift_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_outArray=()
+  ArrayUtils.clone "$ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Set the default value to the last index + 1
   lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -89,20 +89,20 @@ ArrayUtils.shift() {
     distance_offset=$((distance - inOffset))
 
     if [[ $inOffset -gt $distance_offset ]]; then
-      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance - distance_offset)) $distance_offset
+      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance - distance_offset)) $distance_offset
       distance=$inOffset
       inOffset=$((inOffset - distance_offset))
     elif [[ $inOffset -lt  $distance_offset ]]; then
-      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
+      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
       inStartIndex=$((inStartIndex + inOffset))
       distance=$distance_offset
     else
-      ArrayUtils.swap "ref_ArrayUtils_shift_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
+      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
       break;
     fi
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_shift_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

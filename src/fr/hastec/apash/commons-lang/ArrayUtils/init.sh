@@ -26,7 +26,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | apash_ioArray    | ref(string[]) | in       |            | Name of the array to initialize.     |
+# | $1     | apash_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 #
 # ### Example
 # ```bash
@@ -49,24 +49,24 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #/
 ArrayUtils.init() {
   Log.in $LINENO "$@"
-  local apash_ioArray="$1"
-  BashUtils.isVariableNameValid "$apash_ioArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  BashUtils.isVariable "$apash_ioArray"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  MapUtils.isMap "$apash_ioArray"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_ioArrayName="$1"
+  BashUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  BashUtils.isVariable "$apash_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MapUtils.isMap "$apash_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the variable is not declared, then create the corresponding global value.
-  if ! BashUtils.isDeclared "$apash_ioArray"; then
-    BashUtils.declareArray "$apash_ioArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  if ! BashUtils.isDeclared "$apash_ioArrayName"; then
+    BashUtils.declareArray "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Only way found in zsh to reset an existing array and preserving its original scope
   # P: pointer, A: consider the pointed value as array and provide an existing empty array.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PA)apash_ioArray::=${ArrayUtils_EMPTY_ARRAY[@]}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    : ${(PA)apash_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    local -n apash_outArray="$apash_ioArray"
-    apash_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    local -n apash_ArrayUtils_init_outArray="$apash_ioArrayName"
+    apash_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
   Log.out $LINENO; return "$APASH_FAILURE"
 }

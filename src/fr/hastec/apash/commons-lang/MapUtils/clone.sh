@@ -60,13 +60,13 @@ MapUtils.clone() {
   if [ "$APASH_SHELL" = "zsh" ]; then
     : ${(PAA)apash_MapUtils_clone_outMapName::="${(AAkv@)${(P)1}}"} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    local -n ref_MapUtils_clone_inMap="$apash_MapUtils_clone_inMapName"
-    local -n ref_MapUtils_clone_outMap="$apash_MapUtils_clone_outMapName"
+    local -n apash_MapUtils_clone_inMap="$apash_MapUtils_clone_inMapName"
+    local -n apash_MapUtils_clone_outMap="$apash_MapUtils_clone_outMapName"
     local apash_key
 
-    for apash_key in "${!ref_MapUtils_clone_inMap[@]}"; do
+    for apash_key in "${!apash_MapUtils_clone_inMap[@]}"; do
       # shellcheck disable=SC2034
-      ref_MapUtils_clone_outMap["$apash_key"]="${ref_MapUtils_clone_inMap["$apash_key"]}"
+      apash_MapUtils_clone_outMap["$apash_key"]="${apash_MapUtils_clone_inMap["$apash_key"]}"
     done
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi

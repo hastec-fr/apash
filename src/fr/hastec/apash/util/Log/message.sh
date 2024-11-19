@@ -50,6 +50,11 @@ Log.message() {
 
   # Return immediatly if the provided level is greater than the Apash global log level.
   [ "$inLevel" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+  
+  # Prevent logging if it's in the black or white list.
+  [ -n "$APASH_LOG_BLACKLIST" ] && [[   ":$APASH_LOG_BLACKLIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
+  [ -n "$APASH_LOG_WHITELIST" ] && [[ ! ":$APASH_LOG_WHITELIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
+
   echo "$(date +"%FT%T.%3N%z") [$inLevelStr] $inFunction ($inLineNumber): $inMessage" >&"$inChannel" && return "$APASH_SUCCESS"
 
   return "$APASH_FAILURE"

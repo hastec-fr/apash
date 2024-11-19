@@ -51,14 +51,14 @@ ArrayUtils.initWithValue() {
   local inWidth="${2:-0}"
   local inValue="$3"
   local -i i
-  local ref_ArrayUtils_initWithValue_outArray=()
+  local apash_ArrayUtils_initWithValue_outArray=()
 
   NumberUtils.isLong "$inWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   for ((i=0 ; i < inWidth; i++)); do
-    ref_ArrayUtils_initWithValue_outArray+=("$inValue")
+    apash_ArrayUtils_initWithValue_outArray+=("$inValue")
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_initWithValue_outArray" "$ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  ArrayUtils.clone "apash_ArrayUtils_initWithValue_outArray" "$ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   Log.out $LINENO; return "$APASH_FAILURE"
 }

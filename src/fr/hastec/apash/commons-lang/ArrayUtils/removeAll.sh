@@ -69,14 +69,14 @@ ArrayUtils.removeAll() {
   Array.sort "indexes"                  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Create local array to prevent partial modification.
-  local ref_ArrayUtils_removeAll_outArray=()
-  ArrayUtils.clone "$ioArrayName" "ref_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_ArrayUtils_removeAll_outArray=()
+  ArrayUtils.clone "$ioArrayName" "apash_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   for ((i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
-    ArrayUtils.remove "ref_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    ArrayUtils.remove "apash_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
-  ArrayUtils.clone "ref_ArrayUtils_removeAll_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_ArrayUtils_removeAll_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -55,23 +55,23 @@ ArrayUtils.remove() {
   ArrayUtils.isArray "$ioArrayName"                       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local ref_ArrayUtilsRemove_outArray=()
+  local apash_outArray=()
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    ref_ArrayUtilsRemove_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+    apash_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
                                    "${${(P)ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX+1))}")
   else
-    ArrayUtils.clone "$ioArrayName" ref_ArrayUtilsRemove_outArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    unset "ref_ArrayUtilsRemove_outArray[$inIndex]"
+    ArrayUtils.clone "$ioArrayName" apash_outArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    unset "apash_outArray[$inIndex]"
 
     # Shift to the left all next cells
-    for i in "${!ref_ArrayUtilsRemove_outArray[@]}"; do
+    for i in "${!apash_outArray[@]}"; do
       [[ $i -lt $inIndex ]] && continue
-      ref_ArrayUtilsRemove_outArray[i-1]=${ref_ArrayUtilsRemove_outArray[i]}
-      unset "ref_ArrayUtilsRemove_outArray[$i]"
+      apash_outArray[i-1]=${apash_outArray[i]}
+      unset "apash_outArray[$i]"
     done
   fi
-  ArrayUtils.clone "ref_ArrayUtilsRemove_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }
