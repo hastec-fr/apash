@@ -60,19 +60,27 @@
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
 apash.import(){
-  local lib vlib version
+  local lib vlib cacheLib version
   local libs=()
-  local forceFlag=false
   local location=""
   local APASH_SRC_DIR="$APASH_HOME_DIR/src"
   local APASH_LIB_TO_IMPORT="${APASH_LIB_TO_IMPORT:-}"
-  [ "$1" = "-f" ] && forceFlag=true && shift
+  local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
+  local APASH_IMPORT_FORCE=false
+  local APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
+  local APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
+
+  [ $APASH_IMPORT_IGNORE = "true" ] && return
+
+  [ "$1" = "-f" ] && APASH_IMPORT_FORCE=true && shift
+  [ "$1" = "-n" ] && APASH_IMPORT_NO_CACHE=true && shift
+  [ "$1" = "-s" ] && APASH_IMPORT_SHOW=true && shift
 
   for l in "$@"; do
     location="$APASH_SRC_DIR/"${l//./\/}
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$forceFlag" = "false" ] && typeset -f "$(basename "$(dirname "$location")").$(basename "${location%.*}")" > /dev/null 2>&1 && continue
+    [ "$APASH_IMPORT_FORCE" = "false" ] && typeset -f "$(basename "$(dirname "$location")").$(basename "${location%.*}")" > /dev/null 2>&1 && continue
 
     # Import package
     if [ -d "$location" ]; then
@@ -134,12 +142,22 @@ apash.import(){
     fi
 
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
-    if [[ $forceFlag == true ]]; then source "$lib"; continue; fi
-    if ! typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
-      if [[ ! ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]]; then # cycling import protection
-        APASH_LIB_TO_IMPORT+=":$lib:" 
-        source "$lib"
-        APASH_LIB_TO_IMPORT="${APASH_LIB_TO_IMPORT/:$APASH_LIB_TO_IMPORT:/}"
+    
+    if [[ ! ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]]; then # cycling import protection
+      if [ $APASH_IMPORT_FORCE = "true" ] || \
+        ! typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
+          cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
+          cacheLib="${cacheLib%.*}.cache"
+          if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
+            while read -r l; do
+              APASH_IMPORT_IGNORE=true source "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR/}"
+            done < "$cacheLib"
+          else
+            APASH_LIB_TO_IMPORT+=":$lib:"
+            source "$lib"
+            [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$lib"
+            APASH_LIB_TO_IMPORT="${APASH_LIB_TO_IMPORT/:$APASH_LIB_TO_IMPORT:/}"
+          fi
       fi
     fi
   done

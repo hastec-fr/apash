@@ -2,7 +2,6 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.removeDuplicates
@@ -57,7 +56,6 @@ ArrayUtils.removeAll() {
   local ioArrayName="$1"
   local indexes=()
   local index=""
-  ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift  
   
   for index in "$@"; do
