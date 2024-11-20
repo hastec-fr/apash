@@ -17,10 +17,10 @@ spec_helper_loaded() {
   :
   if [ "$APASH_TEST_MINIFIED" != "true" ]; then
     source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
+    apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
   else
     source "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
-  apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
   APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
 }
 

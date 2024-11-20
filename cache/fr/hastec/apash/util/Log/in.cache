@@ -1,0 +1,6 @@
+$APASH_HOME_DIR/src/fr/hastec/apash/lang/Integer.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/util/Log.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/BashUtils/getFunctionName.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/BashUtils/getParentFunctionName.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/util/Log/message.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/util/Log/in.sh

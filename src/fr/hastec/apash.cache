@@ -43,8 +43,16 @@ apash.cache(){
   local lib cacheLib
   local cacheList
   local cacheRoot
+  local libs=("$@")
 
-  for lib in "$@"; do
+  # When no argument passed, then create cache of all sources
+  if [ "${#libs[@]}" -eq "0" ]; then
+    while IFS= read -r -d '' file; do
+      libs+=("$file")
+    done < <(find "$APASH_HOME_DIR/src/" -type f -name "*.sh" -print0)
+  fi
+
+  for lib in "${libs[@]}"; do
     cacheList=$(apash.import -f -n -s "$lib")
     cacheRoot=$(echo "$cacheList" | tail -n 1 | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/cache|" )
     cacheRootDir=$(dirname -- "$cacheRoot")
