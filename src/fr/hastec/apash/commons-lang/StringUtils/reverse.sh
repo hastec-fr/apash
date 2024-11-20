@@ -36,7 +36,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 StringUtils.reverse() {
   Log.in $LINENO "$@"
   local inString="${1:-}"
-  local i
+  local -i i
 
   if BashUtils.isCommandValid "rev"; then
     echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }

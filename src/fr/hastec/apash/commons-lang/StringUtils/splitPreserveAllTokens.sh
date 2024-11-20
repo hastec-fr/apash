@@ -50,6 +50,7 @@ StringUtils.splitPreserveAllTokens() {
   local inDelimiter="${3:- }"
   local currentString=""
   local -a outArray=()
+  local -i i
 
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do

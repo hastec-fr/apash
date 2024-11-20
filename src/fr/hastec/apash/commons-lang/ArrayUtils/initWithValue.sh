@@ -55,7 +55,7 @@ ArrayUtils.initWithValue() {
 
   NumberUtils.isLong "$inWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  for ((i=0 ; i < inWidth; i++)); do
+  for (( i=0 ; i < inWidth; i++ )); do
     apash_ArrayUtils_initWithValue_outArray+=("$inValue")
   done
 

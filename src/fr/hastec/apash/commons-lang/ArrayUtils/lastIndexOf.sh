@@ -69,7 +69,7 @@ ArrayUtils.lastIndexOf() {
     local -n apash_inArray="$apash_inArrayName"
   fi
 
-  for ((apash_i=APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i >= apash_inStart  ; apash_i--)); do
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i >= apash_inStart; apash_i-- )); do
     [[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
   

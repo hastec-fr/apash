@@ -51,7 +51,7 @@ Log.ex() {
   local inLineNumber="${1:-}"
   local parentFunction
   local outMessage="Exception"
-  local i
+  local -i i
 
   if [ "$APASH_LOG_STACK_TRACE" = "true" ]; then
     local APASH_LOG_STACK_TRACE_MAX_DEFAULT=10

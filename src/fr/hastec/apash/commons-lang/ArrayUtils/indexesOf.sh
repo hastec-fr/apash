@@ -55,19 +55,19 @@ ArrayUtils.indexesOf() {
   local apash_inArrayName="${2:-}"
   local apash_inValue="${3:-}"
   local apash_inStart="${4:-0}"
-  local apash_i
+  local -i apash_i
   local -a apash_outIndexes=()
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#${(P)apash_inArrayName}[@]} ; apash_i++)); do
+    for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#${(P)apash_inArrayName}[@]} ; apash_i++ )); do
       [[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
     done
   else
     local -n apash_inArray="$apash_inArrayName"
-    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]} ; apash_i++)); do
+    for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]} ; apash_i++ )); do
       [[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
     done
   fi

@@ -50,7 +50,7 @@ StringUtils.split() {
   local inString="${2:-}"
   local inDelimiter="${3:- }"
   local currentString=""
-  local i
+  local -i i
   local -a outArray=()
 
   # Remove starting delimiters

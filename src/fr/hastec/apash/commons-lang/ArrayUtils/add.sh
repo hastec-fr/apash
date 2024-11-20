@@ -61,11 +61,11 @@ ArrayUtils.add() {
   # Return if more than 1 value should be added.
   [ $# -gt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  # Create the array if it does not exists and succeed if no value should be added.
+  # Create the array if it does not exists and returns if no value should be added.
   ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   [ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  # Add the value.
+  # Add the value at the end of the array.
   if [ "$APASH_SHELL" = "zsh" ]; then
     local -a apash_outArray=()
     ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

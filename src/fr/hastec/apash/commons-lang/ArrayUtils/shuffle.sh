@@ -39,12 +39,12 @@ apash.import fr.hastec.apash.util.Random.nextInt
 ArrayUtils.shuffle() {
   Log.in $LINENO "$@"
   local ioArrayName="${1:-}"
-  local i=0
+  local -i i
   
   local -a outArray=()
   ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  for (( i = ${#outArray[@]} ; i > 1 ; i-- )); do
+  for (( i=${#outArray[@]}; i > 1; i-- )); do
     ArrayUtils.swap "outArray" $((i - 1)) "$(Random.nextInt 0 $i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 

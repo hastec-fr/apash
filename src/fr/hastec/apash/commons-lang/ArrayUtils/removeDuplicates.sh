@@ -49,17 +49,17 @@ ArrayUtils.removeDuplicates() {
   local apash_ioArrayName="${1:-}"
   local apash_lastIndex
   local -a apash_uniqueArray=()
-  local apash_i
+  local -i apash_i
   
   apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++)); do
+    for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
       ArrayUtils.contains "apash_uniqueArray" "${${(P)apash_ioArrayName}[apash_i]}" || apash_uniqueArray+=("${${(P)apash_ioArrayName}[apash_i]}")
     done
   else
     local -n ioArray="$apash_ioArrayName"
-    for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++)); do
+    for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
       ArrayUtils.contains "apash_uniqueArray" "${ioArray[apash_i]}" || apash_uniqueArray+=( "${ioArray[apash_i]}")
     done
   fi

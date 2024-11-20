@@ -68,19 +68,19 @@ MatrixUtils.getIndex() {
   # Return failure if the index is greater than dimensions
   # even if the array has additional elements.
   # Add the index 0 for each missing dimensions.
-  for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; apash_i++)); do
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; apash_i++ )); do
     [[ -z "${apash_indexes[apash_i]:-}" ]] && apash_indexes[apash_i]=0
     [[ ${apash_indexes[apash_i]} -ge ${matrixDim[apash_i]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
   # Sum dimension (@todo: protect overflow).
   apash_offset=${matrixDim[-1]}
-  for ((apash_i=APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}-2; apash_i > APASH_ARRAY_FIRST_INDEX; apash_i--)); do
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}-2; apash_i > APASH_ARRAY_FIRST_INDEX; apash_i-- )); do
     apash_offset=$((apash_offset * matrixDim[apash_i] ))
   done
 
   # Calculate the cell position by adding the apash_offset of each dimensions.
-  for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_indexes[@]}-1; apash_i++)); do
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_indexes[@]}-1; apash_i++ )); do
     apash_cellIndex=$((apash_cellIndex + (apash_indexes[apash_i] * apash_offset)))
     apash_offset=$((apash_offset - matrixDim[apash_i]))
   done

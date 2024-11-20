@@ -147,7 +147,7 @@ apash.test.compatibility.toMarkDown(){
     # APASH_FUNCTION_RESULTS+="<th class='start'>${results[0]}</th>"
     ArrayUtils.remove results "$APASH_ARRAY_FIRST_INDEX"
 
-    for ((s=APASH_ARRAY_FIRST_INDEX; s < APASH_ARRAY_FIRST_INDEX+${#results[@]}; s++ )); do
+    for (( s=APASH_ARRAY_FIRST_INDEX; s < APASH_ARRAY_FIRST_INDEX+${#results[@]}; s++ )); do
       shellName="${shells[$s]%%_*}"
       shellVersion="${shells[$s]#*_}"
     # for r in "${results[@]}"; do

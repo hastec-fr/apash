@@ -49,7 +49,8 @@ StringUtils.splitAny() {
   shift 2
   local -a inDelimiters=("${@}")
   local currentString=""
-  local i d matchD
+  local d matchD
+  local -i i
   local -a outArray=()
 
   # Remove starting delimiters (need to check all)

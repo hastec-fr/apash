@@ -54,12 +54,12 @@ MatrixUtils.getDimOffset() {
 
   # Initiliaze the first time with the first dimension then multiply it by the others.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((apash_i=${#apash_indexes[@]}; apash_i < ${#${(P)apash_dimMatrixName}[@]}; apash_i++ )); do
+    for (( apash_i=${#apash_indexes[@]}; apash_i < ${#${(P)apash_dimMatrixName}[@]}; apash_i++ )); do
       [[ $apash_dimOffset -gt 0 ]] && apash_dimOffset=$((apash_dimOffset * ${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+apash_i]})) || apash_dimOffset=${${(P)apash_dimMatrixName}[APASH_ARRAY_FIRST_INDEX+apash_i]}
     done
   else # bash
     local -n apash_matrixDim="$apash_dimMatrixName"
-    for ((apash_i=${#apash_indexes[@]}; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
+    for (( apash_i=${#apash_indexes[@]}; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
       [[ $apash_dimOffset -gt 0 ]] && apash_dimOffset=$((apash_dimOffset * apash_matrixDim[apash_i])) || apash_dimOffset=${apash_matrixDim[apash_i]}
     done
   fi

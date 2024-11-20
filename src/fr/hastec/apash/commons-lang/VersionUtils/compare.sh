@@ -49,7 +49,7 @@ VersionUtils.compare() {
   local version2="${2:-}"
   local -a vArray1=()
   local -a vArray2=()
-  local i
+  local -i i
 
   [[ "$version1" == "$version2" ]] && echo "0" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
@@ -57,7 +57,7 @@ VersionUtils.compare() {
   StringUtils.splitAny "vArray2" "$version2" "." "-"
 
   maxIndex=$((APASH_ARRAY_FIRST_INDEX + $(NumberUtils.max "${#vArray1[@]}" "${#vArray2[@]}")))
-  for (( i = APASH_ARRAY_FIRST_INDEX ; i < maxIndex; i++)); do
+  for (( i=APASH_ARRAY_FIRST_INDEX; i < maxIndex; i++)); do
     [[ "${vArray1[i]:-}" == "${vArray2[i]:-}" ]] && continue
     
     # Check if it's the pre-release numbers

@@ -56,6 +56,7 @@ ArrayUtils.removeAll() {
   local ioArrayName="${1:-}"
   local -a indexes=()
   local index=""
+  local -i i
   shift  
   
   for index in "$@"; do
@@ -70,7 +71,7 @@ ArrayUtils.removeAll() {
   local apash_ArrayUtils_removeAll_outArray=()
   ArrayUtils.clone "$ioArrayName" "apash_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  for ((i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
+  for (( i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i-- )); do
     ArrayUtils.remove "apash_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 

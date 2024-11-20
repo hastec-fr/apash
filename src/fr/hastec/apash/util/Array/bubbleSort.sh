@@ -50,16 +50,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 Array.bubbleSort() {
   Log.in $LINENO "$@"
   local inArrayName="${1:-}"
-  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local lastIndex
-  local temp i j
+  local temp
   local -a outArray=()
+  local -i i j
+
+  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.clone "$inArrayName" "outArray"
   lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Performing Bubble sort
-  for ((i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+lastIndex+1; i++)); do
-    for ((j=APASH_ARRAY_FIRST_INDEX; j < APASH_ARRAY_FIRST_INDEX+lastIndex+1-i-1; j++)); do
+  for (( i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+lastIndex+1; i++ )); do
+    for (( j=APASH_ARRAY_FIRST_INDEX; j < APASH_ARRAY_FIRST_INDEX+lastIndex+1-i-1; j++ )); do
       if [[ "${outArray[j]}" > "${outArray[j+1]}" ]]; then
           temp="${outArray[j]}"
           outArray[j]="${outArray[j+1]}"

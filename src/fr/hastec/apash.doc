@@ -30,9 +30,10 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 apash.doc.getPathFromMethod(){
   local package="${1:-}"
   local prefix="${2:-"src/fr/hastec/"}"
-  local relativePackage=${package/#$prefix/}
+  local relativePackage="${package/#$prefix/}"
   local -a dirs=()
-  local row=""
+  local -i i count
+  local row dir parentDir
 
   StringUtils.split dirs "$relativePackage" "/"
   # If it's the root package src/fr/hastec then just display None.
@@ -40,7 +41,7 @@ apash.doc.getPathFromMethod(){
   row=""
   for dir in "${dirs[@]}"; do
     parentDir="../"
-    for ((i=0; i < count; i++)); do parentDir+="../"; done
+    for (( i=0; i < count; i++ )); do parentDir+="../"; done
     row+="[$dir]($parentDir$dir.md) / "
     ((count--))
   done
@@ -59,8 +60,8 @@ apash.doc.getFullSummaryTable(){
   local brief
   local f # file without full system path
 
-  APASH_DOC_HEADER=$(apash.doc.getHeader)
-  APASH_DOC_FOOTER=$(apash.doc.getFooter)
+  APASH_DOC_HEADER="$(apash.doc.getHeader)"
+  APASH_DOC_FOOTER="$(apash.doc.getFooter)"
 
   # Generate Header:
   rows+="| Methods                  | Brief                                 |\n"

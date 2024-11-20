@@ -40,8 +40,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 MatrixUtils.toString() {
   Log.in $LINENO "$@"
   local apash_matrixName="${1:-}"
-  local -apash_i apash_i
   local apash_matrix_toString
+  local -i apash_i
+  local -i apash_j
 
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
@@ -65,10 +66,10 @@ MatrixUtils.toString() {
 
     # Refresh dimensions indexes by incrementing the last one.
     apash_matrix_toString[-1]=$((apash_matrix_toString[-1]+1))
-    for (( j=${#apash_matrix_toString[@]}-1; j > 0; j--)); do
-      if [[ ${apash_matrix_toString[j]} -ge ${apash_matrixDim[j]} ]]; then
-        apash_matrix_toString[j]=0
-        apash_matrix_toString[j-1]=$((apash_matrix_toString[j-1]+1))
+    for (( apash_j=${#apash_matrix_toString[@]}-1; apash_j > 0; apash_j--)); do
+      if [[ ${apash_matrix_toString[apash_j]} -ge ${apash_matrixDim[apash_j]} ]]; then
+        apash_matrix_toString[apash_j]=0
+        apash_matrix_toString[apash_j-1]=$((apash_matrix_toString[apash_j-1]+1))
       fi
     done
   done

@@ -50,8 +50,8 @@ ArrayUtils.insert() {
   ArrayUtils.isArrayIndex "$apash_inIndex"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
   shift 2
   local apash_inValues=("$@")
-  local apash_i 
-  local apash_j
+  local -i apash_i
+  local -i apash_j
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local -a apash_outArray=()
@@ -68,7 +68,7 @@ ArrayUtils.insert() {
         apash_outArray[apash_i]="${apash_ioArray[apash_i]}"
       elif [[ $apash_i -ge apash_inIndex ]]; then
         if [[ $apash_isInserted == false ]]; then
-          for ((apash_j=0; apash_j < ${#apash_inValues[@]}; apash_j++ )); do
+          for (( apash_j=0; apash_j < ${#apash_inValues[@]}; apash_j++ )); do
             apash_outArray[apash_j+apash_inIndex]=${apash_inValues[apash_j]}
           done
           apash_isInserted=true
@@ -80,7 +80,7 @@ ArrayUtils.insert() {
     # If the value have not been insert because after the last element
     # Then insert it at the demanded index.
     if [[ $apash_isInserted == false ]]; then
-      for ((apash_i=0; apash_i < ${#apash_inValues[@]}; apash_i++ )); do
+      for (( apash_i=0; apash_i < ${#apash_inValues[@]}; apash_i++ )); do
         apash_outArray[apash_i+apash_inIndex]="${apash_inValues[apash_i]}"
       done
     fi

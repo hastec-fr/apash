@@ -66,7 +66,7 @@ ArrayUtils.swap() {
   local inStartIndex="${2:-}"
   local inEndIndex="${3:-}"
   local inLen="${4:-1}"
-  local i=0
+  local -i i=0
   local swap=""
   local -a apash_ArrayUtils_swap_outArray=()
   local lastIndex
@@ -86,7 +86,7 @@ ArrayUtils.swap() {
   [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
 
   inLen=$(Math.min "$(Math.min "$inLen" $((lastIndex+1-inStartIndex)))" $((lastIndex+1-inEndIndex)))
-  for (( i = 0 ; i < inLen; i++, inStartIndex++, inEndIndex++)); do
+  for (( i=0; i < inLen; i++, inStartIndex++, inEndIndex++ )); do
     swap=${apash_ArrayUtils_swap_outArray[$inStartIndex]}
     apash_ArrayUtils_swap_outArray[inStartIndex]=${apash_ArrayUtils_swap_outArray[$inEndIndex]}
     apash_ArrayUtils_swap_outArray[inEndIndex]=$swap

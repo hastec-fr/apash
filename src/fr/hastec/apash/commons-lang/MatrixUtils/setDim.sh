@@ -55,6 +55,7 @@ MatrixUtils.setDim() {
   local indexes=("$@")
   local -i start=$APASH_ARRAY_FIRST_INDEX
   local -i lastDimIndex=0
+  local -i i
 
 # length=$(MatrixUtils.getDimOffset "$inMatrixName" "${indexes[@]}")
   MatrixUtils.isMatrix "$inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -73,7 +74,7 @@ MatrixUtils.setDim() {
   [[ $((start + ${#inArray[@]}-1)) -gt ${lastDimIndex} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Apply the value on the original array
-  for ((i=start; i < lastDimIndex+1; i++ )); do
+  for (( i=start; i < lastDimIndex+1; i++ )); do
     inMatrix[i]=${inArray[APASH_ARRAY_FIRST_INDEX+i-start]}
   done
 
