@@ -70,6 +70,8 @@ apash.import(){
   local APASH_IMPORT_FORCE="${APASH_IMPORT_FORCE:-false}"
   local APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
   local APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
+  local APASH_SUCCESS=0
+  local APASH_FAILURE=1
 
   # Declare a variable shared with recursive import preventing endless cycles.
   # Usefull, when forcing the re-import of all libraries.
@@ -103,8 +105,8 @@ apash.import(){
   # Check if the given function already exists.
   apash.import.function.exists() {
     local lib=$1
-    typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return 0
-    return 1
+    typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return $APASH_SUCCESS
+    return $APASH_FAILURE
   }
 
   # Check arguments of the import (no while loop to minimize actions).
@@ -117,7 +119,7 @@ apash.import(){
     location="$APASH_SRC_DIR/"${l//./\/}
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location"  && continue
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location" && continue
 
     # Import package
     if [ -d "$location" ]; then
@@ -193,6 +195,7 @@ apash.import(){
       [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$lib"
     fi
   done
+  return $APASH_SUCCESS
 }
 
 # Expose the function as much as it's possible when apash.import is sourced(done 1 time).
