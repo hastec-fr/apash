@@ -37,8 +37,8 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.countMatches() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inSubstring="$2"
+  local inString="${1:-}"
+  local inSubstring="${2:-}"
   local -i count=0
 
   if [[ -z $inString || -z $inSubstring ]]; then

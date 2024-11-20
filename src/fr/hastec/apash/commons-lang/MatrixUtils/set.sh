@@ -44,8 +44,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 MatrixUtils.set() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local apash_matrixName="$1"
-  local apash_value="$2"
+  local apash_matrixName="${1:-}"
+  local apash_value="${2:-}"
   local -i apash_cellIndex=$APASH_ARRAY_FIRST_INDEX
   shift 2
 
@@ -55,7 +55,7 @@ MatrixUtils.set() {
   # @todo: find a way in zsh to set directly the cell instead of cloning.
   if [ "$APASH_SHELL" = "zsh" ]; then
     # ${(P)apash_matrixName}[$apash_cellIndex]="$apash_value" && return "$APASH_SUCCESS"
-    local matrix=()
+    local -a matrix=()
     ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     matrix[$apash_cellIndex]="$apash_value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }

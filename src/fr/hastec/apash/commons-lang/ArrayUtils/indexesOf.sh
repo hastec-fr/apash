@@ -49,20 +49,20 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 ArrayUtils.indexesOf() {
   Log.in $LINENO "$@"
-  local apash_outIndexesName="$1"
+  local apash_outIndexesName="${1:-}"
   ArrayUtils.nullToEmpty "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local apash_inArrayName="$2"
-  local apash_inValue="$3"
+  local apash_inArrayName="${2:-}"
+  local apash_inValue="${3:-}"
   local apash_inStart="${4:-0}"
   local apash_i
-  local apash_outIndexes=()
+  local -a apash_outIndexes=()
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
   if [ "$APASH_SHELL" = "zsh" ]; then
-    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArrayName[@]} ; apash_i++)); do
+    for ((apash_i = apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#${(P)apash_inArrayName}[@]} ; apash_i++)); do
       [[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
     done
   else

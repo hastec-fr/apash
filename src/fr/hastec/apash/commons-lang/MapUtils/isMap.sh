@@ -44,6 +44,6 @@ apash.import fr.hastec.apash.util.Log
 #/
 MapUtils.isMap() {
    Log.in $LINENO "$@"
-   declare -p "$1" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " || { Log.out $LINENO; return "$APASH_FAILURE"; }
+   declare -p "${1:-}" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " || { Log.out $LINENO; return "$APASH_FAILURE"; }
    Log.out $LINENO; return "$APASH_SUCCESS"
 }

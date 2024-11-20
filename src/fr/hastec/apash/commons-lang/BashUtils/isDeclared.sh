@@ -48,7 +48,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 BashUtils.isDeclared() {
   Log.in $LINENO "$@"
-  local varName="$1"
+  local varName="${1:-}"
   declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

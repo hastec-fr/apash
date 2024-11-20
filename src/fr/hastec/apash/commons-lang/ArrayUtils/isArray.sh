@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 ArrayUtils.isArray() {
    Log.in $LINENO "$@"
-   local inVarName="$1"
+   local inVarName="${1:-}"
    declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && { Log.out $LINENO; return "$APASH_SUCCESS"; }
    Log.out $LINENO; return "$APASH_FAILURE"
 }

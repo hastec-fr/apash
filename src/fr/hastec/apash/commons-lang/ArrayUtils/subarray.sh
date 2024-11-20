@@ -60,12 +60,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.subarray() {
   Log.in $LINENO "$@"
-  local outSubArrayName="$1"
-  local inArrayName="$2"
-  local inStartIndex="$3"
-  local inEndIndex="$4"
-  local inArray=()
-  local outArray=()
+  local outSubArrayName="${1:-}"
+  local inArrayName="${2:-}"
+  local inStartIndex="${3:-}"
+  local inEndIndex="${4:-}"
+  local -a inArray=()
+  local -a outArray=()
   local lastIndex
 
   ArrayUtils.isArray "$inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }

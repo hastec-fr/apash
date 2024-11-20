@@ -51,11 +51,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.reverse() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
+  local ioArrayName="${1:-}"
   local inStartIndex="${2:-0}"
-  local inEndIndex="${3}"
+  local inEndIndex="${3:-}"
   local swap=""
-  local outArray=()
+  local -a outArray=()
   local lastIndex
   
   ArrayUtils.clone "$ioArrayName" "outArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }

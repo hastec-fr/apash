@@ -3,7 +3,7 @@
 # Defining variables and functions here will affect all specfiles.
 # Change shell options inside a function may cause different behavior,
 # so it is better to set them here.
-# set -eu
+set -eu
 
 # This callback function will be invoked only once before loading specfiles.
 spec_helper_precheck() {
@@ -15,13 +15,13 @@ spec_helper_precheck() {
 # This callback function will be invoked after a specfile has been loaded.
 spec_helper_loaded() {
   :
-  if [ "$APASH_TEST_MINIFIED" != "true" ]; then
-    source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
+  if [ "${APASH_TEST_MINIFIED:-}" != "true" ]; then
+    . "$APASH_HOME_DIR/src/fr/hastec/apash.import"
     apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
   else
-    source "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
+    . "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"
   fi
-  APASH_LOG_LEVEL=$APASH_LOG_LEVEL_OFF
+  APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF"
 }
 
 # This callback function will be invoked after core modules has been loaded.
@@ -39,6 +39,6 @@ global_helper_is_bash(){
 }
 
 global_helper_is_shell_version_lower(){
-  [ "$APASH_SHELL" != "$1" ] && return "$APASH_FAILURE"
-  VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "$2" && return "$APASH_SUCCESS"
+  [ "$APASH_SHELL" != "${1:-}" ] && return "$APASH_FAILURE"
+  VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "${2:-}" && return "$APASH_SUCCESS"
 }

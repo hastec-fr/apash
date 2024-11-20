@@ -36,8 +36,8 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.indexOf() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inResearch="$2"
+  local inString="${1:-}"
+  local inResearch="${2:-}"
   local index=-1
 
   # Case when string is empty but not the inResearch

@@ -34,7 +34,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 BashUtils.isCommandValid() {
   Log.in $LINENO "$@"
-  local commandName="$1"
+  local commandName="${1:-}"
   command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS";
 }

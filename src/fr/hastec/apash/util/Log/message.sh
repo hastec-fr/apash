@@ -39,10 +39,10 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # @exitcode 1 Otherwise.
 #/
 Log.message() {
-  local inLevel="$1"
-  local inFunction="$2"
-  local inLineNumber="$3"
-  local inMessage="$4"
+  local inLevel="${1:-}"
+  local inFunction="${2:-}"
+  local inLineNumber="${3:-}"
+  local inMessage="${4:-}"
   local inChannel="${5:-$APASH_LOG_CHANNEL_STDERR}"
 
   local inLevelStr="${APASH_LOG_LEVEL_STR[$inLevel]}"

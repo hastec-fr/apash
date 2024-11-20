@@ -46,9 +46,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 ArrayUtils.removeDuplicates() {
   Log.in $LINENO "$@"
-  local apash_ioArrayName="$1"
+  local apash_ioArrayName="${1:-}"
   local apash_lastIndex
-  local apash_uniqueArray=()
+  local -a apash_uniqueArray=()
   local apash_i
   
   apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }

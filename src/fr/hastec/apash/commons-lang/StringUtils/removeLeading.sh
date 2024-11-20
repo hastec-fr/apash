@@ -40,8 +40,8 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.remove() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inSubstring="$2"
+  local inString="${1:-}"
+  local inSubstring="${2:-}"
 
   echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 

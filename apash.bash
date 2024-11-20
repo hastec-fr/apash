@@ -230,7 +230,7 @@ parseApashCommandArgs(){
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         APASH_EXIT_REQUIRED=true && return
         ;;
 
@@ -243,7 +243,7 @@ parseApashCommandArgs(){
 }
 
 executeApashAction(){
-  local action="$1"
+  local action="${1:-}"
   shift
   case "$action" in
     doc)
@@ -267,7 +267,7 @@ executeApashAction(){
       ;;
 
     -?*)
-      printf 'WARN: Unknown action: %s\n' "$1" >&2
+      printf 'WARN: Unknown action: %s\n' "${1:-}" >&2
       APASH_EXIT_REQUIRED=true && return
       ;;
   esac
@@ -357,7 +357,7 @@ parseApashInitArgs() {
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         return $APASH_EXIT_REQUIRED
         ;;
 
@@ -388,7 +388,7 @@ parseApashDocArgs() {
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         return $APASH_EXIT_REQUIRED
         ;;
 
@@ -419,7 +419,7 @@ parseApashMinifyArgs() {
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         return $APASH_EXIT_REQUIRED
         ;;
 
@@ -454,7 +454,7 @@ parseApashSourceArgs() {
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         return $APASH_EXIT_REQUIRED
         ;;
 
@@ -485,8 +485,8 @@ parseApashTestArgs() {
         ;;
 
       --test-options)
-        if [ "$2" ]; then
-          APASH_TEST_OPTIONS="$2"
+        if [ "${2:-}" ]; then
+          APASH_TEST_OPTIONS="${2:-}"
           shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
         fi
         ;;
@@ -503,7 +503,7 @@ parseApashTestArgs() {
 
       # Display error message on unknown option
       -?*)
-        printf 'WARN: Unknown option: %s\n' "$1" >&2
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
         return $APASH_EXIT_REQUIRED
         ;;
 

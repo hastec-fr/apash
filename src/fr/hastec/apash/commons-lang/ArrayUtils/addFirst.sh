@@ -50,12 +50,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 ArrayUtils.addFirst() {
   Log.in $LINENO "$@"
-  local apash_ioArrayName="$1"
-  local apash_inValue="$2"
+  local apash_ioArrayName="${1:-}"
+  local apash_inValue="${2:-}"
   # Prepare output array with expected value at the first position.
-  local apash_outArray=("$apash_inValue")
-  local apash_inArray=()
-  local i
+  local -a apash_outArray=("$apash_inValue")
+  local -a apash_inArray=()
+  local -i i
 
   # Return imediatly if more than one value should be added.
   [ $# -gt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }

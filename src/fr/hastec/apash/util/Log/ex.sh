@@ -48,7 +48,7 @@ apash.import fr.hastec.apash.lang.Math.min
 #/
 Log.ex() {
   [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-  local inLineNumber="$1"
+  local inLineNumber="${1:-}"
   local parentFunction
   local outMessage="Exception"
   local i

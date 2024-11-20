@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.isArrayIndex() {
   Log.in $LINENO "$@"
-  local inIndex="$1"
+  local inIndex="${1:-}"
   NumberUtils.isLong "$inIndex"               || { Log.out $LINENO; return "$APASH_FAILURE"; }
   [[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"

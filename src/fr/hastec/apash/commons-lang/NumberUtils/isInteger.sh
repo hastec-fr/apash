@@ -46,7 +46,7 @@ apash.import fr.hastec.apash.lang.Integer.sh
 #/
 NumberUtils.isInteger() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
 
   [[ ! $inNumber =~ ^-?[0-9]+$ ]]        && { Log.out $LINENO; return "$APASH_FAILURE"; }
   [[ $inNumber -gt $Integer_MAX_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }

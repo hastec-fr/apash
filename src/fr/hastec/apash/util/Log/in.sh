@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 #/
 Log.in() {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-  local inLineNumber="$1"
+  local inLineNumber="${1:-}"
   local parentFunction
   local args
   local arg

@@ -56,7 +56,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndex
 #/
 ArrayUtils.addAll() {
   Log.in $LINENO "$@"
-  local apash_ioArrayName="$1"
+  local apash_ioArrayName="${1:-}"
 
   # @todo: Create functions addOne and addMany to force at least one entry.
   # Create the array if it does not exists and succeed if no value should be added.
@@ -67,7 +67,7 @@ ArrayUtils.addAll() {
 
   # Get the array in local scope.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_outArray=()
+    local -a apash_outArray=()
     ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
     local -n apash_outArray="$apash_ioArrayName"

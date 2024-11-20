@@ -28,7 +28,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.endsWith
 # for each directory.
 # apash / commons-lang / ...
 apash.doc.getPathFromMethod(){
-  local package="$1"
+  local package="${1:-}"
   local prefix="${2:-"src/fr/hastec/"}"
   local relativePackage=${package/#$prefix/}
   local -a dirs=()
@@ -54,7 +54,7 @@ apash.doc.getFullSummaryTable(){
   local rootPackage=""
   local methodPath=""
   local cumulatedDir=""
-  local dirs=()
+  local -a dirs=()
   local rows
   local brief
   local f # file without full system path
@@ -161,8 +161,8 @@ apash.doc() {
   # Generate individuals scripts documents
   APASH_DOC_HEADER="$APASH_DOC_HEADER" APASH_DOC_FOOTER="$APASH_DOC_FOOTER" \
   find "$APASH_HOME_DIR/src/fr" -type f -name "*.sh" -exec bash -c '
-    file_path="$(dirname "$1")"
-    file_name="$(basename "$1")"
+    file_path="$(dirname "${1:-}")"
+    file_name="$(basename "${1:-}")"
     doc_path="$(echo $file_path | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/doc|1")"
     doc_name="${file_name%.sh}.md"
     root_relative_dir="../$(echo "$file_path" | sed "s|.*/src/||1" | sed "s|[^/]*|..|g")"

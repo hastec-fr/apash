@@ -43,9 +43,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 #/
 DateUtils.add() {
   Log.in $LINENO "$@"
-  local inDate="$1"
-  local inAmount="$2"
-  local inType="$3"
+  local inDate="${1:-}"
+  local inAmount="${2:-}"
+  local inType="${3:-}"
   local amount=$inAmount
   local type="$inType"
   local types=("years" "months" "weeks" "days" "hours" "minutes" "seconds" "milliseconds")

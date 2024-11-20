@@ -49,7 +49,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #/
 ArrayUtils.init() {
   Log.in $LINENO "$@"
-  local apash_ioArrayName="$1"
+  local apash_ioArrayName="${1:-}"
   BashUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   BashUtils.isVariable "$apash_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   MapUtils.isMap "$apash_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }

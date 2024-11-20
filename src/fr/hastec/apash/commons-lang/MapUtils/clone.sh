@@ -52,13 +52,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 #/
 MapUtils.clone() {
   Log.in $LINENO "$@"
-  local apash_MapUtils_clone_inMapName="$1"
-  local apash_MapUtils_clone_outMapName="$2"
+  local apash_MapUtils_clone_inMapName="${1:-}"
+  local apash_MapUtils_clone_outMapName="${2:-}"
   MapUtils.isMap   "$apash_MapUtils_clone_inMapName"  || { Log.out $LINENO; return "$APASH_FAILURE"; }
   MapUtils.init    "$apash_MapUtils_clone_outMapName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    : ${(PAA)apash_MapUtils_clone_outMapName::="${(AAkv@)${(P)1}}"} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    : ${(PAA)apash_MapUtils_clone_outMapName::="${(AAkv@)${(P)apash_MapUtils_clone_inMapName}}"} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n apash_MapUtils_clone_inMap="$apash_MapUtils_clone_inMapName"
     local -n apash_MapUtils_clone_outMap="$apash_MapUtils_clone_outMapName"

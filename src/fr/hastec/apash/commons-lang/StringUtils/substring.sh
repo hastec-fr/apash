@@ -42,7 +42,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.substring() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   local start=${2:-0}
   local end=${3:-${#inString}}
 

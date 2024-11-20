@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 BashUtils.isVariableNameValid() {
   Log.in $LINENO "$@"
-  local varName="$1"
+  local varName="${1:-}"
 
   # If there is a single _, it does not
   [ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }

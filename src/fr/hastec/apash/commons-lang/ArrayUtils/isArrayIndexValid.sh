@@ -41,8 +41,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 ArrayUtils.isArrayIndexValid() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  local inIndex="$2"
+  local inArrayName="${1:-}"
+  local inIndex="${2:-}"
   local lastIndex
   ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   NumberUtils.isDigits "$inIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }

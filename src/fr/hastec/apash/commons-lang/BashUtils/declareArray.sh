@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 BashUtils.declareArray() {
   Log.in $LINENO "$@"
-  local varName="$1"
+  local varName="${1:-}"
   if [ "$APASH_SHELL" = "zsh" ]; then
     declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash

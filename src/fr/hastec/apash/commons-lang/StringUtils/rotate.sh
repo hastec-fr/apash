@@ -46,7 +46,7 @@ apash.import fr.hastec.apash.lang.Math.abs
 #/
 StringUtils.rotate() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   local inNbChars="${2:-0}"
   local outString=""
 

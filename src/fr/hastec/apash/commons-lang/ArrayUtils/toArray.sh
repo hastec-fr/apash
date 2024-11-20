@@ -40,10 +40,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 ArrayUtils.toArray() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local ioArrayName="$1" 
+  local ioArrayName="${1:-}" 
   shift
 
-  local outArray=()
+  local -a outArray=()
   # shellcheck disable=SC2034
   outArray=("$@")
 

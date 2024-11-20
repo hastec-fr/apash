@@ -46,12 +46,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 StringUtils.split() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  local inString="$2"
+  local inArrayName="${1:-}"
+  local inString="${2:-}"
   local inDelimiter="${3:- }"
   local currentString=""
   local i
-  local outArray=()
+  local -a outArray=()
 
   # Remove starting delimiters
   

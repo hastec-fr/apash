@@ -35,9 +35,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 MapUtils.getKeys() {
    Log.in $LINENO "$@"
-   local apash_outArrayName="$1"
-   local apash_inMapName="$2"
-   local apash_outArray=()
+   local apash_outArrayName="${1:-}"
+   local apash_inMapName="${2:-}"
+   local -a apash_outArray=()
    
    MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 

@@ -34,7 +34,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 #/
 StringUtils.isBlank() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   local trimmedString  
   trimmedString=$(StringUtils.trim "$inString") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   [ -z "$trimmedString" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }

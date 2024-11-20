@@ -47,8 +47,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.contains() {
   Log.in $LINENO "$@"
-  local apash_inArrayName="$1"
-  local apash_inValue="$2"
+  local apash_inArrayName="${1:-}"
+  local apash_inValue="${2:-}"
   local apash_value=""
 
   # If no array and value passed or array is invalid, then fails.
@@ -56,7 +56,7 @@ ArrayUtils.contains() {
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_inArray=()
+    local -a apash_inArray=()
     ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     # shellcheck disable=SC2178

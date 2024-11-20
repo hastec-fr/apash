@@ -46,8 +46,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isInteger
 # @exitcode 1 If the minValue is greater than the maxValue, or numbers are not Integers.
 #/
 Random.nextInt() {
-  local minValue="$1"
-  local maxValue="$2"
+  local minValue="${1:-}"
+  local maxValue="${2:-}"
   
   [[ -z $minValue && $# -lt 1 ]] && minValue=$Integer_MIN_VALUE
   [[ -z $maxValue && $# -lt 2 ]] && maxValue=$Integer_MAX_VALUE

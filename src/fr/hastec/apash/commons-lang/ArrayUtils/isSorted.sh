@@ -49,7 +49,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.isSorted() {
   Log.in $LINENO "$@"
-  local apash_inArrayName="$1"
+  local apash_inArrayName="${1:-}"
   local apash_i
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then

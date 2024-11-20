@@ -51,7 +51,7 @@ MatrixUtils.create() {
   # If less than 2 dimensions are provided then return.
   [[ $# -lt 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inArrayName="$1"
+  local inArrayName="${1:-}"
   local matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${inArrayName}"
   local dim
   local nbDim="$APASH_ARRAY_FIRST_INDEX"

@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 MatrixUtils.getDimOffset() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local apash_matrixName="$1"
+  local apash_matrixName="${1:-}"
   shift
   local apash_indexes=("$@")
   local apash_dimOffset=0

@@ -18,7 +18,7 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 #/
 StringUtils.lowerCase() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   echo "${inString,,}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

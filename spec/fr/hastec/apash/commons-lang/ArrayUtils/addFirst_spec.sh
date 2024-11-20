@@ -39,8 +39,8 @@ Describe 'ArrayUtils.addFirst'
     The output should equal ""
     The status should be failure
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
   End
 
   It 'passes and force array transformation'
@@ -49,7 +49,7 @@ Describe 'ArrayUtils.addFirst'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes when no value is provided'
@@ -66,7 +66,7 @@ Describe 'ArrayUtils.addFirst'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes reference is an array and at least 1 one value is provided'
@@ -75,8 +75,8 @@ Describe 'ArrayUtils.addFirst'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "foo bar"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "a"
   End
 
   It 'passes reference is an array and at least 1 one value is provided'
@@ -92,14 +92,14 @@ Describe 'ArrayUtils.addFirst'
 
   It 'passes reference is an array and indexes are not in sequence'
     local myArray=("foo bar" "a")
-    myArray[$((APASH_ARRAY_FIRST_INDEX+4))]="z"
+    myArray[APASH_ARRAY_FIRST_INDEX+4]="z"
     When call ArrayUtils.addFirst "myArray" ""
     The output should equal ""
     The status should be success
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq ""
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "foo bar"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+5))]' should eq "z"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+5]' should eq "z"
   End
 
 End

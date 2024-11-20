@@ -55,8 +55,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.nullToEmpty
 #/
 ArrayUtils.add() {
   Log.in $LINENO "$@"
-  local apash_ioArrayName="$1"
-  local apash_inValue="$2"  
+  local apash_ioArrayName="${1:-}"
+  local apash_inValue="${2:-}"
 
   # Return if more than 1 value should be added.
   [ $# -gt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
@@ -67,7 +67,7 @@ ArrayUtils.add() {
 
   # Add the value.
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_outArray=()
+    local -a apash_outArray=()
     ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     apash_outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

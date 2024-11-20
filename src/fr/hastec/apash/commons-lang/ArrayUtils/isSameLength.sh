@@ -48,8 +48,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.isSameLength() {
   Log.in $LINENO "$@"
-  local apash_inArrayName1="$1"
-  local apash_inArrayName2="$2"
+  local apash_inArrayName1="${1:-}"
+  local apash_inArrayName2="${2:-}"
   ArrayUtils.isArray "$apash_inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray "$apash_inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 

@@ -38,7 +38,7 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.add
 #/
 DateUtils.addSeconds() {
   Log.in $LINENO "$@"
-  local inDate="$1"
+  local inDate="${1:-}"
   local inAmount="${2:-0}"
   DateUtils.add "$inDate" "$inAmount" "seconds" || { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"

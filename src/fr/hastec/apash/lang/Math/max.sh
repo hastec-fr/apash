@@ -46,8 +46,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 #/
 Math.max() {
   Log.in $LINENO "$@"
-  local inNum1="$1"
-  local inNum2="$2"
+  local inNum1="${1:-}"
+  local inNum2="${2:-}"
   local max
 
   # @todo: Change the isParsable with isNumber

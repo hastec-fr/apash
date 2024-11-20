@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 #/
 MatrixUtils.isMatrix() {
   Log.in $LINENO "$@"
-  local apash_inArrayName="$1"
+  local apash_inArrayName="${1:-}"
   local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_inArrayName}"
   local -i apash_i
 

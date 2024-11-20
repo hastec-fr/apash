@@ -50,7 +50,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.remove
 MatrixUtils.getDimLastIndex() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local apash_matrixName="$1"
+  local apash_matrixName="${1:-}"
   shift
   local apash_indexes=("$@")
   local -i apash_dimOffset
@@ -62,7 +62,7 @@ MatrixUtils.getDimLastIndex() {
   curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_matrixDim=()
+    local -a apash_matrixDim=()
     ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}" "apash_matrixDim" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
     local -n apash_matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"

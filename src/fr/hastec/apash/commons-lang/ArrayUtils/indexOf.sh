@@ -55,8 +55,8 @@ ArrayUtils.indexOf() {
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local apash_inArrayName="$1"
-  local apash_inValue="$2"
+  local apash_inArrayName="${1:-}"
+  local apash_inValue="${2:-}"
   local apash_inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
   local apash_i
   local apash_lastIndex

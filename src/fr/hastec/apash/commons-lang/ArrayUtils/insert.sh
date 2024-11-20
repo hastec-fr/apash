@@ -44,8 +44,8 @@ ArrayUtils.insert() {
   Log.in $LINENO "$@"
   [ $# -lt 3 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local apash_inIndex="$1"
-  local apash_ioArrayName="$2"
+  local apash_inIndex="${1:-}"
+  local apash_ioArrayName="${2:-}"
   ArrayUtils.isArray "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArrayIndex "$apash_inIndex"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
   shift 2
@@ -54,7 +54,7 @@ ArrayUtils.insert() {
   local apash_j
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_outArray=()
+    local -a apash_outArray=()
     apash_outArray=("${${(P)apash_ioArrayName}[@]:0:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}" \
                     "${apash_inValues[@]}" \
                     "${${(P)apash_ioArrayName}[@]:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}")

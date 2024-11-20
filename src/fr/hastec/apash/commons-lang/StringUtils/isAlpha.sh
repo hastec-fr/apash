@@ -39,6 +39,6 @@ apash.import fr.hastec.apash.util.Log
 StringUtils.isAlpha() {
   Log.in $LINENO "$@"
   local pattern="^[[:alpha:]]+$"
-  [[ $1 =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ ${1:-} =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   Log.out $LINENO; return "$APASH_FAILURE"
 }

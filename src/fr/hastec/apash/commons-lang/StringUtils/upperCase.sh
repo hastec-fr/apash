@@ -37,7 +37,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.upperCase() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     echo "${(U)inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }

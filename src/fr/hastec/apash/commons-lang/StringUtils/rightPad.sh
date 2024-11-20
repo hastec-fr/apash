@@ -40,8 +40,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isDigits
 #/
 StringUtils.rightPad() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inSize="$2"
+  local inString="${1:-}"
+  local inSize="${2:-}"
   local inPadString="${3:- }"
   local rightPadString=""
 

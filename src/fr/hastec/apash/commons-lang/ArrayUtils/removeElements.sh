@@ -51,7 +51,7 @@ ArrayUtils.removeElements() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local ioArrayRef="$1"
+  local ioArrayRef="${1:-}"
   ArrayUtils.isArray "$ioArrayRef" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   for value in "$@"; do

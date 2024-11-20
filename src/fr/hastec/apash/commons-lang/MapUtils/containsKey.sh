@@ -36,8 +36,8 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 #
 MapUtils.containsKey() {
    Log.in $LINENO "$@"
-   local apash_inMapName="$1"
-   local apash_inKey="$2"
+   local apash_inMapName="${1:-}"
+   local apash_inKey="${2:-}"
    local apash_k
 
    MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

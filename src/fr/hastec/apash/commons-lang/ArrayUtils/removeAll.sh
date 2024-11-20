@@ -53,8 +53,8 @@ ArrayUtils.removeAll() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local ioArrayName="$1"
-  local indexes=()
+  local ioArrayName="${1:-}"
+  local -a indexes=()
   local index=""
   shift  
   

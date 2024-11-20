@@ -45,7 +45,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 NumberUtils.isParsable() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
   local pattern="^-?[0-9]*\.?[0-9]+$"
 
   [[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }

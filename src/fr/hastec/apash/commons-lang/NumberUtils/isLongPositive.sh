@@ -42,7 +42,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 NumberUtils.isLongPositive() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
   NumberUtils.isLong "$inNumber" || { Log.out $LINENO; return "$APASH_FAILURE"; }
   [[ $inNumber -ge 0 ]]          || { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"

@@ -42,8 +42,8 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.containsOnly(){
   Log.in $LINENO "$@"
-  local inString=$1
-  local inSequence=$2
+  local inString="${1:-}"
+  local inSequence="${2:-}"
 
   # Returns true if input string is empty.
   [[ -z $inString ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }

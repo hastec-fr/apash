@@ -49,8 +49,8 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.isAnyEmpty
 #/
 StringUtils.abbreviate() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inMaxWidth="$2"
+  local inString="${1:-}"
+  local inMaxWidth="${2:-}"
   local inOffset="${3:-0}"
   local inMarker="${4:-...}"
   local offset=$inOffset

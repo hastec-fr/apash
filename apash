@@ -42,7 +42,7 @@ apash_main(){
   export APASH_HOME_DIR
 
   # Check if the action is to source the script
-  if [ $# -eq 0 ] || [ "$1" = "source" ]; then
+  if [ $# -eq 0 ] || [ "${1:-}" = "source" ]; then
     
     # If no BASH_VERSION nor ZSH_VERSION means that default sh cannot source apash.
     if [ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ]; then
@@ -51,7 +51,7 @@ apash_main(){
     fi
 
     # @todo Implement a POSIX way to pass all arguments to sourced script.
-    if [ "$2" = "--all" ] || [ "$2" = "-a" ]; then
+    if [ "${2:-}" = "--all" ] || [ "${2:-}" = "-a" ]; then
       APASH_SOURCE_ALL="true" . "$APASH_HOME_DIR/apash.$APASH_SHELL"
     else
       . "$APASH_HOME_DIR/apash.$APASH_SHELL"

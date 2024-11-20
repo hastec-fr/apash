@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.trim() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   local trimmedString=""
 
   trimmedString="$(echo "$inString" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"

@@ -49,8 +49,8 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getDimLastIndex
 MatrixUtils.setDim() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local inMatrixName="$1"
-  local inArrayName="$2"
+  local inMatrixName="${1:-}"
+  local inArrayName="${2:-}"
   shift 2
   local indexes=("$@")
   local -i start=$APASH_ARRAY_FIRST_INDEX
@@ -64,8 +64,8 @@ MatrixUtils.setDim() {
   start=$(MatrixUtils.getIndex "$inMatrixName" "${indexes[@]}")               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   lastDimIndex=$(MatrixUtils.getDimLastIndex "$inMatrixName" "${indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local inMatrix=()
-  local inArray=()
+  local -a inMatrix=()
+  local -a inArray=()
   ArrayUtils.clone "$inMatrixName" "inMatrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.clone "$inArrayName"  "inArray"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 

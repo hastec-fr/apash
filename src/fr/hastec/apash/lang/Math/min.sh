@@ -46,8 +46,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 #/
 Math.min() {
   Log.in $LINENO "$@"
-  local inNum1="$1"
-  local inNum2="$2"
+  local inNum1="${1:-}"
+  local inNum2="${2:-}"
   local min
 
   # @todo: Change the isParsable with isNumber

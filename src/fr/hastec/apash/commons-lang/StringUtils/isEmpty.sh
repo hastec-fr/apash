@@ -34,6 +34,6 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.isEmpty() {
   Log.in $LINENO "$@"
-  [ -z "$1" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [ -z "${1:-}" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   Log.out $LINENO; return "$APASH_FAILURE"
 }

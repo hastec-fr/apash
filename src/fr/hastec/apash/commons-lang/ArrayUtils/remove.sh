@@ -49,13 +49,13 @@ ArrayUtils.remove() {
   Log.in $LINENO "$@"
   [ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local ioArrayName="$1"
-  local inIndex="$2"
+  local ioArrayName="${1:-}"
+  local inIndex="${2:-}"
   local i
   ArrayUtils.isArray "$ioArrayName"                       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local apash_outArray=()
+  local -a apash_outArray=()
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     apash_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \

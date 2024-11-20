@@ -47,7 +47,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 #/
 MatrixUtils.get() {
   Log.in $LINENO "$@"
-  local apash_matrixName="$1"
+  local apash_matrixName="${1:-}"
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   local -i apash_cellIndex=0

@@ -55,15 +55,15 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.shift() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
+  local ioArrayName="${1:-}"
   local inOffset="${2:-0}"
   local inStartIndex="${3:-0}"
-  local inEndIndex="${4}"
+  local inEndIndex="${4:-}"
   local distance=0
   local distance_offset=0
   local lastIndex
 
-  local apash_outArray=()
+  local -a apash_outArray=()
   ArrayUtils.clone "$ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Set the default value to the last index + 1

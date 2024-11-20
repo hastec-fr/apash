@@ -39,14 +39,14 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 #/
 MatrixUtils.toString() {
   Log.in $LINENO "$@"
-  local apash_matrixName="$1"
+  local apash_matrixName="${1:-}"
   local -apash_i apash_i
   local apash_matrix_toString
 
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local apash_matrix=()
+    local -a apash_matrix=()
     ArrayUtils.clone "$apash_matrixName" "apash_matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else # bash
     local -n apash_matrix="$apash_matrixName"

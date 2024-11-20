@@ -63,12 +63,13 @@ Describe 'ArrayUtils.nullToEmpty'
 
   It 'preserves array if it already contains values'
     local myArray=("a" "b")
+    local x
     When call ArrayUtils.nullToEmpty "myArray"
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[@]:0:1' should eq "a"
-    The variable 'myArray[@]:1:1' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
   End
   
 End

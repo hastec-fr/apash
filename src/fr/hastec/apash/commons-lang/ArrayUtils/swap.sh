@@ -62,13 +62,13 @@ apash.import fr.hastec.apash.lang.Math.min
 #/
 ArrayUtils.swap() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
-  local inStartIndex="$2"
-  local inEndIndex="$3"
+  local ioArrayName="${1:-}"
+  local inStartIndex="${2:-}"
+  local inEndIndex="${3:-}"
   local inLen="${4:-1}"
   local i=0
   local swap=""
-  local apash_ArrayUtils_swap_outArray=()
+  local -a apash_ArrayUtils_swap_outArray=()
   local lastIndex
 
   NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

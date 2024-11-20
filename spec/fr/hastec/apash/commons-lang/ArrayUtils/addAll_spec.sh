@@ -39,8 +39,8 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
   End
 
   It 'passes when reference is an array and at least 1 one value is provided'
@@ -49,7 +49,7 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 1
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
   End
 
   It 'passes when reference is an array and at least 1 one value is provided'
@@ -58,8 +58,8 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 2
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
   End
 
   It 'passes when reference is an array and at least 1 one value is provided'
@@ -68,9 +68,9 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 3
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "foo bar"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq ""
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq ""
   End
 
   It 'passes when reference is an array and at least 1 one value is provided'
@@ -79,10 +79,10 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq "c"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
   End
 
   It 'passes when reference is an array and at least 1 one value is provided'
@@ -92,10 +92,10 @@ Describe 'ArrayUtils.addAll'
     The output should equal ""
     The status should be success
     The value "${#myArray[@]}" should eq 4
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+2))]' should eq "c"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "d"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+2]' should eq "c"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "d"
   End
 
   It 'passes when indexes are discontinued'
@@ -104,11 +104,11 @@ Describe 'ArrayUtils.addAll'
     When call ArrayUtils.addAll "myArray" "foo bar" "z"
     The output should equal ""
     The status should be success
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "a"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "b"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+3))]' should eq "x"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+4))]' should eq "foo bar"
-    The variable 'myArray[$((APASH_ARRAY_FIRST_INDEX+5))]' should eq "z"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+0]' should eq "a"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+1]' should eq "b"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+3]' should eq "x"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+4]' should eq "foo bar"
+    The variable 'myArray[APASH_ARRAY_FIRST_INDEX+5]' should eq "z"
   End
 
 End

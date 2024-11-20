@@ -47,9 +47,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.initWithValue() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
+  local ioArrayName="${1:-}"
   local inWidth="${2:-0}"
-  local inValue="$3"
+  local inValue="${3:-}"
   local -i i
   local apash_ArrayUtils_initWithValue_outArray=()
 

@@ -37,7 +37,7 @@ apash.import fr.hastec.apash.commons-lang.DateUtils.sh
 #/
 DateUtils.isDate() {
     Log.in $LINENO "$@"
-  local inDate="$1"
+  local inDate="${1:-}"
   local datePattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\+[0-9]{4}$"
 
   [[ ! $inDate =~ $datePattern ]]    && { Log.out $LINENO; return "$APASH_FAILURE"; }

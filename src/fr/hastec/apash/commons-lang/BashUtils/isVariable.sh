@@ -47,7 +47,7 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.isMap
 #/
 BashUtils.isVariable() {
   Log.in $LINENO "$@"
-  local varName="$1"
+  local varName="${1:-}"
   BashUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
   MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }

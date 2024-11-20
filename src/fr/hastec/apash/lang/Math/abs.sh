@@ -45,7 +45,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
 #/
 Math.abs() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
 
   NumberUtils.isParsable "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   echo "${inNumber#-}"               || { Log.ex $LINENO; return "$APASH_FAILURE"; }

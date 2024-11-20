@@ -47,7 +47,7 @@ apash.import fr.hastec.apash.lang.Long.sh
 #/
 NumberUtils.isLong() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
   local pattern="^-?[0-9]{1,19}$"
 
   # Limit the number near the max number of characters.

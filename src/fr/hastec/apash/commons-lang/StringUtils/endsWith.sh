@@ -43,8 +43,8 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.endsWith(){
   Log.in $LINENO "$@"
-  local inString=$1
-  local inSuffix=$2
+  local inString="${1:-}"
+  local inSuffix="${2:-}"
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     [[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }

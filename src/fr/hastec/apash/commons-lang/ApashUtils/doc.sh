@@ -5,9 +5,9 @@ apash.import fr.hastec.apash.util.Log
 
 ##/
 # @name ApashUtils.doc
-# @brief Generate a Markdown file according to comments of the input file.
+# @brief Generate a markdown file(.md) according to comments of the input file.
 # @description
-#   Markdown is generated according to comment sections between tags: "##/" and "#/".<br/>
+#   Markdown is generated according to comments between tags: "##/" and "#/".<br/>
 #   For multi lines, all # in the middle will be considered in the current documentation.
 #   ```bash
 #   ##/
@@ -36,12 +36,12 @@ apash.import fr.hastec.apash.util.Log
 # @stderr None.
 #
 # @exitcode 0 When markdown is displayed.
-# @exitcode 1 When the file does not exists.
+# @exitcode 1 When the file does not exist.
 #/
 ApashUtils.doc() {
   Log.in $LINENO "$@"
 
-  local inFile="$1"
+  local inFile="${1:-}"
   local comments=""
 
   [ ! -r "$inFile" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -77,7 +77,7 @@ ApashUtils.doc() {
     exitCodeFlag && /^\s*@exitcode\s+/ {
       $1=""; gsub(/^\s+/, "");
       if ($0 != "") {
-        printf "  * **"$1"**: ";
+        printf "  * **${1:-}**: ";
         $1=""; gsub(/^\s+/, "");
         print $0;
       }

@@ -43,11 +43,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 StringUtils.indexOfAny() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local researchName="$2"
+  local inString="${1:-}"
+  local researchName="${2:-}"
   local index="$ArrayUtils_INDEX_NOT_FOUND"
   local i r
-  local researh=()
+  local -a researh=()
   
   # If the array cannot be clone (because it's not an array)
   # Then return index not found.

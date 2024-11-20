@@ -39,7 +39,7 @@ Describe 'ArrayUtils.indexesOf'
     The output should equal ""
     The status should be success
     The value "${#myIndexes[@]}" should eq 1
-    The variable 'myIndexes[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "$((APASH_ARRAY_FIRST_INDEX+0))"
+    The variable 'myIndexes[APASH_ARRAY_FIRST_INDEX+0]' should eq "$((APASH_ARRAY_FIRST_INDEX+0))"
   End
 
   It 'passes when input reference is an array'
@@ -48,8 +48,8 @@ Describe 'ArrayUtils.indexesOf'
     The output should equal ""
     The status should be success
     The value "${#myIndexes[@]}" should eq 2
-    The variable 'myIndexes[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "$((APASH_ARRAY_FIRST_INDEX+1))"
-    The variable 'myIndexes[$((APASH_ARRAY_FIRST_INDEX+1))]' should eq "$((APASH_ARRAY_FIRST_INDEX+4))"
+    The variable 'myIndexes[APASH_ARRAY_FIRST_INDEX+0]' should eq "$((APASH_ARRAY_FIRST_INDEX+1))"
+    The variable 'myIndexes[APASH_ARRAY_FIRST_INDEX+1]' should eq "$((APASH_ARRAY_FIRST_INDEX+4))"
   End
 
   It 'passes when input reference is an array'
@@ -68,7 +68,7 @@ Describe 'ArrayUtils.indexesOf'
     The output should equal ""
     The status should be success
     The value "${#myIndexes[@]}" should eq 1
-    The variable 'myIndexes[$((APASH_ARRAY_FIRST_INDEX+0))]' should eq "$((APASH_ARRAY_FIRST_INDEX+0))"
+    The variable 'myIndexes[APASH_ARRAY_FIRST_INDEX+0]' should eq "$((APASH_ARRAY_FIRST_INDEX+0))"
   End
 
 End

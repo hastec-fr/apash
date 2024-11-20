@@ -63,7 +63,7 @@
 #/
 apash.import(){
   local lib cacheLib l
-  local libs=()
+  local -a libs=()
   local location=""
   local APASH_SRC_DIR="$APASH_HOME_DIR/src"
   local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
@@ -75,14 +75,14 @@ apash.import(){
 
   # Declare a variable shared with recursive import preventing endless cycles.
   # Usefull, when forcing the re-import of all libraries.
-  [ -z "$APASH_LIB_TO_IMPORT" ] && local APASH_LIB_TO_IMPORT=""
+  [ -z "${APASH_LIB_TO_IMPORT:-}" ] && local APASH_LIB_TO_IMPORT=""
 
   # When list of lib are cached, then ignore imports.
   [ "$APASH_IMPORT_IGNORE" = "true" ] && return
 
   # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
   apash.import.resolve.version(){
-    local lib="$1"
+    local lib="${1:-}"
     local vlib version   
 
     # Change lib in case a variant exist for the current shell.
@@ -111,9 +111,9 @@ apash.import(){
 
   # Check arguments of the import (no while loop to minimize actions).
   # Arguments should be in alphabetic order.
-  [ "$1" = "-f" ] && APASH_IMPORT_FORCE=true && shift
-  [ "$1" = "-n" ] && APASH_IMPORT_NO_CACHE=true && shift
-  [ "$1" = "-s" ] && APASH_IMPORT_SHOW=true && shift
+  [ "${1:-}" = "-f" ] && APASH_IMPORT_FORCE=true && shift
+  [ "${1:-}" = "-n" ] && APASH_IMPORT_NO_CACHE=true && shift
+  [ "${1:-}" = "-s" ] && APASH_IMPORT_SHOW=true && shift
 
   for l in "$@"; do
     location="$APASH_SRC_DIR/"${l//./\/}

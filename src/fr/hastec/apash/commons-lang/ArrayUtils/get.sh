@@ -42,9 +42,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 #/
 ArrayUtils.get() {
   Log.in $LINENO "$@"
-  local apash_inArrayName="$1"
-  local apash_inIndex="$2"
-  local apash_inDefaultValue="$3"
+  local apash_inArrayName="${1:-}"
+  local apash_inIndex="${2:-}"
+  local apash_inDefaultValue="${3:-}"
   
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   

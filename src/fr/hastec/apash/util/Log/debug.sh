@@ -36,8 +36,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 # @exitcode 1 Otherwise.
 #/
 Log.debug() {
-  local inLineNumber="$1"
-  local inMessage="$2"
+  local inLineNumber="${1:-}"
+  local inMessage="${2:-}"
   local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
   local inChannel="${4:-2}"
 

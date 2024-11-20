@@ -38,8 +38,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 NumberUtils.compare() {
   Log.in $LINENO "$@"
-  local inNumber1="$1"
-  local inNumber2="$2"
+  local inNumber1="${1:-}"
+  local inNumber2="${2:-}"
 
   NumberUtils.isLong "$inNumber1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   NumberUtils.isLong "$inNumber2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

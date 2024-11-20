@@ -44,7 +44,7 @@ apash.import fr.hastec.apash.lang.Math.min
 #/
 NumberUtils.min() {
   Log.in $LINENO "$@"
-  local min="$1"
+  local min="${1:-}"
 
   NumberUtils.isParsable "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift

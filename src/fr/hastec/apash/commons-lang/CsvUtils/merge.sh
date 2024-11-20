@@ -41,8 +41,8 @@ apash.import "fr.hastec.apash.commons-lang.MapUtils.getKeys"
 #/
 CsvUtils.merge() {
   Log.in $LINENO "$@"
-  local inFile1="$1"
-  local inFile2="$2"
+  local inFile1="${1:-}"
+  local inFile2="${2:-}"
   local -A functionMap=()
   local -a keys=()
   local functionName

@@ -44,7 +44,7 @@ apash.import fr.hastec.apash.lang.Math.max
 #/
 NumberUtils.max() {
   Log.in $LINENO "$@"
-  local max="$1"
+  local max="${1:-}"
 
   NumberUtils.isParsable "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   shift

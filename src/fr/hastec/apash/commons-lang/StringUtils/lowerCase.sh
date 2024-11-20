@@ -39,7 +39,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.lowerCase() {
   Log.in $LINENO "$@"
-  local inString="$1"
+  local inString="${1:-}"
   echo "$inString" | awk '{print tolower($0)}' || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   return "$APASH_SUCCESS"
 }

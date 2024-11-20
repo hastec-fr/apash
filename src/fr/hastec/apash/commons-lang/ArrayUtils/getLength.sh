@@ -47,7 +47,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 ArrayUtils.getLength() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
+  local inArrayName="${1:-}"
   ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then

@@ -54,8 +54,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 #/
 ArrayUtils.clone() {
   Log.in $LINENO "$@"
-  local apash_ArrayUtils_clone_inArrayName="$1"
-  local apash_ArrayUtils_clone_outArrayName="$2"
+  local apash_ArrayUtils_clone_inArrayName="${1:-}"
+  local apash_ArrayUtils_clone_outArrayName="${2:-}"
   ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.init    "$apash_ArrayUtils_clone_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   

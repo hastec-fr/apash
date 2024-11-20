@@ -39,9 +39,9 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.replace() {
   Log.in $LINENO "$@"
-  local inString="$1"
-  local inSubstring="$2"
-  local inReplacement="$3"
+  local inString="${1:-}"
+  local inSubstring="${2:-}"
+  local inReplacement="${3:-}"
 
   [ -z "$inSubstring" ] && echo "${inString}"         && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   echo "${inString//"$inSubstring"/"$inReplacement"}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }

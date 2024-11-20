@@ -63,8 +63,8 @@ apash.test.compatibility(){
 }
 
 apash.test.compatibility.addVersion(){
-  local shellName="$1"
-  local shellVersion="$2"
+  local shellName="${1:-}"
+  local shellVersion="${2:-}"
   local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
   local shellFormattedCampaignFile="$APASH_HOME_DIR/tmp/apash_fmt_${shellName}_${shellVersion}.tmp"
   local shellUpperName

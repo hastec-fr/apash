@@ -50,8 +50,8 @@ ArrayUtils.removeElement() {
   Log.in $LINENO "$@"
   [ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local ioArrayName="$1"
-  local inValue="$2"
+  local ioArrayName="${1:-}"
+  local inValue="${2:-}"
   local index
   ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   

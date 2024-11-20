@@ -42,9 +42,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 ArrayUtils.concat() {
   Log.in $LINENO "$@"
-  local apash_outArrayName="$1"
-  local apash_outArray=()
+  local apash_outArrayName="${1:-}"
   local apash_arrayName
+  local -a apash_outArray=()
   local -i i counter=0
 
   # If no array passed, then fails.

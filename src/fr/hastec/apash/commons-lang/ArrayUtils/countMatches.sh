@@ -37,8 +37,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #/
 ArrayUtils.countMatches() {
   Log.in $LINENO "$@"
-  local apash_inArrayName="$1"
-  local apash_inValue="$2"
+  local apash_inArrayName="${1:-}"
+  local apash_inValue="${2:-}"
   local apash_value
   local -i apash_counter=0
 

@@ -47,7 +47,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #/
 ArrayUtils.anythingToEmpty() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
+  local ioArrayName="${1:-}"
   BashUtils.isVariableNameValid "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   unset "$ioArrayName"
   BashUtils.declareArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }

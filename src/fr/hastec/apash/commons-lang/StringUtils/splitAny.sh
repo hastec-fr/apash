@@ -44,13 +44,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 StringUtils.splitAny() {
   Log.in $LINENO "$@"
-  local inArrayName="$1"
-  local inString="$2"
+  local inArrayName="${1:-}"
+  local inString="${2:-}"
   shift 2
   local -a inDelimiters=("${@}")
   local currentString=""
   local i d matchD
-  local outArray=()
+  local -a outArray=()
 
   # Remove starting delimiters (need to check all)
   # @todo: should check how to implement loop keeper.

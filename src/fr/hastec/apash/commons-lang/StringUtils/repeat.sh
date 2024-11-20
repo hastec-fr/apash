@@ -35,8 +35,8 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 #/
 StringUtils.repeat() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
-  local inString="$2"
+  local inNumber="${1:-}"
+  local inString="${2:-}"
   
   NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   

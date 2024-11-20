@@ -34,6 +34,6 @@ apash.import fr.hastec.apash.util.Log
 #/
 StringUtils.equals() {
   Log.in $LINENO "$@"
-  [[ "$1" == "$2" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ "${1:-}" == "${2:-}" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   { Log.out $LINENO; return "$APASH_FAILURE"; }
 }

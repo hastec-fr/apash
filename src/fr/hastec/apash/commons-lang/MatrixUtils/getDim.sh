@@ -44,8 +44,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.subarray
 MatrixUtils.getDim() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local inArrayName="$1"
-  local matrixName="$2"
+  local inArrayName="${1:-}"
+  local matrixName="${2:-}"
   shift 2
   local indexes=("$@")
   local start=$APASH_ARRAY_FIRST_INDEX

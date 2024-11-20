@@ -41,7 +41,7 @@ apash.import fr.hastec.apash.util.Log
 #/
 NumberUtils.isDigits() {
   Log.in $LINENO "$@"
-  local inNumber="$1"
+  local inNumber="${1:-}"
   local pattern="^[0-9]+$"
   [[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   

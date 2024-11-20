@@ -45,11 +45,11 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 #/
 StringUtils.splitPreserveAllTokens() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"  
-  local inString="$2"
+  local ioArrayName="${1:-}"  
+  local inString="${2:-}"
   local inDelimiter="${3:- }"
   local currentString=""
-  local outArray=()
+  local -a outArray=()
 
   # Loop on each char
   for (( i=0; i<${#inString}; i++ )); do

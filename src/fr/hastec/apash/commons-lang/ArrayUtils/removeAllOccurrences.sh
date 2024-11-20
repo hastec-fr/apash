@@ -54,19 +54,19 @@ ArrayUtils.removeAllOccurrences() {
   Log.in $LINENO "$@"
   [ $# -ne 2 ] && return "$APASH_FAILURE"
 
-  local ioArrayName="$1"
-  local inValue="$2"
+  local ioArrayName="${1:-}"
+  local inValue="${2:-}"
   local lastIndex
   local i
 
   lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local outArray=()
+  local -a outArray=()
   ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get all indexes to remove
   for ((i=lastIndex; i >= APASH_ARRAY_FIRST_INDEX; i--)); do
-    if [[ "${outArray[i]}" == "$inValue" ]]; then
+    if [[ "${outArray[i]:-}" == "$inValue" ]]; then
       ArrayUtils.remove "outArray" $i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     fi
   done

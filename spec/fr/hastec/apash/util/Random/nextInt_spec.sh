@@ -4,7 +4,7 @@ Describe 'Random.nextInt'
   # https://github.com/shellspec/shellspec/blob/master/docs/references.md#matchers
   value() {
     # The subject is stored in the same variable name as the function name
-    test "${value:?}" "$1" "$2"
+    test "${value:?}" "${1:-}" "${2:-}"
   }
 
 

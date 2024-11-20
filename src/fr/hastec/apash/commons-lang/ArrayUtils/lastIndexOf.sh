@@ -53,8 +53,8 @@ ArrayUtils.lastIndexOf() {
   # If no value to find explicitly declared, then return
   [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  local apash_inArrayName="$1"
-  local apash_inValue="$2"
+  local apash_inArrayName="${1:-}"
+  local apash_inValue="${2:-}"
   local apash_inStart="${3:-0}"
   local apash_i
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -63,7 +63,7 @@ ArrayUtils.lastIndexOf() {
   [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
 
   if [ "$APASH_SHELL" =  "zsh" ]; then
-    local apash_inArray=()
+    local -a apash_inArray=()
     ArrayUtils.clone "$apash_inArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
     local -n apash_inArray="$apash_inArrayName"

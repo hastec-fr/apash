@@ -41,8 +41,8 @@ apash.import fr.hastec.apash.commons-lang.VersionUtils.compare
 # @exitcode 1 Otherwise.
 VersionUtils.isLowerOrEquals() {
   Log.in $LINENO "$@"
-  local version1="$1"
-  local version2="$2"
+  local version1="${1:-}"
+  local version2="${2:-}"
   local comp
   
   # Errors are considered as if the version is greater.

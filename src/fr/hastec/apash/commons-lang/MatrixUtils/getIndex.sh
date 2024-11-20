@@ -46,7 +46,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.isMatrix
 MatrixUtils.getIndex() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local apash_matrixName="$1"
+  local apash_matrixName="${1:-}"
   shift
   local apash_indexes=("$@")
   local -i apash_offset=0
@@ -56,7 +56,7 @@ MatrixUtils.getIndex() {
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
-    local matrixDim=()
+    local -a matrixDim=()
     ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}" "matrixDim"
   else # bash
     local -n matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
@@ -69,7 +69,7 @@ MatrixUtils.getIndex() {
   # even if the array has additional elements.
   # Add the index 0 for each missing dimensions.
   for ((apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#matrixDim[@]}; apash_i++)); do
-    [[ -z "${apash_indexes[apash_i]}" ]] && apash_indexes[apash_i]=0
+    [[ -z "${apash_indexes[apash_i]:-}" ]] && apash_indexes[apash_i]=0
     [[ ${apash_indexes[apash_i]} -ge ${matrixDim[apash_i]} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 

@@ -38,10 +38,10 @@ apash.import fr.hastec.apash.util.Random.nextInt
 #/
 ArrayUtils.shuffle() {
   Log.in $LINENO "$@"
-  local ioArrayName="$1"
+  local ioArrayName="${1:-}"
   local i=0
   
-  local outArray=()
+  local -a outArray=()
   ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   for (( i = ${#outArray[@]} ; i > 1 ; i-- )); do
