@@ -21,7 +21,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
+# | $1     | apash_inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
 #
 # ### Example
 # ```bash
@@ -49,27 +49,27 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 #/
 Array.bubbleSort() {
   Log.in $LINENO "$@"
-  local inArrayName="${1:-}"
-  local lastIndex
-  local temp
-  local -a outArray=()
-  local -i i j
+  local apash_inArrayName="${1:-}"
+  local apash_lastIndex
+  local apash_temp
+  local -a apash_outArray=()
+  local -i apash_i apash_j
 
-  ArrayUtils.nullToEmpty "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  ArrayUtils.clone "$inArrayName" "outArray"
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_inArrayName" "apash_outArray"
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Performing Bubble sort
-  for (( i=APASH_ARRAY_FIRST_INDEX; i < APASH_ARRAY_FIRST_INDEX+lastIndex+1; i++ )); do
-    for (( j=APASH_ARRAY_FIRST_INDEX; j < APASH_ARRAY_FIRST_INDEX+lastIndex+1-i-1; j++ )); do
-      if [[ "${outArray[j]}" > "${outArray[j+1]}" ]]; then
-          temp="${outArray[j]}"
-          outArray[j]="${outArray[j+1]}"
-          outArray[j+1]="$temp"
+  for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1; apash_i++ )); do
+    for (( apash_j=APASH_ARRAY_FIRST_INDEX; apash_j < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1-apash_i-1; apash_j++ )); do
+      if [[ "${apash_outArray[apash_j]}" > "${apash_outArray[apash_j+1]}" ]]; then
+          apash_temp="${apash_outArray[apash_j]}"
+          apash_outArray[apash_j]="${apash_outArray[apash_j+1]}"
+          apash_outArray[apash_j+1]="$apash_temp"
       fi
     done
   done
-  ArrayUtils.clone "outArray" "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

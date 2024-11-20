@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
+# | $1     | apash_ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
 # | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
 #
 # ### Example
@@ -40,13 +40,13 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 ArrayUtils.toArray() {
   Log.in $LINENO "$@"
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local ioArrayName="${1:-}" 
+  local apash_ioArrayName="${1:-}" 
+  local -a apash_outArray=()
   shift
 
-  local -a outArray=()
   # shellcheck disable=SC2034
-  outArray=("$@")
+  apash_outArray=("$@")
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

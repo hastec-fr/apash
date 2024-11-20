@@ -25,8 +25,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
-# | $2     | inString       | string        | in       |            | The string to split.                             |
-# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
+# | $2     | apash_inString       | string        | in       |            | The string to split.                             |
+# | $3     | apash_inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
 #
 # ### Example
 # ```bash
@@ -46,39 +46,39 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 StringUtils.split() {
   Log.in $LINENO "$@"
-  local inArrayName="${1:-}"
-  local inString="${2:-}"
-  local inDelimiter="${3:- }"
-  local currentString=""
-  local -i i
-  local -a outArray=()
+  local apash_inArrayName="${1:-}"
+  local apash_inString="${2:-}"
+  local apash_inDelimiter="${3:- }"
+  local apash_currentString=""
+  local -i apash_i
+  local -a apash_outArray=()
 
   # Remove starting delimiters
   
-  inString=${inString##+("$inDelimiter")}
+  apash_inString=${apash_inString##+("$apash_inDelimiter")}
 
   # Remove tailing delimiters
-  inString=${inString%%+("$inDelimiter")}
+  apash_inString=${apash_inString%%+("$apash_inDelimiter")}
 
   # Loop on each char
-  for (( i=0; i<${#inString}; i++ )); do
+  for (( apash_i=0; apash_i<${#apash_inString}; apash_i++ )); do
     # Check if the next chars correspond to delimiter
-    if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" && ${#inDelimiter} -gt 0 ]]; then
-      outArray+=("$currentString")
-      currentString=""
-      while [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; do
+    if [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" && ${#apash_inDelimiter} -gt 0 ]]; then
+      apash_outArray+=("$apash_currentString")
+      apash_currentString=""
+      while [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" ]]; do
         # Skip the number of chars corresponding to the delimiter.
-        i=$((i + ${#inDelimiter}))
+        apash_i=$((apash_i + ${#apash_inDelimiter}))
       done
       # Compense the last increment realize by for loop
-      i=$((i - 1))
+      apash_i=$((apash_i - 1))
       continue
     fi
-    currentString+=${inString:$i:1}
+    apash_currentString+=${apash_inString:$apash_i:1}
   done
-  [ -n "$currentString" ] && outArray+=("$currentString")
+  [ -n "$apash_currentString" ] && apash_outArray+=("$apash_currentString")
 
-  ArrayUtils.clone "outArray" "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

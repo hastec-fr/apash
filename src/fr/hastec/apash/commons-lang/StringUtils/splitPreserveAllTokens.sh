@@ -24,8 +24,8 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
 # | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
-# | $2     | inString       | string        | in       |            | The string to split.                             |
-# | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+# | $2     | apash_inString       | string        | in       |            | The string to split.                             |
+# | $3     | apash_inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 #
 # ### Example
 # ```bash
@@ -45,30 +45,30 @@ apash.import "fr.hastec.apash.commons-lang.ArrayUtils.clone"
 #/
 StringUtils.splitPreserveAllTokens() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"  
-  local inString="${2:-}"
-  local inDelimiter="${3:- }"
-  local currentString=""
-  local -a outArray=()
-  local -i i
+  local apash_ioArrayName="${1:-}"  
+  local apash_inString="${2:-}"
+  local apash_inDelimiter="${3:- }"
+  local apash_currentString=""
+  local -a apash_outArray=()
+  local -i apash_i
 
   # Loop on each char
-  for (( i=0; i<${#inString}; i++ )); do
+  for (( apash_i=0; apash_i<${#apash_inString}; apash_i++ )); do
     # Check if the next chars correspond to delimiter
-    if [[ ${inString:$i:${#inDelimiter}} = "$inDelimiter" ]]; then
-      outArray+=("$currentString")
-      currentString=""
-      i=$((i + ${#inDelimiter}-1))
+    if [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" ]]; then
+      apash_outArray+=("$apash_currentString")
+      apash_currentString=""
+      apash_i=$((apash_i + ${#apash_inDelimiter}-1))
 
       # If delimiter is at the end, then add an empty token
-      [[ i -eq $((${#inString}-1)) ]] && outArray+=("")
+      [[ apash_i -eq $((${#apash_inString}-1)) ]] && apash_outArray+=("")
       continue
     fi
-    currentString+=${inString:$i:1}
+    apash_currentString+=${apash_inString:$apash_i:1}
   done
-  [ -n "$currentString" ] && outArray+=("$currentString")
+  [ -n "$apash_currentString" ] && apash_outArray+=("$apash_currentString")
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -27,7 +27,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getDimLastIndex
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
 # | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
 # | $2     | outArrayName   | ref(string[]) | out      |                 | Name of the array with dimension     |
-# | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | ${@:3} | $@             | number...     | in       |                 | apash_indexes per dimension.               |
 #
 # ### Example
 # ```bash
@@ -49,36 +49,36 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getDimLastIndex
 MatrixUtils.setDim() {
   Log.in $LINENO "$@"
   [ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local inMatrixName="${1:-}"
-  local inArrayName="${2:-}"
+  local apash_inMatrixName="${1:-}"
+  local apash_inArrayName="${2:-}"
   shift 2
-  local indexes=("$@")
-  local -i start=$APASH_ARRAY_FIRST_INDEX
-  local -i lastDimIndex=0
-  local -i i
+  local apash_indexes=("$@")
+  local -i apash_start=$APASH_ARRAY_FIRST_INDEX
+  local -i apash_lastDimIndex=0
+  local -i apash_i
 
-# length=$(MatrixUtils.getDimOffset "$inMatrixName" "${indexes[@]}")
-  MatrixUtils.isMatrix "$inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  ArrayUtils.isArray "$inArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+# length=$(MatrixUtils.getDimOffset "$apash_inMatrixName" "${apash_indexes[@]}")
+  MatrixUtils.isMatrix "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Get index delimiting the slice of array to modify.
-  start=$(MatrixUtils.getIndex "$inMatrixName" "${indexes[@]}")               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  lastDimIndex=$(MatrixUtils.getDimLastIndex "$inMatrixName" "${indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_start=$(MatrixUtils.getIndex "$apash_inMatrixName" "${apash_indexes[@]}")               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastDimIndex=$(MatrixUtils.getDimLastIndex "$apash_inMatrixName" "${apash_indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   local -a inMatrix=()
   local -a inArray=()
-  ArrayUtils.clone "$inMatrixName" "inMatrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  ArrayUtils.clone "$inArrayName"  "inArray"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_inMatrixName" "inMatrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_inArrayName"  "inArray"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the number of values to change is greater than dimension then fail.
-  [[ $((start + ${#inArray[@]}-1)) -gt ${lastDimIndex} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [[ $((apash_start + ${#inArray[@]}-1)) -gt ${apash_lastDimIndex} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Apply the value on the original array
-  for (( i=start; i < lastDimIndex+1; i++ )); do
-    inMatrix[i]=${inArray[APASH_ARRAY_FIRST_INDEX+i-start]}
+  for (( apash_i=apash_start; apash_i < apash_lastDimIndex+1; apash_i++ )); do
+    inMatrix[apash_i]=${inArray[APASH_ARRAY_FIRST_INDEX+apash_i-apash_start]}
   done
 
-  ArrayUtils.clone "inMatrix" "$inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "inMatrix" "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -3,7 +3,6 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 ##/
 # @name ArrayUtils.isNotEmpty

@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.util.Random.nextInt
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
+# | $1     | apash_ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
 #
 # ### Example
 # ```bash
@@ -38,17 +38,17 @@ apash.import fr.hastec.apash.util.Random.nextInt
 #/
 ArrayUtils.shuffle() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"
-  local -i i
+  local apash_ioArrayName="${1:-}"
+  local -i apash_i
+  local -a apash_outArray=()
+
+  ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  local -a outArray=()
-  ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  
-  for (( i=${#outArray[@]}; i > 1; i-- )); do
-    ArrayUtils.swap "outArray" $((i - 1)) "$(Random.nextInt 0 $i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  for (( apash_i=${#apash_outArray[@]}; apash_i > 1; apash_i-- )); do
+    ArrayUtils.swap "apash_outArray" $((apash_i - 1)) "$(Random.nextInt 0 $apash_i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

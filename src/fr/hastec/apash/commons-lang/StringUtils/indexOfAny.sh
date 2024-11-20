@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 ##/
 # @name StringUtils.indexOfAny
-# @brief Search a string to find the first index of any character in the given set of characters.
+# @brief Search a string to find the first apash_index of any character in the given set of characters.
 #
 # ## History
 # @since 0.1.0 (hastec-fr)
@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | inString       | string        | in       |            | The string to check.                  |
+# | $1     | apash_inString       | string        | in       |            | The string to check.                  |
 #
 # ### Example
 # ```bash
@@ -30,11 +30,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #    arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
 # ```
 #
-# @stdout The first minimum index matching researches, -1 if no match
+# @stdout The first minimum apash_index matching researches, -1 if no match
 #         or empty input string or empty research.
 # @stderr None.
 #
-# @exitcode 0 If the index can be displayed.
+# @exitcode 0 If the apash_index can be displayed.
 # @exitcode 1 Otherwise.
 #
 # Note for passing array by reference
@@ -43,15 +43,16 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #/
 StringUtils.indexOfAny() {
   Log.in $LINENO "$@"
-  local inString="${1:-}"
-  local researchName="${2:-}"
-  local index="$ArrayUtils_INDEX_NOT_FOUND"
-  local i r
-  local -a researh=()
+  local apash_inString="${1:-}"
+  local apash_researchName="${2:-}"
+  local apash_index="$ArrayUtils_INDEX_NOT_FOUND"
+  local apash_r
+  local -i apash_i
+  local -a apash_researh=()
   
   # If the array cannot be clone (because it's not an array)
-  # Then return index not found.
-  if ! ArrayUtils.clone "$researchName" "research"; then
+  # Then return apash_index not found.
+  if ! ArrayUtils.clone "$apash_researchName" "research"; then
     echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_SUCCESS"
     return "$APASH_FAILURE"
   fi
@@ -63,12 +64,12 @@ StringUtils.indexOfAny() {
   fi
 
   # For each reseach, apply the function indexOf
-  # and keep the minimum index if string has been found.
-  for r in "${research[@]}"; do
-    i=$(StringUtils.indexOf "$inString" "$r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    [[ $i -ge 0  && ($index -eq $ArrayUtils_INDEX_NOT_FOUND || $i -lt $index) ]] && index=$i
+  # and keep the minimum apash_index if string has been found.
+  for apash_r in "${research[@]}"; do
+    apash_i=$(StringUtils.indexOf "$apash_inString" "$apash_r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    [[ $apash_i -ge 0  && ($apash_index -eq $ArrayUtils_INDEX_NOT_FOUND || $apash_i -lt $apash_index) ]] && apash_index=$apash_i
   done
 
-  echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "$apash_index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

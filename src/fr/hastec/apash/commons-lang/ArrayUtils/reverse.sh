@@ -21,9 +21,9 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in/out   |                 |  Name of the array to reverse.       |
-# | $2 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
-# | $3 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+# | $1     | apash_ioArrayName    | ref(string[]) | in/out   |                 |  Name of the array to reverse.       |
+# | $2 ?   | apash_inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+# | $3 ?   | apash_inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 #
 # ### Example
 # ```bash
@@ -51,37 +51,37 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.reverse() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"
-  local inStartIndex="${2:-0}"
-  local inEndIndex="${3:-}"
-  local swap=""
-  local -a outArray=()
-  local lastIndex
+  local apash_ioArrayName="${1:-}"
+  local apash_inStartIndex="${2:-0}"
+  local apash_inEndIndex="${3:-}"
+  local apash_swap=""
+  local -a apash_outArray=()
+  local apash_lastIndex
   
-  ArrayUtils.clone "$ioArrayName" "outArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  [[ -z "$inEndIndex" ]] && inEndIndex=$((lastIndex+1))
+  ArrayUtils.clone "$apash_ioArrayName" "apash_outArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [[ -z "$apash_inEndIndex" ]] && apash_inEndIndex=$((apash_lastIndex+1))
 
-  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -ge $lastIndex ]]               && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inStartIndex -ge $apash_lastIndex ]]         && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
-  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
+  [[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inEndIndex   -gt $apash_lastIndex ]]         && apash_inEndIndex=$((apash_lastIndex+1))
   
-  [[ "$inStartIndex" -ge "$inEndIndex" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ "$apash_inStartIndex" -ge "$apash_inEndIndex" ]]    && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     
-  while [[ $inStartIndex -lt $inEndIndex ]]; do
-    swap=${outArray[inStartIndex]}
-    outArray[inStartIndex]=${outArray[inEndIndex-1]}
-    outArray[inEndIndex-1]="$swap"
-    inStartIndex=$((inStartIndex + 1))
-    inEndIndex=$((inEndIndex - 1))
+  while [[ $apash_inStartIndex -lt $apash_inEndIndex ]]; do
+    apash_swap=${apash_outArray[apash_inStartIndex]}
+    apash_outArray[apash_inStartIndex]=${apash_outArray[apash_inEndIndex-1]}
+    apash_outArray[apash_inEndIndex-1]="$apash_swap"
+    apash_inStartIndex=$((apash_inStartIndex + 1))
+    apash_inEndIndex=$((apash_inEndIndex - 1))
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

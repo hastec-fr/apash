@@ -22,10 +22,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
-# | $2     | inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
-# | $3     | inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
-# | $4     | inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
+# | $1     | apash_outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
+# | $2     | apash_inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
+# | $3     | apash_inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
+# | $4     | apash_inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
 #
 # ### Example
 # ```bash
@@ -60,33 +60,32 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.subarray() {
   Log.in $LINENO "$@"
-  local outSubArrayName="${1:-}"
-  local inArrayName="${2:-}"
-  local inStartIndex="${3:-}"
-  local inEndIndex="${4:-}"
-  local -a inArray=()
-  local -a outArray=()
-  local lastIndex
+  local apash_outSubArrayName="${1:-}"
+  local apash_inArrayName="${2:-}"
+  local apash_inStartIndex="${3:-}"
+  local apash_inEndIndex="${4:-}"
+  local -a apash_inArray=()
+  local -a apash_outArray=()
+  local apash_lastIndex
 
-  ArrayUtils.isArray "$inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.isArray "$apash_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  ArrayUtils.clone "$inArrayName" "inArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  lastIndex=$(ArrayUtils.getLastIndex "$inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_inArrayName" "apash_inArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
-  [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
-  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
-
-  [[ $inStartIndex -gt $inEndIndex    ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inStartIndex -gt $apash_lastIndex         ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inEndIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inEndIndex   -gt $apash_lastIndex         ]] && apash_inEndIndex=$((apash_lastIndex+1))
+  [[ $apash_inStartIndex -gt $apash_inEndIndex        ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # shellcheck disable=SC2034
   # Subarray always start at the index 0, so the the first index is removed.
-  outArray=("${inArray[@]:$inStartIndex-$APASH_ARRAY_FIRST_INDEX:$inEndIndex-$inStartIndex}")
+  apash_outArray=("${apash_inArray[@]:$apash_inStartIndex-$APASH_ARRAY_FIRST_INDEX:$apash_inEndIndex-$apash_inStartIndex}")
 
-  ArrayUtils.clone "outArray" "$outSubArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_outSubArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

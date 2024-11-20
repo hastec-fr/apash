@@ -22,10 +22,10 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
-# | $2     | inValue        | string        | in       |            |  The value to remove from the array. |
+# | #      | varName                           | Type          | in/out   | Default    | Description                          |
+# |--------|-----------------------------------|---------------|----------|------------|--------------------------------------|
+# | $1     | apash_ArrayUtils_rao_ioArrayName  | ref(string[]) | in       |            |  Name of the array to modify.        |
+# | $2     | apash_inValue                     | string        | in       |            |  The value to remove from the array. |
 #
 # ### Example
 # ```bash
@@ -54,24 +54,23 @@ ArrayUtils.removeAllOccurrences() {
   Log.in $LINENO "$@"
   [ $# -ne 2 ] && return "$APASH_FAILURE"
 
-  local ioArrayName="${1:-}"
-  local inValue="${2:-}"
-  local lastIndex
-  local -i i
+  local apash_ArrayUtils_rao_ioArrayName="${1:-}"
+  local apash_inValue="${2:-}"
+  local apash_lastIndex
+  local -a apash_ArrayUtils_rao_outArray=()
+  local -i apash_i
 
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-
-  local -a outArray=()
-  ArrayUtils.clone "$ioArrayName" "outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ArrayUtils_rao_ioArrayName")       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_ArrayUtils_rao_ioArrayName" "apash_ArrayUtils_rao_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Get all indexes to remove
-  for (( i=lastIndex; i >= APASH_ARRAY_FIRST_INDEX; i-- )); do
-    if [[ "${outArray[i]:-}" == "$inValue" ]]; then
-      ArrayUtils.remove "outArray" $i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  for (( apash_i=apash_lastIndex; apash_i >= APASH_ARRAY_FIRST_INDEX; apash_i-- )); do
+    if [[ "${apash_ArrayUtils_rao_outArray[apash_i]:-}" == "$apash_inValue" ]]; then
+      ArrayUtils.remove "apash_ArrayUtils_rao_outArray" $apash_i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     fi
   done
 
-  ArrayUtils.clone "outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_ArrayUtils_rao_outArray" "$apash_ArrayUtils_rao_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -21,10 +21,10 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
-# | $2 ?   | inOffset       | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
-# | $3 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
-# | $4 ?   | inEndIndex     | number        | in       | lastIndex+1     |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+# | $1     | apash_ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
+# | $2 ?   | apash_inOffset       | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
+# | $3 ?   | apash_inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+# | $4 ?   | apash_inEndIndex     | number        | in       | apash_lastIndex+1     |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 #
 # ### Example
 # ```bash
@@ -55,54 +55,54 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.shift() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"
-  local inOffset="${2:-0}"
-  local inStartIndex="${3:-0}"
-  local inEndIndex="${4:-}"
-  local distance=0
-  local distance_offset=0
-  local lastIndex
-
+  local apash_ioArrayName="${1:-}"
+  local apash_inOffset="${2:-0}"
+  local apash_inStartIndex="${3:-0}"
+  local apash_inEndIndex="${4:-}"
+  local apash_distance=0
+  local apash_distance_offset=0
+  local apash_lastIndex
   local -a apash_outArray=()
-  ArrayUtils.clone "$ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  
+  ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Set the default value to the last index + 1
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  [ -z "$inEndIndex" ] && inEndIndex=$((lastIndex+1))
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  [ -z "$apash_inEndIndex" ] && apash_inEndIndex=$((apash_lastIndex+1))
 
-  NumberUtils.isLong "$inOffset"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inOffset"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  [[ $inStartIndex -ge $lastIndex ]]               && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  [[ $inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inStartIndex -ge $apash_lastIndex ]]               && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inEndIndex   -le $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
-  [[ $inEndIndex   -gt $lastIndex ]] && inEndIndex=$((lastIndex+1))
+  [[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inEndIndex   -gt $apash_lastIndex ]] && apash_inEndIndex=$((apash_lastIndex+1))
   
-  distance=$((inEndIndex - inStartIndex))
-  [[ $distance -le 1 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  apash_distance=$((apash_inEndIndex - apash_inStartIndex))
+  [[ $apash_distance -le 1 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  inOffset=$((inOffset%(distance)))
+  apash_inOffset=$((apash_inOffset%(apash_distance)))
     
-  while [[ $distance -gt 1 && $inOffset -gt 0 ]]; do
-    distance_offset=$((distance - inOffset))
+  while [[ $apash_distance -gt 1 && $apash_inOffset -gt 0 ]]; do
+    apash_distance_offset=$((apash_distance - apash_inOffset))
 
-    if [[ $inOffset -gt $distance_offset ]]; then
-      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance - distance_offset)) $distance_offset
-      distance=$inOffset
-      inOffset=$((inOffset - distance_offset))
-    elif [[ $inOffset -lt  $distance_offset ]]; then
-      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
-      inStartIndex=$((inStartIndex + inOffset))
-      distance=$distance_offset
+    if [[ $apash_inOffset -gt $apash_distance_offset ]]; then
+      ArrayUtils.swap "apash_outArray" "$apash_inStartIndex" $((apash_inStartIndex + apash_distance - apash_distance_offset)) $apash_distance_offset
+      apash_distance=$apash_inOffset
+      apash_inOffset=$((apash_inOffset - apash_distance_offset))
+    elif [[ $apash_inOffset -lt  $apash_distance_offset ]]; then
+      ArrayUtils.swap "apash_outArray" "$apash_inStartIndex" $((apash_inStartIndex + apash_distance_offset)) $apash_inOffset
+      apash_inStartIndex=$((apash_inStartIndex + apash_inOffset))
+      apash_distance=$apash_distance_offset
     else
-      ArrayUtils.swap "apash_outArray" "$inStartIndex" $((inStartIndex + distance_offset)) $inOffset
+      ArrayUtils.swap "apash_outArray" "$apash_inStartIndex" $((apash_inStartIndex + apash_distance_offset)) $apash_inOffset
       break;
     fi
   done
 
-  ArrayUtils.clone "apash_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

@@ -8,12 +8,12 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 apash.import fr.hastec.apash.lang.Math.min
 
 ##/
-# @name ArrayUtils.swap
+# @name ArrayUtils.apash_swap
 # @brief Swaps a series of elements in the given array.
 # @description
 #   This method does nothing for non existing array.
 #   Negative indices are promoted to 0(zero).
-#   The swap is stopped at the end of the array and as many as possible elements are swapped.
+#   The apash_swap is stopped at the end of the array and as many as possible elements are swapped.
 #
 # ## History
 # @since 0.1.0 (hastec-fr)
@@ -24,32 +24,32 @@ apash.import fr.hastec.apash.lang.Math.min
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to swap.           |
-# | $2     | inStartIndex   | number        | in       |                 | The index of the first element in the series to swap   |
-# | $3     | inEndIndex     | number        | in       |                 | The index of the second element in the series to swap  |
-# | $4     | inLen          | number        | in       | 1               | The number of elements to swap starting with the given indices. |
+# | $1     | apash_ioArrayName    | ref(string[]) | out      |                 | Name of the array to apash_swap.           |
+# | $2     | apash_inStartIndex   | number        | in       |                 | The index of the first element in the series to apash_swap   |
+# | $3     | apash_inEndIndex     | number        | in       |                 | The index of the second element in the series to apash_swap  |
+# | $4     | apash_inLen          | number        | in       | 1               | The number of elements to apash_swap starting with the given indices. |
 #
 # ### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.swap    "myArray"                 # failure
-#    ArrayUtils.swap    "myArray"  "2"            # failure
-#    ArrayUtils.swap    "myArray"  "0" "2"        # ("c" "b" "a" "d")
+#    ArrayUtils.apash_swap    "myArray"                 # failure
+#    ArrayUtils.apash_swap    "myArray"  "2"            # failure
+#    ArrayUtils.apash_swap    "myArray"  "0" "2"        # ("c" "b" "a" "d")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.swap    "myArray"  "0" "2" "1"    # ("c" "b" "a" "d")
+#    ArrayUtils.apash_swap    "myArray"  "0" "2" "1"    # ("c" "b" "a" "d")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b")
+#    ArrayUtils.apash_swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.swap    "myArray"  "0" "2" "0"    # ("a" "b" "c" "d")
+#    ArrayUtils.apash_swap    "myArray"  "0" "2" "0"    # ("a" "b" "c" "d")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b" "e")
+#    ArrayUtils.apash_swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b" "e")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
+#    ArrayUtils.apash_swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
 # ```
 #
 # @stdout None.
@@ -62,36 +62,36 @@ apash.import fr.hastec.apash.lang.Math.min
 #/
 ArrayUtils.swap() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"
-  local inStartIndex="${2:-}"
-  local inEndIndex="${3:-}"
-  local inLen="${4:-1}"
-  local -i i=0
-  local swap=""
+  local apash_ioArrayName="${1:-}"
+  local apash_inStartIndex="${2:-}"
+  local apash_inEndIndex="${3:-}"
+  local apash_inLen="${4:-1}"
+  local apash_swap=""
+  local -i i  
   local -a apash_ArrayUtils_swap_outArray=()
-  local lastIndex
+  local apash_lastIndex
 
-  NumberUtils.isLong "$inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  NumberUtils.isLong "$inLen"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  NumberUtils.isLong "$apash_inLen"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  ArrayUtils.clone "$ioArrayName" "apash_ArrayUtils_swap_outArray"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  lastIndex=$(ArrayUtils.getLastIndex "$ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "$apash_ioArrayName" "apash_ArrayUtils_swap_outArray"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  # Nothing to swap.
-  [[ $inStartIndex -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  [[ $inEndIndex   -gt $lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  # Nothing to apash_swap.
+  [[ $apash_inStartIndex -gt $apash_lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  [[ $apash_inEndIndex   -gt $apash_lastIndex ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
-  [[ $inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && inStartIndex=$APASH_ARRAY_FIRST_INDEX
-  [[ $inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && inEndIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
+  [[ $apash_inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inEndIndex=$APASH_ARRAY_FIRST_INDEX
 
-  inLen=$(Math.min "$(Math.min "$inLen" $((lastIndex+1-inStartIndex)))" $((lastIndex+1-inEndIndex)))
-  for (( i=0; i < inLen; i++, inStartIndex++, inEndIndex++ )); do
-    swap=${apash_ArrayUtils_swap_outArray[$inStartIndex]}
-    apash_ArrayUtils_swap_outArray[inStartIndex]=${apash_ArrayUtils_swap_outArray[$inEndIndex]}
-    apash_ArrayUtils_swap_outArray[inEndIndex]=$swap
+  apash_inLen=$(Math.min "$(Math.min "$apash_inLen" $((apash_lastIndex+1-apash_inStartIndex)))" $((apash_lastIndex+1-apash_inEndIndex)))
+  for (( i=0; i < apash_inLen; i++, apash_inStartIndex++, apash_inEndIndex++ )); do
+    apash_swap=${apash_ArrayUtils_swap_outArray[$apash_inStartIndex]}
+    apash_ArrayUtils_swap_outArray[apash_inStartIndex]=${apash_ArrayUtils_swap_outArray[$apash_inEndIndex]}
+    apash_ArrayUtils_swap_outArray[apash_inEndIndex]=$apash_swap
   done
-  ArrayUtils.clone "apash_ArrayUtils_swap_outArray" "$ioArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.clone "apash_ArrayUtils_swap_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }
