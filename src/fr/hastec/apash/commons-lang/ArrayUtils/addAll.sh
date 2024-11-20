@@ -62,6 +62,7 @@ ArrayUtils.addAll() {
   # Create the array if it does not exists and succeed if no value should be added.
   ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
+  # If no value to add, then return immediatly.
   shift
   [ $# -eq 0 ] && return "$APASH_SUCCESS"
 
@@ -75,7 +76,7 @@ ArrayUtils.addAll() {
   
   # @todo: Find a way to determine if added value are not out of bound of indexes (insert, add* methods).
   # Add values at the end of the array
-  apash_outArray+=("$@")
+  apash_outArray+=("$@")                                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$APASH_SHELL" = "zsh" ]; then
     ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi

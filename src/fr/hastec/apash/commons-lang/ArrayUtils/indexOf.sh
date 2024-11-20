@@ -21,8 +21,8 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 # | $2     | apash_inValue        | string        | in       |            | Value to find.                       |
 # | $3 ?   | apash_inStart        | number        | in       | 0          | The index to start searching at.     |
@@ -51,19 +51,23 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #/
 ArrayUtils.indexOf() {
   Log.in $LINENO "$@"
-
-  # If no value to find explicitly declared, then return
-  [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-
   local apash_inArrayName="${1:-}"
   local apash_inValue="${2:-}"
   local apash_inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
   local -i apash_i
   local apash_lastIndex
+
+  # If no value to find explicitly declared, then return
+  [[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+
+  # Check input values.
   NumberUtils.isLong "$apash_inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
+  # Adjust the start index if less than the first possible array index.
   [[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
+
+  # From starting index to the end of the array, return immedialty the first elements matching the input value.
   if [ "$APASH_SHELL" = "zsh" ]; then
     for (( apash_i=apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++ )); do
       [[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }

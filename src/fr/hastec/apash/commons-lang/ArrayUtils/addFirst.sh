@@ -16,7 +16,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @since 0.1.0 (hastec-fr)
 #
 # ### ChangeLogs:
-#  * 0.2.0 (hastec-fr):  Consider no argument as success (nothing added).
+#  * 0.2.0 (hastec-fr): Consider no argument as success (nothing added).
 #
 # ## Interface
 # @apashPackage
@@ -41,7 +41,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array and a value must be added.
-# @exitcode 1 When none or more than 1 value must be added.
+# @exitcode 1 When more than 1 value should be added.
 #
 # @see
 #  * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.
@@ -55,12 +55,12 @@ ArrayUtils.addFirst() {
   # Prepare output array with expected value at the first position.
   local -a apash_outArray=("$apash_inValue")
   local -a apash_inArray=()
-  local -i i
+  local -i apash_i
 
-  # Return imediatly if more than one value should be added.
+  # Return immediatly if more than one value should be added.
   [ $# -gt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  # Create the array if it does not exists and fails if too many values should be added.
+  # Create the array if it does not exists and returns if no value should be added.
   ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   [ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   
@@ -70,9 +70,9 @@ ArrayUtils.addFirst() {
   if [ "$APASH_SHELL" = "zsh" ]; then
     apash_outArray+=("${apash_inArray[@]}")
   else
-    # Need to preserve indexes in bash (+1)
-    for i in "${!apash_inArray[@]}"; do
-      apash_outArray[i+1]="${apash_inArray[i]}"
+    # Need to preserve indexes in bash (current_index+1)
+    for apash_i in "${!apash_inArray[@]}"; do
+      apash_outArray[apash_i+1]="${apash_inArray[apash_i]}"
     done
   fi
 

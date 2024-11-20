@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @name ArrayUtils.getNumberOfElements
 # @brief Returns the number of elements in the arrays.
 # @description
-#   This number correspond to the lenght in zsh and could be different in bash
+#   This number correspond to the lenght in zsh and could be different in bash.
 #   due to the discontinued indexes.
 #
 # ## History
@@ -18,9 +18,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
+# | #      | varName            | Type          | in/out   | Default    | Description                          |
+# |--------|--------------------|---------------|----------|------------|--------------------------------------|
+# | $1     | apash_inArrayName  | ref(string[]) | in       |            | Name of the array to get length.     |
 #
 # ### Example
 # ```bash
@@ -41,6 +41,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 1 Otherwise.
 #
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
+# @see [ArrayUtils.getLength](./getLength.md)
 #/
 ArrayUtils.getNumberOfElements() {
   Log.in $LINENO "$@"

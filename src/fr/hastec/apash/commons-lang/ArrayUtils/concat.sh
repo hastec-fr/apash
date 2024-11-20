@@ -11,8 +11,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @name ArrayUtils.concat
 # @brief Concatenate multiple arrays.
 # @description
-#   The output array can be one of the input array (modified at the end).
-#   
+#   The final output array can be one of the input arrays.
+# 
 # ## History
 # @since 0.2.0 (hastec-fr)
 #
@@ -22,8 +22,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # ### Arguments
 # | #      | varName            | Type          | in/out   | Default    | Description                          |
 # |--------|--------------------|---------------|----------|------------|--------------------------------------|
-# | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated values. |
-# | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.        |
+# | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated arrays. |
+# | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.          |
 #
 # ### Example
 # ```bash
@@ -45,7 +45,7 @@ ArrayUtils.concat() {
   local apash_outArrayName="${1:-}"
   local apash_arrayName
   local -a apash_outArray=()
-  local -i i counter=0
+  local -i apash_i apash_counter=0
 
   # If no array passed, then fails.
   [ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -67,14 +67,19 @@ ArrayUtils.concat() {
          && apash_outArray+=("") \
          || apash_outArray+=("${${(P)apash_arrayName}[@]}")
     else
-      # Loop on potential discontinued indexes
       local -n apash_inArray="$apash_arrayName"
+      
+      # If no element in the array, then get the next array.
       [[ ${#apash_inArray[@]} -eq 0 ]] && continue
-      for i in "${!apash_inArray[@]}"; do
-        apash_outArray[counter+i]="${apash_inArray[i]}"
+
+      # Loop on potential discontinued indexes
+      for apash_i in "${!apash_inArray[@]}"; do
+        apash_outArray[apash_counter+apash_i]="${apash_inArray[apash_i]}"
       done
-      counter=$(ArrayUtils.getLastIndex "apash_outArray") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-      ((counter++))
+
+      # Recalculate the offset of the output array.
+      apash_counter=$(ArrayUtils.getLastIndex "apash_outArray") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+      ((apash_counter++))
     fi
   done
 

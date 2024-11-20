@@ -37,7 +37,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArrayIndexValid
 # @stdout The nTh element of an array or a default value if the index is out of bounds (and default value is explicitly declared).
 # @stderr None.
 #
-# @exitcode 0 When first argument is an array and the index is in the bound of the array without declared default value.
+# @exitcode 0 When first argument is an array and the index is in the bound of the array without declaring a default value.
 # @exitcode 1 Otherwise.
 #/
 ArrayUtils.get() {

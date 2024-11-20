@@ -11,7 +11,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 
 ##/
 # @name ArrayUtils.init
-# @brief Defensive programming technique initialize an array.
+# @brief Defensive programming technique to initialize an array.
 # @description
 #   The array is created if the variable is not declared.
 #   If it was an array, then reinitialize it.
@@ -24,8 +24,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 #
 # ### Example

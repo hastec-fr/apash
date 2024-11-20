@@ -6,7 +6,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 
 ##/
 # @name ArrayUtils.countMatches
-# @brief Return the number of cells having the given value.
+# @brief Return the number of elements having the given value.
 #
 # ## History
 # @since 0.2.0 (hastec-fr)
@@ -29,7 +29,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #    ArrayUtils.countMatches  "myArray"  "a"         # 2
 # ```
 #
-# @stdout The number of cells having the given value.
+# @stdout The number of elements having the given value.
 # @stderr None.
 #
 # @exitcode 0 When first argument is an array.
@@ -55,7 +55,7 @@ ArrayUtils.countMatches() {
     done
   fi
   
-  # Return the number of occurence encountered.
+  # Return the number of encountered occurences.
   echo "$apash_counter" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

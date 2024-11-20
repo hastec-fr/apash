@@ -10,7 +10,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @name ArrayUtils.anythingToEmpty
 # @brief Create an array even if the variable named was already declared.
 # @description
-#   The reference is transformed in any case in an empty array (even if it's a map or a variable).
+#   The reference is transformed in any cases to an empty array (even if it's a map or a variable).
 #   Existing arrays are reinitialized.
 #
 # ## History
@@ -22,7 +22,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                          |
 # |--------|----------------|---------------|----------|------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
+# | $1     | apash_ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
 #
 # ### Example
 # ```bash
@@ -47,9 +47,9 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 #/
 ArrayUtils.anythingToEmpty() {
   Log.in $LINENO "$@"
-  local ioArrayName="${1:-}"
-  BashUtils.isVariableNameValid "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  unset "$ioArrayName"
-  BashUtils.declareArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_ioArrayName="${1:-}"
+  BashUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  unset "$apash_ioArrayName"
+  BashUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   return "$APASH_SUCCESS"
 }

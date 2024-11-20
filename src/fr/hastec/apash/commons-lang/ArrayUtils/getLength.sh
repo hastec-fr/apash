@@ -2,17 +2,16 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 ##/
 # @name ArrayUtils.getLength
 # @brief Returns the length of the specified array.
 # @description
-#   Take care that the length of an array does not correspond to its last index.
-#   Array indexes are set to Long_MAX_VALUE (9223372036854775807).
-#   Setting this value does not mean that the length is 9223372036854775807.
-#   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
+#   Take care that the length of an array does not correspond $#.
+#   Indeed, $# return the number of element in an array.
+#   It's possible like in bash to have discontinued indexes.
+#   Array indexes should be less than APASH_ARRAY_LAST_INDEX (limit depending of the shell).
 #
 # ## History
 # @since 0.2.0 (hastec-fr)
@@ -44,20 +43,19 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 # @exitcode 1 Otherwise.
 #
 # @see [ArrayUtils.getLastIndex](./getLastIndex.md)
+# @see [ArrayUtils.getNumberOfElements](./getNumberOfElements.md)
 #/
 ArrayUtils.getLength() {
   Log.in $LINENO "$@"
-  local inArrayName="${1:-}"
-  ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local apash_inArrayName="${1:-}"
+  local apash_lastIndex
 
-  if [ "$APASH_SHELL" = "zsh" ]; then
-    echo "${#${(PA)inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  else # bash
-    local lastIndex
-    lastIndex="$(ArrayUtils.getLastIndex "$inArrayName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    [[ $lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    echo "$((lastIndex+1))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  fi
+  # Get the last index
+  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
 
-  Log.out $LINENO; return "$APASH_FAILURE"
+  # Return if the last index is the maximum array index because the length should +1 (overflow)
+  [[ $apash_lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "$((apash_lastIndex+1))"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

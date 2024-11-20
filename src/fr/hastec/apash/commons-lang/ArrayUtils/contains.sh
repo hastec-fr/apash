@@ -13,7 +13,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # ## History
 # @since 0.1.0 (hastec-fr)
 #
-#
 # ## Interface
 # @apashPackage
 #
@@ -25,18 +24,18 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 #
 # ### Example
 # ```bash
-#    ArrayUtils.contains  ""       ""            # false
-#    ArrayUtils.contains  "myVar"  "a"           # false
+#    ArrayUtils.contains  ""       ""        # false
+#    ArrayUtils.contains  "myVar"  "a"       # false
 #
 #    declare -A myMap
-#    ArrayUtils.contains  "myMap"  "a"           # false
+#    ArrayUtils.contains  "myMap"  "a"       # false
 #
 #    myArray=("a" "b" "" "c")
-#    ArrayUtils.contains  "myArray"              # false
-#    ArrayUtils.contains  "myArray"  "d"         # false
-#    ArrayUtils.contains  "myArray"  ""          # true
-#    ArrayUtils.contains  "myArray"  "b"         # true
-#    ArrayUtils.contains  "myArray"  "a b"       # false
+#    ArrayUtils.contains  "myArray"          # false
+#    ArrayUtils.contains  "myArray"  "d"     # false
+#    ArrayUtils.contains  "myArray"  ""      # true
+#    ArrayUtils.contains  "myArray"  "b"     # true
+#    ArrayUtils.contains  "myArray"  "a b"   # false
 # ```
 #
 # @stdout None.
@@ -52,7 +51,7 @@ ArrayUtils.contains() {
   local apash_value=""
 
   # If no array and value passed or array is invalid, then fails.
-  [ $# -ne 2 ] && return "$APASH_FAILURE"
+  [ $# -ne 2 ]                            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
