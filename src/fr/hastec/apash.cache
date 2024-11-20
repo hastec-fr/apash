@@ -44,17 +44,15 @@ apash.cache(){
   local cacheList
   local cacheRoot
 
-  APASH_IMPORT_NO_CACHE=true
-
   for lib in "$@"; do
     cacheList=$(apash.import -f -n -s "$lib")
     cacheRoot=$(echo "$cacheList" | tail -n 1 | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/cache|" )
     cacheRootDir=$(dirname -- "$cacheRoot")
-    cacheRootFile="${cacheRoot/.sh/.cache}"
+    cacheRootFile="${cacheRoot%.*}.cache"
     [ ! -d "$cacheRootDir" ] && mkdir -p "$cacheRootDir"
-    echo "cat \\" > "$cacheRootFile"
+    true > "$cacheRootFile"
     while read -r cacheLib; do
-      echo "\"$cacheLib\" \\" >> "$cacheRootFile"
-    done < <(echo "$cacheList" | sed "s|$APASH_HOME_DIR/|\$APASH_HOME_DIR/|" ) 
+      echo "$cacheLib" >> "$cacheRootFile"
+    done < <(echo "${cacheList//$APASH_HOME_DIR/\$APASH_HOME_DIR}")
   done
 }

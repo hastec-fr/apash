@@ -39,6 +39,8 @@
 # | option | description   |
 # |--------|---------------|
 # | -f     | Force the import of the element even it has been already imported (not recusive).|
+# | -n     | Disable cache. Import are realized recusively with apash.import calls.           |
+# | -s     | Display which library is imported.                                               |
 #
 # ### Example
 # ```bash
@@ -60,18 +62,53 @@
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
 apash.import(){
-  local lib vlib cacheLib version
+  local lib cacheLib l
   local libs=()
   local location=""
   local APASH_SRC_DIR="$APASH_HOME_DIR/src"
-  local APASH_LIB_TO_IMPORT="${APASH_LIB_TO_IMPORT:-}"
   local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
-  local APASH_IMPORT_FORCE=false
+  local APASH_IMPORT_FORCE="${APASH_IMPORT_FORCE:-false}"
   local APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
   local APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
 
-  [ $APASH_IMPORT_IGNORE = "true" ] && return
+  # Declare a variable shared with recursive import preventing endless cycles.
+  # Usefull, when forcing the re-import of all libraries.
+  [ -z "$APASH_LIB_TO_IMPORT" ] && local APASH_LIB_TO_IMPORT=""
 
+  # When list of lib are cached, then ignore imports.
+  [ "$APASH_IMPORT_IGNORE" = "true" ] && return
+
+  # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
+  apash.import.resolve.version(){
+    local lib="$1"
+    local vlib version   
+
+    # Change lib in case a variant exist for the current shell.
+    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
+
+    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
+      # Overide the library whith a compatible version of the same shell
+      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
+        [ ! -r "$vlib" ] && continue
+        version="${vlib#*_}"
+        # Sort -V not present in zsh (so use manual numeric sort)
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+          lib="$vlib" && break
+        fi
+      done
+    fi
+    echo "$lib"
+  }
+
+  # Check if the given function already exists.
+  apash.import.function.exists() {
+    local lib=$1
+    typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return 0
+    return 1
+  }
+
+  # Check arguments of the import (no while loop to minimize actions).
+  # Arguments should be in alphabetic order.
   [ "$1" = "-f" ] && APASH_IMPORT_FORCE=true && shift
   [ "$1" = "-n" ] && APASH_IMPORT_NO_CACHE=true && shift
   [ "$1" = "-s" ] && APASH_IMPORT_SHOW=true && shift
@@ -80,7 +117,7 @@ apash.import(){
     location="$APASH_SRC_DIR/"${l//./\/}
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$APASH_IMPORT_FORCE" = "false" ] && typeset -f "$(basename "$(dirname "$location")").$(basename "${location%.*}")" > /dev/null 2>&1 && continue
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location"  && continue
 
     # Import package
     if [ -d "$location" ]; then
@@ -93,8 +130,8 @@ apash.import(){
       libs+=("$location.sh")
 
     # Import a file terminating by .sh
-    elif [ -r "${location//\/sh/}.sh" ]; then
-      libs+=("${location//\/sh/}.sh")
+    elif [ -r "${location/\/sh/}.sh" ]; then
+      libs+=("${location/\/sh/}.sh")
     
     # Check if raw value is a package
     elif [ -d "$l" ]; then
@@ -126,43 +163,39 @@ apash.import(){
   done
 
   for lib in "${libs[@]}"; do
+    # Ignore file if it has been already loaded.
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$lib" && continue
+
     # Change lib in case a variant exist for the current shell.
-    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
+    lib=$(apash.import.resolve.version "$lib")
 
-    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
-      # Overide the library whith a compatible version of the same shell
-      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
-        [ ! -r "$vlib" ] && continue
-        version="${vlib#*_}"
-        # Sort -V not present in zsh (so use manual numeric sort)
-        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
-          lib="$vlib" && break
-        fi
-      done
-    fi
-
+    # Alert if no library correspond.
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     
-    if [[ ! ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]]; then # cycling import protection
-      if [ $APASH_IMPORT_FORCE = "true" ] || \
-        ! typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1; then
-          cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
-          cacheLib="${cacheLib%.*}.cache"
-          if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
-            while read -r l; do
-              APASH_IMPORT_IGNORE=true source "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR/}"
-            done < "$cacheLib"
-          else
-            APASH_LIB_TO_IMPORT+=":$lib:"
-            source "$lib"
-            [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$lib"
-            APASH_LIB_TO_IMPORT="${APASH_LIB_TO_IMPORT/:$APASH_LIB_TO_IMPORT:/}"
-          fi
-      fi
+    # Protect against cycling import (if lib already in list of import)
+    [[ ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]] && continue
+
+    # Check if the cache must be used (pre-build list of import)
+    # or source recursively each apash.import (could be slow).
+    cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
+    cacheLib="${cacheLib%.*}.cache"
+    if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
+      # For each line of the cache, then resolve the desired version and source.
+      while read -r l; do
+        l=$(apash.import.resolve.version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
+        APASH_IMPORT_IGNORE=true source "$l"
+        [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
+      done < "$cacheLib"
+    else
+      # Mark the file in the list of import to prevent a cycling import.
+      APASH_LIB_TO_IMPORT+=":$lib:"
+      source "$lib"
+      [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$lib"
     fi
   done
 }
 
+# Expose the function as much as it's possible when apash.import is sourced(done 1 time).
 if [[ "$APASH_SHELL" == "bash" ]]; then
   export -f apash.import
 elif [[ "$APASH_SHELL" == "zsh"  ]] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
