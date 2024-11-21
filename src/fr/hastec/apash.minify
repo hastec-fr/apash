@@ -57,14 +57,15 @@ apash.minify(){
     sed -e '1d' "$lib" -e '/apash.import/d' >> "$apashTmpDir/apash-bash-min.tmp"
   done < <(find "$APASH_HOME_DIR/src/fr/hastec/apash" -name "*.sh" -print0)
 
-  echo '#!/usr/bin/env '"$shellName" > "apash-$shellName-min.sh"
+  echo '#!/usr/bin/env '"$shellName" > "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
   # @todo: Create a real minifier which does not take care about the logic (if possible) due to the mix of shells
   # Remove all lines starting by a hashtag, leading spaces and emptys lines.
-  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' "$APASH_HOME_DIR/.apashrc" "$apashTmpDir/apash-bash-min.tmp" >> "$APASH_HOME_DIR/apash-$shellName-min.sh"
+  cat "$APASH_HOME_DIR/.apashrc" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d'  "$apashTmpDir/apash-bash-min.tmp" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
   rm "$apashTmpDir/apash-bash-min.tmp"
 
   # Minification of apash.import:
   # sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' $APASH_HOME_DIR/src/fr/hastec/apash.import | tr '\n' ';' | sed -e 's/then;/then /g' -e 's/else;/else /g' -e 's/elif;/elif /g' -e 's/do;/do /g' -e 's/{;/{ /g' > $APASH_HOME_DIR/src/fr/hastec/apash.import-min
   # shfmt need to parse and so understand what the script is doing. Zsh piece of code break the minification.
-  #$APASH_DOCKER_SUDO docker run --rm -v "$apashTmpDir/apash-bash-min.tmp:/mnt/apash-bash-min.tmp" mvdan/shfmt -mn /mnt/apash-bash-min.tmp > apash-bash-min.sh
+  #$APASH_DOCKER_SUDO docker run --rm -v "$apashTmpDir/apash-bash-min.tmp:/mnt/apash-bash-min.tmp" mvdan/shfmt -mn /mnt/apash-bash-min.tmp > $APASH_HOME_DIR/bin/apash-bash-min.sh
 }

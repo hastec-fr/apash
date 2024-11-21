@@ -22,11 +22,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                           |
-# |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
-# | $2     | apash_inString       | string        | in       |            | The string to split.                             |
-# | $3     | apash_inDelimiter    | string        | in       | " "        | The delimiter (can be a sequence of characters). |
+# | #      | varName           | Type          | in/out   | Default    | Description                           |
+# |--------|-------------------|---------------|----------|------------|---------------------------------------|
+# | $1     | outArrayName      | ref(string[]) | out      |            | The result array which will contains tokens.     |
+# | $2     | apash_inString    | string        | in       |            | The string to split.                             |
+# | $3     | apash_inDelimiter | string        | in       | " "        | The delimiter (can be a sequence of characters). |
 #
 # ### Example
 # ```bash

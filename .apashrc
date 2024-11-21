@@ -1,11 +1,7 @@
 # shellcheck disable=all
 # Apash configurations
 
-# Manual
-# export APASH_SHELL="bash"
-# export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
-
-# Dynamic
+# Dynamic configuration
 if [ -n "$ZSH_VERSION" ]; then
   export APASH_SHELL="zsh"
   export APASH_SHELL_VERSION="${ZSH_VERSION}"
@@ -27,3 +23,5 @@ export APASH_LOG_BLACKLIST=""   # If function is in the list, then prevent trace
 export APASH_LOG_WHITELIST=""   # If function is present in this list, then allow only trace logging of this function.
 
 #export APASH_DOCKER_SUDO="sudo"                  # sudo - Comment to avoid sudo in front of docker commands.
+
+######################################################################################################################

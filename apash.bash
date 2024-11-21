@@ -50,6 +50,11 @@ apashShowHelp(){
       doc               Generate documentations relative to apash.
                         Prerequisite: shdoc is avaiable.
 
+      docker            Build and run a container according to 
+                        a shell version.
+
+      help              Display information about a method.
+
       source            Source the apash root script for current shell.
                         Take care that this current script is sourced too.
       
@@ -115,6 +120,23 @@ apashShowDockerHelp(){
 
   # Just run the version 5.9 of zsh.
   $ apash docker --build -s zsh -v 5.9
+EOF
+}
+
+apashShowHelpHelp(){
+  cat << EOF
+  Usage: ${0##*/} help [-h] [file|function]
+
+  Show the console help of the markdown comments.
+  
+      -h|--help|-?      Display this help and exit.
+  
+  First it check that argument is a file, otherwise
+  it tries to find it in \$APASH_HOME_DIR.
+  
+  Example:
+  $ apash help ./src/fr/hastec/apash/util/Math/abs.sh
+  $ apash help Math.abs
 EOF
 }
 
@@ -269,6 +291,10 @@ apashExecuteAction(){
       apashExecuteDocker "$@"
       ;;
 
+    help)
+      apashExecuteHelp "$@"
+      ;;
+
     init)
       apashExecuteInit "$@"
       ;;
@@ -324,10 +350,56 @@ apashExecuteDocker(){
       -f "$APASH_HOME_DIR/docker/apash-${APASH_DOCKER_SHELL}.dockerfile" "$APASH_HOME_DIR"
   fi
 
-  # Run the container
+  # Run the container and provides arguments.
   if [ "$APASH_DOCKER_NO_RUN_FLAG" != "true" ]; then
     $APASH_DOCKER_SUDO docker run -it --rm "local/apash:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
   fi
+}
+
+apashExecuteHelp(){
+  local APASH_HELP_FILE=""
+  apashParseHelpArgs "$@" || return
+  shift $APASH_NB_ARGS
+  APASH_HELP_FILE="${1:-}"
+  
+  # @todo: Create a mapping because the time to retrieve the file could increase.
+  # Check if it's a file with .sh extension which is searched.
+  if [ ! -f "$APASH_HELP_FILE" ]; then
+    if [[ $APASH_HELP_FILE =~ ^[a-zA-Z_]+\.sh$ ]] ; then
+      APASH_HELP_FILE="$(find "$APASH_HOME_DIR/src" -iname "$APASH_HELP_FILE")"
+    # Or the Class.Method .
+    elif [[ $APASH_HELP_FILE =~ ^([a-zA-Z_]+)\.[a-zA-Z_]+$ ]] ; then
+      local class=${APASH_HELP_FILE%.*}
+      local method=${APASH_HELP_FILE#*.}
+      APASH_HELP_FILE="$(find "$APASH_HOME_DIR/src" -iname "$method.sh" -ipath "*/$class/$method.sh" -print -quit)"
+    elif [[ $APASH_HELP_FILE =~ ^[a-zA-Z_]+$ ]]; then
+    # Or any single method.
+      APASH_HELP_FILE="$(find "$APASH_HOME_DIR/src" -iname "$APASH_HELP_FILE.sh")"
+    fi
+  fi
+
+  if [ ! -f "$APASH_HELP_FILE" ]; then
+    echo "The function cannot be found. Please provide the \"Class.method\" you research." 2> /dev/null
+    return $APASH_FAILURE
+  fi
+  
+  echo "# @file $APASH_HELP_FILE"
+  # Print piece of markdown from the desired method.
+  awk '
+  BEGIN                        { printFlag=0; printArgs=0 }
+  /^\s*#\s*@name/              { print $0; next }
+  /^\s*#\s*@brief/             { print $0; next }
+  /^\s*#\s*@description/       { printFlag=1 }
+  /^\s*#[ #]*Arguments/        { print $0; printArgs=1; next }
+  (printArgs || printFlag) &&
+  /^\s*#[\s#]*$/               { printFlag=0; printArgs=0; print ; next}
+  printFlag                    { print $0 }
+  printArgs {              
+              n = split($0, arr, "|")
+              print "#" arr[2] "|" (arr[4]) "|" arr[7]
+            }
+  ' "$APASH_HELP_FILE" && return $APASH_SUCCESS
+  return $APASH_FAILURE
 }
 
 apashExecuteInit(){
@@ -446,7 +518,7 @@ apashParseDockerArgs() {
     case ${1:-} in
       # Show helps
       -h|-\?|--help)
-        apashShowSourceHelp
+        apashShowDockerHelp
         return $APASH_FAILURE
         ;;
 
@@ -474,6 +546,36 @@ apashParseDockerArgs() {
           APASH_DOCKER_SHELL_VERSION="${2:-}"
           shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
         fi
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
+        return $APASH_FAILURE
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+  return $APASH_SUCCESS
+}
+
+apashParseHelpArgs() {
+  while :; do
+    case ${1:-} in
+      # Show helps
+      -h|-\?|--help)
+        apashShowHelpHelp
+        return $APASH_FAILURE
         ;;
 
       # End of all options.

@@ -24,8 +24,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName              | Type          | in/out   | Default    | Description                          |
-# |--------|----------------------|---------------|----------|------------|--------------------------------------|
+# | #      | varName                              | Type          | in/out   | Default    | Description                          |
+# |--------|--------------------------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_ArrayUtils_init_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 #
 # ### Example

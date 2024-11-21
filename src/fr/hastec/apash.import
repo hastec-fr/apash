@@ -121,8 +121,16 @@ apash.import(){
     # Shortcut resolution if the function <package>.<method> already exists.
     [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location" && continue
 
+    # Import the raw file path
+    if [ -r "$l" ]; then
+      libs+=("$l")
+    
+    # Check if relative raw value is a script
+    elif [ -r "$APASH_SRC_DIR/$l" ]; then
+      libs+=("$APASH_SRC_DIR/$l")
+
     # Import package
-    if [ -d "$location" ]; then
+    elif [ -d "$location" ]; then
       for lib in "$location"/*.sh; do
         libs+=("$lib")
       done
@@ -149,14 +157,6 @@ apash.import(){
         libs+=("$lib")
       done
     
-    # Check if relative raw value is a script
-    elif [ -f "$APASH_SRC_DIR/$l" ]; then
-      libs+=("$APASH_SRC_DIR/$l")
-
-    # Import the raw file path
-    elif [ -r "$l" ]; then
-      libs+=("$l")
-    
     # The library connot be imported
     else
       echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
@@ -180,7 +180,7 @@ apash.import(){
     # Check if the cache must be used (pre-build list of import)
     # or source recursively each apash.import (could be slow).
     cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
-    cacheLib="${cacheLib%.*}.cache"
+    cacheLib="${cacheLib%.sh}.cache"
     if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
       # For each line of the cache, then resolve the desired version and source.
       while read -r l; do

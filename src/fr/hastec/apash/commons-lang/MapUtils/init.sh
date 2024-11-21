@@ -15,7 +15,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @description
 #   The map is created if the variable is not declared.
 #   If it was a map, then reinitialize it.
-#   If it's an existing variable or an array, just fail to protect overriding.
+#   If it's an existing variable or an array, then fail (prevent overriding).
 #
 # ## History
 # @since 0.2.0 (hastec-fr)

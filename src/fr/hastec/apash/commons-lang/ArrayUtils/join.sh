@@ -15,6 +15,12 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 # ## Interface
 # @apashPackage
 #
+# ### Arguments
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
+# | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to join.           |
+# | $2     | apash_inDelimiter    | string        | in       | " "        | Delimiter joining array elements.    |
+#
 # ### Example
 # ```bash
 #    myArray=("a" "b" "" "c")
@@ -25,10 +31,6 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLength
 #    myArray[6]="z"
 #    ArrayUtils.join  "myArray"  ","         # "a,b,,c,,z"
 # ```
-#
-# @arg $1 ref(string[]) Name of the array to get values.
-# @arg $2 string The delimiter which join values. (Default=" ")
-#
 # @stdout A single string having all values of the array joined by the chosen delimiter.
 # @stderr None.
 #
