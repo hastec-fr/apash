@@ -23,11 +23,11 @@
 #    Once the command line is parsed, the action is executed (only one).
 #   
 #   The code is split in 4 levels to execute the logic:
-#   0. executeApashCommand (Embedded main execution flow)
-#     1.|-> parseApashCommandArgs
-#     1.|-> executeApashAction
-#         2.|-> executeApash<Action>
-#             3.|-> parseApash<Action>Args
+#   0. apashExecuteCommand (Embedded main execution flow)
+#     1.|-> apashParseCommandArgs
+#     1.|-> apashExecuteAction
+#         2.|-> apashExecute<Action>
+#             3.|-> apashParse<Action>Args
 #             3.|-> Execute related subactions
 #
 #   This source is not essential thereafter, because the main concept is to
@@ -35,22 +35,8 @@
 #   
 #   Note: POSIX operations as much as possible in this script.
 #
-# Command-line flags #########################################################
-APASH_NB_ARGS=0                             # Number of argument before the action.
-APASH_INIT_POST_INSTALL=false               # Init suboption.
-APASH_SOURCE_ALL=${APASH_SOURCE_ALL:-false} # Source subtoption.
-
-# Test suboption overriding options.
-APASH_TEST_OPTIONS="--directory $APASH_HOME_DIR --shell $APASH_SHELL "
-
-# Calculated flags
-APASH_EXIT_REQUIRED=false        # Flag set to true when an issue occurs.
-
-APASH_EXIT_REQUIRED=1
-APASH_SUCCESS=0
-
 # Helps ######################################################################
-showApashHelp(){
+apashShowHelp(){
   cat << EOF
   Usage: ${0##*/} [-h|--help] [--version] ACTION [ACTION_ARGS]
 
@@ -80,13 +66,13 @@ showApashHelp(){
 EOF
 }
 
-showApashDocHelp(){
+apashShowDocHelp(){
   cat << EOF
   Usage: ${0##*/} doc [-h]
 
   Generate the documentation (in markdown format) based on the comments.
   
-      -h|--help|-?      display this help and exit.
+      -h|--help|-?      Display this help and exit.
 
   PREREQUISITES: shdoc must be installed.
   Example:
@@ -102,35 +88,64 @@ showApashDocHelp(){
 EOF
 }
 
-showApashInitHelp(){
+apashShowDockerHelp(){
+  cat << EOF
+  Usage: ${0##*/} docker [-h] [-b|--build] [-s shell] [-v version]
+
+  Create and run container for a specific shell or version.
+  By default, it build the image if does not exist.
+  
+      -h|--help|-?      Display this help and exit.
+      -nb|--no-build    No build of the image.
+      -nr|--no-run      No run of the container.
+      -s|--shell        Shell name of the image (bash|zsh).
+      -v|--version      Version of the shell image.
+  
+  Images get the current APASH_HOME_DIR content as context.
+  Images are named as following:
+  local/apash:<\$APASH_VERSION>-<shell>_<shell_version>
+
+  Images are created on top of the following:
+  bash: bash         (https://hub.docker.com/_/bash/)
+  zsh:  zshusers/zsh (https://hub.docker.com/r/zshusers/zsh)
+  
+  Example:
+  # Build and run the container for bash 4.3.
+  $ apash docker -s bash -v 4.3
+
+  # Just run the version 5.9 of zsh.
+  $ apash docker --build -s zsh -v 5.9
+EOF
+}
+
+apashShowInitHelp(){
   cat << EOF
   Usage: ${0##*/} init [-h] [--post-install]
 
   Add necessary line to startup script for apash usage
   
-      -h|--help|-?      display this help and exit.
+      -h|--help|-?      Display this help and exit.
       --post-install    Add necessary lines in startup script
 
   Example:
   $ apash init --post-install
-  Lines added to the startup up script \$HOME/.bashrc with tag apashInstallTag   
+  Lines added to the startup up script (like \$HOME/.bashrc) with tag apashInstallTag   
   Open another terminal again to ensure that environment is well loaded.
 EOF
 }
 
-showApashSourceHelp(){
+apashShowSourceHelp(){
   cat << EOF
   Usage: ${0##*/} source [-h]
 
-  Source the main root script. It implies that it reset the list of 
-  libraries already sourced.
+  Source the script with essential apash variables (apash.source).
   
       -h|--help|-?      display this help and exit.
 
 EOF
 }
 
-showApashMinifyHelp(){
+apashShowMinifyHelp(){
   cat << EOF
   Usage: ${0##*/} minify [-h]
 
@@ -142,7 +157,7 @@ showApashMinifyHelp(){
 EOF
 }
 
-showApashTestHelp(){
+apashShowTestHelp(){
   cat << EOF
   Usage: ${0##*/} test [-h] [--test-options options] [--] [test paths]
 
@@ -172,12 +187,12 @@ EOF
 }
 
 # LEVEL 0 - Embedded main execution flow #######################################
-# @name executeApashCommand
+# @name apashExecuteCommand
 # @description
 #    Parse and Execute apash command.
 #    Embedded main flow to prevent usage of exit statement
 #    which quit the current session in case of sourcing.
-executeApashCommand(){
+apashExecuteCommand(){
   # If the current shell is not identified, then exit.
   if [ "$APASH_SHELL" != "bash" ] && [ "$APASH_SHELL" != "zsh" ]; then
     echo "Not supported shell for the moment." >&2
@@ -190,18 +205,18 @@ executeApashCommand(){
     . "$APASH_HOME_DIR/src/fr/hastec/apash.sh" && return
   fi
 
-  parseApashCommandArgs "$@"
-  shift "$APASH_NB_ARGS"
+  apashParseCommandArgs "$@"
+  shift "${APASH_NB_ARGS:-0}"
   [ "$APASH_EXIT_REQUIRED" = "true" ] && return
 
-  executeApashAction "$@"
+  apashExecuteAction "$@"
 }
 
 # LEVEL 1 - Apash main command ###############################################
-# @name parseApashCommandArgs
+# @name apashParseCommandArgs
 # @brief Parse the main arguments of the command line.
 # @see Technical way to parse: https://mywiki.wooledge.org/BashFAQ/035
-parseApashCommandArgs(){
+apashParseCommandArgs(){
   while :; do
     # Check if the argument is still an option
     case $1 in
@@ -242,28 +257,32 @@ parseApashCommandArgs(){
   done
 }
 
-executeApashAction(){
+apashExecuteAction(){
   local action="${1:-}"
   shift
   case "$action" in
     doc)
-      executeApashDoc "$@"
+      apashExecuteDoc "$@"
+      ;;
+
+    docker)
+      apashExecuteDocker "$@"
       ;;
 
     init)
-      executeApashInit "$@"
+      apashExecuteInit "$@"
       ;;
     
     minify)
-      executeApashMinify "$@"
+      apashExecuteMinify "$@"
       ;;
 
     source)
-      executeApashSource "$@"
+      apashExecuteSource "$@"
       ;;
 
     test)
-      executeApashTest "$@"
+      apashExecuteTest "$@"
       ;;
 
     -?*)
@@ -275,8 +294,8 @@ executeApashAction(){
 
 
 # LEVEL 2 - Actions ##########################################################
-executeApashDoc(){
-    parseApashDocArgs "$@" || return
+apashExecuteDoc(){
+    apashParseDocArgs "$@" || return
     apash.import -f "fr/hastec/apash.doc"
     if [ -z "$APASH_HOME_DIR" ] || [ ! -d "$APASH_HOME_DIR" ]; then
       echo "This operation is not allowed when the APASH directory does not exists"
@@ -287,36 +306,59 @@ executeApashDoc(){
     (cd "$APASH_HOME_DIR" && apash.doc)
 }
 
-executeApashInit(){
-  parseApashInitArgs "$@" || return
-  [ $APASH_INIT_POST_INSTALL = "true" ] && executePostInstall
+apashExecuteDocker(){
+  local APASH_DOCKER_NO_BUILD_FLAG=false
+  local APASH_DOCKER_NO_RUN_FLAG=false
+  local APASH_DOCKER_SHELL="bash"
+  local APASH_DOCKER_SHELL_VERSION="5.2"
+  apashParseDockerArgs "$@" || return
+  echo "Enter password for docker usage (if necessary)."
+
+  # @todo: Find an elegant way to disable the --no-cache option (zsh protect evaluation).
+  # Build the container
+  if [ "$APASH_DOCKER_NO_BUILD_FLAG" != "true" ]; then
+    $APASH_DOCKER_SUDO docker build  \
+      --build-arg "SHELL_VERSION=${APASH_DOCKER_SHELL_VERSION}"                             \
+      --build-arg "APASH_LOCAL_COPY=true"                                                   \
+      -t "local/apash:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}" \
+      -f "$APASH_HOME_DIR/docker/apash-${APASH_DOCKER_SHELL}.dockerfile" "$APASH_HOME_DIR"
+  fi
+
+  # Run the container
+  if [ "$APASH_DOCKER_NO_RUN_FLAG" != "true" ]; then
+    $APASH_DOCKER_SUDO docker run -it --rm "local/apash:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
+  fi
 }
 
-executeApashMinify(){
-  parseApashMinifyArgs "$@" || return
+apashExecuteInit(){
+  local APASH_INIT_POST_INSTALL=false
+  apashParseInitArgs "$@" || return
+  [ $APASH_INIT_POST_INSTALL = "true" ] && apashExecutePostInstall
+}
+
+apashExecuteMinify(){
+  apashParseMinifyArgs "$@" || return
   apash.import -f "fr/hastec/apash.minify"
   apash.minify
 }
 
-executeApashSource(){
-  parseApashSourceArgs "$@" || return
-    
+apashExecuteSource(){
+  apashParseSourceArgs "$@" || return
+
   # shellcheck disable=SC1091
   . "$APASH_HOME_DIR/src/fr/hastec/apash.sh"
-  if [ "$APASH_SOURCE_ALL" = "true" ]; then
-    while IFS= read -r -d '' file; do
-      apash.import "$file"
-    done < <(find "$APASH_HOME_DIR/src/" -name "*.sh" ! -name "apash.sh" -print0)
-  fi
 }
 
-executeApashTest(){  
+apashExecuteTest(){  
+  # Test suboption overriding options.
+  local APASH_TEST_OPTIONS="--directory $APASH_HOME_DIR --shell $APASH_SHELL "
   APASH_NB_ARGS="0"
-  parseApashTestArgs "$@" || return
+  apashParseTestArgs "$@" || return
   shift $APASH_NB_ARGS
   APASH_TEST_FILES=("$@")
   [ $# -eq 0 ] && APASH_TEST_FILES=("$APASH_HOME_DIR/spec/")
   
+  # @todo: Find a more elegant way to inject arguments (protected by zsh).
   # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     if [ "$APASH_SHELL" = "zsh" ]; then
@@ -336,14 +378,13 @@ executeApashTest(){
 }
 
 # LEVEL 3 - Parsing argument per action ########################################
-parseApashInitArgs() {
+apashParseInitArgs() {
   while :; do
-
-    case $1 in
+    case ${1:-} in
       # Show helps
       -h|-\?|--help)
-        showApashInitHelp
-        return $APASH_EXIT_REQUIRED
+        apashShowInitHelp
+        return $APASH_FAILURE
         ;;
 
       --post-install)
@@ -358,7 +399,7 @@ parseApashInitArgs() {
       # Display error message on unknown option
       -?*)
         printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
-        return $APASH_EXIT_REQUIRED
+        return $APASH_FAILURE
         ;;
 
       # Stop parsing
@@ -370,14 +411,13 @@ parseApashInitArgs() {
   return $APASH_SUCCESS
 }
 
-parseApashDocArgs() {
+apashParseDocArgs() {
   while :; do
-
-    case $1 in
+    case ${1:-} in
       # Show helps
       -h|-\?|--help)
-        showApashDocHelp
-        return $APASH_EXIT_REQUIRED
+        apashShowDocHelp
+        return $APASH_FAILURE
         ;;
 
       # End of all options.
@@ -389,7 +429,7 @@ parseApashDocArgs() {
       # Display error message on unknown option
       -?*)
         printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
-        return $APASH_EXIT_REQUIRED
+        return $APASH_FAILURE
         ;;
 
       # Stop parsing
@@ -401,14 +441,39 @@ parseApashDocArgs() {
   return $APASH_SUCCESS
 }
 
-parseApashMinifyArgs() {
+apashParseDockerArgs() {
   while :; do
-
-    case $1 in
+    case ${1:-} in
       # Show helps
       -h|-\?|--help)
-        showApashMinifyHelp
-        return $APASH_EXIT_REQUIRED
+        apashShowSourceHelp
+        return $APASH_FAILURE
+        ;;
+
+      -nc|--no-cache)
+        APASH_DOCKER_NO_CACHE="--no-cache"
+        ;;
+
+      -nb|--no-build)
+        APASH_DOCKER_NO_BUILD_FLAG=true
+        ;;
+
+      -nr|--no-run)
+        APASH_DOCKER_NO_RUN_FLAG=true
+        ;;
+
+      -s|--shell)
+        if [ "${2:-}" ]; then
+          APASH_DOCKER_SHELL="${2:-}"
+          shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
+        fi
+        ;;
+      
+      -v|--version)
+        if [ "${2:-}" ]; then
+          APASH_DOCKER_SHELL_VERSION="${2:-}"
+          shift && APASH_NB_ARGS=$(( APASH_NB_ARGS + 1 ))
+        fi
         ;;
 
       # End of all options.
@@ -420,7 +485,7 @@ parseApashMinifyArgs() {
       # Display error message on unknown option
       -?*)
         printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
-        return $APASH_EXIT_REQUIRED
+        return $APASH_FAILURE
         ;;
 
       # Stop parsing
@@ -432,10 +497,40 @@ parseApashMinifyArgs() {
   return $APASH_SUCCESS
 }
 
-parseApashSourceArgs() {
+apashParseMinifyArgs() {
+  while :; do
+    case ${1:-} in
+      # Show helps
+      -h|-\?|--help)
+        apashShowMinifyHelp
+        return $APASH_FAILURE
+        ;;
+
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
+        return $APASH_FAILURE
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+  return $APASH_SUCCESS
+}
+
+apashParseSourceArgs() {
   while :; do
 
-    case $1 in
+    case ${1:-} in
       # Show helps
       -h|-\?|--help)
         showApashSourceHelp
@@ -467,21 +562,20 @@ parseApashSourceArgs() {
   return $APASH_SUCCESS
 }
 
-parseApashTestArgs() {
+apashParseTestArgs() {
   while :; do
-
-    case $1 in
+    case ${1:-} in
       # Show helps
       -h|-\?|--help)
-        showApashTestHelp
-        return $APASH_EXIT_REQUIRED
+        apashShowTestHelp
+        return $APASH_FAILURE
         ;;
 
       # Launch compatibility campaign
       --compatibility)
           apash.import -f "fr/hastec/apash.test.compatibility"
           apash.test.compatibility
-          return $APASH_EXIT_REQUIRED
+          return $APASH_FAILURE
         ;;
 
       --test-options)
@@ -504,7 +598,7 @@ parseApashTestArgs() {
       # Display error message on unknown option
       -?*)
         printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
-        return $APASH_EXIT_REQUIRED
+        return $APASH_FAILURE
         ;;
 
       # Stop parsing
@@ -517,9 +611,9 @@ parseApashTestArgs() {
 }
 
 # LEVEL 3 - Sub action according to arguments ##################################
-# @name executePostInstall
+# @name apashExecutePostInstall
 # @brief Add necessary instruction to startup script for apash usage.
-executePostInstall(){  
+apashExecutePostInstall(){  
   local startup_script=""
   local apash_keyword="apashInstallTag"
   case "$APASH_SHELL" in
@@ -539,13 +633,22 @@ executePostInstall(){
   fi
 }
 
-# MAIN FLOW ##################################################################
-# Continue the main flow in a function to prevent usage of exit.
-# If no argument, then execute directly the source action.
-if [ $# -eq 0 ]; then
-  executeApashSource
-else
+# MAIN FLOW ###################################################################
+apashBashMain() {
+  # Main flow is in a function to prevent usage of exit (using return instead)
+  # and allow to declare variables locally.
+
+  # Command-line flags ########################################################
+  local APASH_NB_ARGS=0       # Number of argument before the action.
+
+  # Calculated flags
+  local APASH_EXIT_REQUIRED=false   # Flag set to true when an issue occurs.
+  local APASH_SUCCESS=0
+  local APASH_FAILURE=1
+
   # Zsh requires to re-declare functions when subprocesses are called.
   typeset -f "apash.import" > /dev/null || source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
-  executeApashCommand "$@"
-fi
+  apashExecuteCommand "$@"
+}
+
+apashBashMain "$@"

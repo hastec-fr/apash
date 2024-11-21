@@ -3,8 +3,8 @@
 # docker push docker.io/hastec/apash:0.2.0-zsh
 
 # Only version is before from for ARG scope
-ARG ZSH_VERSION=5.9
-FROM docker.io/zshusers/zsh:${ZSH_VERSION}
+ARG SHELL_VERSION=5.9
+FROM docker.io/zshusers/zsh:${SHELL_VERSION}
 
 ARG APASH_BRANCH="main"
 ARG APASH_LOCAL_COPY="false"
@@ -19,21 +19,21 @@ LABEL maintainer="Benjamin Vargin"
 RUN apt update && \
     apt install -y curl git bc coreutils tzdata
 
-# RUN apt install -y vim
+RUN apt install -y vim
 
 RUN addgroup tribe && \
     adduser --shell /usr/bin/zsh --home /home/apash --ingroup tribe --disabled-password --gecos apash apash
 
+# Install Shellspec as apash user
+RUN su -c "sh -c 'curl -fsSL https://git.io/shellspec | sh -s -- --yes'" apash
+
 # Change directly the user rights to apash user
 COPY "." "/home/apash/.apash"
-RUN chown "apash:tribe" "/home/apash/.apash"
+RUN chown -R "apash:tribe" "/home/apash/.apash"
 
 USER apash
 WORKDIR /home/apash
 SHELL ["/usr/bin/zsh", "-c"]
-
-# Install Shellspec
-RUN curl -fsSL https://git.io/shellspec | sh -s -- --yes    
 
 # By default, the version from github is selected.
 # Add interactivecomments to allow copy/paste on zsh with # sign
@@ -47,8 +47,9 @@ setopt interactivecomments                 ##apashInstallTag
 export PS1="apash:zsh-\${ZSH_VERSION} \$ " ##apashInstallTag
 export LANG=C.UTF-8                        ##apashInstallTag
 export LC_ALL=C.UTF-8                      ##apashInstallTag
+export PATH="\$PATH:$HOME/.local/bin"      ##apashInstallTag
 . "$HOME/.apash/.apashrc"                  ##apashInstallTag
-. "\$APASH_HOME_DIR/apash" source          ##apashInstallTag
+. "\$APASH_HOME_DIR/apash.source"          ##apashInstallTag
 EOF
 
 # Force environment file

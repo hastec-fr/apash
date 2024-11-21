@@ -50,12 +50,7 @@ apash_main(){
       return 1
     fi
 
-    # @todo Implement a POSIX way to pass all arguments to sourced script.
-    if [ "${2:-}" = "--all" ] || [ "${2:-}" = "-a" ]; then
-      APASH_SOURCE_ALL="true" . "$APASH_HOME_DIR/apash.$APASH_SHELL"
-    else
-      . "$APASH_HOME_DIR/apash.$APASH_SHELL"
-    fi
+    . "$APASH_HOME_DIR/apash.source"
   else
     # Execute the corresponding script with correct shebang.
     "$APASH_HOME_DIR/apash.$APASH_SHELL" "$@"

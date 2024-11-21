@@ -67,16 +67,13 @@ apash.test.compatibility.addVersion(){
   local shellVersion="${2:-}"
   local shellCampaignFile="$APASH_HOME_DIR/tmp/apash_campaign_${shellName}_${shellVersion}.tmp"
   local shellFormattedCampaignFile="$APASH_HOME_DIR/tmp/apash_fmt_${shellName}_${shellVersion}.tmp"
-  local shellUpperName
   local functionName
   local -A functionMap=()
   local -a keys=()
 
-  shellUpperName=$(StringUtils.upperCase "$shellName")
-
   # Build and run a container with apash test.
   echo "Enter password for docker usage (if necessary)."
-  $APASH_DOCKER_SUDO docker build --no-cache --build-arg "${shellUpperName}_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  $APASH_DOCKER_SUDO docker build --no-cache --build-arg "SHELL_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
   $APASH_DOCKER_SUDO docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
 
   while IFS= read -r line; do

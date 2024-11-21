@@ -16,7 +16,7 @@ spec_helper_precheck() {
 spec_helper_loaded() {
   :
   if [ "${APASH_TEST_MINIFIED:-}" != "true" ]; then
-    . "$APASH_HOME_DIR/src/fr/hastec/apash.import"
+    . "$APASH_HOME_DIR/apash.source"
     apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
   else
     . "$APASH_HOME_DIR/apash-${APASH_SHELL}-min.sh"

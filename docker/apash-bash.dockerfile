@@ -3,8 +3,8 @@
 # docker push docker.io/hastec/apash:0.1.0
 
 # Only version is before from for ARG scope
-ARG BASH_VERSION=5.2.32
-FROM docker.io/bash:${BASH_VERSION}
+ARG SHELL_VERSION=5.2.32
+FROM docker.io/bash:${SHELL_VERSION}
 
 ARG APASH_BRANCH="main"
 ARG APASH_LOCAL_COPY="false"
@@ -39,8 +39,9 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
     fi; \
     cat <<EOF > $HOME/.bashrc
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
+export PATH="\$PATH:$HOME/.local/bin"            ##apashInstallTag
 . "\$HOME/.apash/.apashrc"                       ##apashInstallTag
-. "\$APASH_HOME_DIR/apash" source                ##apashInstallTag
+. "\$APASH_HOME_DIR/apash.source"                ##apashInstallTag
 EOF
 
 # Install Shellspec

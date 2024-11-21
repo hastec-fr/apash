@@ -27,12 +27,12 @@ ArrayUtils.clone() {
   ArrayUtils.init "$apash_ArrayUtils_clone_outArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Add special case when only a single empty element is present in the array
-  if [[ ${#${(P)apash_ArrayUtils_clone_inArrayName}[@]} == 1 && ${${(P)apash_ArrayUtils_clone_inArrayName}[@]} == "" ]]; then
+  if [[ ${#${(P)1}[@]} == 1 && ${${(P)1}[@]} == "" ]]; then
     : ${(PA)apash_ArrayUtils_clone_outArrayName::=""} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
   # Copy the array when it contains elements.
-  : ${(PA)apash_ArrayUtils_clone_outArrayName::="${(PA)apash_ArrayUtils_clone_inArrayName[@]}"} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  : ${(PA)apash_ArrayUtils_clone_outArrayName::="${(PA)1[@]}"} || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

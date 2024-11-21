@@ -2,6 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.getLastIndex
 
 ##/
@@ -50,12 +51,18 @@ ArrayUtils.getLength() {
   local apash_inArrayName="${1:-}"
   local apash_lastIndex
 
-  # Get the last index
-  apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
+  # For zsh, there are no discontinued indexes.
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    ArrayUtils.isArray "$apash_inArrayName" || { Log.ex  $LINENO; return "$APASH_FAILURE"; }
+    echo "${#${(PA)apash_inArrayName}[@]}"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+  else # bash
+    # Get the last index
+    apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
 
-  # Return if the last index is the maximum array index because the length should +1 (overflow)
-  [[ $apash_lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  echo "$((apash_lastIndex+1))"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    # Return if the last index is the maximum array index because the length should be +1 (overflow)
+    [[ $apash_lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    echo "$((apash_lastIndex+1))"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  fi
 
   Log.out $LINENO; return "$APASH_SUCCESS"
 }
