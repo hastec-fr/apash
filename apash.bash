@@ -47,6 +47,9 @@ apashShowHelp(){
       --version         display the current version of apash and exit.
 
   ACTIONS:
+      check             Check if some command could be missing and
+                        trigger a degraded mode.
+
       doc               Generate documentations relative to apash.
                         Prerequisite: shdoc is avaiable.
 
@@ -71,6 +74,17 @@ apashShowHelp(){
 EOF
 }
 
+apashShowCheckHelp(){
+  cat << EOF
+  Usage: ${0##*/} check [-h]
+
+  Check if some command could be missing and trigger a degraded mode.
+  
+      -h|--help|-?      Display this help and exit.
+
+EOF
+}
+
 apashShowDocHelp(){
   cat << EOF
   Usage: ${0##*/} doc [-h]
@@ -79,17 +93,6 @@ apashShowDocHelp(){
   
       -h|--help|-?      Display this help and exit.
 
-  PREREQUISITES: shdoc must be installed.
-  Example:
-  # Install basher
-  $ curl -s \
-    "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" \
-    | bash
-  
-  # Install shdoc
-  $ basher install reconquest/shdoc
-
-  # Open another terminal again to ensure that environment is well loaded.
 EOF
 }
 
@@ -283,6 +286,10 @@ apashExecuteAction(){
   local action="${1:-}"
   shift
   case "$action" in
+    check)
+      apashExecuteCheck "$@"
+      ;;
+
     doc)
       apashExecuteDoc "$@"
       ;;
@@ -320,6 +327,12 @@ apashExecuteAction(){
 
 
 # LEVEL 2 - Actions ##########################################################
+apashExecuteCheck(){
+    apashParseCheckArgs "$@" || return
+    apash.import -f "fr/hastec/apash.check"
+    apash.check
+}
+
 apashExecuteDoc(){
     apashParseDocArgs "$@" || return
     apash.import -f "fr/hastec/apash.doc"
@@ -328,6 +341,7 @@ apashExecuteDoc(){
       APASH_EXIT_REQUIRED=true && return
     fi
     # @todo: put a progress bar.
+    # @todo: Allow to generate only one doc.
     echo "This operation could take few minutes..."
     (cd "$APASH_HOME_DIR" && apash.doc)
 }
@@ -462,6 +476,36 @@ apashParseInitArgs() {
       --post-install)
         APASH_INIT_POST_INSTALL=true
         ;;
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
+        return $APASH_FAILURE
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+  return $APASH_SUCCESS
+}
+
+apashParseCheckArgs() {
+  while :; do
+    case ${1:-} in
+      # Show helps
+      -h|-\?|--help)
+        apashShowCheckHelp
+        return $APASH_FAILURE
+        ;;
+
       # End of all options.
       --)             
         shift

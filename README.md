@@ -27,6 +27,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Documentation](#documentation)
 - [Container](#container)
 - [Compatibility](#compatibility) ([Matrix](doc/fr/hastec/apashCompatibilityTable.md))
+- [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
 - [Maintenance](#maintenance)
 - [License](#license)
@@ -99,6 +100,28 @@ curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | 
 #### Install Apash:
 ```bash
 basher install "hastec-fr/apash"
+```
+
+#### Execute post installation action:
+```bash
+"$HOME/.basher/cellar/bin/apash" init --post-install
+# Then open a new terminal to ensure that environnment is re-loaded.
+```
+Open a new terminal to ensure that environment is refreshed with apash functions.
+</details>
+
+<details>
+<summary>Installation with Bpkg</summary>
+
+[Bpkg](https://github.com/bpkg/bpkg) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
+#### Install Bpkg
+```bash
+curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
+```
+
+#### Install Apash:
+```bash
+bpkg install "hastec-fr/apash"
 ```
 
 #### Execute post installation action:
@@ -389,7 +412,112 @@ References:
 * [Zsh changelogs](https://zsh.sourceforge.io/releases.html).
 * [Zsh anouncement](https://www.zsh.org/mla/announce/).
 
+## <a id="configuration" ></a>⚙️ Configuration
+### .apashrc
+APASH variables which can be adjusted are present in the file $APASH_HOME_DIR/.apashrc.<br/>
+When the minified version is used, it's on the top of the minified file delimited by a line of hastag.<br/>
+
+### <a id="logs" ></a>Logs
+By default, apash logs the unexpected errors but it could be adjusted to different levels.
+```bash
+# Levels:
+APASH_LOG_LEVEL_OFF=0
+APASH_LOG_LEVEL_FATAL=100
+APASH_LOG_LEVEL_ERROR=200
+APASH_LOG_LEVEL_WARN=300
+APASH_LOG_LEVEL_INFO=400
+APASH_LOG_LEVEL_DEBUG=500
+APASH_LOG_LEVEL_TRACE=600
+APASH_LOG_LEVEL_ALL="$Integer_MAX_VALUE"
+
+# Default valye. It displays WARNING and lower levels (ERROR/FATAL)
+APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-$APASH_LOG_LEVEL_WARN}"
+
+# To disable logs:
+APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF"
+```
+
+If you require to trace what is happening in Apash call, it looks recommended to increase the log level to trace instead of using "set -x". <br/>
+A trace has been put to each function entering and out in order to keep control on stack (potentially for @nnotations).<br/>
+```bash
+APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
+apash.import fr.hastec.apash.lang.Math.abs
+Math.abs -3
+
+# Result:
+# 2024-11-22T16:25:50.286+0100 [TRACE] Math.abs (2): In Math.abs '-3' 
+# 2024-11-22T16:25:50.309+0100 [TRACE] NumberUtils.isParsable (2): In NumberUtils.isParsable '-3' 
+# 2024-11-22T16:25:50.333+0100 [TRACE] NumberUtils.isParsable (6): Out
+# 3
+# 2024-11-22T16:25:50.357+0100 [TRACE] Math.abs (7): Out
+```
+Here its a simple example but the stack could become very verbose too.<br/>
+So a system of black/white list exist in order to select which log could be output.
+
+```bash
+APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.add
+ArrayUtils.add "myArray" Hello
+# Logs with ArrayUtils.nullToEmpty, BashUtils.isVariableNameValid, BashUtils.isDeclared...
+
+unset myArray
+APASH_LOG_BLACKLIST+="BashUtils.isVariableNameValid:BashUtils.isDeclared"
+ArrayUtils.add "myArray" Hello
+# Logs without BashUtils.isVariableNameValid and BashUtils.isDeclared are displayed.
+```
+
+You can combine the black list (checked first) with the white list to restrict a maximum logs.
+```bash
+unset myArray
+APASH_LOG_WHITELIST+="ArrayUtils.add:ArrayUtils.isArray"
+ArrayUtils.add "myArray" Hello
+# Only logs of function ArrayUtils.add ArrayUtils.isArray are displayed.
+```
+
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
+### Warnings logs appears
+Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
+In this case, another way is implemented but it notifies that the main way of work is not followed.<br/> 
+The degraded way could be less efficient (and could be different if you're working with bounds).<br/>
+So it is preferred to install the missing commands.<br/>
+Nevertheless, you can disabled these warnings by modifying the following variable (keep in mind you disabled it !!).
+```bash
+  export APASH_LOG_WARNING_DEGRADED="false"
+```
+The value can be modified in $APASH_HOME_DIR/.apashrc or directly in your environment.
+
+To check if some commands are missing (like with git bash), you can use the following command:
+```bash
+apash check
+2024-11-22T16:00:27.303+0100 [WARN] apash.check (34): **DEGRADED MODE** bc command not found.
+2024-11-22T16:00:27.324+0100 [WARN] apash.check (35): **DEGRADED MODE** rev command not found.
+```
+
+### Oh my Exception !
+By default, Apash return an exception log when something was unexpected.
+It can take this form:
+```bash
+unset myArray myOtherArray
+ArrayUtils.isSameLength myArray myOtherArray
+2024-11-22T16:06:44.909+0100 [ERROR] ArrayUtils.isSameLength (5): Exception
+  at ArrayUtils.isSameLength($APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ArrayUtils/isSameLength.sh:5)
+
+# <Timestamp with TZ> [Level] <Function> (<relative row>): Exception <Argument if any (nothing for the moment)>
+#   at <first function level>(<source path>:<relative row>)
+```
+The relative row corresponds to the row inside the function. Sorry but for the moment, there is no offset to get the absolute row.<br/>
+A trick is just to copy/paste the function in a blank source to have the correct offset.<br/>
+```bash
+1 ArrayUtils.isSameLength() {
+2  Log.in $LINENO "$@"
+3  local apash_inArrayName1="${1:-}"
+4  local apash_inArrayName2="${2:-}"
+5  ArrayUtils.isArray "$apash_inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }   # <--- The error.
+6  ArrayUtils.isArray "$apash_inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+```
+So the error has been raised because the first input was not an array.
+To get more traces, please refer to the [logs section](#logs).
+
 ### I have modified a library but it's not taken into account
 The "apash.import" manage which function should be sourced with its dependencies.
 It prevents cycling sourcing and useless re-sourcing (if already sourced).
@@ -428,17 +556,6 @@ docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.2.0 ./te
 ### Dates issues
 If you're playing with days around the daylight saving, you could have some troubles. Please refer to the [GNU core FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#The-date-command-is-not-working-right_002e).
 
-### Warnings appears
-Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
-In this case, another way is implemented but it notifies that the main way of work is not followed.<br/> 
-The degraded way could be less efficient (and could be different if you're working with bounds).<br/>
-So it is preferred to install the missing commands.<br/>
-Nevertheless, you can disabled these warnings by modifying the following variable (keep in mind you disabled it !!).
-```bash
-  export APASH_LOG_WARNING_DEGRADED="false"
-```
-The value can be modified in $APASH_HOME_DIR/.apashrc or directly in your environment.
- 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="maintenance" ></a> 🛠 Maintenance
@@ -463,6 +580,18 @@ basher upgrade hastec-fr/apash
 ```
 </details>
 
+<details>
+<summary>Bpkg</summary>
+The lastest version from main branch of github is pulled.
+```bash
+bpkg update hastec-fr/apash
+```
+#### <ins>Others</ins>
+```bash
+"$APASH_HOME_DIR/utils/uninstall.sh"
+```
+</details>
+
 ### Uninstall
 It removes recursively the directory $APASH_HOME_DIR and lines in startup script (.bashrc).
 #### <ins>By Script:</ins>
@@ -474,6 +603,19 @@ It removes recursively the directory $APASH_HOME_DIR and lines in startup script
 <summary>Basher</summary>
 ```bash
 basher uninstall "hastec-fr/apash"
+```
+
+Then remove the lines with #apashInstallTag from your profile.
+```bash
+# Example:
+sed -i '/apashInstallTag/d' "$HOME/.bashrc"
+```
+</details>
+
+<details>
+<summary>Bpgk</summary>
+```bash
+bpgk uninstall "hastec-fr/apash"
 ```
 
 Then remove the lines with #apashInstallTag from your profile.
