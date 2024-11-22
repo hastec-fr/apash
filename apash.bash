@@ -108,7 +108,7 @@ apashShowDockerHelp(){
   
   Images get the current APASH_HOME_DIR content as context.
   Images are named as following:
-  local/apash:<\$APASH_VERSION>-<shell>_<shell_version>
+  hastec/apash[-local]:<\$APASH_VERSION>-<shell>_<shell_version>
 
   Images are created on top of the following:
   bash: bash         (https://hub.docker.com/_/bash/)
@@ -346,13 +346,13 @@ apashExecuteDocker(){
     $APASH_DOCKER_SUDO docker build  \
       --build-arg "SHELL_VERSION=${APASH_DOCKER_SHELL_VERSION}"                             \
       --build-arg "APASH_LOCAL_COPY=true"                                                   \
-      -t "local/apash:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}" \
+      -t "hastec/apash-local:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}" \
       -f "$APASH_HOME_DIR/docker/apash-${APASH_DOCKER_SHELL}.dockerfile" "$APASH_HOME_DIR"
   fi
 
   # Run the container and provides arguments.
   if [ "$APASH_DOCKER_NO_RUN_FLAG" != "true" ]; then
-    $APASH_DOCKER_SUDO docker run -it --rm "local/apash:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
+    $APASH_DOCKER_SUDO docker run -it --rm "hastec/apash-local:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
   fi
 }
 
@@ -434,17 +434,17 @@ apashExecuteTest(){
   # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     if [ "$APASH_SHELL" = "zsh" ]; then
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else # bash
       # shellcheck disable=SC2086
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true APASH_LOG_WARNING_DEGRADED=false shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
     fi
   else
     if [ "$APASH_SHELL" = "zsh" ]; then
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else # bash
       # shellcheck disable=SC2086
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_LOG_WARNING_DEGRADED=false shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     fi
   fi
 }
@@ -715,7 +715,7 @@ apashParseTestArgs() {
 # LEVEL 3 - Sub action according to arguments ##################################
 # @name apashExecutePostInstall
 # @brief Add necessary instruction to startup script for apash usage.
-apashExecutePostInstall(){  
+apashExecutePostInstall(){
   local startup_script=""
   local apash_keyword="apashInstallTag"
   case "$APASH_SHELL" in

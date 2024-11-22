@@ -2,7 +2,7 @@ Describe 'DateUtils.addSeconds'
   apash.import "fr.hastec.apash.commons-lang.DateUtils.addSeconds"
   
   # Apply timezone for the tests
-  export TZ="Europe/Paris"
+  set TZ="Europe/Paris"
 
   It 'fails because format is not respected'
     When call DateUtils.addSeconds 

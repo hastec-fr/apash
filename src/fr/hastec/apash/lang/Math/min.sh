@@ -62,7 +62,7 @@ Math.min() {
       echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     fi
   else
-    # @WARNING: Degraded mode (bc command not found)
+    [ "$APASH_LOG_WARNING_DEGRADED" == "true" ] && Log.warn $LINENO "**DEGRADED MODE** bc command not found."
     if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 > inNum2)}'; then
       echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
     else

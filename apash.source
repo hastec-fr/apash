@@ -2,22 +2,9 @@
 
 ##############################################################################
 # @name apash.source
-# @brief Script preparing global variables used by apash. Should be sourced.
+# @brief Script preparing global variables and essential functions used by apash.
+# @description
+#   This script must be sourced.
 #
-
-# Declare the function return codes.
-export APASH_SUCCESS=0
-export APASH_FAILURE=1
-
-# Declare the bounds of the array indexes.
-export APASH_ARRAY_FIRST_INDEX=0
-export APASH_ARRAY_LAST_INDEX=9223372036854775807
-
-# Zsh start index at 1 and truncate values after 18 digits
-if [ "$APASH_SHELL" = "zsh" ]; then
-  [[ ! $(setopt) == *ksharrays* ]] && APASH_ARRAY_FIRST_INDEX=1
-  APASH_ARRAY_LAST_INDEX=999999999999999999
-fi
-
-# Import the apash.import function.
+source "$APASH_HOME_DIR/src/fr/hastec/apash.sh"
 source "$APASH_HOME_DIR/src/fr/hastec/apash.import"

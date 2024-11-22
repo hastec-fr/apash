@@ -2,20 +2,21 @@
 # Apash configurations
 
 # Dynamic configuration
-if [ -n "$ZSH_VERSION" ]; then
+if [ -n "${ZSH_VERSION:-}" ]; then
   export APASH_SHELL="zsh"
   export APASH_SHELL_VERSION="${ZSH_VERSION}"
-elif [ -n "$BASH_VERSION" ]; then
+elif [ -n "${BASH_VERSION:-}" ]; then
   export APASH_SHELL="bash"
   export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
 else
   echo "$(date +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
 fi
 
-export APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"               # $HOME/.apash
-export PATH="$PATH:$APASH_HOME_DIR"                                     # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
-export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"$APASH_LOG_LEVEL_ERROR"}"   # 300 - Must be after sourcing of apash.
-export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"         # true - Print the stack trace related to the error.
+export APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"                  # $HOME/.apash
+export PATH="$PATH:$APASH_HOME_DIR"                                        # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
+export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"300"}"                         # 300 - APASH_LOG_LEVEL_ERROR.
+export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"            # true - Print the stack trace related to the error.
+export APASH_LOG_WARNING_DEGRADED="${APASH_LOG_WARNING_DEGRADED:-"true"}"  # true - Warn that's not the preferred technical solution.
 
 # Log black/white list allow to filter which should trace or not.
 # Let it empty to disabled it, or add functions separated by : as the PATH: "StringUtils.leftPad:StringUtils.rightPad"
