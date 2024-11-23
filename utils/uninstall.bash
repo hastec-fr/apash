@@ -7,13 +7,28 @@ die() {
 }
 
 APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"
-[ -z "${APASH_HOME_DIR}" ] && die "apash home directory is empty."
+ABSOLUTE_PATH="$(realpath "$APASH_HOME_DIR")" || die "Apash home directory cannot be resolved."
+
+[ -z "${APASH_HOME_DIR}" ] && die "Apash home directory is empty."
 
 ## stop if apash is not installed
-[ -d "${APASH_HOME_DIR}" ] || die "apash doesn't seem to be installed on [${APASH_HOME_DIR}]."
+[ -d "${APASH_HOME_DIR}" ] || die "Apash doesn't seem to be installed on [${APASH_HOME_DIR}]."
+
+## Double check if the directory is not the home one.
+if [ "$ABSOLUTE_PATH" != "$HOME/.apash" ]; then
+  APASH_CONFIRM=""
+  echo "Apash is not installed at the default location."
+  read -r -p "Are you sure you want to delete '$ABSOLUTE_PATH'? [y/N]: " APASH_CONFIRM
+  if [ "$APASH_CONFIRM" != "y" ] && [ "$APASH_CONFIRM" != "Y" ]; then
+    echo "Uninstall aborted."
+    exit 1
+  fi
+fi
+
+## Remove the directory.
 echo ". Remove apash code"
 if [ -d "${APASH_HOME_DIR}" ]; then
-  rm -fr "${APASH_HOME_DIR}" || die "apash cannot be removed [${APASH_HOME_DIR}]."
+  rm -fr "${APASH_HOME_DIR}" || die "Apash cannot be removed [${APASH_HOME_DIR}]."
 fi
 
 ## Now check what shell is running.
@@ -52,4 +67,4 @@ else
 fi
 
 ## script is finished
-echo "apash is uninstalled"
+echo "Apash is uninstalled."
