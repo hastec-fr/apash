@@ -14,15 +14,17 @@ LABEL maintainer="Benjamin Vargin"
 # Dependencies:
 # - curl:      download apash installer
 # - git:       download apash
-# - shadow:    Initially for chsh (no more used @todo check if it can be removed).
 # - coreutils: The alpine date does not accept UTC time format. This package bring it.
 RUN apk update && \
-    apk add --no-cache curl git shadow coreutils tzdata
+    apk add --no-cache curl git coreutils tzdata
+
+RUN apk add vim
 
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
 
-# RUN apt install -y vim
+# Install Shellspec as apash user
+RUN su -c "sh -c 'curl -fsSL https://git.io/shellspec | sh -s -- --yes'" apash
 
 # Change directly the user rights to apash user
 COPY "." "/home/apash/.apash"
@@ -43,9 +45,6 @@ export PATH="\$PATH:$HOME/.local/bin"            ##apashInstallTag
 . "\$HOME/.apash/.apashrc"                       ##apashInstallTag
 . "\$APASH_HOME_DIR/apash.source"                ##apashInstallTag
 EOF
-
-# Install Shellspec
-RUN curl -fsSL https://git.io/shellspec | sh -s -- --yes
 
 # Force environment file
 # @see: https://stackoverflow.com/q/29021704

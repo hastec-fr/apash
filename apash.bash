@@ -58,14 +58,13 @@ apashShowHelp(){
 
       help              Display information about a method.
 
-      source            Source the apash root script for current shell.
-                        Take care that this current script is sourced too.
+      source            Source the apash.source root script for current shell.
       
       test              Execute the set of unitary tests.
 
   GETTING STARTED:
-    First, source apash by using the source action or not passing any args:
-        $ . apash       # Symbol "$" is the prompt and dot is important !
+    First, source apash by using the source main script or not passing any args:    
+        $ . \$APASH_HOME_DIR/apash.source       # "$" is the prompt
     
     Thereafter, libraries can be imported and used as following:
         $ apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
@@ -100,8 +99,8 @@ apashShowDockerHelp(){
   cat << EOF
   Usage: ${0##*/} docker [-h] [-b|--build] [-s shell] [-v version]
 
-  Create and run container for a specific shell or version.
-  By default, it build the image if does not exist.
+  Create and run a container for a specific shell or version.
+  By default, it builds the image before run.
   
       -h|--help|-?      Display this help and exit.
       -nb|--no-build    No build of the image.
@@ -109,7 +108,7 @@ apashShowDockerHelp(){
       -s|--shell        Shell name of the image (bash|zsh).
       -v|--version      Version of the shell image.
   
-  Images get the current APASH_HOME_DIR content as context.
+  Images get the current \$APASH_HOME_DIR content as context.
   Images are named as following:
   hastec/apash[-local]:<\$APASH_VERSION>-<shell>_<shell_version>
 
@@ -135,7 +134,7 @@ apashShowHelpHelp(){
       -h|--help|-?      Display this help and exit.
   
   First it check that argument is a file, otherwise
-  it tries to find it in \$APASH_HOME_DIR.
+  it tries to find it in \$APASH_HOME_DIR/src.
   
   Example:
   $ apash help ./src/fr/hastec/apash/util/Math/abs.sh
@@ -154,8 +153,11 @@ apashShowInitHelp(){
 
   Example:
   $ apash init --post-install
-  Lines added to the startup up script (like \$HOME/.bashrc) with tag apashInstallTag   
+  Lines added to the startup up script (like \$HOME/.bashrc) with tags:
+    #apashInstallTag
+
   Open another terminal again to ensure that environment is well loaded.
+
 EOF
 }
 
@@ -165,7 +167,7 @@ apashShowSourceHelp(){
 
   Source the script with essential apash variables (apash.source).
   
-      -h|--help|-?      display this help and exit.
+      -h|--help|-?      Display this help and exit.
 
 EOF
 }
@@ -177,7 +179,7 @@ apashShowMinifyHelp(){
   Minify all scripts into a single file ready to source.
   All apash.imports are removed.
 
-      -h|--help|-?      display this help and exit.
+      -h|--help|-?      Display this help and exit.
 
 EOF
 }
@@ -188,8 +190,8 @@ apashShowTestHelp(){
 
   Execute unitary tests contained in the test directory.
   
-      -h|--help|-?      display this help and exit.
-      --test-options    options in a single argument for shellspec.
+      -h|--help|-?      Display this help and exit.
+      --test-options    Options in a single argument for shellspec.
       --minified|-mn    Use minified version of apash.
       --compatibility   Launch the campaign of test to generate the
                         compatibility matrix.

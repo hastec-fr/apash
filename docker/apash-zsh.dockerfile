@@ -48,7 +48,7 @@ export PS1="apash:zsh-\${ZSH_VERSION} \$ " ##apashInstallTag
 export LANG=C.UTF-8                        ##apashInstallTag
 export LC_ALL=C.UTF-8                      ##apashInstallTag
 export PATH="\$PATH:$HOME/.local/bin"      ##apashInstallTag
-. "$HOME/.apash/.apashrc"                  ##apashInstallTag
+. "\$HOME/.apash/.apashrc"                 ##apashInstallTag
 . "\$APASH_HOME_DIR/apash.source"          ##apashInstallTag
 EOF
 

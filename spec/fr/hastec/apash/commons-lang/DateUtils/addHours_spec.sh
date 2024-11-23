@@ -2,7 +2,7 @@ Describe 'DateUtils.addHours'
   apash.import "fr.hastec.apash.commons-lang.DateUtils.addHours"
   
   # Apply timezone for the tests
-  set TZ="Europe/Paris"
+  [  -n "${MSYSTEM:-}" ] && set TZ="Europe/Paris" || export TZ="Europe/Paris"
 
   It 'fails because format is not respected'
     When call DateUtils.addHours 

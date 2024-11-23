@@ -47,7 +47,7 @@ ApashUtils.doc() {
   [ ! -r "$inFile" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   comments="$(sed -n -e '/^\s*##\//,/^\s*#\//p' "$inFile" | sed -n -e 's/^\s*##\?\/\?//p')"
-  comments="$(echo "$comments" | awk '
+  comments="$(echo -E "$comments" | awk '
     BEGIN { blockCodeFlag = 0 }
 
     # Flag management.
@@ -90,6 +90,7 @@ ApashUtils.doc() {
     { print $0; exitCodeFlag=0  }
   ')" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  echo "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  # Prevent interpretation of special characters in zsh (-E)
+  echo -E "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }
