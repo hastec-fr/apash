@@ -161,7 +161,7 @@ apash.doc() {
 
   # Generate individuals scripts documents
   APASH_DOC_HEADER="$APASH_DOC_HEADER" APASH_DOC_FOOTER="$APASH_DOC_FOOTER" \
-  find "$APASH_HOME_DIR/src/fr" -type f -name "*.sh" -exec bash -c '
+  find "$APASH_HOME_DIR/src/fr" -type f -name "*.sh" -exec $APASH_SHELL -c '
     file_path="$(dirname "${1:-}")"
     file_name="$(basename "${1:-}")"
     doc_path="$(echo $file_path | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/doc|1")"
