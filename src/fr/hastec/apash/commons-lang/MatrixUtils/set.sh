@@ -57,11 +57,11 @@ MatrixUtils.set() {
     # ${(P)apash_matrixName}[$apash_cellIndex]="$apash_value" && return "$APASH_SUCCESS"
     local -a matrix=()
     ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    matrix[$apash_cellIndex]="$apash_value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    matrix[apash_cellIndex]="$apash_value"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     local -n matrix="$apash_matrixName"
-    matrix[$apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    matrix[apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   fi
   
   Log.out $LINENO; return "$APASH_FAILURE"

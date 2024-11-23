@@ -170,6 +170,7 @@ apash.doc() {
     mkdir -p "$doc_path"
     echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|$root_relative_dir/assets/apash-logo.svg|1" > "$doc_path/$doc_name"
     echo >> "$doc_path/$doc_name"
+    . "$APASH_HOME_DIR/apash.source"
     apash.import fr.hastec.apash.commons-lang.ApashUtils.doc
     ApashUtils.doc "$file_path/$file_name" >> "$doc_path/$doc_name"
     echo "$APASH_DOC_FOOTER" >> "$doc_path/$doc_name"
