@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+
 # Inspired from basherpm install: https://github.com/basherpm/basher/blob/master/install.sh
 set -e
 
@@ -47,10 +49,14 @@ apash_keyword="apashInstallTag"
 echo ". Add apash initialisation to [$startup_script]"
 (
   echo ". \"\$HOME/.apash/.apashrc\"         ##$apash_keyword"
-  echo ". \"\$APASH_HOME_DIR/apash\" source  ##$apash_keyword"
+  echo ". \"\$APASH_HOME_DIR/apash.source\"  ##$apash_keyword"
 ) >>"$startup_script"
 
+# Onfly environment initialisation
+. "$HOME/.apash/.apashrc"
+. "$APASH_HOME_DIR/apash.source"
+
 ## Script is finished.
-echo "Apash is installed - OPEN A NEW terminal window to start using it:"
+echo "Apash is installed - Let's test:"
 echo "apash.import fr.hastec.apash.commons-lang.StringUtils.upperCase"
 echo "StringUtils.upperCase \"Do or Do not. There is no try.\""
