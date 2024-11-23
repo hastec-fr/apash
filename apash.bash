@@ -431,8 +431,9 @@ apashExecuteMinify(){
 apashExecuteSource(){
   apashParseSourceArgs "$@" || return
 
-  # shellcheck disable=SC1091
-  . "$APASH_HOME_DIR/src/fr/hastec/apash.sh"
+  # @todo: Find why shellcheck does not follow paths.
+  # shellcheck source=/dev/null
+  . "$APASH_HOME_DIR/apash.source"
 }
 
 apashExecuteTest(){  
@@ -445,9 +446,11 @@ apashExecuteTest(){
   [ $# -eq 0 ] && APASH_TEST_FILES=("$APASH_HOME_DIR/spec/")
   
   # @todo: Find a more elegant way to inject arguments (protected by zsh).
+  # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
   # Split word intentionnaly the shellspec options.
   if [ "$APASH_TEST_MINIFIED" = "true" ]; then
     if [ "$APASH_SHELL" = "zsh" ]; then
+      # shellcheck disable=all
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else # bash
       # shellcheck disable=SC2086
@@ -455,6 +458,7 @@ apashExecuteTest(){
     fi
   else
     if [ "$APASH_SHELL" = "zsh" ]; then
+      # shellcheck disable=all
       APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
     else # bash
       # shellcheck disable=SC2086
@@ -564,10 +568,6 @@ apashParseDockerArgs() {
       -h|-\?|--help)
         apashShowDockerHelp
         return $APASH_FAILURE
-        ;;
-
-      -nc|--no-cache)
-        APASH_DOCKER_NO_CACHE="--no-cache"
         ;;
 
       -nb|--no-build)
@@ -683,10 +683,6 @@ apashParseSourceArgs() {
         return $APASH_EXIT_REQUIRED
         ;;
 
-      -a|--all)
-        APASH_SOURCE_ALL=true
-        ;;
-
       # End of all options.
       --)             
         shift
@@ -772,7 +768,8 @@ apashExecutePostInstall(){
 
   if ! grep -q "$apash_keyword" "$startup_script" ; then
     (
-      echo ". \"\$APASH_HOME_DIR/.apashrc\"            ##$apash_keyword"
+      echo ". \"${APASH_HOME_DIR:-"\$HOME/.apash"}/.apashrc\"  ##$apash_keyword"
+      echo ". \"\$APASH_HOME_DIR/apash.source\"                ##$apash_keyword"
     ) >> "$startup_script"
   else
     echo "The apash install tags are already present in $startup_script."
@@ -793,6 +790,7 @@ apashBashMain() {
   local APASH_FAILURE=1
 
   # Zsh requires to re-declare functions when subprocesses are called.
+  # shellcheck source=/dev/null
   typeset -f "apash.import" > /dev/null || source "$APASH_HOME_DIR/src/fr/hastec/apash.import"
   apashExecuteCommand "$@"
 }

@@ -15,8 +15,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
 # | $2     | apash_inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 #

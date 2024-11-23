@@ -50,6 +50,7 @@ apash_main(){
       return 1
     fi
 
+    # shellcheck source=/dev/null
     . "$APASH_HOME_DIR/apash.source"
   else
     # Execute the corresponding script with correct shebang.

@@ -18,20 +18,15 @@ git version >/dev/null 2>&1 || die "git is not installed on this machine"
 echo ". Download apash code to $HOME/.apash"
 
 # Add capability to point on a desired git revision.
-if [ -n "$APASH_INSTALL_VERSION" ]; then
-  git clone -b "$APASH_INSTALL_VERSION" https://github.com/hastec-fr/apash.git "$HOME/.apash" 2> /dev/null
-else
-  git clone https://github.com/hastec-fr/apash.git "$HOME/.apash" 2> /dev/null
-fi
+git clone -b "${APASH_INSTALL_VERSION:-"main"}" https://github.com/hastec-fr/apash.git "$HOME/.apash" 2> /dev/null
 
 ## Now check what shell is running.
-if [ -n "$BASH_VERSION" ]; then    
+if [ -n "$BASH_VERSION" ]; then
   shell_type="bash"
-  shell_version="$BASH_VERSION"
 elif [ -n "$ZSH_VERSION" ]; then
   shell_type="zsh"
-  shell_version="$ZSH_VERSION"
 fi
+
 echo ". Detected shell type: $shell_type"
 case "$shell_type" in
 bash)  startup_script="$HOME/.bashrc" ;;
@@ -42,7 +37,7 @@ esac
 ## Startup script should exist already, if not then remove new cloned directory.
 if [[ -n "$startup_script" && ! -f "$startup_script" ]]; then
   rm -r "$HOME/.apash"
-  die "startup script [$startup_script] does not exist"
+  die "Startup script [$startup_script] does not exist. Installation cancelled."
 fi
 
 ## Apash_keyword will allow us to remove the lines upon uninstall.
