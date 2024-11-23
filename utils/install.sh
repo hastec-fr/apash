@@ -52,11 +52,7 @@ echo ". Add apash initialisation to [$startup_script]"
   echo ". \"\$APASH_HOME_DIR/apash.source\"  ##$apash_keyword"
 ) >>"$startup_script"
 
-# Onfly environment initialisation
-. "$HOME/.apash/.apashrc"
-. "$APASH_HOME_DIR/apash.source"
-
 ## Script is finished.
-echo "Apash is installed - Let's test:"
+echo "Apash is installed - OPEN A NEW terminal window to start using it:"
 echo "apash.import fr.hastec.apash.commons-lang.StringUtils.upperCase"
 echo "StringUtils.upperCase \"Do or Do not. There is no try.\""

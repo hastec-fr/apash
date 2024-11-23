@@ -6,11 +6,14 @@ die() {
   exit 1
 }
 
+APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"
+[ -z "${APASH_HOME_DIR}" ] && die "apash home directory is empty."
+
 ## stop if apash is not installed
-[[ -d "$HOME/.apash" ]] || die "apash doesn't seem to be installed on [$HOME/.apash]"
+[ -d "${APASH_HOME_DIR}" ] || die "apash doesn't seem to be installed on [${APASH_HOME_DIR}]."
 echo ". Remove apash code"
-if [ -d "$HOME/.apash" ]; then
-  rm -fr "$HOME/.apash" || die "apash cannot be removed [$HOME/.apash]"
+if [ -d "${APASH_HOME_DIR}" ]; then
+  rm -fr "${APASH_HOME_DIR}" || die "apash cannot be removed [${APASH_HOME_DIR}]."
 fi
 
 ## now check what shell is running
@@ -23,7 +26,7 @@ sh)    startup_script="$HOME/.profile";;
 esac
 
 ## startup script should exist already
-[[ -n "$startup_script" && ! -f "$startup_script" ]] && die "startup script [$startup_script] does not exist"
+[ -n "$startup_script" ] && [ ! -f "$startup_script" ] && die "startup script [$startup_script] does not exist."
 
 ## apash_keyword will allow us to remove the lines upon uninstall
 apash_keyword="apashInstallTag"
