@@ -24,7 +24,7 @@ Checks if an array exist and has at least one element.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            | The array to check.                  |
+ | $1     | apash_inArrayName    | ref(string[]) | in       |            | The array to check.                  |
 
 ### Example
  ```bash

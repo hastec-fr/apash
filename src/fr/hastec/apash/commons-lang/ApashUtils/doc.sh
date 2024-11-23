@@ -77,7 +77,7 @@ ApashUtils.doc() {
     exitCodeFlag && /^\s*@exitcode\s+/ {
       $1=""; gsub(/^\s+/, "");
       if ($0 != "") {
-        printf "  * **${1:-}**: ";
+        printf "  * **"$1"**: ";
         $1=""; gsub(/^\s+/, "");
         print $0;
       }

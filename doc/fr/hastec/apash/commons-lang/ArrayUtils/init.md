@@ -9,7 +9,7 @@
 
 
 # ArrayUtils.init
-Defensive programming technique initialize an array.
+Defensive programming technique to initialize an array.
 ## Description
    The array is created if the variable is not declared.
    If it was an array, then reinitialize it.
@@ -26,9 +26,9 @@ Defensive programming technique initialize an array.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | ref_ArrayUtils_init_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
+ | #      | varName                              | Type          | in/out   | Default    | Description                          |
+ |--------|--------------------------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_ArrayUtils_init_ioArrayName    | ref(string[]) | in       |            | Name of the array to initialize.     |
 
 ### Example
  ```bash

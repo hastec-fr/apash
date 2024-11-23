@@ -25,11 +25,11 @@ Finds the first index of the given value in the array starting at the given inde
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
- | $2     | inValue        | string        | in       |            | Value to find.                       |
- | $3 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+ | $2     | apash_inValue        | string        | in       |            | Value to find.                       |
+ | $3 ?   | apash_inStart        | number        | in       | 0          | The index to start searching at.     |
 
 ### Example
  ```bash

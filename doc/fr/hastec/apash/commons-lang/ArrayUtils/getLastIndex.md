@@ -24,9 +24,9 @@ Return the last index of the given array.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
 ### Example
  ```bash

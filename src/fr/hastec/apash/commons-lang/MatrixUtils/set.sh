@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 ##/
 # @name MatrixUtils.create
-# @brief Set the apash_value of a cell according to the dimensions of the matrix.
+# @brief Set the value of a cell according to the dimensions of the matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #    Note that index in matrix start from 0 (even in zsh).
@@ -20,11 +20,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default         | Description                          |
-# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
-# | $2     | apash_value          | string        | in       |                 | The new apash_value.                       |
-# | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | #      | varName          | Type          | in/out   | Default         | Description                          |
+# |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | $2     | apash_value      | string        | in       |                 | The new value.                       |
+# | ${@:3} | $@               | number...     | in       |                 | Indexes per dimension.               |
 #
 # ### Example
 # ```bash

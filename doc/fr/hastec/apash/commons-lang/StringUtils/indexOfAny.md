@@ -24,7 +24,7 @@ Search a string to find the first index of any character in the given set of cha
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
- | $1     | inString       | string        | in       |            | The string to check.                  |
+ | $1     | apash_inString | string        | in       |            | The string to check.                  |
 
 ### Example
  ```bash

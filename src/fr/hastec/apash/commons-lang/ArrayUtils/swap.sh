@@ -24,32 +24,32 @@ apash.import fr.hastec.apash.lang.Math.min
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default         | Description                          |
 # |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | apash_ioArrayName    | ref(string[]) | out      |                 | Name of the array to apash_swap.           |
-# | $2     | apash_inStartIndex   | number        | in       |                 | The index of the first element in the series to apash_swap   |
-# | $3     | apash_inEndIndex     | number        | in       |                 | The index of the second element in the series to apash_swap  |
-# | $4     | apash_inLen          | number        | in       | 1               | The number of elements to apash_swap starting with the given indices. |
+# | $1     | apash_ioArrayName    | ref(string[]) | out      |                 | Name of the array to swap.           |
+# | $2     | apash_inStartIndex   | number        | in       |                 | The index of the first element in the series to swap   |
+# | $3     | apash_inEndIndex     | number        | in       |                 | The index of the second element in the series to swap  |
+# | $4     | apash_inLen          | number        | in       | 1               | The number of elements to swap starting with the given indices. |
 #
 # ### Example
 # ```bash
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.apash_swap    "myArray"                 # failure
-#    ArrayUtils.apash_swap    "myArray"  "2"            # failure
-#    ArrayUtils.apash_swap    "myArray"  "0" "2"        # ("c" "b" "a" "d")
+#    ArrayUtils.swap    "myArray"                 # failure
+#    ArrayUtils.swap    "myArray"  "2"            # failure
+#    ArrayUtils.swap    "myArray"  "0" "2"        # ("c" "b" "a" "d")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.apash_swap    "myArray"  "0" "2" "1"    # ("c" "b" "a" "d")
+#    ArrayUtils.swap    "myArray"  "0" "2" "1"    # ("c" "b" "a" "d")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.apash_swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b")
+#    ArrayUtils.swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b")
 #
 #    myArray=("a" "b" "c" "d")
-#    ArrayUtils.apash_swap    "myArray"  "0" "2" "0"    # ("a" "b" "c" "d")
+#    ArrayUtils.swap    "myArray"  "0" "2" "0"    # ("a" "b" "c" "d")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.apash_swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b" "e")
+#    ArrayUtils.swap    "myArray"  "0" "2" "2"    # ("c" "d" "a" "b" "e")
 #
 #    myArray=("a" "b" "c" "d" "e")
-#    ArrayUtils.apash_swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
+#    ArrayUtils.swap    "myArray"  "1" "3"  "3"   # ("a" "d" "e" "b" "c")
 # ```
 #
 # @stdout None.

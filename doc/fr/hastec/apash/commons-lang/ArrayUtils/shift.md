@@ -26,10 +26,10 @@ Shifts the order of a series of elements in the given array.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
- | $2 ?   | inOffset       | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
- | $3 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
- | $4 ?   | inEndIndex     | number        | in       | lastIndex+1     |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+ | $1     | apash_ioArrayName    | ref(string[]) | in       |                 |  Name of the array to shift.         |
+ | $2 ?   | apash_inOffset       | number        | in       | 0               |  The number of positions to rotate the elements. If the offset is larger than the number of elements to rotate, than the effective offset is modulo the number of elements to rotate. |
+ | $3 ?   | apash_inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+ | $4 ?   | apash_inEndIndex     | number        | in       | apash_lastIndex+1     |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 
 ### Example
  ```bash

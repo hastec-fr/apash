@@ -22,11 +22,11 @@ Gets the nTh element of an array or a default value if the index is out of bound
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
- | $2     | inIndex        | string        | in       |            | Index of the array.                  |
- | $3?    | inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_inArrayName    | ref(string[]) | in       |            |  Name of the array to get value.     |
+ | $2     | apash_inIndex        | string        | in       |            | Index of the array.                  |
+ | $3?    | apash_inDefaultValue | string        | in       | ""         | Default value if index is out of bounds. |
 
 ### Example
  ```bash
@@ -46,7 +46,7 @@ Gets the nTh element of an array or a default value if the index is out of bound
   * None.
 
 ### Exit codes
-  * **0**: When first argument is an array and the index is in the bound of the array without declared default value.
+  * **0**: When first argument is an array and the index is in the bound of the array without declaring a default value.
   * **1**: Otherwise.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

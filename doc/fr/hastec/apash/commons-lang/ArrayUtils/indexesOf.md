@@ -25,12 +25,12 @@ Finds the indices of the given value in the array starting at the given index.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | outArrayName   | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
- | $2     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
- | $3     | inValue        | string        | in       |            | Value to find.                       |
- | $4 ?   | inStart        | number        | in       | 0          | The index to start searching at.     |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | outArrayName         | ref(string[]) | out      |            | Name of the output array storing result indexes.    |
+ | $2     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+ | $3     | apash_inValue        | string        | in       |            | Value to find.                       |
+ | $4 ?   | apash_inStart        | number        | in       | 0          | The index to start searching at.     |
 
 
 ### Example

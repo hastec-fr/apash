@@ -25,11 +25,11 @@ Set the value of a cell according to the dimensions of the matrix.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default         | Description                          |
- |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
- | $2     | value          | string        | in       |                 | The new value.                       |
- | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
+ | #      | varName          | Type          | in/out   | Default         | Description                          |
+ |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | $2     | apash_value      | string        | in       |                 | The new value.                       |
+ | ${@:3} | $@               | number...     | in       |                 | Indexes per dimension.               |
 
 ### Example
  ```bash

@@ -40,8 +40,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
 # @exitcode 0 When input array reference exists.
 # @exitcode 1 Otherwise.
 #
-# @see [ArrayUtils.getLastIndex](./getLastIndex.md)
-# @see [ArrayUtils.getLength](./getLength.md)
+# @see 
+# * [ArrayUtils.getLastIndex](./getLastIndex.md)
+# * [ArrayUtils.getLength](./getLength.md)
 #/
 ArrayUtils.getNumberOfElements() {
   Log.in $LINENO "$@"

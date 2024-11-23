@@ -9,7 +9,7 @@
 
 
 # ArrayUtils.countMatches
-Return the number of cells having the given value.
+Return the number of elements having the given value.
 
 ## History
 ### Since
@@ -37,7 +37,7 @@ Return the number of cells having the given value.
  ```
 
 ### Stdout
-  * The number of cells having the given value.
+  * The number of elements having the given value.
 ### Stderr
   * None.
 

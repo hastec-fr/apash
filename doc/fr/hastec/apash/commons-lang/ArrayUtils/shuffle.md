@@ -24,7 +24,7 @@ Randomly permutes the elements of the specified array randomness.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
+ | $1     | apash_ioArrayName    | ref(string[]) | in & out |                 |  Name of the array to shuffle.       |
 
 ### Example
  ```bash

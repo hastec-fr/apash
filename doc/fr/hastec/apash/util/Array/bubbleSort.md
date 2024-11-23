@@ -26,7 +26,7 @@ Sorts the specified array into alphanumerical order with the bubble sort style.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
+ | $1     | apash_inArrayName    | ref(string[]) | in & out |            | The array to sort.                    |
 
 ### Example
  ```bash

@@ -11,7 +11,7 @@
 # ArrayUtils.getNumberOfElements
 Returns the number of elements in the arrays.
 ## Description
-   This number correspond to the lenght in zsh and could be different in bash
+   This number correspond to the lenght in zsh and could be different in bash.
    due to the discontinued indexes.
 
 ## History
@@ -25,9 +25,9 @@ Returns the number of elements in the arrays.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to get length.     |
+ | #      | varName            | Type          | in/out   | Default    | Description                          |
+ |--------|--------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_inArrayName  | ref(string[]) | in       |            | Name of the array to get length.     |
 
 ### Example
  ```bash
@@ -51,7 +51,8 @@ Returns the number of elements in the arrays.
   * **1**: Otherwise.
 
 ### See also
-  * [ArrayUtils.getLastIndex](./getLastIndex.md)
+ * [ArrayUtils.getLastIndex](./getLastIndex.md)
+ * [ArrayUtils.getLength](./getLength.md)
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

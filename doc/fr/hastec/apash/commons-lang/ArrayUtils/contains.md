@@ -17,7 +17,6 @@ Checks if the value is in the given array.
 ### Since
   * 0.1.0 (hastec-fr)
 
-
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
@@ -32,18 +31,12 @@ Checks if the value is in the given array.
 
 ### Example
  ```bash
-    ArrayUtils.contains  ""       ""            # false
-    ArrayUtils.contains  "myVar"  "a"           # false
-
-    declare -A myMap
-    ArrayUtils.contains  "myMap"  "a"           # false
-
     myArray=("a" "b" "" "c")
-    ArrayUtils.contains  "myArray"              # false
-    ArrayUtils.contains  "myArray"  "d"         # false
-    ArrayUtils.contains  "myArray"  ""          # true
-    ArrayUtils.contains  "myArray"  "b"         # true
-    ArrayUtils.contains  "myArray"  "a b"       # false
+    ArrayUtils.contains  "myArray"          # false
+    ArrayUtils.contains  "myArray"  "d"     # false
+    ArrayUtils.contains  "myArray"  ""      # true
+    ArrayUtils.contains  "myArray"  "b"     # true
+    ArrayUtils.contains  "myArray"  "a b"   # false
  ```
 
 ### Stdout

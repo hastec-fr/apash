@@ -32,13 +32,13 @@ Splits the provided text into an array according to the multiple inputs strings.
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
  | $1     | outArrayName   | string[]      | out      |            | The result array which will contains tokens.     |
- | $2     | inString       | string        | in       |            | The string to split.                             |
- | $3     | inDelimiters   | string...     | in       | " "        | The delimiter (can be a sequence of characters). |
+ | $2     | apash_inString       | string        | in       |            | The string to split.                             |
+ | $3     | apash_inDelimiters   | string...     | in       | " "        | The delimiter (can be a sequence of characters). |
 
 ### Example
  ```bash
-    StringUtils.split myArray "ab:c,d:e,f" ":" ","           # ["ab", c, d, e, f ]
-    StringUtils.split myArray ":,:ab::c,d:::e,f:,:" ":" ","  # ["ab", c, d, e, f ]
+    StringUtils.split myArray "ab:c,apash_d:e,f" ":" ","           # ["ab", c, apash_d, e, f ]
+    StringUtils.split myArray ":,:ab::c,apash_d:::e,f:,:" ":" ","  # ["ab", c, apash_d, e, f ]
     StringUtils.split myArray $'ab\n\ncd\nef' $'\n'          # ["ab", "cd", "ef"]
     StringUtils.split myArray "abab::cd:ab:ef::ab" "ab"      # ["::cd:", ":ef::"]
  ```

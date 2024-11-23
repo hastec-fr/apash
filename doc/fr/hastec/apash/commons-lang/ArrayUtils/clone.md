@@ -31,25 +31,25 @@ Copy an array into another array using references.
 
 ### Example
  ```bash
-    ArrayUtils.clone  ""       ""               # failure
+    ArrayUtils.clone ""       ""            # failure
 
     myVar="dummy"
-    ArrayUtils.clone  "myVar"  "myClone"        # failure
+    ArrayUtils.clone "myVar"  "myClone"     # failure
 
     declare -A myMap
-    ArrayUtils.clone  "myMap"  "myClone"        # failure
+    ArrayUtils.clone "myMap"  "myClone"     # failure
 
     myArray=()
     myClone=("a")
-    ArrayUtils.clone     "myArray"  "myClone"   # myClone=()
+    ArrayUtils.clone "myArray"  "myClone"   # myClone=()
     
     myArray=("a" "b" "" "c")
     myClone=("d" "e" "f")
-    ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
+    ArrayUtils.clone "myArray"  "myClone"   # myClone=("a" "b" "" "c")
 
     myArray=("a" "b" "" "c")
     myClone=()
-    ArrayUtils.clone     "myArray"  "myClone"   # myClone=("a" "b" "" "c")
+    ArrayUtils.clone "myArray"  "myClone"   # myClone=("a" "b" "" "c")
  ```
 
 ### Stdout

@@ -22,10 +22,10 @@ Checks whether two arrays are the same length, return false if it's not an array
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
- | $2     | inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_inArrayName1   | ref(string[]) | in       |            | The first array to compare.          |
+ | $2     | apash_inArrayName2   | ref(string[]) | in       |            | The second array to compare.         |
 
 ### Example
  ```bash

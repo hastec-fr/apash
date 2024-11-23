@@ -24,7 +24,7 @@ This method checks whether the provided array is sorted according to natural ord
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
+ | $1     | apash_inArrayName    | ref(string[]) | in       |            | Name of the array to check.          |
 
 ### Example
  ```bash

@@ -9,9 +9,9 @@
 
 
 # ApashUtils.doc
-Generate a Markdown file according to comments of the input file.
+Generate a markdown file(.md) according to comments of the input file.
 ## Description
-   Markdown is generated according to comment sections between tags: "##/" and "#/".<br/>
+   Markdown is generated according to comments between tags: "##/" and "#/".<br/>
    For multi lines, all # in the middle will be considered in the current documentation.
    ```bash
    ##/
@@ -47,7 +47,7 @@ Generate a Markdown file according to comments of the input file.
 
 ### Exit codes
   * **0**: When markdown is displayed.
-  * **1**: When the file does not exists.
+  * **1**: When the file does not exist.
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

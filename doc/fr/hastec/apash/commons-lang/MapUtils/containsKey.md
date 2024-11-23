@@ -24,8 +24,8 @@ Check if the input value is present in the input map.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
- | $1     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
- | $2     | inKey          | string        | in       |            | Key to check.                         |
+ | $1     | apash_inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
+ | $2     | apash_inKey          | string        | in       |            | Key to check.                         |
 
 ### Example
  ```bash

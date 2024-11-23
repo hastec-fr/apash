@@ -26,10 +26,10 @@ Removes the occurrences of the specified element from the specified array.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
- | $2     | inValue        | string        | in       |            |  The value to remove from the array. |
+ | #      | varName                           | Type          | in/out   | Default    | Description                          |
+ |--------|-----------------------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_ArrayUtils_rao_ioArrayName  | ref(string[]) | in       |            |  Name of the array to modify.        |
+ | $2     | apash_inValue                     | string        | in       |            |  The value to remove from the array. |
 
 ### Example
  ```bash

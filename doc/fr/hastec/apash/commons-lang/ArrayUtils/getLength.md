@@ -11,10 +11,10 @@
 # ArrayUtils.getLength
 Returns the length of the specified array.
 ## Description
-   Take care that the length of an array does not correspond to its last index.
-   Array indexes are set to Long_MAX_VALUE (9223372036854775807).
-   Setting this value does not mean that the length is 9223372036854775807.
-   If you need the last index, prefer the usage of ArrayUtils.getLastIndex.
+   Take care that the length of an array does not correspond $#.
+   Indeed, $# return the number of element in an array.
+   It's possible like in bash to have discontinued indexes.
+   Array indexes should be less than APASH_ARRAY_LAST_INDEX (limit depending of the shell).
 
 ## History
 ### Since
@@ -54,6 +54,8 @@ Returns the length of the specified array.
 
 ### See also
   * [ArrayUtils.getLastIndex](./getLastIndex.md)
+### See also
+  * [ArrayUtils.getNumberOfElements](./getNumberOfElements.md)
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>
 

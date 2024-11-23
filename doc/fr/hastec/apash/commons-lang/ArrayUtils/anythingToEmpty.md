@@ -11,7 +11,7 @@
 # ArrayUtils.anythingToEmpty
 Create an array even if the variable named was already declared.
 ## Description
-   The reference is transformed in any case in an empty array (even if it's a map or a variable).
+   The reference is transformed in any cases to an empty array (even if it's a map or a variable).
    Existing arrays are reinitialized.
 
 ## History
@@ -25,9 +25,9 @@ Create an array even if the variable named was already declared.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default    | Description                          |
- |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
+ | #      | varName              | Type          | in/out   | Default    | Description                          |
+ |--------|----------------------|---------------|----------|------------|--------------------------------------|
+ | $1     | apash_ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
 
 ### Example
  ```bash

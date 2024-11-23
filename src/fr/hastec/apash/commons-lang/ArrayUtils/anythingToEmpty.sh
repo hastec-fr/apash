@@ -20,8 +20,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                          |
-# |--------|----------------|---------------|----------|------------|--------------------------------------|
+# | #      | varName              | Type          | in/out   | Default    | Description                          |
+# |--------|----------------------|---------------|----------|------------|--------------------------------------|
 # | $1     | apash_ioArrayName    | ref(string[]) | in & out |            | Name of the array to create.         |
 #
 # ### Example

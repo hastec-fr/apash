@@ -26,10 +26,10 @@ Produces a new array containing the elements between the start and end indices.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
- | $2     | inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
- | $3     | inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
- | $4     | inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
+ | $1     | apash_outSubArrayName| ref(string[]) | out      |                 | Name of the array to subarray.       |
+ | $2     | apash_inArrayName    | ref(string[]) | in       |                 | Name of the original array.          |
+ | $3     | apash_inStartIndex   | number        | in       |                 | The starting index. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in an empty array.        |
+ | $4     | apash_inEndIndex     | number        | in       |                 | The elements up to endIndex-1 are present in the returned subarray. Undervalue (< startIndex) produces empty array, overvalue (>array.length) is demoted to array. |
 
 ### Example
  ```bash

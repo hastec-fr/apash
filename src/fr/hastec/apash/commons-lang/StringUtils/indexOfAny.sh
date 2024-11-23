@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 
 ##/
 # @name StringUtils.indexOfAny
-# @brief Search a string to find the first apash_index of any character in the given set of characters.
+# @brief Search a string to find the first index of any character in the given set of characters.
 #
 # ## History
 # @since 0.1.0 (hastec-fr)
@@ -19,7 +19,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default    | Description                           |
 # |--------|----------------|---------------|----------|------------|---------------------------------------|
-# | $1     | apash_inString       | string        | in       |            | The string to check.                  |
+# | $1     | apash_inString | string        | in       |            | The string to check.                  |
 #
 # ### Example
 # ```bash
@@ -30,11 +30,11 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #    arr=("zab" "aby") ; StringUtils.indexOfAny "zzabyycdxx" arr   #  1
 # ```
 #
-# @stdout The first minimum apash_index matching researches, -1 if no match
+# @stdout The first minimum index matching researches, -1 if no match
 #         or empty input string or empty research.
 # @stderr None.
 #
-# @exitcode 0 If the apash_index can be displayed.
+# @exitcode 0 If the index can be displayed.
 # @exitcode 1 Otherwise.
 #
 # Note for passing array by reference

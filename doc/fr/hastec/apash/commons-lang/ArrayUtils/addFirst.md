@@ -19,7 +19,7 @@ Adds given elements at the beginning of an array.
   * 0.1.0 (hastec-fr)
 
 ### ChangeLogs:
-  * 0.2.0 (hastec-fr):  Consider no argument as success (nothing added).
+  * 0.2.0 (hastec-fr): Consider no argument as success (nothing added).
 
 ## Interface
 ### Package
@@ -50,7 +50,7 @@ Adds given elements at the beginning of an array.
 
 ### Exit codes
   * **0**: When first argument is an array and a value must be added.
-  * **1**: When none or more than 1 value must be added.
+  * **1**: When more than 1 value should be added.
 
 ### See also
   * [ArrayUtil.insert](./insert.md): Adding multiple element in the middle of an array.

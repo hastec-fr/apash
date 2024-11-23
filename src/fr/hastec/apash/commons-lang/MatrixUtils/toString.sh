@@ -10,7 +10,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 
 ##/
 # @name MatrixUtils.create
-# @brief Display each virtual indexes of the apash_matrix.
+# @brief Display each virtual indexes of the matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #
@@ -21,9 +21,9 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.addFirst
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default         | Description                          |
-# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the apash_matrix.                  |
+# | #      | varName          | Type          | in/out   | Default         | Description                          |
+# |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the apash_matrix.            |
 #
 # ### Example
 # ```bash

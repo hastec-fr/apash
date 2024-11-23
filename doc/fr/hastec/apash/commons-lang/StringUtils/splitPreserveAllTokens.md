@@ -31,8 +31,8 @@ Splits the provided text into an array preserving all tokens.
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
  | $1     | outArrayName    | string[]      | out      |            | The result array which will contains tokens.     |
- | $2     | inString       | string        | in       |            | The string to split.                             |
- | $3     | inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
+ | $2     | apash_inString       | string        | in       |            | The string to split.                             |
+ | $3     | apash_inDelimiter    | string        | in       | " "        | The delimiter (can be a sequance of characters). |
 
 ### Example
  ```bash

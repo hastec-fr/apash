@@ -26,10 +26,10 @@ Return the corresponding offset before to fall on the next cell of the same dime
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default         | Description                          |
- |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
- | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+ | #      | varName          | Type          | in/out   | Default         | Description                          |
+ |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@               | number...     | in       |                 | Indexes per dimension.               |
 
 ### Example
  ```bash

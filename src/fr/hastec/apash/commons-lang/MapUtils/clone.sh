@@ -35,13 +35,13 @@ apash.import fr.hastec.apash.commons-lang.MapUtils.init
 #    declare -A myClone=([foo]="bar")
 #    MapUtils.clone     "myArray"  "myClone"   # myClone={}
 #   
-#    declare -A myArray=([foo]="bar" [apash_key]="val")
+#    declare -A myArray=([foo]="bar" [key]="val")
 #    declare -A myClone=()
-#    MapUtils.clone     "myArray"  "myClone"   # myClone=([foo]="bar" [apash_key]="val")
+#    MapUtils.clone     "myArray"  "myClone"   # myClone=([foo]="bar" [key]="val")
 # 
-#    declare -A myArray=([foo]="bar" [apash_key]="val")
+#    declare -A myArray=([foo]="bar" [key]="val")
 #    declare -A myClone=([bat]="man")
-#    MapUtils.clone     "myArray"  "myClone"   # myClone={ [foo]="bar" [apash_key]="val" }
+#    MapUtils.clone     "myArray"  "myClone"   # myClone={ [foo]="bar" [key]="val" }
 # ```
 #
 # @stdout None.

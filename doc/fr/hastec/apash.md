@@ -13,7 +13,6 @@
 Translation for shell scripts of some apache libraries and more.
 ## Description
    Provides highly reusable utility methods.
-   Declare global variables used accross the functions.
 
 ## History
 ### Since

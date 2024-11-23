@@ -26,7 +26,7 @@ Removes elements which are present multiple times in the array.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                          |
  |--------|----------------|---------------|----------|------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
+ | $1     | apash_ioArrayName    | ref(string[]) | in       |            |  Name of the array to modify.        |
 
 ### Example
  ```bash

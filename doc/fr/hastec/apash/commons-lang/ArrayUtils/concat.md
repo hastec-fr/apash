@@ -11,8 +11,8 @@
 # ArrayUtils.concat
 Concatenate multiple arrays.
 ## Description
-   The output array can be one of the input array (modified at the end).
-   
+   The final output array can be one of the input arrays.
+ 
 ## History
 ### Since
   * 0.2.0 (hastec-fr)
@@ -26,8 +26,8 @@ Concatenate multiple arrays.
 ### Arguments
  | #      | varName            | Type          | in/out   | Default    | Description                          |
  |--------|--------------------|---------------|----------|------------|--------------------------------------|
- | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated values. |
- | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.        |
+ | $1     | apash_outArrayName | ref(string[]) | out      |            | Name of the array with concatenated arrays. |
+ | ${@:2} | $@                 | ref(string[]) | in       |            | Name of the arrays to concatenate.          |
 
 ### Example
  ```bash

@@ -28,7 +28,7 @@ Utility functions specific to apash.
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[doc](ApashUtils/doc.md)|Generate a Markdown file according to comments of the input file.|
+|[doc](ApashUtils/doc.md)|Generate a markdown file(.md) according to comments of the input file.|
 <!-- apash.summaryTableEnd -->
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

@@ -26,7 +26,7 @@ Create an array based on list of arguments.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
+ | $1     | apash_ioArrayName    | ref(string[]) | out      |                 | Name of the array to toArray.        |
  | ${@:2} | inValues       | string...     | in       |                 | Elements to add to the array.        |
 
 ### Example

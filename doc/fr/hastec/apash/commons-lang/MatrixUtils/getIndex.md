@@ -12,7 +12,7 @@
 Return the corresponding array index according to virtual dimensions.
 ## Description
    ⚠️ It is an experimental function.
-   Negative indexes are not supported for the moment.
+   Negative apash_indexes are not supported for the moment.
 
 ## History
 ### Since
@@ -25,10 +25,10 @@ Return the corresponding array index according to virtual dimensions.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default         | Description                          |
- |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
- | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+ | #      | varName          | Type          | in/out   | Default         | Description                          |
+ |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | ${@:2} | $@               | number...     | in       |                 | Indexes per dimension.               |
 
 ### Example
  ```bash

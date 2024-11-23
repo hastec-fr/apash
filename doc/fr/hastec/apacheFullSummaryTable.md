@@ -12,7 +12,7 @@
 | [apash](apash.md) | Translation for shell scripts of some apache libraries and more. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) | Provides highly reusable utility methods. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) | Utility functions specific to apash. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a Markdown file according to comments of the input file. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a markdown file(.md) according to comments of the input file. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) | Operations on arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [add](apash/commons-lang/ArrayUtils/add.md) | Adds a given element at the end of an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [addAll](apash/commons-lang/ArrayUtils/addAll.md) | Adds given elements at the end of an array. |
@@ -21,14 +21,14 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [clone](apash/commons-lang/ArrayUtils/clone.md) | Copy an array into another array using references. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [concat](apash/commons-lang/ArrayUtils/concat.md) | Concatenate multiple arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [contains](apash/commons-lang/ArrayUtils/contains.md) | Checks if the value is in the given array. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [countMatches](apash/commons-lang/ArrayUtils/countMatches.md) | Return the number of cells having the given value. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [countMatches](apash/commons-lang/ArrayUtils/countMatches.md) | Return the number of elements having the given value. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [get](apash/commons-lang/ArrayUtils/get.md) | Gets the nTh element of an array or a default value if the index is out of bounds. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getLastIndex](apash/commons-lang/ArrayUtils/getLastIndex.md) | Return the last index of the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getLength](apash/commons-lang/ArrayUtils/getLength.md) | Returns the length of the specified array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [getNumberOfElements](apash/commons-lang/ArrayUtils/getNumberOfElements.md) | Returns the number of elements in the arrays. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [indexOf](apash/commons-lang/ArrayUtils/indexOf.md) | Finds the first index of the given value in the array starting at the given index. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [indexesOf](apash/commons-lang/ArrayUtils/indexesOf.md) | Finds the indices of the given value in the array starting at the given index. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [init](apash/commons-lang/ArrayUtils/init.md) | Defensive programming technique initialize an array. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [init](apash/commons-lang/ArrayUtils/init.md) | Defensive programming technique to initialize an array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [initWithValue](apash/commons-lang/ArrayUtils/initWithValue.md) | Initialize an array for a specific width and value. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [insert](apash/commons-lang/ArrayUtils/insert.md) | Inserts elements into an array at the given index (starting from zero). |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [isArray](apash/commons-lang/ArrayUtils/isArray.md) | Check if the input name is an array or not. |
@@ -57,7 +57,6 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) | Operations arround Bash languages |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [declareArray](apash/commons-lang/BashUtils/declareArray.md) | Declare an array at global level with dynamic name. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getFunctionName](apash/commons-lang/BashUtils/getFunctionName.md) | Display the name of the function according to the provided depth |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getLineNumber](apash/commons-lang/BashUtils/getLineNumber.md) | Display the line number of the executed function. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getParentFunctionName](apash/commons-lang/BashUtils/getParentFunctionName.md) | Display the name of the parent function of the current executed function. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isCommandValid](apash/commons-lang/BashUtils/isCommandValid.md) | Defensive programming technique to check that a variable name is valid |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isDeclared](apash/commons-lang/BashUtils/isDeclared.md) | Defensive programming technique to check that a variable is declared. |
@@ -146,13 +145,13 @@
 | [apash](apash.md) / [util](apash/util.md) / [Array](apash/util/Array.md) / [sort](apash/util/Array/sort.md) | Sorts the specified array into ascending natural order. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) | Log a message with all provided informations. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [debug](apash/util/Log/debug.md) | Log a message with debug level. |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [entry](apash/util/Log/entry.md) | Log the parent function call with its arguments. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [error](apash/util/Log/error.md) | Log a message with error level |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [exception](apash/util/Log/exception.md) | Log an error message due to an unexpected behavior and print the stack. |
-| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [exit](apash/util/Log/exit.md) | Log message before exiting from the calling function. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [ex](apash/util/Log/ex.md) | Log an error message due to an unexpected behavior and print the stack. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [fatal](apash/util/Log/fatal.md) | Log a message with fatal level. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [in](apash/util/Log/in.md) | Log the parent function call with its arguments. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [info](apash/util/Log/info.md) | Log a message with info level. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [message](apash/util/Log/message.md) | Log a message with all provided informations. |
+| [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [out](apash/util/Log/out.md) | Log message before exiting from the calling function. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [trace](apash/util/Log/trace.md) | Log a message with trace level. |
 | [apash](apash.md) / [util](apash/util.md) / [Log](apash/util/Log.md) / [warn](apash/util/Log/warn.md) | Log a message with warn level. |
 | [apash](apash.md) / [util](apash/util.md) / [Random](apash/util/Random.md) | Contains methods for generating numbers. |

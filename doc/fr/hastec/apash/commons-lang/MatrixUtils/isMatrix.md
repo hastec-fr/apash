@@ -25,9 +25,9 @@ Check if all elements defining a matrix are respected.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default         | Description                          |
- |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | #      | varName          | Type          | in/out   | Default         | Description                          |
+ |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
 
 ### Example
  ```bash

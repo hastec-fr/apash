@@ -27,11 +27,11 @@ Apply massive modification to a given dimension.
 <!-- apash.packageEnd -->
 
 ### Arguments
- | #      | varName        | Type          | in/out   | Default         | Description                          |
- |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
- | $2     | outArrayName   | ref(string[]) | out      |                 | Name of the array with dimension     |
- | ${@:3} | $@             | number...     | in       |                 | Indexes per dimension.               |
+ | #      | varName          | Type          | in/out   | Default         | Description                          |
+ |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+ | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+ | $2     | outArrayName     | ref(string[]) | out      |                 | Name of the array with dimension     |
+ | ${@:3} | $@               | number...     | in       |                 | Indexes per dimension.               |
 
 ### Example
  ```bash

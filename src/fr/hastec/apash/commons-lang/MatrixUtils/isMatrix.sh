@@ -20,9 +20,9 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.sh
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default         | Description                          |
-# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | #      | varName          | Type          | in/out   | Default         | Description                          |
+# |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
 #
 # ### Example
 # ```bash

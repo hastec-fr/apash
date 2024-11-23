@@ -24,8 +24,8 @@ Return an array containing all keys of a map.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                           |
  |--------|----------------|---------------|----------|------------|---------------------------------------|
- | $1     | outArrayName   | ref(string[]) | out      |            | Name of the array containing keys.    |
- | $2     | inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
+ | $1     | apash_outArrayName   | ref(string[]) | out      |            | Name of the array containing keys.    |
+ | $2     | apash_inMapName      | ref(string{}) | in       |            | Name of the hashmap to check.         |
 
 ### Example
  ```bash

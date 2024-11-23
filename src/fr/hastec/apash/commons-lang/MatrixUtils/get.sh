@@ -7,7 +7,7 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 
 ##/
 # @name MatrixUtils.get
-# @brief Get a cell of an array according to its associated apash_matrix.
+# @brief Get a cell of an array according to its associated matrix.
 # @description
 #   ⚠️ It is an experimental function.
 #
@@ -18,14 +18,14 @@ apash.import fr.hastec.apash.commons-lang.MatrixUtils.getIndex
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default         | Description                          |
-# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
-# | $1     | ioArrayName    | ref(string[]) | out      |                 | Name of the apash_matrix.                  |
-# | ${@:2} | $@             | number...     | in       |                 | Indexes per dimension.               |
+# | #      | varName          | Type          | in/out   | Default         | Description                          |
+# |--------|------------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | apash_matrixName | ref(string[]) | out      |                 | Name of the matrix.                  |
+# | ${@:2} | $@               | number...     | in       |                 | Indexes per dimension.               |
 #
 # ### Example
 # ```bash
-#    # Use apash_matrix representation of:
+#    # Use matrix representation of:
 #    #   0 1 2
 #    # 0 a b c
 #    # 1 d e f

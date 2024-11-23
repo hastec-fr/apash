@@ -30,7 +30,6 @@ Operations arround Bash languages
 |--------------------------|---------------------------------------|
 |[declareArray](BashUtils/declareArray.md)|Declare an array at global level with dynamic name.|
 |[getFunctionName](BashUtils/getFunctionName.md)|Display the name of the function according to the provided depth|
-|[getLineNumber](BashUtils/getLineNumber.md)|Display the line number of the executed function.|
 |[getParentFunctionName](BashUtils/getParentFunctionName.md)|Display the name of the parent function of the current executed function.|
 |[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
 |[isDeclared](BashUtils/isDeclared.md)|Defensive programming technique to check that a variable is declared.|

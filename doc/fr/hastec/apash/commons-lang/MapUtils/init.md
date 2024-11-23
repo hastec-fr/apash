@@ -13,7 +13,7 @@ Defensive programming technique initialize a map.
 ## Description
    The map is created if the variable is not declared.
    If it was a map, then reinitialize it.
-   If it's an existing variable or an array, just fail to protect overriding.
+   If it's an existing variable or an array, then fail (prevent overriding).
 
 ## History
 ### Since

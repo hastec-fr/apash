@@ -68,3 +68,4 @@ fi
 
 ## script is finished
 echo "Apash is uninstalled."
+echo "NOTE: Apash function loaded before uninstall in the current session are still accessible by this session (only)."

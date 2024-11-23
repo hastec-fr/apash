@@ -26,9 +26,9 @@ Reverses the order of the given array in the given range.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default         | Description                          |
  |--------|----------------|---------------|----------|-----------------|--------------------------------------|
- | $1     | ioArrayName    | ref(string[]) | in/out   |                 |  Name of the array to reverse.       |
- | $2 ?   | inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
- | $3 ?   | inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
+ | $1     | apash_ioArrayName    | ref(string[]) | in/out   |                 |  Name of the array to reverse.       |
+ | $2 ?   | apash_inStartIndex   | number        | in       | 0               |  The starting inclusive index for reversing. Undervalue (<0) is promoted to 0, overvalue (>array.length) results in no change. |
+ | $3 ?   | apash_inEndIndex     | number        | in       | ${#1[@]} length |  The ending exclusive index (up to endIndex-1) for reversing. Undervalue (< start index) results in no change. Overvalue (>array.length) is demoted to array length. |
 
 ### Example
  ```bash
