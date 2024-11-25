@@ -297,6 +297,23 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >❌</td>
     </tr>
     <tr>
+      <td>ArrayUtils.getNumberOfElements</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
       <td>ArrayUtils.indexOf</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
@@ -502,6 +519,23 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>ArrayUtils.isSorted</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>ArrayUtils.join</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -994,23 +1028,6 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>Log.entry</td>
-      <td title='bash 5.2' >✅</td>
-      <td title='bash 5.1' >✅</td>
-      <td title='bash 5.0' >✅</td>
-      <td title='bash 4.4' >✅</td>
-      <td title='bash 4.3' >✅</td>
-      <td title='bash 4.2' >✅</td>
-      <td title='zsh 5.9' >✅</td>
-      <td title='zsh 5.8' >✅</td>
-      <td title='zsh 5.7' >✅</td>
-      <td title='zsh 5.6' >✅</td>
-      <td title='zsh 5.5' >✅</td>
-      <td title='zsh 5.4' >✅</td>
-      <td title='zsh 5.3' >✅</td>
-      <td title='zsh 5.2' >✅</td>
-    </tr>
-    <tr>
       <td>Log.error</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
@@ -1028,24 +1045,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>Log.exception</td>
-      <td title='bash 5.2' >✅</td>
-      <td title='bash 5.1' >✅</td>
-      <td title='bash 5.0' >✅</td>
-      <td title='bash 4.4' >✅</td>
-      <td title='bash 4.3' >✅</td>
-      <td title='bash 4.2' >✅</td>
-      <td title='zsh 5.9' >✅</td>
-      <td title='zsh 5.8' >✅</td>
-      <td title='zsh 5.7' >✅</td>
-      <td title='zsh 5.6' >✅</td>
-      <td title='zsh 5.5' >✅</td>
-      <td title='zsh 5.4' >✅</td>
-      <td title='zsh 5.3' >✅</td>
-      <td title='zsh 5.2' >✅</td>
-    </tr>
-    <tr>
-      <td>Log.exit</td>
+      <td>Log.ex</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -1063,6 +1063,23 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>Log.fatal</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >✅</td>
+    </tr>
+    <tr>
+      <td>Log.in</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -1097,6 +1114,23 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>Log.message</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >✅</td>
+    </tr>
+    <tr>
+      <td>Log.out</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -1281,6 +1315,159 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.4' >✅</td>
       <td title='zsh 5.3' >✅</td>
       <td title='zsh 5.2' >✅</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.create</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >✅</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.get</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.getDim</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.getDimLastIndex</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.getDimOffset</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.getIndex</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.isMatrix</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.set</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
+    </tr>
+    <tr>
+      <td>MatrixUtils.setDim</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
+      <td title='bash 4.2' >❌</td>
+      <td title='zsh 5.9' >✅</td>
+      <td title='zsh 5.8' >✅</td>
+      <td title='zsh 5.7' >✅</td>
+      <td title='zsh 5.6' >✅</td>
+      <td title='zsh 5.5' >✅</td>
+      <td title='zsh 5.4' >✅</td>
+      <td title='zsh 5.3' >✅</td>
+      <td title='zsh 5.2' >❌</td>
     </tr>
     <tr>
       <td>NumberUtils.compare</td>

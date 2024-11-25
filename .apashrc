@@ -23,6 +23,6 @@ export APASH_LOG_WARNING_DEGRADED="${APASH_LOG_WARNING_DEGRADED:-"true"}"  # tru
 export APASH_LOG_BLACKLIST=""   # If function is in the list, then prevent trace logging of this function.
 export APASH_LOG_WHITELIST=""   # If function is present in this list, then allow only trace logging of this function.
 
-#export APASH_DOCKER_SUDO="sudo"                  # sudo - Comment to avoid sudo in front of docker commands.
+export APASH_DOCKER_SUDO="true" # Ask for sudo to use the docker command.
 
 ######################################################################################################################

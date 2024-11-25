@@ -59,7 +59,7 @@ MatrixUtils.create() {
   shift
 
   local dimensions=("$@")
-  
+
   # Reset the corresponding matrix if already exists.
   unset "$matrixDim"
 
@@ -69,7 +69,9 @@ MatrixUtils.create() {
       unset "$matrixDim"
       return "$APASH_FAILURE"
     fi
-    (( "${matrixDim}[$nbDim]=$dim" ))
+    # @todo: Check with community if it could be writtent in another way.
+    # Double quotes have been removed for zsh (<5.9) compatibility.
+    (( ${matrixDim}[$nbDim]=$dim ))
     nbDim=$((nbDim+1))
   done
   Log.out $LINENO; return "$APASH_SUCCESS"

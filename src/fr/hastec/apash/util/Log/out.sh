@@ -41,7 +41,7 @@ Log.out() {
   local arg
   shift 1
 
-  parentFunction="$(BashUtils.getParentFunctionName)"
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
 
   for arg in "$@"; do
     args+="'$arg' "

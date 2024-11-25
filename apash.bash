@@ -353,13 +353,16 @@ apashExecuteDocker(){
   local APASH_DOCKER_NO_RUN_FLAG=false
   local APASH_DOCKER_SHELL="bash"
   local APASH_DOCKER_SHELL_VERSION="5.2"
+  local apashDockerSudo
+
   apashParseDockerArgs "$@" || return
-  echo "Enter password for docker usage (if necessary)."
+  [ "$APASH_DOCKER_SUDO" = "true" ] && apashDockerSudo="sudo"
+  [ -n "$apashDockerSudo" ] && echo "Enter password for docker usage (if necessary)."
 
   # @todo: Find an elegant way to disable the --no-cache option (zsh protect evaluation).
   # Build the container
   if [ "$APASH_DOCKER_NO_BUILD_FLAG" != "true" ]; then
-    $APASH_DOCKER_SUDO docker build  \
+    $apashDockerSudo docker build  \
       --build-arg "SHELL_VERSION=${APASH_DOCKER_SHELL_VERSION}"                             \
       --build-arg "APASH_LOCAL_COPY=true"                                                   \
       -t "hastec/apash-local:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}" \
@@ -368,7 +371,7 @@ apashExecuteDocker(){
 
   # Run the container and provides arguments.
   if [ "$APASH_DOCKER_NO_RUN_FLAG" != "true" ]; then
-    $APASH_DOCKER_SUDO docker run -it --rm "hastec/apash-local:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
+    $apashDockerSudo docker run -it --rm "hastec/apash-local:${APASH_VERSION}-${APASH_DOCKER_SHELL}_${APASH_DOCKER_SHELL_VERSION}"
   fi
 }
 

@@ -3,27 +3,28 @@
 # Apash configurations
 
 # Dynamic configuration
-if [ -n "$ZSH_VERSION" ]; then
+if [ -n "${ZSH_VERSION:-}" ]; then
   export APASH_SHELL="zsh"
   export APASH_SHELL_VERSION="${ZSH_VERSION}"
-elif [ -n "$BASH_VERSION" ]; then
+elif [ -n "${BASH_VERSION:-}" ]; then
   export APASH_SHELL="bash"
   export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
 else
   echo "$(date +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
 fi
 
-export APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"               # $HOME/.apash
-export PATH="$PATH:$APASH_HOME_DIR"                                     # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
-export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"$APASH_LOG_LEVEL_ERROR"}"   # 300 - Must be after sourcing of apash.
-export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"         # true - Print the stack trace related to the error.
+export APASH_HOME_DIR="${APASH_HOME_DIR:-"$HOME/.apash"}"                  # $HOME/.apash
+export PATH="$PATH:$APASH_HOME_DIR"                                        # $PATH:$HOME/.local/bin:$APASH_HOME_DIR
+export APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-"300"}"                         # 300 - APASH_LOG_LEVEL_ERROR.
+export APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-"true"}"            # true - Print the stack trace related to the error.
+export APASH_LOG_WARNING_DEGRADED="${APASH_LOG_WARNING_DEGRADED:-"true"}"  # true - Warn that's not the preferred technical solution.
 
 # Log black/white list allow to filter which should trace or not.
 # Let it empty to disabled it, or add functions separated by : as the PATH: "StringUtils.leftPad:StringUtils.rightPad"
 export APASH_LOG_BLACKLIST=""   # If function is in the list, then prevent trace logging of this function.
 export APASH_LOG_WHITELIST=""   # If function is present in this list, then allow only trace logging of this function.
 
-#export APASH_DOCKER_SUDO="sudo"                  # sudo - Comment to avoid sudo in front of docker commands.
+export APASH_DOCKER_SUDO="true" # Ask for sudo to use the docker command.
 
 ######################################################################################################################
 apash.import(){
@@ -125,7 +126,7 @@ local inFile="${1:-}"
 local comments=""
 [ ! -r "$inFile" ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 comments="$(sed -n -e '/^\s*##\//,/^\s*#\//p' "$inFile" | sed -n -e 's/^\s*##\?\/\?//p')"
-comments="$(echo "$comments" | awk '
+comments="$(echo -E "$comments" | awk '
 BEGIN { blockCodeFlag = 0 }
 /^\s*```/             { blockCodeFlag=!blockCodeFlag }
 !/^\s*@exitcode\s+/   { exitCodeFlag=0 }
@@ -147,7 +148,7 @@ print title; $1=""; gsub(/^\s+/, ""); if ($0 != "") { print "  * "$0; }; next
 exitCodeFlag && /^\s*@exitcode\s+/ {
 $1=""; gsub(/^\s+/, "");
 if ($0 != "") {
-printf "  * **${1:-}**: ";
+printf "  * **"$1"**: ";
 $1=""; gsub(/^\s+/, "");
 print $0;
 }
@@ -157,7 +158,7 @@ next
 /^\s*@apashSummaryTable\s*$/ { print "### Method Summary\n<!-- apash.summaryTableBegin -->\n<!-- apash.summaryTableEnd -->"; next}
 { print $0; exitCodeFlag=0  }
 ')" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-echo "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo -E "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 commons-lang.ApashUtils() { true; }
@@ -283,7 +284,7 @@ ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return 
 else
 local -n apash_inArray="$apash_inArrayName"
 fi 
-for apash_value in "${apash_inArray[@]}"; do
+for apash_value in "${apash_inArray[@]:-}"; do
 [[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 done
 Log.out $LINENO; return "$APASH_FAILURE"
@@ -1153,7 +1154,7 @@ if ! ArrayUtils.isArrayIndex "$dim" || [[ $dim -eq 0 ]]  ; then
 unset "$matrixDim"
 return "$APASH_FAILURE"
 fi
-(( "${matrixDim}[$nbDim]=$dim" ))
+(( ${matrixDim}[$nbDim]=$dim ))
 nbDim=$((nbDim+1))
 done
 Log.out $LINENO; return "$APASH_SUCCESS"
@@ -1182,10 +1183,10 @@ shift 2
 local indexes=("$@")
 local start=$APASH_ARRAY_FIRST_INDEX
 local length=0
-ArrayUtils.nullToEmpty "$inArrayName"                            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-MatrixUtils.isMatrix   "$matrixName"                             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.nullToEmpty "$inArrayName"                              || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+MatrixUtils.isMatrix   "$matrixName"                               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]:-}")      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]:-}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 [[ $length -le 0 ]] && length=1
 ArrayUtils.subarray "$inArrayName" "$matrixName" "$start" $((start + length)) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
@@ -1199,7 +1200,7 @@ local apash_indexes=("$@")
 local -i apash_dimOffset
 local -i apash_lastIndex
 MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]:-}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 if [ "$APASH_SHELL" = "zsh" ]; then
 local -a apash_matrixDim=()
 ArrayUtils.clone "${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}" "apash_matrixDim" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -1212,7 +1213,7 @@ unset 'apash_indexes[${#apash_indexes[@]}-1]'
 else
 firstIndex=$curIndex
 fi
-apash_dimOffset=$(MatrixUtils.getDimOffset "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_dimOffset=$(MatrixUtils.getDimOffset "$apash_matrixName" ${apash_indexes[@]:-}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 apash_lastIndex=$((firstIndex + apash_dimOffset - 1))
 echo "$apash_lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
@@ -1225,6 +1226,7 @@ shift
 local apash_indexes=("$@")
 local apash_dimOffset=0
 local -i apash_i
+[ -z "${apash_indexes[APASH_ARRAY_FIRST_INDEX]:-}" ] && apash_indexes=()
 MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
 if [ "$APASH_SHELL" = "zsh" ]; then
@@ -1307,11 +1309,11 @@ apash_cellIndex=$(MatrixUtils.getIndex "$apash_matrixName" "$@") || { Log.ex $LI
 if [ "$APASH_SHELL" = "zsh" ]; then
 local -a matrix=()
 ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-matrix[$apash_cellIndex]="$apash_value"             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+matrix[apash_cellIndex]="$apash_value"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
 local -n matrix="$apash_matrixName"
-matrix[$apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+matrix[apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
@@ -1635,19 +1637,19 @@ StringUtils.repeat() {
 Log.in $LINENO "$@"
 local inNumber="${1:-}"
 local inString="${2:-}"
+local outString=""
 local -i i
 NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 if [[ $APASH_SHELL == "zsh" ]] && \
 VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
-local outString=""
 for (( i=0; i < inNumber; i++ )); do
 outString+="$inString"
 done
-echo "$outString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
-printf "%0.s$inString" $(seq 1 "$inNumber") && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+outString=$(printf "%0.s$inString" $(seq 1 "$inNumber")) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 fi
-Log.out $LINENO; return "$APASH_FAILURE"
+echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 }
 StringUtils.replace() {
 Log.in $LINENO "$@"
@@ -1661,10 +1663,12 @@ Log.out $LINENO; return "$APASH_FAILURE"
 StringUtils.reverse() {
 Log.in $LINENO "$@"
 local inString="${1:-}"
+local reversed_string=""
 local -i i
 if BashUtils.isCommandValid "rev"; then
 echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
+[ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
 for (( i=${#inString}-1; i>=0; i-- )); do
 reversed_string="$reversed_string${inString:$i:1}"
 done
@@ -1931,6 +1935,7 @@ else
 echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
 else
+[ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** bc command not found."
 if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 < inNum2)}'; then
 echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
@@ -1954,6 +1959,7 @@ else
 echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
 else
+[ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** bc command not found."
 if awk -v inNum1="$inNum1" -v inNum2="$inNum2" 'BEGIN {exit !(inNum1 > inNum2)}'; then
 echo "$inNum2" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
@@ -2034,20 +2040,20 @@ local stackSize
 local stackBound
 if [ "$APASH_SHELL" = "bash" ]; then
 stackSize="${#FUNCNAME[@]}"
-stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
 for (( i=APASH_ARRAY_FIRST_INDEX; i < stackBound; i++ )); do
 outMessage+=$'\n'"  at ${FUNCNAME[i+1]}(${BASH_SOURCE[i+1]}:${BASH_LINENO[i]})"
 done
 elif [ "$APASH_SHELL" = "zsh" ]; then
 stackSize="${#funcfiletrace[@]}"
-stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
 for (( i=APASH_ARRAY_FIRST_INDEX+1; i < stackBound; i++ )); do
 outMessage+=$'\n'"  at ${funcstack[i]}(${funcfiletrace[i]})"
 done
 fi
 [ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
 fi
-parentFunction="$(BashUtils.getParentFunctionName)"
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")" 
 Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
 return "$APASH_SUCCESS"
 }
@@ -2066,7 +2072,7 @@ local parentFunction
 local args
 local arg
 shift
-parentFunction="$(BashUtils.getParentFunctionName)"
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
 for arg in "$@"; do
 args+="'$arg' "
 done
@@ -2103,7 +2109,7 @@ local outMessage="Out"
 local args
 local arg
 shift 1
-parentFunction="$(BashUtils.getParentFunctionName)"
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
 for arg in "$@"; do
 args+="'$arg' "
 done

@@ -42,7 +42,7 @@ StringUtils.reverse() {
   if BashUtils.isCommandValid "rev"; then
     echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    [ "$APASH_LOG_WARNING_DEGRADED" == "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
+    [ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
     # Loop through the string in reverse order
     for (( i=${#inString}-1; i>=0; i-- )); do
         reversed_string="$reversed_string${inString:$i:1}"

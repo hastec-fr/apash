@@ -51,10 +51,10 @@ MatrixUtils.getDim() {
   local start=$APASH_ARRAY_FIRST_INDEX
   local length=0
 
-  ArrayUtils.nullToEmpty "$inArrayName"                            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  MatrixUtils.isMatrix   "$matrixName"                             || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]}")      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ArrayUtils.nullToEmpty "$inArrayName"                              || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  MatrixUtils.isMatrix   "$matrixName"                               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]:-}")      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]:-}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   # Keep at least one cell
   [[ $length -le 0 ]] && length=1

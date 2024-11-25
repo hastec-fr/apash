@@ -49,6 +49,9 @@ MatrixUtils.getDimOffset() {
   local apash_dimOffset=0
   local -i apash_i
 
+  # Fix potential empty argument.
+  [ -z "${apash_indexes[APASH_ARRAY_FIRST_INDEX]:-}" ] && apash_indexes=()
+
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
 

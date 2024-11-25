@@ -59,7 +59,7 @@ MatrixUtils.getDimLastIndex() {
   MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Get the current index position in the original array.
-  curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  curIndex=$(MatrixUtils.getIndex "$apash_matrixName" ${apash_indexes[@]:-}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     local -a apash_matrixDim=()
@@ -81,7 +81,7 @@ MatrixUtils.getDimLastIndex() {
 
   # Get the offset of the current dimension. If it was a cell, the last dimension is removed 
   # to get the corresponding dimension (row)
-  apash_dimOffset=$(MatrixUtils.getDimOffset "$apash_matrixName" ${apash_indexes[@]}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  apash_dimOffset=$(MatrixUtils.getDimOffset "$apash_matrixName" ${apash_indexes[@]:-}) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # The apash_lastIndex of the dimension is the first index + offset of the dimension - 1.
   apash_lastIndex=$((firstIndex + apash_dimOffset - 1))

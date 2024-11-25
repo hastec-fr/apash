@@ -60,13 +60,13 @@ Log.ex() {
     local stackBound
     if [ "$APASH_SHELL" = "bash" ]; then
       stackSize="${#FUNCNAME[@]}"
-      stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+      stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
       for (( i=APASH_ARRAY_FIRST_INDEX; i < stackBound; i++ )); do
         outMessage+=$'\n'"  at ${FUNCNAME[i+1]}(${BASH_SOURCE[i+1]}:${BASH_LINENO[i]})"
       done
     elif [ "$APASH_SHELL" = "zsh" ]; then
       stackSize="${#funcfiletrace[@]}"
-      stackBound="$(Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+      stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
       for (( i=APASH_ARRAY_FIRST_INDEX+1; i < stackBound; i++ )); do
         outMessage+=$'\n'"  at ${funcstack[i]}(${funcfiletrace[i]})"
       done
@@ -75,7 +75,7 @@ Log.ex() {
     [ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
   fi
 
-  parentFunction="$(BashUtils.getParentFunctionName)"
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")" 
 
   Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"

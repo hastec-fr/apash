@@ -37,19 +37,20 @@ StringUtils.repeat() {
   Log.in $LINENO "$@"
   local inNumber="${1:-}"
   local inString="${2:-}"
+  local outString=""
   local -i i
   
   NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [[ $APASH_SHELL == "zsh" ]] && \
       VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
-    local outString=""
     for (( i=0; i < inNumber; i++ )); do
       outString+="$inString"
     done
-    echo "$outString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
-    printf "%0.s$inString" $(seq 1 "$inNumber") && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+    outString=$(printf "%0.s$inString" $(seq 1 "$inNumber")) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
-  Log.out $LINENO; return "$APASH_FAILURE"
+  
+  echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  Log.out $LINENO; return "$APASH_SUCCESS"
 }

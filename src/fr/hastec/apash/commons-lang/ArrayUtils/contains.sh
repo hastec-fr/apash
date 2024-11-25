@@ -57,7 +57,7 @@ ArrayUtils.contains() {
   fi 
   
   # For each value in the array, check if it matches with the expected value.
-  for apash_value in "${apash_inArray[@]}"; do
+  for apash_value in "${apash_inArray[@]:-}"; do
     [[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   done
 

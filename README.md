@@ -7,13 +7,13 @@
 </div>
 
 ## 👀 Introduction
-Shell script languages (bash, zsh ...) are widely used on Unix-like operating systems, including GNU/Linux and macOS.<br/>
-Nervetheless, it often happens to rewrite basic operations by ourself like split, trim ... Again and again for different shells.<br/>
+Shell script languages (like bash, zsh ...) are widely used on Unix-like operating systems, including GNU/Linux and macOS.<br/>
+Nervetheless, it often happens to rewrite basic operations as split, trim ... Again and again for different shells.<br/>
 Apash is a library providing these kind operations (for strings, arrays, dates and more...). It is **inspired** from [Apache's libraries](https://commons.apache.org/) realized in Java.<br/>
 The [core concepts](#concepts) of Apash is to provide more readibility and portability for basic operations.
 
 ## Disclaimer
-Note that even if it could be a wish, Apash **is not** a project of the [Apache Foundation](https://apache.org/index.html#projects-list).<br/>
+Even if it could be a wish, Apash **is not** a project of the [Apache Foundation](https://apache.org/index.html#projects-list).<br/>
 Let's stop talking and open the shell !
 ```bash
 StringUtils.rightPad "123" 6 "!"
@@ -25,7 +25,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Quick Start](#️quick-start)
 - [Core Concepts](#concepts)
 - [Documentation](#documentation)
-- [Container](#container)
+- [Containers](#containers)
 - [Compatibility](#compatibility) ([Matrix](doc/fr/hastec/apashCompatibilityTable.md))
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
@@ -34,18 +34,11 @@ StringUtils.rightPad "123" 6 "!"
 - [Explore the API](doc/fr/hastec/apash.md) (or with the [Full Summary Table](doc/fr/hastec/apacheFullSummaryTable.md))
 
 ## <a id="quick-start" ></a>📦 Installation
-As other shell projects, there is no standard way to install Apash. But below are the main ones.
-
-### <ins>Pre-requisites</ins>
-Install curl and git to proceed with the scripted installation.
-```bash
-# Adapt the command with your own package manager (here apt).
-sudo apt install curl git
-```
 
 ### <ins>Runtime installation</ins>
 A minified version of apash is available in order to facilitate the usage and gain in performance.<br/>
-Just download, source and use. This minified version exists for bash and zsh.
+Just download, source and use. This minified version exists for bash and zsh.<br/>
+With this package, only the runtime library is available (not the apash command).
 ```bash
 # Download
 curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apash-bash-min.sh" -o apash-bash-min.sh
@@ -53,9 +46,20 @@ curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apas
 # Source
 . ./apash-bash-min.sh
 
-# Count the number of a in apash.
-StringUtils.upperCase "Hello World"
-# result: HELLO WORLD
+# Repeat the string
+StringUtils.repeat 2 "ah! "
+# result: ah! ah!
+```
+
+### <ins>Full installation</ins>
+As other shell projects, there is no standard way to install Apash.<br/>
+Below are the main ones.
+
+#### <ins>Pre-requisites</ins>
+Install curl and git to proceed with the scripted installation.
+```bash
+# Adapt the command with your own package manager (here apt).
+sudo apt install curl git
 ```
 
 <details>
@@ -69,7 +73,7 @@ StringUtils.upperCase "Hello World"
 ```
 </details>
 
-### <ins>Intallation by Script</ins>
+#### <ins>Intallation by Script</ins>
 Modify the URL in consequence if you want a particular version, here it's for the head of the main branch:
 ```bash
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
@@ -110,29 +114,7 @@ basher install "hastec-fr/apash"
 Open a new terminal to ensure that environment is refreshed with apash functions.
 </details>
 
-<details>
-<summary>Installation with Bpkg</summary>
-
-[Bpkg](https://github.com/bpkg/bpkg) is a package manager for bash which helps you to quickly install, uninstall and update bash packages from the command line.
-#### Install Bpkg
-```bash
-curl -Lo- "https://raw.githubusercontent.com/bpkg/bpkg/master/setup.sh" | bash
-```
-
-#### Install Apash:
-```bash
-bpkg install "hastec-fr/apash"
-```
-
-#### Execute post installation action:
-```bash
-"$HOME/.basher/cellar/bin/apash" init --post-install
-# Then open a new terminal to ensure that environnment is re-loaded.
-```
-Open a new terminal to ensure that environment is refreshed with apash functions.
-</details>
-
-### <ins>Git Installation</ins>
+#### <ins>Git Installation</ins>
 Clone or download the [Apash project](https://github.com/hastec-fr/apash), execute the post installation action to add apash sourcing to your startup script file (like $HOME/.bashrc).
 ```bash
 # First select where apash should be installed
@@ -180,22 +162,16 @@ bpkg install "shellspec/shellspec"
 
 
 ## <a id="quick-start" ></a>⚡️ Quick start
-Once Apash is installed, you can easily use a function by importing the desired package.<br/>
-For that, use the function "apash.import" with the name of the package.
+Once Apash is installed, you can easily use a function by importing it.<br/>
+For that, use the function "apash.import" with the name of the function.
 ```bash
-# Java style to import all methods from StringUtils
-apash.import "fr.hastec.apash.commons-lang.StringUtils"
+apash.import "fr.hastec.apash.commons-lang.StringUtils.substring"
 StringUtils.substring "Hello World" 0 4
 ```
 Do you see the 🔥Hell🔥in the sHell ? It's just the beginning.<br/>
 If it's not the case, lets have a look to the [troubleshooting](#troubleshooting) section.
 
-```bash
-# Import only a single method
-apash.import "fr.hastec.apash.commons-lang.StringUtils.indexOf"
-StringUtils.indexOf "Gooood Morning" "M"
-# result: 7 (yes because it starts from index 0 ^^)
-```
+Please refer to the [full summary able](doc/fr/hastec/apacheFullSummaryTable.md) to get the list of available functions.
 Note that functions can be directly used without import with minified version.
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
@@ -204,7 +180,7 @@ Note that functions can be directly used without import with minified version.
 ## <a id="concepts" ></a>📦 Core Concepts
 ### Readability
 One of the first objectives of Apash was to provide basic operations readable.<br/>
-Indeed, shell laguages use many symbols and shortcuts. It looks great for advanced programmers and not readable for the others.<br/>
+Indeed, shell laguages use many symbols and shortcuts. It looks great for advanced shell programmers and less readable for the others.<br/>
 Example:
 ```bash
 # I want to count the number of "a" in the word "apash".
@@ -217,13 +193,12 @@ StringUtils.countMatches "apash" "a"
 
 # result: 2
 ```
-A missing feature could render the apash function more accessible: a completion mode (to prevent prototype research).<br/>
 
 ### Portability
 If the SHELL could be defined as a language, there are many dialects (bash, zsh, ksh...) which are not compatible each others.<br/>
-The norm POSIX exists for this goal and if a script follow the norm then you're sure that it would work everywhere.<br/>
+The norm POSIX exists for this goal and if a script (and SHELL) follows the norm then you're sure that it would work.<br/>
 It's nice, but written a script with POSIX norm is not easy and ask quickly a high skill and knowledge of the norm (no array, less parameter expansions...).<br/>
-So Apash takes the problem by the other end. It allows to develop in a dialect with all features of this and provides a mechanism of variants for incompatible codes.<br/>
+So Apash takes the problem by the other end. It allows to develop in a dialect with all features and provides a mechanism of variants for incompatible codes.<br/>
 Example:
 ```bash
   # The code below show how to decline the code for rendering a string in UPPERCASE.
@@ -246,22 +221,17 @@ This can be done inside a single file but it could be segregated per file.
 ```bash
   lowerCase.sh       # Default script having the function to lowercase a string (generally latest bash version).
   lowerCase.zsh      # Variant for zsh
-  lowerCase.bash_4.2 # Variant for bash equals or less than the version 4.2
+  lowerCase.bash_4.2 # Variant for bash equals or less than the version 4.2: ${inString,,} appears with the 4.3.
 ```
 This mechanism allows extending to other shells (ksh, csh, dash...) and sharing a maximum of compatible code in same time.<br/>
 Today, the library is really not POSIX (just bash and zsh), but people knowing other shells can contribute with their own dialect.
-Even a POSIX form of the functions could be imagined in future with .posix files (with wrapping mechanism for function names using dots).
-
-The goal of Apash is not to create another language like [Amber](https://docs.amber-lang.com/) (I wish the best for this [project](https://github.com/amber-lang/amber)), but to provide same the functions prototype for different kind of shell.<br/>
-Apash and Amber are not competitors but they could be complementary.
-A file lowerCase.ab could be imagined (with onfly transpilation or if it becomes another interpreter #!/bin/amber 😉).<br/>
+POSIX form of the functions could be imagined in future with .posix files (with a wrapping mechanism for function names currently using dots).
 
 ## <a id="documentation" ></a> 📖 Documentation
 ### Web
 Domentation is generated thanks to the script comments.
-Each file contains an header following a formalism in order to generate the corresponding markdown file (.md) in the doc directory.<br/>
-A template of the documentation is available in [assets/template/apashCommentTemplate.sh](https://github.com/hastec-fr/apash/blob/main/assets/templates/apashCommentTemplate.sh).<br/>
-Let's [explore the features](doc/fr/hastec/apash.md) !!
+Each file contains an header following a template in order to generate the corresponding markdown file (.md) in the doc directory.<br/>
+The template of the documentation is available in [assets/template/apashCommentTemplate.sh](https://github.com/hastec-fr/apash/blob/main/assets/templates/apashCommentTemplate.sh).<br/>
 
 To generate the documentation, execute the command:
 ```bash
@@ -283,10 +253,10 @@ You're in a terminal, apash provide a feature to display a summary of the markdo
   # $1     | string        | The string to lower case.
   #
 ```
-It is possible to provide:
-* The absolute path
-* The Class.Method
-* Just the method (but take the first matching).
+It is possible to search by:
+* The file path.
+* The Class.Method.
+* Or just the method (but take the first matching).
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
@@ -314,13 +284,13 @@ If you don't like the long name, you can create your own function aliases (as us
   trim "    This is the end.    "
 ```
 Just keep in mind, that aliases are useful for your prompt but (depending of the shell) they cannot be exported. 
-By example for bash, you should declare again the alias from subscript or activate the shell option on your own (remains not recommended for portability):
+By example for bash, you should declare again the alias from subscript or activate the shell option on your own:
 ```bash
   shopt -s expand_aliases
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
-## <a id="container" ></a> 🐳 Container
+## <a id="containers" ></a> 🐳 Containers
 ### Interactive shell
 If you don't want to install apash but test it quickly, you can pull its containers on [docker hub](https://hub.docker.com/r/hastec/apash).
 Default is bash, but you can get zsh too.
@@ -384,7 +354,7 @@ docker run --rm hastec/apash:0.2.0 'apash test'
 Apash provide a way to build and run a container for a particular shell (bash/zsh) and its version.<br/>
 Ideal for testing:
 ```bash
-# The created and run the image with current context($APASH_HOME_DIR).
+# Create and run the image with current context($APASH_HOME_DIR).
 # The image is named as following: hastec/apash-local:<version>-<shell>_<version>
 apash docker --shell "zsh" --version "5.9"  # hastec/apash-local:0.2.0-zsh_5.9
 apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.2.0-bash_5.0
@@ -393,7 +363,7 @@ apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.2.0-bash_5.0
 
 ## <a id="compatibility" ></a> ✅ Compatibility
 A compatibility [matrix](doc/fr/hastec/apashCompatibilityTable.md) is available.<br/>
-The compatibility is tests on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommended to use latest shell versions.
+The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommended to use latest shell versions when you developp new features.
 
 ### Bash
 Currently, the library (not tools) is compatible from bash version 5.2 to 4.3 (2014-02-26)<br/>
@@ -437,8 +407,8 @@ APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-$APASH_LOG_LEVEL_WARN}"
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF"
 ```
 
-If you require to trace what is happening in Apash call, it looks recommended to increase the log level to trace instead of using "set -x". <br/>
-A trace has been put to each function entering and out in order to keep control on stack (potentially for @nnotations).<br/>
+If you require to trace what is happening in Apash calls, it looks recommended to increase the log level to trace instead of using "set -x". <br/>
+A trace has been put to each entry in and exit in order to keep control on the stack (potentially for @nnotations later).<br/>
 ```bash
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
 apash.import fr.hastec.apash.lang.Math.abs
@@ -452,7 +422,7 @@ Math.abs -3
 # 2024-11-22T16:25:50.357+0100 [TRACE] Math.abs (7): Out
 ```
 Here its a simple example but the stack could become very verbose too.<br/>
-So a system of black/white list exist in order to select which log could be output.
+So a system of black/white lists exist in order to select which log could be output.
 
 ```bash
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
@@ -471,22 +441,22 @@ You can combine the black list (checked first) with the white list to restrict a
 unset myArray
 APASH_LOG_WHITELIST+="ArrayUtils.add:ArrayUtils.isArray"
 ArrayUtils.add "myArray" Hello
-# Only logs of function ArrayUtils.add ArrayUtils.isArray are displayed.
+# Only logs of functions ArrayUtils.add and ArrayUtils.isArray are displayed.
 ```
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### Warnings logs appears
 Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
-In this case, another way is implemented but it notifies that the main way of work is not followed.<br/> 
-The degraded way could be less efficient (and could be different if you're working with bounds).<br/>
+In this case, another code flow is implemented (and work) but it notifies that the main flow is not followed.<br/>
+The degraded mode could be less efficient (or could be different if you're playing with bounds).<br/>
 So it is preferred to install the missing commands.<br/>
-Nevertheless, you can disabled these warnings by modifying the following variable (keep in mind you disabled it !!).
+Nevertheless, you can disabled these warnings by modifying the following variable in the configuration file (keep in mind you disabled it !!).
 ```bash
   export APASH_LOG_WARNING_DEGRADED="false"
 ```
 The value can be modified in $APASH_HOME_DIR/.apashrc or directly in your environment.
 
-To check if some commands are missing (like with git bash), you can use the following command:
+You can check at any moment (even when degrade mode disabled) if some commands are missing (like with git bash) with the command:
 ```bash
 apash check
 2024-11-22T16:00:27.303+0100 [WARN] apash.check (34): **DEGRADED MODE** bc command not found.
@@ -494,7 +464,7 @@ apash check
 ```
 
 ### Oh my Exception !
-By default, Apash return an exception log when something was unexpected.
+By default, Apash returns an exception when something was unexpected.
 It can take this form:
 ```bash
 unset myArray myOtherArray
@@ -523,12 +493,14 @@ The "apash.import" manage which function should be sourced with its dependencies
 It prevents cycling sourcing and useless re-sourcing (if already sourced).
 It's possible to force the reload of a library and its dependencies with option -f.
 ```bash
+  # -f: Force
   apash.import -f "path.to.the.library"
 ```
 
-If one new dependencies is not ressourced, then it means you have added it.
-Import use a cache to prevent dependency recalculation. You can disable the cache (but it's slower) as following:
+If one new dependencies is not source again, then it means you have added it to the list of import.
+The import uses a cache to prevent dependency recalculation. You can disable this cache (but it's slower) as following:
 ```bash
+  # -n: No cache
   apash.import -f -n "path.to.the.library"
 
   # Rebuild the cache if necessary:
@@ -537,6 +509,7 @@ Import use a cache to prevent dependency recalculation. You can disable the cach
 
 If there are any doubts on what is imported, it's possible to trace it:
 ```bash
+  # -s: Show import
   apash.import -f -n -s "path.to.the.library"
 ```
 Note that options should be in the alphabetic order (-f -n -s).
@@ -559,7 +532,6 @@ If you're playing with days around the daylight saving, you could have some trou
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="maintenance" ></a> 🛠 Maintenance
-
 ### Upgrade
 #### Git
 Just pull out the latest version of the main branch.
@@ -580,18 +552,6 @@ basher upgrade hastec-fr/apash
 ```
 </details>
 
-<details>
-<summary>Bpkg</summary>
-The lastest version from main branch of github is pulled.
-```bash
-bpkg update hastec-fr/apash
-```
-#### <ins>Others</ins>
-```bash
-"$APASH_HOME_DIR/utils/uninstall.sh"
-```
-</details>
-
 ### Uninstall
 It removes recursively the directory $APASH_HOME_DIR and lines in startup script (.bashrc).
 #### <ins>By Script:</ins>
@@ -603,19 +563,6 @@ It removes recursively the directory $APASH_HOME_DIR and lines in startup script
 <summary>Basher</summary>
 ```bash
 basher uninstall "hastec-fr/apash"
-```
-
-Then remove the lines with #apashInstallTag from your profile.
-```bash
-# Example:
-sed -i '/apashInstallTag/d' "$HOME/.bashrc"
-```
-</details>
-
-<details>
-<summary>Bpgk</summary>
-```bash
-bpgk uninstall "hastec-fr/apash"
 ```
 
 Then remove the lines with #apashInstallTag from your profile.
