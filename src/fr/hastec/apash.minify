@@ -37,7 +37,9 @@ apash.minify(){
 
   # Create temporary directory if not exist.
   [ ! -d "$apashTmpDir" ] && mkdir -p "$apashTmpDir"
-  cat "$APASH_HOME_DIR/src/fr/hastec/apash.import" > "$apashTmpDir/apash-$shellName-min.tmp"
+
+  cat "$APASH_HOME_DIR/src/fr/hastec/apash.sh" \
+      "$APASH_HOME_DIR/src/fr/hastec/apash.import" > "$apashTmpDir/apash-$shellName-min.tmp"
 
   # @todo: find a way to factorize it how to resolve the library. (as in apash.import, ApashUtils ?).
   while IFS= read -r -d '' lib; do
