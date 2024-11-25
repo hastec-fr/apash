@@ -453,22 +453,12 @@ apashExecuteTest(){
   # @todo: Find a more elegant way to inject arguments (protected by zsh).
   # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
   # Split word intentionnaly the shellspec options.
-  if [ "$APASH_TEST_MINIFIED" = "true" ]; then
-    if [ "$APASH_SHELL" = "zsh" ]; then
-      # shellcheck disable=all
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-    else # bash
-      # shellcheck disable=SC2086
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED=true APASH_LOG_WARNING_DEGRADED=false shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
-    fi
-  else
-    if [ "$APASH_SHELL" = "zsh" ]; then
-      # shellcheck disable=all
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-    else # bash
-      # shellcheck disable=SC2086
-      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_LOG_WARNING_DEGRADED=false shellspec ${APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-    fi
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    # shellcheck disable=all
+    APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+  else # bash
+    # shellcheck disable=SC2086
+    APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
   fi
 }
 
