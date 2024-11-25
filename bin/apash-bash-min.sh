@@ -27,6 +27,14 @@ export APASH_LOG_WHITELIST=""   # If function is present in this list, then allo
 export APASH_DOCKER_SUDO="true" # Ask for sudo to use the docker command.
 
 ######################################################################################################################
+export APASH_SUCCESS=0
+export APASH_FAILURE=1
+export APASH_ARRAY_FIRST_INDEX=0
+export APASH_ARRAY_LAST_INDEX=9223372036854775807
+if [ "$APASH_SHELL" = "zsh" ]; then
+[[ ! $(setopt) == *ksharrays* ]] && APASH_ARRAY_FIRST_INDEX=1
+APASH_ARRAY_LAST_INDEX=999999999999999999
+fi
 apash.import(){
 local lib cacheLib l
 local -a libs=()
