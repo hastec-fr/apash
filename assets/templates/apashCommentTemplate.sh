@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Dependencies #################################################################
+# apash.import fr.hastec.apash.util.Log
+
 # File description ###########################################################
 # @name <Package>.<Method>
 # @brief <Brief Description>

@@ -47,6 +47,8 @@ apashShowHelp(){
       --version         display the current version of apash and exit.
 
   ACTIONS:
+      cache             Create the cache file associated to the input library.
+
       check             Check if some command could be missing and
                         trigger a degraded mode.
 
@@ -72,6 +74,19 @@ apashShowHelp(){
         # Result: 7
 EOF
 }
+
+apashShowCheckHelp(){
+  cat << EOF
+  Usage: ${0##*/} cache [-h] [library]
+
+  Create the cache file associated to the input library.
+  If no library provided, then create a cache for all.
+  
+      -h|--help|-?      Display this help and exit.
+
+EOF
+}
+
 
 apashShowCheckHelp(){
   cat << EOF
@@ -288,6 +303,10 @@ apashExecuteAction(){
   local action="${1:-}"
   shift
   case "$action" in
+    cache)
+      apashExecuteCache "$@"
+      ;;
+
     check)
       apashExecuteCheck "$@"
       ;;
@@ -329,6 +348,13 @@ apashExecuteAction(){
 
 
 # LEVEL 2 - Actions ##########################################################
+apashExecuteCache(){
+    apashParseCheckArgs "$@" || return
+    apash.import -f "fr/hastec/apash.cache"
+    shift $APASH_NB_ARGS
+    apash.cache "$@"
+}
+
 apashExecuteCheck(){
     apashParseCheckArgs "$@" || return
     apash.import -f "fr/hastec/apash.check"
@@ -450,16 +476,20 @@ apashExecuteTest(){
   APASH_TEST_FILES=("$@")
   [ $# -eq 0 ] && APASH_TEST_FILES=("$APASH_HOME_DIR/spec/")
   
-  # @todo: Find a more elegant way to inject arguments (protected by zsh).
-  # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
-  # Split word intentionnaly the shellspec options.
-  if [ "$APASH_SHELL" = "zsh" ]; then
-    # shellcheck disable=all
-    APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
-  else # bash
-    # shellcheck disable=SC2086
-    APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
-  fi
+  # Create a subshell to preserve the current user location.
+  (
+    cd "$APASH_HOME_DIR"
+    # @todo: Find a more elegant way to inject arguments (protected by zsh).
+    # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
+    # Split word intentionnaly the shellspec options.
+    if [ "$APASH_SHELL" = "zsh" ]; then
+      # shellcheck disable=all
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec ${(z)APASH_TEST_OPTIONS} "${APASH_TEST_FILES[@]}"
+    else # bash
+      # shellcheck disable=SC2086
+      APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" APASH_TEST_MINIFIED="${APASH_TEST_MINIFIED:-}" APASH_LOG_WARNING_DEGRADED=false shellspec $APASH_TEST_OPTIONS "${APASH_TEST_FILES[@]}"
+    fi
+  )
 }
 
 # LEVEL 3 - Parsing argument per action ########################################
@@ -475,6 +505,36 @@ apashParseInitArgs() {
       --post-install)
         APASH_INIT_POST_INSTALL=true
         ;;
+      # End of all options.
+      --)             
+        shift
+        break
+        ;;
+
+      # Display error message on unknown option
+      -?*)
+        printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
+        return $APASH_FAILURE
+        ;;
+
+      # Stop parsing
+      *)
+        break
+    esac
+    shift
+  done
+  return $APASH_SUCCESS
+}
+
+apashParseCacheArgs() {
+  while :; do
+    case ${1:-} in
+      # Show helps
+      -h|-\?|--help)
+        apashShowCacheHelp
+        return $APASH_FAILURE
+        ;;
+
       # End of all options.
       --)             
         shift

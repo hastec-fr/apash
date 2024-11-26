@@ -1,7 +1,7 @@
 Describe 'StringUtils.equals'
   apash.import "fr.hastec.apash.commons-lang.StringUtils.equals"
 
-  It 'passes succeed without argument'
+  It 'passes without argument'
     When call StringUtils.equals
     The output should equal ""
     The status should be success
