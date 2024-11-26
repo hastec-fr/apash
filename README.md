@@ -504,7 +504,7 @@ The import uses a cache to prevent dependency recalculation. You can disable thi
   apash.import -f -n "path.to.the.library"
 
   # Rebuild the cache if necessary:
-  apash.cache "path.to.the.library"
+  apash cache "path.to.the.library"
 ```
 
 If there are any doubts on what is imported, it's possible to trace it:

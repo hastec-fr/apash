@@ -31,4 +31,10 @@ Describe 'FileNameUtils.getExtension'
     The status should be success
   End
 
+  It 'passes and output is empty when there is no extension'
+    When call FileNameUtils.getExtension "a/b/c.txt.tmp"
+    The output should equal "tmp"
+    The status should be success
+  End
+
 End

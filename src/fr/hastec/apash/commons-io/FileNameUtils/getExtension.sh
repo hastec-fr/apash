@@ -10,6 +10,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 # @description
 #   This method returns the textual part of the file name after the last dot. 
 #   There must be no directory separator after the dot.
+#   Only the last extension is returned.
 #
 # ## History
 #  @since 0.2.0 (Benjamin Vargin)
@@ -28,6 +29,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 #    FileNameUtils.getExtension  "a/b/c.jpg"        # "jpg"
 #    FileNameUtils.getExtension  "a/b.txt/c"        # ""
 #    FileNameUtils.getExtension  "a/b/c"            # ""
+#    FileNameUtils.getExtension  "a/b/c.txt.tmp"    # ".tmp"
 # ```
 #
 # @stdout The extension of the file or an empty string if none exists.
@@ -43,6 +45,6 @@ FileNameUtils.getExtension() {
 
   # If no extension, then return nothing.
   ! StringUtils.contains "$inFileName" "." && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-  echo "${$inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  echo "${inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.ex $LINENO; return "$APASH_SUCCESS";
 }
