@@ -32,6 +32,7 @@ StringUtils.rightPad "123" 6 "!"
 - [Maintenance](#maintenance)
 - [License](#license)
 - [Explore the API](doc/fr/hastec/apash.md) (or with the [Full Summary Table](doc/fr/hastec/apacheFullSummaryTable.md))
+- [How to contribute ?](https://github.com/hastec-fr/apash/wiki/Contribute)
 
 ## <a id="quick-start" ></a>📦 Installation
 
@@ -40,7 +41,7 @@ A minified version of apash is available in order to facilitate the usage and ga
 Just download, source and use. This minified version exists for bash and zsh.<br/>
 With this package, only the runtime library is available (not the apash command).
 ```bash
-# Download
+# Download version for bash (exist for zsh too, see ZSH variant below)
 curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apash-bash-min.sh" -o apash-bash-min.sh
 
 # Source
@@ -49,17 +50,6 @@ curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apas
 # Repeat the string
 StringUtils.repeat 2 "ah! "
 # result: ah! ah!
-```
-
-### <ins>Full installation</ins>
-As other shell projects, there is no standard way to install Apash.<br/>
-Below are the main ones.
-
-#### <ins>Pre-requisites</ins>
-Install curl and git to proceed with the scripted installation.
-```bash
-# Adapt the command with your own package manager (here apt).
-sudo apt install curl git
 ```
 
 <details>
@@ -73,9 +63,21 @@ StringUtils.upperCase "Hello World"
 ```
 </details>
 
+### <ins>Full installation</ins>
+As other shell projects, there is no standard way to install Apash.<br/>
+Below are the main ones.
+
+#### <ins>Pre-requisites</ins>
+Install curl and git to proceed with the scripted installation.
+```bash
+# Adapt the command with your own package manager (here apt).
+sudo apt install curl git
+```
+
 #### <ins>Intallation by Script</ins>
 Modify the URL in consequence if you want a particular version, here it's for the head of the main branch:
 ```bash
+# BASH:
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
 ```
 Open a new terminal and check the apash version:
@@ -224,7 +226,7 @@ This can be done inside a single file but it could be segregated per file.
   lowerCase.bash_4.2 # Variant for bash equals or less than the version 4.2: ${inString,,} appears with the 4.3.
 ```
 This mechanism allows extending to other shells (ksh, csh, dash...) and sharing a maximum of compatible code in same time.<br/>
-Today, the library is really not POSIX (just bash and zsh), but people knowing other shells can contribute with their own dialect.
+Today, the library is really not POSIX (just bash and zsh), but people knowing other shells can [contribute](https://github.com/hastec-fr/apash/wiki/Contribute) with their own dialect.
 POSIX form of the functions could be imagined in future with .posix files (with a wrapping mechanism for function names currently using dots).
 
 ## <a id="documentation" ></a> 📖 Documentation

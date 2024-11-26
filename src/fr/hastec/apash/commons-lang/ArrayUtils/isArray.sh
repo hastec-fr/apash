@@ -7,7 +7,7 @@ apash.import fr.hastec.apash.util.Log
 # @brief Check if the input name is an array or not.
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.1.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage

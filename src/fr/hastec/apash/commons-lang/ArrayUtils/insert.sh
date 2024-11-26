@@ -11,7 +11,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @brief Inserts elements into an array at the given index (starting from zero).
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.1.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage

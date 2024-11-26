@@ -11,7 +11,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 #   The toArray is stopped at the end of the array and as many as possible elements are toArrayed.
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.1.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage

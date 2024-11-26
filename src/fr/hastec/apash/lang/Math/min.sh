@@ -13,7 +13,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 #   The last input value format is returned.
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.1.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage

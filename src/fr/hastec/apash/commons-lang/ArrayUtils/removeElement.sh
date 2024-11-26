@@ -15,7 +15,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.indexOf
 #   If the array doesn't contains such an element, no elements are removed from the array.
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.1.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage
