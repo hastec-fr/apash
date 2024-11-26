@@ -84,7 +84,7 @@ apash.doc.getFullSummaryTable(){
     rows+="| $methodPath | $brief |\n"
   done < <(find "$APASH_HOME_DIR/src" -type f -name "*.sh" -print0 | LC_ALL=C sort -z)
   # shellcheck disable=SC2001
-  echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|../../../../assets/apash-logo.svg|1" > "$fstFile"
+  echo "$APASH_DOC_HEADER" | sed "s|{{apash-logo}}|../../../assets/apash-logo.svg|1" > "$fstFile"
   echo -e "\n$rows" >> "$fstFile"
   echo "$APASH_DOC_FOOTER" >> "$fstFile"
 }
