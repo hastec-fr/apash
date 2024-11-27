@@ -80,7 +80,7 @@ Modify the URL in consequence if you want a particular version, here it's for th
 # BASH:
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
 ```
-Open a new terminal and check the apash version:
+**Open a new terminal** and check the apash version:
 ```bash
 apash --version
 # 0.2.0
@@ -88,9 +88,15 @@ apash --version
 <details>
 <summary>ZSH Variant</summary>
 
+Please note that "| zsh" is important to overload the default shebang (bash).
 ```bash
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | zsh
+```
+
+**Open a new terminal** and check the apash version:
+```bash
 apash --version
+# 0.2.0
 ```
 </details>
 
@@ -447,6 +453,10 @@ ArrayUtils.add "myArray" Hello
 ```
 
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
+### Apash command is not found
+If you're using ZSH, please check that $APASH_HOME_DIR is well defined.<br/>
+If not, the script install.sh has may be directly executed after download without specifying the shell. So the shebang of the script (bash) has been used instead of zsh. It is suggested to cleanup the $HOME/.apash and remove lines from $HOME/.bashrc and redo the installation taking care about the "| zsh" (or zsh -c "./install.sh").
+
 ### Warnings logs appears
 Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
 In this case, another code flow is implemented (and work) but it notifies that the main flow is not followed.<br/>
