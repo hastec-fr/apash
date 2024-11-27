@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-d##############################################################################
+###############################################################################
 # @name uninstall.zsh
 # @brief Wrapper to execute the uninstaller with zsh interpreter
 # @description
