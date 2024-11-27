@@ -41,12 +41,16 @@ apash_main(){
   fi
   export APASH_HOME_DIR
 
+  # If no argument, then display the version.
+  if [ $# -eq 0 ]; then
+    echo "version: $APASH_VERSION"
+  
   # Check if the action is to source the script
-  if [ $# -eq 0 ] || [ "${1:-}" = "source" ]; then
+  elif [ "${1:-}" = "source" ]; then
     
     # If no BASH_VERSION nor ZSH_VERSION means that default sh cannot source apash.
     if [ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ]; then
-      echo "$(date +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The current shell is not supported for sourcing. Please check shebang."
+      echo "$(date +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The default shell (sh) is not supported for sourcing. Please check shebang."
       return 1
     fi
 
