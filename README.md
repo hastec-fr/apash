@@ -75,9 +75,8 @@ sudo apt install curl git
 ```
 
 #### <ins>Intallation by Script</ins>
-Modify the URL in consequence if you want a particular version, here it's for the head of the main branch:
+Modify the URL in consequence if you want a particular version, here it's for the head of the main branch (for BASH):
 ```bash
-# BASH:
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
 ```
 **Open a new terminal** and check the apash version:
@@ -114,10 +113,9 @@ curl -s "https://raw.githubusercontent.com/basherpm/basher/master/install.sh" | 
 basher install "hastec-fr/apash"
 ```
 
-#### Execute post installation action:
+#### Execute post installation action by pointing on the correct APASH_HOME_DIR:
 ```bash
-"$HOME/.basher/cellar/bin/apash" init --post-install
-# Then open a new terminal to ensure that environnment is re-loaded.
+APASH_HOME_DIR="$HOME/.basher/cellar/packages/hastec-fr/apash" && APASH_SHELL=bash "$APASH_HOME_DIR/apash" init --post-install
 ```
 Open a new terminal to ensure that environment is refreshed with apash functions.
 </details>

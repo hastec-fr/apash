@@ -828,7 +828,11 @@ apashExecutePostInstall(){
       echo ". \"\$APASH_HOME_DIR/apash.source\"                ##$apash_keyword"
     ) >> "$startup_script"
   else
-    echo "The apash install tags are already present in $startup_script."
+    # Modify the APASH_DIRECTORY in startup script.
+    local defaultDir="${APASH_HOME_DIR:-"$HOME/.apash"}"
+    sed -i "s|^\(\s*APASH_HOME_DIR=\"\).*\(\"\s*##apashInstallTag\)|\1\${APASH_HOME_DIR:-\"$defaultDir\"}\2|" "$startup_script"
+    echo "The startup script ($startup_script) has been updated with new APASH_HOME_DIR: $APASH_HOME_DIR."
+    echo "Please open a new terminal to ensure that environment is well loaded."
   fi
 }
 

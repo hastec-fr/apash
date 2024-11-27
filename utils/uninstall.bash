@@ -28,7 +28,7 @@ fi
 ## Remove the directory.
 echo ". Remove apash code"
 if [ -d "${APASH_HOME_DIR}" ]; then
-  rm -fr "${APASH_HOME_DIR}" || die "Apash cannot be removed [${APASH_HOME_DIR}]."
+  rm -rf "${APASH_HOME_DIR}" || die "Apash cannot be removed [${APASH_HOME_DIR}]."
 fi
 
 ## Now check what shell is running.
