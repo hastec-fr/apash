@@ -3,9 +3,9 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
-apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
-apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isVariableNameValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isDeclared
+apash.import fr.hastec.apash.commons-lang.ShellUtils.declareArray
 
 ##/
 # @name ArrayUtils.nullToEmpty
@@ -54,14 +54,14 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 ArrayUtils.nullToEmpty() {
   Log.in $LINENO "$@"
   local inArrayName="${1:-}"
-  BashUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 
   # Fails if the variable is declared and not an array
-  BashUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # Declare the array with dynamic name
-  BashUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   Log.out $LINENO; return "$APASH_SUCCESS"
 }

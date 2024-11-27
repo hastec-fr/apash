@@ -29,6 +29,7 @@ Operations on String considering null as empty string.
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 |[abbreviate](StringUtils/abbreviate.md)|Abbreviates a String using ellipses.|
+|[contains](StringUtils/contains.md)|Checks if the CharSequence contains certain characters.|
 |[containsOnly](StringUtils/containsOnly.md)|Checks if the CharSequence contains only certain characters.|
 |[countMatches](StringUtils/countMatches.md)|Counts how many times the substring appears in the larger string.|
 |[endsWith](StringUtils/endsWith.md)|Check if a string ends with a specified suffix.|

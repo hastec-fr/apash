@@ -76,8 +76,8 @@ apash.test.compatibility.addVersion(){
 
   # Build and run a container with apash test.
   [ -n "$apashDockerSudo" ] && echo "Enter password for docker usage (if necessary)."
-  $apashDockerSudo docker build --no-cache --build-arg "SHELL_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
-  $apashDockerSudo docker run --rm "hastec/apash:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
+  $apashDockerSudo docker build --no-cache --build-arg "SHELL_VERSION=${shellVersion}" --build-arg "APASH_LOCAL_COPY=true" -t "hastec/apash-local:${APASH_VERSION}-${shellName}_${shellVersion}" -f "$APASH_HOME_DIR/docker/apash-${shellName}.dockerfile" "$APASH_HOME_DIR"
+  $apashDockerSudo docker run --rm "hastec/apash-local:${APASH_VERSION}-${shellName}_${shellVersion}" 'apash test --test-options "--directory $APASH_HOME_DIR --shell '"${shellName}"' --format tap"' | tee "$shellCampaignFile"
 
   while IFS= read -r line; do
     # Keep only lines with ok/not ok

@@ -39,7 +39,7 @@
 #
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
-apash.cache(){
+apash.cache() {
   local lib cacheLib
   local cacheList
   local cacheRoot
@@ -50,6 +50,8 @@ apash.cache(){
     while IFS= read -r -d '' file; do
       libs+=("$file")
     done < <(find "$APASH_HOME_DIR/src/" -type f -name "*.sh" -print0)
+    echo "Purge current cache: $APASH_HOME_DIR/cache/"
+    rm -r "$APASH_HOME_DIR/cache/"
   fi
 
   for lib in "${libs[@]}"; do

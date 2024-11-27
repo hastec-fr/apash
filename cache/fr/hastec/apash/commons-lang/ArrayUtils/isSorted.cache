@@ -1,7 +1,7 @@
 $APASH_HOME_DIR/src/fr/hastec/apash/lang/Integer.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log.sh
-$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/BashUtils/getFunctionName.sh
-$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/BashUtils/getParentFunctionName.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ShellUtils/getFunctionName.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ShellUtils/getParentFunctionName.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/message.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/debug.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/error.sh
@@ -12,7 +12,7 @@ $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/out.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/trace.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/warn.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/NumberUtils/isParsable.sh
-$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/BashUtils/isCommandValid.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ShellUtils/isCommandValid.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/lang/Math/min.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/ex.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ArrayUtils/isArray.sh

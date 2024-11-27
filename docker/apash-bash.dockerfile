@@ -1,6 +1,7 @@
-# docker build -t docker.io/hastec/apash:0.1.0 -f ./docker/apash-bash.dockerfile .
-# docker run --rm -it hastec/apash:0.1.0
-# docker push docker.io/hastec/apash:0.1.0
+# docker build -t docker.io/hastec/apash:0.2.0-bash -f ./docker/apash-bash.dockerfile .
+# docker tag docker.io/hastec/apash:0.2.0-bash docker.io/hastec/apash:0.2.0
+# docker run --rm -it hastec/apash:0.2.0
+# docker push docker.io/hastec/apash:0.2.0
 
 # Only version is before from for ARG scope
 ARG SHELL_VERSION=5.2.32
@@ -18,7 +19,7 @@ LABEL maintainer="Benjamin Vargin"
 RUN apk update && \
     apk add --no-cache curl git coreutils tzdata
 
-RUN apk add vim
+# RUN apk add vim
 
 RUN addgroup -S tribe && \
     adduser -s /usr/local/bin/bash --home /home/apash -S -G tribe apash
@@ -42,7 +43,8 @@ RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
     cat <<EOF > $HOME/.bashrc
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag
 export PATH="\$PATH:$HOME/.local/bin"            ##apashInstallTag
-. "\$HOME/.apash/.apashrc"                       ##apashInstallTag
+export APASH_HOME_DIR="\$HOME/.apash"            ##apashInstallTag
+. "\$APASH_HOME_DIR/.apashrc"                    ##apashInstallTag
 . "\$APASH_HOME_DIR/apash.source"                ##apashInstallTag
 EOF
 

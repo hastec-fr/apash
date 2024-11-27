@@ -33,13 +33,13 @@ All notable changes to this project will be documented in this file.
   - Added ArrayUtils.isSameLastIndex
   - Added ArrayUtils.join
   - Added ArrayUtils.removeAllOccurrences
-  - Added BashUtils.declareArray
-  - Added BashUtils.getFunctionName
-  - Added BashUtils.getParentFunctionName
-  - Added BashUtils.isDeclared
-  - Added BashUtils.isVariable
-  - Added BashUtils.isVariableNameValid
-  - Added BashUtils.isZsh
+  - Added ShellUtils.declareArray
+  - Added ShellUtils.getFunctionName
+  - Added ShellUtils.getParentFunctionName
+  - Added ShellUtils.isDeclared
+  - Added ShellUtils.isVariable
+  - Added ShellUtils.isVariableNameValid
+  - Added ShellUtils.isZsh
   - Added CSVUtils.merge (for compatibility matrix purpose only)
   - Added DateUtils.addDays
   - Added DateUtils.addSeconds
@@ -88,7 +88,7 @@ All notable changes to this project will be documented in this file.
 - getLength: Returns the last index +1 instead of ${#array[@]}. Take case of discontinued indexes into account.
 - Array methods are no more erasing the existing value if it's a variable or a map (fail instead to prevent override). The method anythingToEmpty should be used instead for this use case.
 - Fixed issue on date test under git bash.
-- ⚠️ Breaking change: BashUtils becomes ShellUtils
+- ⚠️ Breaking change: ShellUtils becomes ShellUtils
 - ⚠️ Breaking change: Remove the shell level in directory path /src/...
 - Wrap the main script by a more POSIX script which redirect to the correct interpreter.
 
@@ -132,9 +132,9 @@ First release of Apash containing the following methods for bash.
 - Added ArrayUtils.subarray
 - Added ArrayUtils.swap
 - Added ArrayUtils.toArray
-- Added BashUtils.isCommandValid
-- Added BashUtils.isVariableNameValid
-- Added BashUtils.toArray
+- Added ShellUtils.isCommandValid
+- Added ShellUtils.isVariableNameValid
+- Added ShellUtils.toArray
 - Added DateUtils.add
 - Added DateUtils.addDays
 - Added DateUtils.addHours

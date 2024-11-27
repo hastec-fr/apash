@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log.message
-apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
+apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name Log.warn
@@ -38,7 +38,7 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
 Log.warn() {
   local inLineNumber="${1:-}"
   local inMessage="${2:-}"
-  local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+  local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
   local inChannel="${4:-2}"
 
   Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"

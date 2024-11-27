@@ -15,4 +15,4 @@
 # 
 # @apashSummaryTable
 #/
-commons-lang.BashUtils() { true; }
+commons-lang.ShellUtils() { true; }

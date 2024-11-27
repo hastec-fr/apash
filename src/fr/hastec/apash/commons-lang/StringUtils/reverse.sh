@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isCommandValid
 
 ##/
 # @name StringUtils.reverse
@@ -39,7 +39,7 @@ StringUtils.reverse() {
   local reversed_string=""
   local -i i
 
-  if BashUtils.isCommandValid "rev"; then
+  if ShellUtils.isCommandValid "rev"; then
     echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   else
     [ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."

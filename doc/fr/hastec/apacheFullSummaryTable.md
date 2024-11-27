@@ -1,7 +1,7 @@
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
-    <img alt='apash-logo' src='../../../../assets/apash-logo.svg'/>
+    <img alt='apash-logo' src='../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
@@ -10,6 +10,7 @@
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 | [apash](apash.md) | Translation for shell scripts of some apache libraries and more. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getExtension](apash/commons-io/FileNameUtils/getExtension.md) | Gets the extension of a fileName. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) | Provides highly reusable utility methods. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) | Utility functions specific to apash. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a markdown file(.md) according to comments of the input file. |
@@ -55,14 +56,6 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [swap](apash/commons-lang/ArrayUtils/swap.md) | Swaps a series of elements in the given array. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ArrayUtils](apash/commons-lang/ArrayUtils.md) / [toArray](apash/commons-lang/ArrayUtils/toArray.md) | Create an array based on list of arguments. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) | Operations arround Bash languages |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [declareArray](apash/commons-lang/BashUtils/declareArray.md) | Declare an array at global level with dynamic name. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getFunctionName](apash/commons-lang/BashUtils/getFunctionName.md) | Display the name of the function according to the provided depth |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [getParentFunctionName](apash/commons-lang/BashUtils/getParentFunctionName.md) | Display the name of the parent function of the current executed function. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isCommandValid](apash/commons-lang/BashUtils/isCommandValid.md) | Defensive programming technique to check that a variable name is valid |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isDeclared](apash/commons-lang/BashUtils/isDeclared.md) | Defensive programming technique to check that a variable is declared. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariable](apash/commons-lang/BashUtils/isVariable.md) | Defensive programming technique to check that a variable exists. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isVariableNameValid](apash/commons-lang/BashUtils/isVariableNameValid.md) | Defensive programming technique to check that a variable name is valid. |
-| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [BashUtils](apash/commons-lang/BashUtils.md) / [isZsh](apash/commons-lang/BashUtils/isZsh.md) | Determine if current APASH_SHELL is zsh. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [CsvUtils](apash/commons-lang/CsvUtils.md) | Operations on csv files. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [CsvUtils](apash/commons-lang/CsvUtils.md) / [merge](apash/commons-lang/CsvUtils/merge.md) | Merge two csv files according to their columns keys. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [DateUtils](apash/commons-lang/DateUtils.md) | Operations on dates. |
@@ -101,8 +94,17 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [isParsable](apash/commons-lang/NumberUtils/isParsable.md) | Checks whether the given String is a parsable number. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [max](apash/commons-lang/NumberUtils/max.md) | Returns the greater value of a list of numbers. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [NumberUtils](apash/commons-lang/NumberUtils.md) / [min](apash/commons-lang/NumberUtils/min.md) | Returns the smaller value of a list of numbers. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [declareArray](apash/commons-lang/ShellUtils/declareArray.md) | Declare an array at global level with dynamic name. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [getFunctionName](apash/commons-lang/ShellUtils/getFunctionName.md) | Display the name of the function according to the provided depth |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [getParentFunctionName](apash/commons-lang/ShellUtils/getParentFunctionName.md) | Display the name of the parent function of the current executed function. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [isCommandValid](apash/commons-lang/ShellUtils/isCommandValid.md) | Defensive programming technique to check that a variable name is valid |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [isDeclared](apash/commons-lang/ShellUtils/isDeclared.md) | Defensive programming technique to check that a variable is declared. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [isVariable](apash/commons-lang/ShellUtils/isVariable.md) | Defensive programming technique to check that a variable exists. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [isVariableNameValid](apash/commons-lang/ShellUtils/isVariableNameValid.md) | Defensive programming technique to check that a variable name is valid. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ShellUtils](apash/commons-lang/ShellUtils.md) / [isZsh](apash/commons-lang/ShellUtils/isZsh.md) | Determine if current APASH_SHELL is zsh. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) | Operations on String considering null as empty string. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [abbreviate](apash/commons-lang/StringUtils/abbreviate.md) | Abbreviates a String using ellipses. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [contains](apash/commons-lang/StringUtils/contains.md) | Checks if the CharSequence contains certain characters. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [containsOnly](apash/commons-lang/StringUtils/containsOnly.md) | Checks if the CharSequence contains only certain characters. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [countMatches](apash/commons-lang/StringUtils/countMatches.md) | Counts how many times the substring appears in the larger string. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [endsWith](apash/commons-lang/StringUtils/endsWith.md) | Check if a string ends with a specified suffix. |

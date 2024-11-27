@@ -13,7 +13,7 @@ Inserts elements into an array at the given index (starting from zero).
 
 ## History
 ### Since
-  * 0.2.0 (hastec-fr)
+  * 0.1.0 (hastec-fr)
 
 ## Interface
 ### Package

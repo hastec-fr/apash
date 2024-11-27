@@ -16,7 +16,7 @@ Removes the first occurrence of the specified element from the specified array.
 
 ## History
 ### Since
-  * 0.2.0 (hastec-fr)
+  * 0.1.0 (hastec-fr)
 
 ## Interface
 ### Package

@@ -4,10 +4,10 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.MapUtils.sh
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
-apash.import fr.hastec.apash.commons-lang.BashUtils.isVariable
-apash.import fr.hastec.apash.commons-lang.BashUtils.isDeclared
-apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isVariableNameValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isVariable
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isDeclared
+apash.import fr.hastec.apash.commons-lang.ShellUtils.declareArray
 
 ##/
 # @name ArrayUtils.init
@@ -56,13 +56,13 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 MapUtils.init() {
   Log.in $LINENO "$@"
   local apash_MapUtils_init_ioMapName="${1:-}"
-  BashUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  BashUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray "$apash_MapUtils_init_ioMapName"            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   # If the variable is not declared, then create the corresponding global value.
-  if ! BashUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
-    BashUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  if ! ShellUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
+    ShellUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 

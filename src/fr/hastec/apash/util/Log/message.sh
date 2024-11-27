@@ -4,7 +4,7 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.lang.Integer.sh
 apash.import fr.hastec.apash.util.Log.sh
-apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
+apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name LogUtils.logger

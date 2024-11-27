@@ -790,7 +790,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >❌</td>
     </tr>
     <tr>
-      <td>BashUtils.getFunctionName</td>
+      <td>ShellUtils.getFunctionName</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -807,7 +807,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>BashUtils.getParentFunctionName</td>
+      <td>ShellUtils.getParentFunctionName</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -824,7 +824,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>BashUtils.isDeclared</td>
+      <td>ShellUtils.isDeclared</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -841,7 +841,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>BashUtils.isVariable</td>
+      <td>ShellUtils.isVariable</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
@@ -858,7 +858,7 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='zsh 5.2' >✅</td>
     </tr>
     <tr>
-      <td>BashUtils.isVariableNameValid</td>
+      <td>ShellUtils.isVariableNameValid</td>
       <td title='bash 5.2' >✅</td>
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>

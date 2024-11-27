@@ -15,7 +15,7 @@ Create an array based on list of arguments.
 
 ## History
 ### Since
-  * 0.2.0 (hastec-fr)
+  * 0.1.0 (hastec-fr)
 
 ## Interface
 ### Package

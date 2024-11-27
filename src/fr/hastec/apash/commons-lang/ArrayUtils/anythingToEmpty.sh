@@ -3,8 +3,8 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.isArray
-apash.import fr.hastec.apash.commons-lang.BashUtils.isVariableNameValid
-apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isVariableNameValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.declareArray
 
 ##/
 # @name ArrayUtils.anythingToEmpty
@@ -48,8 +48,8 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.declareArray
 ArrayUtils.anythingToEmpty() {
   Log.in $LINENO "$@"
   local apash_ioArrayName="${1:-}"
-  BashUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   unset "$apash_ioArrayName"
-  BashUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  ShellUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   return "$APASH_SUCCESS"
 }

@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log.message
-apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
+apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 apash.import fr.hastec.apash.lang.Math.min
 
 ##/
@@ -75,7 +75,7 @@ Log.ex() {
     [ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
   fi
 
-  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")" 
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")" 
 
   Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"

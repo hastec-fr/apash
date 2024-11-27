@@ -430,12 +430,12 @@ So a system of black/white lists exist in order to select which log could be out
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.add
 ArrayUtils.add "myArray" Hello
-# Logs with ArrayUtils.nullToEmpty, BashUtils.isVariableNameValid, BashUtils.isDeclared...
+# Logs with ArrayUtils.nullToEmpty, ShellUtils.isVariableNameValid, ShellUtils.isDeclared...
 
 unset myArray
-APASH_LOG_BLACKLIST+="BashUtils.isVariableNameValid:BashUtils.isDeclared"
+APASH_LOG_BLACKLIST+="ShellUtils.isVariableNameValid:ShellUtils.isDeclared"
 ArrayUtils.add "myArray" Hello
-# Logs without BashUtils.isVariableNameValid and BashUtils.isDeclared are displayed.
+# Logs without ShellUtils.isVariableNameValid and ShellUtils.isDeclared are displayed.
 ```
 
 You can combine the black list (checked first) with the white list to restrict a maximum logs.

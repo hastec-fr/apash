@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isCommandValid
 
 ##/
 # @name apash.check
@@ -31,6 +31,6 @@ apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
 #
 #/
 apash.check(){
-  BashUtils.isCommandValid "bc"  || Log.warn $LINENO "**DEGRADED MODE** bc command not found."
-  BashUtils.isCommandValid "rev" || Log.warn $LINENO "**DEGRADED MODE** rev command not found."
+  ShellUtils.isCommandValid "bc"  || Log.warn $LINENO "**DEGRADED MODE** bc command not found."
+  ShellUtils.isCommandValid "rev" || Log.warn $LINENO "**DEGRADED MODE** rev command not found."
 }

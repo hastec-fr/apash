@@ -19,7 +19,7 @@ LABEL maintainer="Benjamin Vargin"
 RUN apt update && \
     apt install -y curl git bc coreutils tzdata
 
-RUN apt install -y vim
+# RUN apt install -y vim
 
 RUN addgroup tribe && \
     adduser --shell /usr/bin/zsh --home /home/apash --ingroup tribe --disabled-password --gecos apash apash

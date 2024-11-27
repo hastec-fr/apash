@@ -3,7 +3,7 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.NumberUtils.isParsable
-apash.import fr.hastec.apash.commons-lang.BashUtils.isCommandValid
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isCommandValid
 
 ##/
 # @name Math.max
@@ -54,7 +54,7 @@ Math.max() {
   NumberUtils.isParsable "$inNum1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   NumberUtils.isParsable "$inNum2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  if BashUtils.isCommandValid "bc"; then
+  if ShellUtils.isCommandValid "bc"; then
     max=$(echo "if ($inNum1 < $inNum2) 0 else 1" | bc -lq)
     if [[ $max -eq 1 ]]; then
       echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }

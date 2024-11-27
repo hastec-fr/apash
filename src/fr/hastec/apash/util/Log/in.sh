@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log.message
-apash.import fr.hastec.apash.commons-lang.BashUtils.getParentFunctionName
+apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name Log.in
@@ -41,7 +41,7 @@ Log.in() {
   local arg
   shift
 
-  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
 
   for arg in "$@"; do
     args+="'$arg' "

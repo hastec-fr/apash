@@ -28,14 +28,6 @@ Operations arround Bash languages
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[declareArray](BashUtils/declareArray.md)|Declare an array at global level with dynamic name.|
-|[getFunctionName](BashUtils/getFunctionName.md)|Display the name of the function according to the provided depth|
-|[getParentFunctionName](BashUtils/getParentFunctionName.md)|Display the name of the parent function of the current executed function.|
-|[isCommandValid](BashUtils/isCommandValid.md)|Defensive programming technique to check that a variable name is valid|
-|[isDeclared](BashUtils/isDeclared.md)|Defensive programming technique to check that a variable is declared.|
-|[isVariable](BashUtils/isVariable.md)|Defensive programming technique to check that a variable exists.|
-|[isVariableNameValid](BashUtils/isVariableNameValid.md)|Defensive programming technique to check that a variable name is valid.|
-|[isZsh](BashUtils/isZsh.md)|Determine if current APASH_SHELL is zsh.|
 <!-- apash.summaryTableEnd -->
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

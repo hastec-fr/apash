@@ -150,7 +150,7 @@ local inNum2="${2:-}"
 local max
 NumberUtils.isParsable "$inNum1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 NumberUtils.isParsable "$inNum2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if BashUtils.isCommandValid "bc"; then
+if ShellUtils.isCommandValid "bc"; then
 max=$(echo "if ($inNum1 < $inNum2) 0 else 1" | bc -lq)
 if [[ $max -eq 1 ]]; then
 echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
@@ -174,7 +174,7 @@ local inNum2="${2:-}"
 local min
 NumberUtils.isParsable "$inNum1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 NumberUtils.isParsable "$inNum2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if BashUtils.isCommandValid "bc"; then
+if ShellUtils.isCommandValid "bc"; then
 min=$(echo "if ($inNum1 > $inNum2) 1 else 0" | bc -lq)
 if [[ $min -eq 0 ]]; then
 echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
@@ -270,7 +270,7 @@ util.Log() { true; }
 Log.info() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_INFO" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -278,7 +278,7 @@ return "$APASH_FAILURE"
 Log.debug() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_DEBUG" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -286,7 +286,7 @@ return "$APASH_FAILURE"
 Log.fatal() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_FATAL" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -317,14 +317,14 @@ done
 fi
 [ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
 fi
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")" 
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")" 
 Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
 return "$APASH_SUCCESS"
 }
 Log.trace() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_TRACE" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -336,7 +336,7 @@ local parentFunction
 local args
 local arg
 shift
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
 for arg in "$@"; do
 args+="'$arg' "
 done
@@ -346,7 +346,7 @@ return "$APASH_FAILURE"
 Log.warn() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -359,7 +359,7 @@ local outMessage="Out"
 local args
 local arg
 shift 1
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" BashUtils.getParentFunctionName || echo "Unknown")"
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
 for arg in "$@"; do
 args+="'$arg' "
 done
@@ -370,7 +370,7 @@ return "$APASH_FAILURE"
 Log.error() {
 local inLineNumber="${1:-}"
 local inMessage="${2:-}"
-local inFunction="${3:-$(BashUtils.getParentFunctionName)}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
 local inChannel="${4:-2}"
 Log.message "$APASH_LOG_LEVEL_ERROR" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
 return "$APASH_FAILURE"
@@ -398,11 +398,11 @@ Log.out $LINENO; return "$APASH_SUCCESS"
 MapUtils.init() {
 Log.in $LINENO "$@"
 local apash_MapUtils_init_ioMapName="${1:-}"
-BashUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-BashUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 ArrayUtils.isArray "$apash_MapUtils_init_ioMapName"            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if ! BashUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
-BashUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if ! ShellUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
+ShellUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 fi
 if [ "$APASH_SHELL" = "zsh" ]; then
@@ -770,7 +770,7 @@ Log.in $LINENO "$@"
 local inString="${1:-}"
 local reversed_string=""
 local -i i
-if BashUtils.isCommandValid "rev"; then
+if ShellUtils.isCommandValid "rev"; then
 echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
 [ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
@@ -1070,11 +1070,11 @@ Log.out $LINENO; return "$APASH_SUCCESS"
 ArrayUtils.init() {
 Log.in $LINENO "$@"
 local apash_ArrayUtils_init_ioArrayName="${1:-}"
-BashUtils.isVariableNameValid "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-BashUtils.isVariable "$apash_ArrayUtils_init_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariableNameValid "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariable "$apash_ArrayUtils_init_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
 MapUtils.isMap "$apash_ArrayUtils_init_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if ! BashUtils.isDeclared "$apash_ArrayUtils_init_ioArrayName"; then
-BashUtils.declareArray "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if ! ShellUtils.isDeclared "$apash_ArrayUtils_init_ioArrayName"; then
+ShellUtils.declareArray "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 fi
 if [ "$APASH_SHELL" = "zsh" ]; then
@@ -1231,9 +1231,9 @@ Log.out $LINENO; return "$APASH_SUCCESS"
 ArrayUtils.anythingToEmpty() {
 Log.in $LINENO "$@"
 local apash_ioArrayName="${1:-}"
-BashUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 unset "$apash_ioArrayName"
-BashUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 return "$APASH_SUCCESS"
 }
 ArrayUtils.isNotEmpty() {
@@ -1576,10 +1576,10 @@ Log.out $LINENO; return "$APASH_SUCCESS"
 ArrayUtils.nullToEmpty() {
 Log.in $LINENO "$@"
 local inArrayName="${1:-}"
-BashUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 ArrayUtils.isArray "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-BashUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-BashUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ArrayUtils.toArray() {
@@ -1687,7 +1687,7 @@ ArrayUtils_EMPTY_ARRAY=()
 commons-lang.ArrayUtils() { true; }
 DateUtils_UTC_FORMAT="+%FT%T.%3N%z"
 commons-lang.DateUtils() { true; }
-commons-lang.BashUtils() { true; }
+commons-lang.ShellUtils() { true; }
 commons-lang.VersionUtils() { true; }
 commons-lang.CsvUtils() { true; }
 NumberUtils.isLong() {
@@ -1762,17 +1762,17 @@ local inNumber="${1:-}"
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 commons-lang.StringUtils() { true; }
-BashUtils.getParentFunctionName() {
-BashUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
+ShellUtils.getParentFunctionName() {
+ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
 return "$APASH_SUCCESS"
 }
-BashUtils.isCommandValid() {
+ShellUtils.isCommandValid() {
 Log.in $LINENO "$@"
 local commandName="${1:-}"
 command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS";
 }
-BashUtils.declareArray() {
+ShellUtils.declareArray() {
 Log.in $LINENO "$@"
 local varName="${1:-}"
 if [ "$APASH_SHELL" = "zsh" ]; then
@@ -1782,7 +1782,7 @@ declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 fi
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-BashUtils.getFunctionName() {
+ShellUtils.getFunctionName() {
 local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
 local functionName
 if [ "$APASH_SHELL" = "zsh" ]; then
@@ -1795,26 +1795,26 @@ fi
 echo "$functionName" || return "$APASH_FAILURE"
 return "$APASH_SUCCESS"
 }
-BashUtils.isVariable() {
+ShellUtils.isVariable() {
 Log.in $LINENO "$@"
 local varName="${1:-}"
-BashUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
 MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-BashUtils.isZsh() {
+ShellUtils.isZsh() {
 Log.in $LINENO "$@"
 [[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-BashUtils.isDeclared() {
+ShellUtils.isDeclared() {
 Log.in $LINENO "$@"
 local varName="${1:-}"
 declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-BashUtils.isVariableNameValid() {
+ShellUtils.isVariableNameValid() {
 Log.in $LINENO "$@"
 local varName="${1:-}"
 [ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }

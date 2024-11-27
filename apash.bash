@@ -352,6 +352,7 @@ apashExecuteCache(){
     apashParseCheckArgs "$@" || return
     apash.import -f "fr/hastec/apash.cache"
     shift $APASH_NB_ARGS
+    echo "This operation could take few minutes..."
     apash.cache "$@"
 }
 
