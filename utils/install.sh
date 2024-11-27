@@ -60,5 +60,5 @@ echo ". Add apash initialisation to [$startup_script]"
 
 ## Script is finished.
 echo "Apash is installed - OPEN A NEW terminal before to use it:"
-echo "apash.import fr.hastec.apash.commons-lang.StringUtils.upperCase"
-echo "StringUtils.upperCase \"Do or Do not. There is no try.\""
+echo "apash.import fr.hastec.apash.commons-lang.StringUtils.repeat"
+echo "StringUtils.repeat 2 \"Hello! \""
