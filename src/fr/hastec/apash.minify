@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+##/
+# @name apash.minify
+# @brief Tool to regroup and reduce methods into a single file.
+# @description
+#   This minifier does not fit all use cases, but work for apash purposes.
+#   It removes all lines starting by a hashtag, leading spaces and emptys lines.
+#   @todo: Create a real minifier (like mvdan/shfmt ) which accept to have 
+#   different piece of code from different shell in the same source.L  
+#
+# ## History
+# @since 0.2.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $1     | shellName      | string        | in       |                 | Which shell is used for the import   |
+#
+# ### Example
+# ```bash
+#    apash.minify     # Minify using the current APASH_SHELL.
+#    apash.minify zsh # Minify using zsh code.
+# ```
+# 
+# @stdout the script content minified.
+# @stderr None.
+#
+#/
+apash.minify(){
+  local shellName=${1:-$APASH_SHELL}
+  local apashTmpDir="$APASH_HOME_DIR/tmp"
+  local lib vlib version
+
+  # Create temporary directory if not exist.
+  [ ! -d "$apashTmpDir" ] && mkdir -p "$apashTmpDir"
+
+  cat "$APASH_HOME_DIR/src/fr/hastec/apash.sh" \
+      "$APASH_HOME_DIR/src/fr/hastec/apash.import" > "$apashTmpDir/apash-$shellName-min.tmp"
+
+  # @todo: find a way to factorize it how to resolve the library. (as in apash.import, ApashUtils ?).
+  while IFS= read -r -d '' lib; do
+    # Change lib in case a variant exist for the current shell.
+    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
+    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
+      # Overide the library whith a compatible version of the same shell
+      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
+        [ ! -r "$vlib" ] && continue
+        version="${vlib#*_}"
+        # Sort -V not present in zsh (so use manual numeric sort)
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+          lib="$vlib" && break
+        fi
+      done
+    fi
+    sed -e '1d' "$lib" -e '/apash.import/d' >> "$apashTmpDir/apash-$shellName-min.tmp"
+  done < <(find "$APASH_HOME_DIR/src/fr/hastec/apash" -name "*.sh" -print0)
+
+  echo '#!/usr/bin/env '"$shellName" > "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  # @todo: Create a real minifier which does not take care about the logic (if possible) due to the mix of shells
+  # Remove all lines starting by a hashtag, leading spaces and emptys lines.
+  cat "$APASH_HOME_DIR/.apashrc" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d'  "$apashTmpDir/apash-$shellName-min.tmp" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  rm "$apashTmpDir/apash-$shellName-min.tmp"
+
+  # Minification of apash.import:
+  # sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' $APASH_HOME_DIR/src/fr/hastec/apash.import | tr '\n' ';' | sed -e 's/then;/then /g' -e 's/else;/else /g' -e 's/elif;/elif /g' -e 's/do;/do /g' -e 's/{;/{ /g' > $APASH_HOME_DIR/src/fr/hastec/apash.import-min
+  # shfmt need to parse and so understand what the script is doing. Zsh piece of code break the minification.
+  #$APASH_DOCKER_SUDO docker run --rm -v "$apashTmpDir/apash-$shellName-min.tmp:/mnt/apash-$shellName-min.tmp" mvdan/shfmt -mn /mnt/apash-$shellName-min.tmp > $APASH_HOME_DIR/bin/apash-$shellName-min.sh
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# shellcheck source=/dev/null
+
+##############################################################################
+# @name apash.source
+# @brief Script preparing global variables and essential functions used by apash.
+# @description
+#   This script must be sourced.
+#
+source "$APASH_HOME_DIR/src/fr/hastec/apash.sh"
+source "$APASH_HOME_DIR/src/fr/hastec/apash.import"

@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+##/
+# @name apash.cache
+# @brief Build cache for imports.
+# @description
+#   Source individually each dependency is taking too much time.
+#   In order to facilitate the import, a list of dependencies
+#   exists for each function.
+#   If no argument provided, then it re-create cache for all sources.
+#
+# ## History
+# @since 0.1.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $@     | $@             | string...     | in       |                 | Name of element to build cache       |
+#
+# ### Example
+# ```bash
+#    apash.cache                                                       # Create cache for all functions.
+#    apash.cache  fr.hastec.apash.commons-lang.ArrayUtils.clone        # Create cache for the method ArrayUtils.clone.
+#    apash.cache  fr/hastec/apash/commons-lang/ArrayUtils/add          # Create cache for ArrayUtils.add.
+#    apash.cache  fr/hastec/apash/commons-lang/ArrayUtils/addAll.sh    # Create cache for ArrayUtils.addAll.
+#
+#    apash.cache  fr.hastec.apash.util.Log                             # Create cache for all methods under Log directory.
+#
+#    apash.cache  fr.hastec.apash.commons-lang.StringUtils.lowerCase \
+#                 fr.hastec.apash.commons-lang.StringUtils.upperCase   # Create cache for upper/lower cases.
+# ```
+#
+# @stdout None.
+# @stderr None.
+#
+# @todo: Optimize a maximum this function to reduce loading time.
+#/
+apash.cache() {
+  local lib cacheLib
+  local cacheList
+  local cacheRoot
+  local libs=("$@")
+
+  # When no argument passed, then create cache of all sources
+  if [ "${#libs[@]}" -eq "0" ]; then
+    while IFS= read -r -d '' file; do
+      libs+=("$file")
+    done < <(find "$APASH_HOME_DIR/src/" -type f -name "*.sh" -print0)
+    echo "Purge current cache: $APASH_HOME_DIR/cache/"
+    rm -r "$APASH_HOME_DIR/cache/"
+  fi
+
+  for lib in "${libs[@]}"; do
+    cacheList=$(apash.import -f -n -s "$lib")
+    cacheRoot=$(echo "$cacheList" | tail -n 1 | sed "s|$APASH_HOME_DIR/src|$APASH_HOME_DIR/cache|" )
+    cacheRootDir=$(dirname -- "$cacheRoot")
+    cacheRootFile="${cacheRoot%.*}.cache"
+    [ ! -d "$cacheRootDir" ] && mkdir -p "$cacheRootDir"
+    true > "$cacheRootFile"
+    while read -r cacheLib; do
+      echo "$cacheLib" >> "$cacheRootFile"
+    done < <(echo "${cacheList//$APASH_HOME_DIR/\$APASH_HOME_DIR}")
+  done
+}

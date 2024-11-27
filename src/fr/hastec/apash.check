@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Dependencies #################################################################
+apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-lang.ShellUtils.isCommandValid
+
+##/
+# @name apash.check
+# @brief Tool to check if some degraded mode are used.
+# @description
+#   It checks that necessary commands are presents or if 
+#   a workaround code is used.
+#
+# ## History
+# @since 0.2.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+#
+# ### Example
+# ```bash
+#    apash.sanity     # Minify using the current APASH_SHELL.
+# ```
+# 
+# @stdout None.
+# @stderr Warning if a condition is not respected.
+#
+#/
+apash.check(){
+  ShellUtils.isCommandValid "bc"  || Log.warn $LINENO "**DEGRADED MODE** bc command not found."
+  ShellUtils.isCommandValid "rev" || Log.warn $LINENO "**DEGRADED MODE** rev command not found."
+}

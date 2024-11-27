@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+##/
+# @name apash.import
+# @brief Import a source to the current session.
+# @description
+#   Source can be imported individually or per package.
+#   It accepts the . or / separators.
+#   Intermediate packages must not have dots in the name ".".
+#
+# ## Implementation Notes
+#   Below how the methods are resolved according to the file name.
+#   The leaf files correspond to Methods. Their names must:
+#   - Indicate which shell is concerned by the script (.sh: default, .zsh, .bash...)
+#   - Indicate a version relative to the shell if necessary. The version is separated by an underscore and numbers separated by dots.
+#   Example:
+#   ```bash
+#   lowerCase.sh          # Default script picked up by the import when no shell or version match.
+#   lowerCase.bash        # Pick this file when the APASH_SHELL is bash.
+#   lowerCase.bash_4.2.53 # Pick this file when the APASH_SHELL is bash and 
+#                         # APASH_SHELL_VERSION lower than 4.2.53.
+#                         # NOT RECOMMANDED, because if a 4.2.54 is out, the file is not picked.
+#   lowerCase.bash_4.2    # So prefer to avoid the last patch number in order to take patched versions into account (specially for latest version).
+#   ```
+#
+# ## History
+# @since 0.1.0 (hastec-fr)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default         | Description                          |
+# |--------|----------------|---------------|----------|-----------------|--------------------------------------|
+# | $@     | $@             | string...     | in       |                 | Name of element to import            |
+#
+# ### Options
+# | option | description   |
+# |--------|---------------|
+# | -f     | Force the import of the element even it has been already imported (not recusive).|
+# | -n     | Disable cache. Import are realized recusively with apash.import calls.           |
+# | -s     | Display which library is imported.                                               |
+#
+# ### Example
+# ```bash
+#    apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone       # Import the method ArrayUtils.clone.
+#    apash.import -f fr.hastec.apash.commons-lang.ArrayUtils.clone    # Re-Import the method ArrayUtils.clone.
+#
+#    apash.import  fr/hastec/apash/commons-lang/ArrayUtils/add        # Import the method ArrayUtils.add.
+#    apash.import  fr/hastec/apash/commons-lang/ArrayUtils/addAll.sh  # Import the method ArrayUtils.addAll.
+#
+#    apash.import fr.hastec.apash.util.Log                            # Import all methods under Log directory.
+#
+#    apash.import fr.hastec.apash.commons-lang.StringUtils.lowerCase \
+#                 fr.hastec.apash.commons-lang.StringUtils.upperCase  # Import both methods upper/lower cases.
+# ```
+#
+# @stdout None.
+# @stderr None.
+#
+# @todo: Optimize a maximum this function to reduce loading time.
+#/
+apash.import(){
+  local lib cacheLib l
+  local -a libs=()
+  local location=""
+  local APASH_SRC_DIR="$APASH_HOME_DIR/src"
+  local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
+  local APASH_IMPORT_FORCE="${APASH_IMPORT_FORCE:-false}"
+  local APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
+  local APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
+  local APASH_SUCCESS=0
+  local APASH_FAILURE=1
+
+  # Declare a variable shared with recursive import preventing endless cycles.
+  # Usefull, when forcing the re-import of all libraries.
+  [ -z "${APASH_LIB_TO_IMPORT:-}" ] && local APASH_LIB_TO_IMPORT=""
+
+  # When list of lib are cached, then ignore imports.
+  [ "$APASH_IMPORT_IGNORE" = "true" ] && return
+
+  # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
+  apash.import.resolve.version(){
+    local lib="${1:-}"
+    local vlib version   
+
+    # Change lib in case a variant exist for the current shell.
+    [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
+
+    if [[ -e "${lib%.*}.${APASH_SHELL}_*" ]]; then
+      # Overide the library whith a compatible version of the same shell
+      for vlib in "${lib%.*}.${APASH_SHELL}_"*; do
+        [ ! -r "$vlib" ] && continue
+        version="${vlib#*_}"
+        # Sort -V not present in zsh (so use manual numeric sort)
+        if [[ "$(echo -e "$APASH_SHELL_VERSION\n$version" |sort -t. -k 1.2,1n -k 2,2n -k 3,3n | head -n1)" == "$APASH_SHELL_VERSION" ]]; then
+          lib="$vlib" && break
+        fi
+      done
+    fi
+    echo "$lib"
+  }
+
+  # Check if the given function already exists.
+  apash.import.function.exists() {
+    local lib=$1
+    typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return $APASH_SUCCESS
+    return $APASH_FAILURE
+  }
+
+  # Check arguments of the import (no while loop to minimize actions).
+  # Arguments should be in alphabetic order.
+  [ "${1:-}" = "-f" ] && APASH_IMPORT_FORCE=true && shift
+  [ "${1:-}" = "-n" ] && APASH_IMPORT_NO_CACHE=true && shift
+  [ "${1:-}" = "-s" ] && APASH_IMPORT_SHOW=true && shift
+
+  for l in "$@"; do
+    location="$APASH_SRC_DIR/"${l//./\/}
+
+    # Shortcut resolution if the function <package>.<method> already exists.
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location" && continue
+
+    # Import the raw file path
+    if [ -r "$l" ]; then
+      libs+=("$l")
+    
+    # Check if relative raw value is a script
+    elif [ -r "$APASH_SRC_DIR/$l" ]; then
+      libs+=("$APASH_SRC_DIR/$l")
+
+    # Import package
+    elif [ -d "$location" ]; then
+      for lib in "$location"/*.sh; do
+        libs+=("$lib")
+      done
+    
+    # Import a single class or method
+    elif [ -r "${location}.sh" ]; then
+      libs+=("$location.sh")
+
+    # Import a file terminating by .sh
+    elif [ -r "${location/\/sh/}.sh" ]; then
+      libs+=("${location/\/sh/}.sh")
+    
+    # Check if raw value is a package
+    elif [ -d "$l" ]; then
+      location="$l"
+      for lib in "$location"/*.sh; do
+        libs+=("$lib")
+      done
+
+    # Check if relative raw value is a package
+    elif [ -d "$APASH_SRC_DIR/$l" ]; then
+      location="$APASH_SRC_DIR/$l"
+      for lib in "$location"/*.sh; do
+        libs+=("$lib")
+      done
+    
+    # The library connot be imported
+    else
+      echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
+      continue
+    fi
+  done
+
+  for lib in "${libs[@]}"; do
+    # Ignore file if it has been already loaded.
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$lib" && continue
+
+    # Change lib in case a variant exist for the current shell.
+    lib=$(apash.import.resolve.version "$lib")
+
+    # Alert if no library correspond.
+    [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
+    
+    # Protect against cycling import (if lib already in list of import)
+    [[ ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]] && continue
+
+    # Check if the cache must be used (pre-build list of import)
+    # or source recursively each apash.import (could be slow).
+    cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
+    cacheLib="${cacheLib%.sh}.cache"
+    if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
+      # For each line of the cache, then resolve the desired version and source.
+      while read -r l; do
+        l=$(apash.import.resolve.version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
+        APASH_IMPORT_IGNORE=true source "$l"
+        [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
+      done < "$cacheLib"
+    else
+      # Mark the file in the list of import to prevent a cycling import.
+      APASH_LIB_TO_IMPORT+=":$lib:"
+      source "$lib"
+      [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$lib"
+    fi
+  done
+  return $APASH_SUCCESS
+}
+
+# Expose the function as much as it's possible when apash.import is sourced(done 1 time).
+if [[ "$APASH_SHELL" == "bash" ]]; then
+  export -f apash.import
+elif [[ "$APASH_SHELL" == "zsh"  ]] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
+  # Autoload the function for the current shell and subshell
+  # But function is not export to subprocesses. Can only resource the file.
+  FPATH+=":${0:A:h}"
+  autoload -Uz apash.import
+fi
