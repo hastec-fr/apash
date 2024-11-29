@@ -349,6 +349,11 @@ apashExecuteAction(){
 
 # LEVEL 2 - Actions ##########################################################
 apashExecuteCache(){
+    if [ -z "$APASH_HOME_DIR" ] || [ ! -d "$APASH_HOME_DIR" ]; then
+      echo "This operation is not allowed when the APASH directory does not exists"
+      APASH_EXIT_REQUIRED=true && return
+    fi
+
     apashParseCheckArgs "$@" || return
     apash.import -f "fr/hastec/apash.cache"
     shift $APASH_NB_ARGS
@@ -363,12 +368,13 @@ apashExecuteCheck(){
 }
 
 apashExecuteDoc(){
-    apashParseDocArgs "$@" || return
-    apash.import -f "fr/hastec/apash.doc"
     if [ -z "$APASH_HOME_DIR" ] || [ ! -d "$APASH_HOME_DIR" ]; then
       echo "This operation is not allowed when the APASH directory does not exists"
       APASH_EXIT_REQUIRED=true && return
     fi
+
+    apashParseDocArgs "$@" || return
+    apash.import -f "fr/hastec/apash.doc"  
     # @todo: put a progress bar.
     # @todo: Allow to generate only one doc.
     echo "This operation could take few minutes..."

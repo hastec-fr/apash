@@ -51,6 +51,16 @@ apash.cache() {
       libs+=("$file")
     done < <(find "$APASH_HOME_DIR/src/" -type f -name "*.sh" -print0)
     echo "Purge current cache: $APASH_HOME_DIR/cache/"
+    if [ -z "$APASH_HOME_DIR" ]; then
+      local apash_confirm
+      echo "Apash home directory is empty, the following path would be removed: $APASH_HOME_DIR/cache"
+      read -r -p "Are you sure you want to delete '$ABSOLUTE_PATH'? [y/N]: " apash_confirm
+      if [ "$apash_confirm" != "y" ] && [ "$apash_confirm" != "Y" ]; then
+        echo "Cache aborted."
+        exit "$APASH_FAILURE"
+      fi
+    fi
+
     rm -r "$APASH_HOME_DIR/cache/"
   fi
 
