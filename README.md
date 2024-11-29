@@ -115,7 +115,7 @@ basher install "hastec-fr/apash"
 
 #### Execute post installation action by pointing on the correct APASH_HOME_DIR:
 ```bash
-APASH_HOME_DIR="$HOME/.basher/cellar/packages/hastec-fr/apash" && APASH_SHELL=bash "$APASH_HOME_DIR/apash" init --post-install
+export APASH_HOME_DIR="$HOME/.basher/cellar/packages/hastec-fr/apash" && APASH_SHELL=bash "$APASH_HOME_DIR/apash" init --post-install
 ```
 Open a new terminal to ensure that environment is refreshed with apash functions.
 </details>
@@ -129,12 +129,10 @@ APASH_HOME_DIR="$HOME/.apash"
 git clone "https://github.com/hastec-fr/apash.git" "$APASH_HOME_DIR"
 cd "$APASH_HOME_DIR"
 
-# Post installation action:
+# Post installation actions:
+# Note: Post install update the startup script with the desired $APASH_HOME_DIR.
+export APASH_HOME_DIR="path/to/apash"
 ./apash init --post-install
-
-# Note: If you have changed the default apash location, then
-# the configuration file $APASH_HOME_DIR/.apashrc
-# is automatically modified in consequence.
 
 # At the end, open a new terminal to ensure that environnment is re-loaded.
 ```
