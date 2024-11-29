@@ -175,7 +175,7 @@ StringUtils.substring "Hello World" 0 4
 Do you see the 🔥Hell🔥in the sHell ? It's just the beginning.<br/>
 If it's not the case, lets have a look to the [troubleshooting](#troubleshooting) section.
 
-Please refer to the [full summary able](doc/fr/hastec/apacheFullSummaryTable.md) to get the list of available functions.
+Please refer to the [full summary Table](doc/fr/hastec/apacheFullSummaryTable.md) to get the list of available functions.
 Note that functions can be directly used without import with minified version.
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
@@ -452,6 +452,22 @@ ArrayUtils.add "myArray" Hello
 ### Apash command is not found
 If you're using ZSH, please check that $APASH_HOME_DIR is well defined.<br/>
 If not, the script install.sh has may be directly executed after download without specifying the shell. So the shebang of the script (bash) has been used instead of zsh. It is suggested to cleanup the $HOME/.apash and remove lines from $HOME/.bashrc and redo the installation taking care about the "| zsh" (or zsh -c "./install.sh").
+
+### The first import is very slow (many seconds)
+The way to import scripts with desired shell/version takes times due to the recusive resolution. To reduce this time a cache has been put in place. It provides directly the list of script to source and only the shell/version are resolved. So if the first import is very long, it means the cache is certainly not used. Check firts that $APASH_HOME_DIR/cache has some cache files inside.
+```bash
+find $APASH_HOME_DIR/cache -name "*.cache"
+```
+Then if its a new function, you have created its cache:
+```bash
+find $APASH_HOME_DIR/cache -name "myFunction.cache"
+
+# if not, create it:
+apash cache "fr.hastec.apash.path.to.function"
+```
+
+If the problem still persists, I invite you to log an issue with your Apash environment variables and the location of the installation.
+A workaround is to use the [minified](#quick-start) version which preload everything in one shot.
 
 ### Warnings logs appears
 Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
