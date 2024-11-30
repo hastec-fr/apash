@@ -61,9 +61,9 @@
 #
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
-apash.import(){
+apash_import(){
   local lib cacheLib l
-  local -a libs=()
+  local -a libs
   local location=""
   local APASH_SRC_DIR="$APASH_HOME_DIR/src"
   local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
@@ -81,7 +81,7 @@ apash.import(){
   [ "$APASH_IMPORT_IGNORE" = "true" ] && return
 
   # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
-  apash.import.resolve.version(){
+  apash_import_resolve_version(){
     local lib="${1:-}"
     local vlib version   
 
@@ -103,7 +103,7 @@ apash.import(){
   }
 
   # Check if the given function already exists.
-  apash.import.function.exists() {
+  apash_import_function_exists() {
     local lib=$1
     typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return $APASH_SUCCESS
     return $APASH_FAILURE
@@ -116,10 +116,14 @@ apash.import(){
   [ "${1:-}" = "-s" ] && APASH_IMPORT_SHOW=true && shift
 
   for l in "$@"; do
-    location="$APASH_SRC_DIR/"${l//./\/}
+    if [ "$APASH_SHELL" = "ksh" ]; then
+      location="$APASH_SRC_DIR/"${l//.//}
+    else
+      location="$APASH_SRC_DIR/"${l//./\/}
+    fi
 
     # Shortcut resolution if the function <package>.<method> already exists.
-    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$location" && continue
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash_import_function_exists "$location" && continue
 
     # Import the raw file path
     if [ -r "$l" ]; then
@@ -166,10 +170,10 @@ apash.import(){
 
   for lib in "${libs[@]}"; do
     # Ignore file if it has been already loaded.
-    [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$lib" && continue
+    [ "$APASH_IMPORT_FORCE" = "false" ] && apash_import_function_exists "$lib" && continue
 
     # Change lib in case a variant exist for the current shell.
-    lib=$(apash.import.resolve.version "$lib")
+    lib=$(apash_import_resolve_version "$lib")
 
     # Alert if no library correspond.
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
@@ -184,7 +188,7 @@ apash.import(){
     if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
       # For each line of the cache, then resolve the desired version and source.
       while read -r l; do
-        l=$(apash.import.resolve.version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
+        l=$(apash_import_resolve_version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
         APASH_IMPORT_IGNORE=true source "$l"
         [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
       done < "$cacheLib"
@@ -197,13 +201,14 @@ apash.import(){
   done
   return $APASH_SUCCESS
 }
+alias apash.import="apash_import"
 
 # Expose the function as much as it's possible when apash.import is sourced(done 1 time).
-if [[ "$APASH_SHELL" == "bash" ]]; then
-  export -f apash.import
-elif [[ "$APASH_SHELL" == "zsh"  ]] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
+if [ "$APASH_SHELL" = "bash" ]; then
+  export -f apash_import
+elif [ "$APASH_SHELL" = "zsh"  ] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
   # Autoload the function for the current shell and subshell
   # But function is not export to subprocesses. Can only resource the file.
   FPATH+=":${0:A:h}"
-  autoload -Uz apash.import
+  autoload -Uz apash_import
 fi

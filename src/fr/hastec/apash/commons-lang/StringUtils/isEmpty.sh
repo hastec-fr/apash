@@ -32,8 +32,9 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 0 If no argument or an agurment of length 0 is passed.
 # @exitcode 1 If the argument with at lead one character (even space) is passed.
 #/
-StringUtils.isEmpty() {
+StringUtils_isEmpty() {
   Log.in $LINENO "$@"
   [ -z "${1:-}" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
   Log.out $LINENO; return "$APASH_FAILURE"
 }
+alias StringUtils.isEmpty="StringUtils_isEmpty"

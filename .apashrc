@@ -8,6 +8,10 @@ if [ -n "${ZSH_VERSION:-}" ]; then
 elif [ -n "${BASH_VERSION:-}" ]; then
   export APASH_SHELL="bash"
   export APASH_SHELL_VERSION="${BASH_VERSION%.*}"
+elif [ -n "${KSH_VERSION}" ]; then
+  export APASH_SHELL="ksh"
+  export APASH_SHELL_VERION="$(echo "$KSH_VERSION" | cut -f3 -d ' ')"
+  alias -x local="typeset"
 else
   echo "$(date +"%FT%T.%3N%z") [WARNING] .apashrc ($LINENO): APASH_SHELL incorrect: '$APASH_SHELL' (accepted values: bash, zsh)" >&2
 fi
