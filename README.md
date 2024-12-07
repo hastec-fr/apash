@@ -8,12 +8,12 @@
 
 ## 👀 Introduction
 Shell script languages (like bash, zsh ...) are widely used on Unix-like operating systems, including GNU/Linux and macOS.<br/>
-Nervetheless, it often happens to rewrite basic operations as split, trim ... Again and again for different shells.<br/>
-Apash is a library providing these kind operations (for strings, arrays, dates and more...). It is **inspired** from [Apache's libraries](https://commons.apache.org/) realized in Java.<br/>
-The [core concepts](#concepts) of Apash is to provide more readibility and portability for basic operations.
+Nevertheless, basic operations, such as split or trim, often end up being rewritten ... Again and again for different shells.<br/>
+Apash is a library providing those kinds of operations (for strings, arrays, dates and more...). It is **inspired** from [Apache's libraries](https://commons.apache.org/) developed in Java.<br/>
+The [core concepts](#concepts) of Apash are to enhance readibility and portability for basic operations.
 
 ## Disclaimer
-Even if it could be a wish, Apash **is not** a project of the [Apache Foundation](https://apache.org/index.html#projects-list).<br/>
+Even though it could be a wish, Apash **is not** a project of the [Apache Foundation](https://apache.org/index.html#projects-list).<br/>
 Let's stop talking and open the shell !
 ```bash
 StringUtils.rightPad "123" 6 "!"
@@ -37,11 +37,11 @@ StringUtils.rightPad "123" 6 "!"
 ## <a id="quick-start" ></a>📦 Installation
 
 ### <ins>Runtime installation</ins>
-A minified version of apash is available in order to facilitate the usage and gain in performance.<br/>
+A minified version of apash is available in order to facilitate the usage and improve performance.<br/>
 Just download, source and use. This minified version exists for bash and zsh.<br/>
 With this package, only the runtime library is available (not the apash command).
 ```bash
-# Download version for bash (exist for zsh too, see ZSH variant below)
+# Download version for bash (exists for zsh too, see ZSH variant below)
 curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apash-bash-min.sh" -o apash-bash-min.sh
 
 # Source
@@ -54,7 +54,7 @@ StringUtils.repeat 2 "ah! "
 
 <details>
 <summary>ZSH Variant</summary>
-Same if you want to use it with zsh.
+The same applies if you want to use it with zsh.
 
 ```bash
 curl "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/bin/apash-zsh-min.sh" -o apash-zsh-min.sh
@@ -75,7 +75,7 @@ sudo apt install curl git
 ```
 
 #### <ins>Intallation by Script</ins>
-Modify the URL in consequence if you want a particular version, here it's for the head of the main branch (for BASH):
+Modify the URL accordingly if you want a particular version. In that case, it's for the head of the main branch (for BASH):
 ```bash
 curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils/install.sh" | bash
 ```
@@ -138,7 +138,7 @@ export APASH_HOME_DIR="path/to/apash"
 ```
 
 ### <a id="dependencies" ></a> <ins>Dependencies</ins>
-For Testing purpose, [shellspec](https://github.com/shellspec/shellspec) must be installed.
+For testing purposes, [shellspec](https://github.com/shellspec/shellspec) must be installed.
 #### Programmatic installation
 Please refer to their [installation section](https://github.com/shellspec/shellspec?tab=readme-ov-file#installation) for any changes
 ```bash
@@ -167,15 +167,15 @@ bpkg install "shellspec/shellspec"
 
 ## <a id="quick-start" ></a>⚡️ Quick start
 Once Apash is installed, you can easily use a function by importing it.<br/>
-For that, use the function "apash.import" with the name of the function.
+In order to do that, use the function "apash.import" with the name of the function.
 ```bash
 apash.import "fr.hastec.apash.commons-lang.StringUtils.substring"
 StringUtils.substring "Hello World" 0 4
 ```
-Do you see the 🔥Hell🔥in the sHell ? It's just the beginning.<br/>
-If it's not the case, lets have a look to the [troubleshooting](#troubleshooting) section.
+Do you see the 🔥Hell🔥in the sHell ? It's only the beginning.<br/>
+If it's not the case, let's have a look at the [troubleshooting](#troubleshooting) section.
 
-Please refer to the [full summary Table](doc/fr/hastec/apacheFullSummaryTable.md) to get the list of available functions.
+Please refer to the [full summary Table](doc/fr/hastec/apacheFullSummaryTable.md) to get the list of all the available functions.
 Note that functions can be directly used without import with minified version.
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
@@ -183,29 +183,29 @@ Note that functions can be directly used without import with minified version.
 
 ## <a id="concepts" ></a>📦 Core Concepts
 ### Readability
-One of the first objectives of Apash was to provide basic operations readable.<br/>
-Indeed, shell laguages use many symbols and shortcuts. It looks great for advanced shell programmers and less readable for the others.<br/>
+One of the initial objectives of Apash was to make basic operations more readable.<br/>
+Indeed, shell languages use many symbols and shortcuts. It looks great for advanced shell programmers and harder to read for the others.<br/>
 Example:
 ```bash
 # I want to count the number of "a" in the word "apash".
 
-# For this operation, I need to know 3 commands, 2 options and how are working pipes.
+# For this operation, I need to know 3 commands, 2 options and how pipes work.
 echo "apash" | grep -o "a" | wc -l
 
-# Here, we have an idea of what is doing the function.
+# Here, we have an idea of what the function does.
 StringUtils.countMatches "apash" "a"
 
 # result: 2
 ```
 
 ### Portability
-If the SHELL could be defined as a language, there are many dialects (bash, zsh, ksh...) which are not compatible each others.<br/>
-The norm POSIX exists for this goal and if a script (and SHELL) follows the norm then you're sure that it would work.<br/>
-It's nice, but written a script with POSIX norm is not easy and ask quickly a high skill and knowledge of the norm (no array, less parameter expansions...).<br/>
-So Apash takes the problem by the other end. It allows to develop in a dialect with all features and provides a mechanism of variants for incompatible codes.<br/>
+If the SHELL could be defined as a language, there would be many dialects (bash, zsh, ksh...) which would not be compatible with each other.<br/>
+The POSIX standard exists for this purpose and if a script (and SHELL) follows that standard then you can be sure that it will work.<br/>
+It's nice, but writing a script following POSIX standard is not easy and quickly requires high skills and knowledge of the standard (no array, less parameter expansions...).<br/>
+So Apash approaches the problem from the other end. It allows development in a dialect with all features and provides a mechanism of variants for incompatible codes.<br/>
 Example:
 ```bash
-  # The code below show how to decline the code for rendering a string in UPPERCASE.
+  # The code below shows how to vary the code for rendering a string in UPPERCASE.
 
   # If zsh, then use the corresponding parameter expansion.
   if [ "$APASH_SHELL" = "zsh" ]; then
@@ -229,12 +229,12 @@ This can be done inside a single file but it could be segregated per file.
 ```
 This mechanism allows extending to other shells (ksh, csh, dash...) and sharing a maximum of compatible code in same time.<br/>
 Today, the library is really not POSIX (just bash and zsh), but people knowing other shells can [contribute](https://github.com/hastec-fr/apash/wiki/Contribute) with their own dialect.
-POSIX form of the functions could be imagined in future with .posix files (with a wrapping mechanism for function names currently using dots).
+The POSIX form of the functions could be imagined in the future with .posix files (with a wrapping mechanism for function names currently using dots).
 
 ## <a id="documentation" ></a> 📖 Documentation
 ### Web
-Domentation is generated thanks to the script comments.
-Each file contains an header following a template in order to generate the corresponding markdown file (.md) in the doc directory.<br/>
+Documentation is generated from to the script comments.
+Each file contains a header following a template in order to generate the corresponding markdown file (.md) in the doc directory.<br/>
 The template of the documentation is available in [assets/template/apashCommentTemplate.sh](https://github.com/hastec-fr/apash/blob/main/assets/templates/apashCommentTemplate.sh).<br/>
 
 To generate the documentation, execute the command:
@@ -245,7 +245,7 @@ To generate the documentation, execute the command:
 The latest version of this documentation is available in the [wiki](https://github.com/hastec-fr/apash/wiki) of the project.
 
 ### Terminal
-You're in a terminal, apash provide a feature to display a summary of the markdown.
+You're in a terminal, apash provides a feature to display a summary of the markdown.
 ```bash
   apash help "lowercase"
   # @file $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/StringUtils/lowerCase.sh
@@ -260,12 +260,12 @@ You're in a terminal, apash provide a feature to display a summary of the markdo
 It is possible to search by:
 * The file path.
 * The Class.Method.
-* Or just the method (but take the first matching).
+* Or just the method (but it takes the first match).
 
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
 ## <a id="tests" ></a> 🧪 Tests
-Apash tests are realized with the tool [shellspec](https://shellspec.info/) (ref. [dependencies](#dependencies)). Once installed, launch the campaign of tests from the root project directory.
+Apash tests are executed with the tool [shellspec](https://shellspec.info/) (ref. [dependencies](#dependencies)). Once installed, launch the tests campaign from the root project directory.
 ```bash
   apash test
 ```
@@ -279,7 +279,7 @@ Note that shellspec options are in a single argument.
 
 ## <a id="tests" ></a> ✨ Tips
 ### Naming
-If you don't like the long name, you can create your own function aliases (as usually).
+If you don't like the long name, you can create your own function aliases (as usual).
 ```bash
   alias import="apash.import"
   alias trim="StringUtils.trim"
@@ -288,7 +288,7 @@ If you don't like the long name, you can create your own function aliases (as us
   trim "    This is the end.    "
 ```
 Just keep in mind, that aliases are useful for your prompt but (depending of the shell) they cannot be exported. 
-By example for bash, you should declare again the alias from subscript or activate the shell option on your own:
+By example for bash, you should declare again the aliases from subscript or activate the shell option on your own:
 ```bash
   shopt -s expand_aliases
 ```
@@ -322,7 +322,7 @@ Result:
 ```
 
 ### Ready version
-If you don't like to import yourself the command, then use the image with all functions ready to use:
+If you don't like to import the command yourself, then use the image with all functions ready to use:
 ```bash
 docker run --rm hastec/apash:0.2.0-ready 'StringUtils.upperCase "Please, speak louder !!"'
 ```
@@ -333,7 +333,7 @@ PLEASE, SPEAK LOUDER !!
 
 ### One shot script
 Finally, if you want to test a script, use the image and mount the script as volume.
-Take care to provide an absolute host path (not relative).
+Make sure to provide an absolute host path (not relative).
 ```bash
 cat <<EOF > ./test.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.abbreviate
@@ -355,7 +355,7 @@ docker run --rm hastec/apash:0.2.0 'apash test'
 ```
 
 ### Local container
-Apash provide a way to build and run a container for a particular shell (bash/zsh) and its version.<br/>
+Apash provides a way to build and run a container for a particular shell (bash/zsh) and its version.<br/>
 Ideal for testing:
 ```bash
 # Create and run the image with current context($APASH_HOME_DIR).
@@ -367,13 +367,13 @@ apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.2.0-bash_5.0
 
 ## <a id="compatibility" ></a> ✅ Compatibility
 A compatibility [matrix](doc/fr/hastec/apashCompatibilityTable.md) is available.<br/>
-The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommended to use latest shell versions when you developp new features.
+The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommendeded to use latest shell versions when you develop new features.
 
 ### Bash
 Currently, the library (not tools) is compatible from bash version 5.2 to 4.3 (2014-02-26)<br/>
-Issues appears at the version 4.2 (2011-02-13) and olders.<br/>
+Issues appear at the version 4.2 (2011-02-13) and older.<br/>
 This is essentially due the **nameref** statement (local -n) which is a key feature appearing with the version 4.3.<br/>
-This feature prevent call of the **evil** (*I mean eval. Sorry it looks to be running gag, so I did it*).<br/>
+This feature prevents the call of the **evil** (*I mean eval. Sorry it seems to be running gag, so I did it*).<br/>
 It is not planned to have a workaround for the moment but if it is desired to use apash under this version <br/>
 or some people are motivated 😉 to create a .posix version, the evil could be welcome and available only for these specific versions.<br/>
 References:
@@ -411,7 +411,7 @@ APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-$APASH_LOG_LEVEL_WARN}"
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF"
 ```
 
-If you require to trace what is happening in Apash calls, it looks recommended to increase the log level to trace instead of using "set -x". <br/>
+If you need to trace what is happening during Apash calls, it is recommended to increase the log level to trace, instead of using "set -x". <br/>
 A trace has been put to each entry in and exit in order to keep control on the stack (potentially for @nnotations later).<br/>
 ```bash
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
@@ -425,8 +425,8 @@ Math.abs -3
 # 3
 # 2024-11-22T16:25:50.357+0100 [TRACE] Math.abs (7): Out
 ```
-Here its a simple example but the stack could become very verbose too.<br/>
-So a system of black/white lists exist in order to select which log could be output.
+Here is a simple example but the stack could become very verbose too.<br/>
+So a system of black/white lists exists in order to select which log could be output.
 
 ```bash
 APASH_LOG_LEVEL="$APASH_LOG_LEVEL_TRACE"
@@ -440,7 +440,7 @@ ArrayUtils.add "myArray" Hello
 # Logs without ShellUtils.isVariableNameValid and ShellUtils.isDeclared are displayed.
 ```
 
-You can combine the black list (checked first) with the white list to restrict a maximum logs.
+You can combine the black list (checked first) with the white list to restrict a maximum of logs.
 ```bash
 unset myArray
 APASH_LOG_WHITELIST+="ArrayUtils.add:ArrayUtils.isArray"
@@ -451,14 +451,14 @@ ArrayUtils.add "myArray" Hello
 ## <a id="troubleshooting" ></a> ❓ Troubleshooting
 ### Apash command is not found
 If you're using ZSH, please check that $APASH_HOME_DIR is well defined.<br/>
-If not, the script install.sh has may be directly executed after download without specifying the shell. So the shebang of the script (bash) has been used instead of zsh. It is suggested to cleanup the $HOME/.apash and remove lines from $HOME/.bashrc and redo the installation taking care about the "| zsh" (or zsh -c "./install.sh").
+If not, the script install.sh has may be directly executed after download without specifying the shell. So the shebang of the script (bash) has been used instead of zsh. It is suggested to cleanup the $HOME/.apash and remove lines from $HOME/.bashrc and reinstall taking care of the "| zsh" (or zsh -c "./install.sh").
 
 ### The first import is very slow (many seconds)
-The way to import scripts with desired shell/version takes times due to the recusive resolution. To reduce this time a cache has been put in place. It provides directly the list of script to source and only the shell/version are resolved. So if the first import is very long, it means the cache is certainly not used. Check firts that $APASH_HOME_DIR/cache has some cache files inside.
+The way to import scripts with desired shell/version takes times due to the recusive resolution. To reduce this time a cache has been put in place. It directly provides the list of scripts to source and only the shell/version are resolved. So if the first import is very long, it means the cache is certainly not used. Check first that $APASH_HOME_DIR/cache has some cache files inside.
 ```bash
 find $APASH_HOME_DIR/cache -name "*.cache"
 ```
-Then if its a new function, you have created its cache:
+Then if it's a new function, you have created its cache:
 ```bash
 find $APASH_HOME_DIR/cache -name "myFunction.cache"
 
@@ -467,14 +467,14 @@ apash cache "fr.hastec.apash.path.to.function"
 ```
 
 If the problem still persists, I invite you to log an issue with your Apash environment variables and the location of the installation.
-A workaround is to use the [minified](#quick-start) version which preload everything in one shot.
+One workaround is to use the [minified](#quick-start) version which preloads everything in one shot.
 
 ### Warnings logs appears
 Some Apash Warnings could appear if you do not have a particular command (like "bc" or "rev").
-In this case, another code flow is implemented (and work) but it notifies that the main flow is not followed.<br/>
+In this case, another code flow is implemented (and works) but it notifies that the main flow is not followed.<br/>
 The degraded mode could be less efficient (or could be different if you're playing with bounds).<br/>
-So it is preferred to install the missing commands.<br/>
-Nevertheless, you can disabled these warnings by modifying the following variable in the configuration file (keep in mind you disabled it !!).
+So it is preferable to install the missing commands.<br/>
+Nevertheless, you can disable these warnings by modifying the following variable in the configuration file (but keep in mind you disabled it !!).
 ```bash
   export APASH_LOG_WARNING_DEGRADED="false"
 ```
@@ -489,7 +489,7 @@ apash check
 
 ### Oh my Exception !
 By default, Apash returns an exception when something was unexpected.
-It can take this form:
+It can follow this form:
 ```bash
 unset myArray myOtherArray
 ArrayUtils.isSameLength myArray myOtherArray
@@ -499,7 +499,7 @@ ArrayUtils.isSameLength myArray myOtherArray
 # <Timestamp with TZ> [Level] <Function> (<relative row>): Exception <Argument if any (nothing for the moment)>
 #   at <first function level>(<source path>:<relative row>)
 ```
-The relative row corresponds to the row inside the function. Sorry but for the moment, there is no offset to get the absolute row.<br/>
+The relative row relates to the row inside the function. Sorry, but for the time being, there is no offset to get the absolute row.<br/>
 A trick is just to copy/paste the function in a blank source to have the correct offset.<br/>
 ```bash
 1 ArrayUtils.isSameLength() {
@@ -513,7 +513,7 @@ So the error has been raised because the first input was not an array.
 To get more traces, please refer to the [logs section](#logs).
 
 ### I have modified a library but it's not taken into account
-The "apash.import" manage which function should be sourced with its dependencies.
+The "apash.import" manages which function should be sourced with its dependencies.
 It prevents cycling sourcing and useless re-sourcing (if already sourced).
 It's possible to force the reload of a library and its dependencies with option -f.
 ```bash
@@ -521,8 +521,8 @@ It's possible to force the reload of a library and its dependencies with option 
   apash.import -f "path.to.the.library"
 ```
 
-If one new dependencies is not source again, then it means you have added it to the list of import.
-The import uses a cache to prevent dependency recalculation. You can disable this cache (but it's slower) as following:
+If one new dependency is not sourced again, then it means you have added it to the list of import.
+The import uses a cache to prevent dependency recalculation. You can disable this cache (but it's slower) as follows:
 ```bash
   # -n: No cache
   apash.import -f -n "path.to.the.library"
@@ -536,7 +536,7 @@ If there are any doubts on what is imported, it's possible to trace it:
   # -s: Show import
   apash.import -f -n -s "path.to.the.library"
 ```
-Note that options should be in the alphabetic order (-f -n -s).
+Note that options should be set in the alphabetic order (-f -n -s).
 
 ### I launch apash with a container but my script is seen as a directory
 Double check that the bind mount has an absolute path (not a relative one which does not work everywhere).
@@ -577,7 +577,7 @@ basher upgrade hastec-fr/apash
 </details>
 
 ### Uninstall
-It removes recursively the directory $APASH_HOME_DIR and lines in startup script (.bashrc).
+It recursively removes the directory $APASH_HOME_DIR and lines in the startup script (.bashrc).
 #### <ins>By Script:</ins>
 ```bash
 "$APASH_HOME_DIR/utils/uninstall.sh"
