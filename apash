@@ -23,7 +23,7 @@ apash_main(){
   [ -z "$APASH_SHELL" ] && [ -n "$ZSH_VERSION"  ] && export APASH_SHELL="zsh"
 
   # Prevent execution if declared APASH_SHELL is not supported.
-  if [ ! "$APASH_SHELL" = "bash" ] && [ ! "$APASH_SHELL" = "zsh" ];then
+  if [ ! "$APASH_SHELL" = "bash" ] && [ ! "$APASH_SHELL" = "zsh" ] && [ ! "$APASH_SHELL" = "ksh" ];then
     echo "$(date +"%FT%T.%3N%z") [FATAL] apash ($LINENO): The apash shell '$APASH_SHELL' is not supported"
     return 1
   fi

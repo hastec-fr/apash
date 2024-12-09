@@ -80,10 +80,16 @@ function apash_import {
   # When list of lib are cached, then ignore imports.
   [ "$APASH_IMPORT_IGNORE" = "true" ] && return
 
+  # Export variable used recursively for KSH scope
+  # @see: https://unix.stackexchange.com/questions/282557/scope-of-local-variables-in-shell-functions
+  if [ "$APASH_SHELL" = "ksh" ]; then
+    export APASH_IMPORT_IGNORE APASH_IMPORT_FORCE APASH_IMPORT_NO_CACHE APASH_IMPORT_SHOW APASH_LIB_TO_IMPORT
+  fi
+
   # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
   function apash_import_resolve_version {
     local lib="${1:-}"
-    local vlib version   
+    local vlib version
 
     # Change lib in case a variant exist for the current shell.
     [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
@@ -180,17 +186,20 @@ function apash_import {
     
     # Protect against cycling import (if lib already in list of import)
     [[ ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]] && continue
-
     # Check if the cache must be used (pre-build list of import)
     # or source recursively each apash.import (could be slow).
-    cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
+    if [ "$APASH_SHELL" = "ksh" ]; then
+      cacheLib="${lib/"$APASH_HOME_DIR/src"/"$APASH_HOME_DIR/cache"}"
+    else
+      cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
+    fi
     cacheLib="${cacheLib%.sh}.cache"
     if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
       # For each line of the cache, then resolve the desired version and source.
       while read -r l; do
         l=$(apash_import_resolve_version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
-        [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
         APASH_IMPORT_IGNORE=true source "$l"
+        [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
       done < "$cacheLib"
     else
       # Mark the file in the list of import to prevent a cycling import.

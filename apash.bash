@@ -236,7 +236,7 @@ EOF
 #    which quit the current session in case of sourcing.
 apashExecuteCommand(){
   # If the current shell is not identified, then exit.
-  if [ "$APASH_SHELL" != "bash" ] && [ "$APASH_SHELL" != "zsh" ]; then
+  if [ "$APASH_SHELL" != "bash" ] && [ "$APASH_SHELL" != "zsh" ] && [ "$APASH_SHELL" != "ksh" ]; then
     echo "Not supported shell for the moment." >&2
     return
   fi
