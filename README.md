@@ -367,7 +367,7 @@ apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.2.0-bash_5.0
 
 ## <a id="compatibility" ></a> ✅ Compatibility
 A compatibility [matrix](doc/fr/hastec/apashCompatibilityTable.md) is available.<br/>
-The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommendeded to use latest shell versions when you develop new features.
+The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommended to use latest shell versions when you develop new features.
 
 ### Bash
 Currently, the library (not tools) is compatible from bash version 5.2 to 4.3 (2014-02-26)<br/>
