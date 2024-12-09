@@ -61,7 +61,7 @@
 #
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
-apash_import(){
+function apash_import {
   local lib cacheLib l
   local -a libs
   local location=""
@@ -81,7 +81,7 @@ apash_import(){
   [ "$APASH_IMPORT_IGNORE" = "true" ] && return
 
   # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
-  apash_import_resolve_version(){
+  function apash_import_resolve_version {
     local lib="${1:-}"
     local vlib version   
 
@@ -103,7 +103,7 @@ apash_import(){
   }
 
   # Check if the given function already exists.
-  apash_import_function_exists() {
+  function apash_import_function_exists {
     local lib=$1
     typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return $APASH_SUCCESS
     return $APASH_FAILURE
@@ -189,8 +189,8 @@ apash_import(){
       # For each line of the cache, then resolve the desired version and source.
       while read -r l; do
         l=$(apash_import_resolve_version "${l/\$APASH_HOME_DIR/$APASH_HOME_DIR}")
-        APASH_IMPORT_IGNORE=true source "$l"
         [ "$APASH_IMPORT_SHOW" = "true" ] && echo "$l"
+        APASH_IMPORT_IGNORE=true source "$l"
       done < "$cacheLib"
     else
       # Mark the file in the list of import to prevent a cycling import.

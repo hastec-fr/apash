@@ -46,7 +46,7 @@ apash.import fr.hastec.apash.lang.Math.min
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.ex() {
+Log_ex() {
   [ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="${1:-}"
   local parentFunction
@@ -80,3 +80,4 @@ Log.ex() {
   Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"
 }
+alias Log.ex="Log_ex"

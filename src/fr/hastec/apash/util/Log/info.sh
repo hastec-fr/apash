@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.info() {
+Log_info() {
   local inLineNumber="${1:-}"
   local inMessage="${2:-}"
   local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
@@ -44,3 +44,4 @@ Log.info() {
   Log.message "$APASH_LOG_LEVEL_INFO" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
+alias Log.info="Log_info"

@@ -33,8 +33,9 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getFunctionName
 # @exitcode 0 When the input name corresponds to a variable (not including arrays and maps).
 # @exitcode 1 Otherwise.
 #/
-ShellUtils.getParentFunctionName() {
+ShellUtils_getParentFunctionName() {
   # Parent(3) -> Caller (2)-> getParentFunctionName(1) -> getFunctionName(0)
   ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"
 }
+alias ShellUtils.getParentFunctionName="ShellUtils_getParentFunctionName"

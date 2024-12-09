@@ -31,7 +31,7 @@ apash.import fr.hastec.apash.util.Log
 # ```
 #
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 If the input string contains only unicode letters
 # @exitcode 1 contains other things than letters.

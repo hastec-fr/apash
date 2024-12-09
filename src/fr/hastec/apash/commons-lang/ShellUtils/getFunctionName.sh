@@ -33,7 +33,7 @@
 # @exitcode 0 When the function name is returned.
 # @exitcode 1 When the index is not valid.
 #/
-ShellUtils.getFunctionName() {
+ShellUtils_getFunctionName() {
   local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
   local functionName
 
@@ -48,3 +48,4 @@ ShellUtils.getFunctionName() {
   echo "$functionName" || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"
 }
+alias ShellUtils.getFunctionName="ShellUtils_getFunctionName"

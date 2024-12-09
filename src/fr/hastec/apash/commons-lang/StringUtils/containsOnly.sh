@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.util.Log
 # ```
 #
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 True if the input string contains only provided characters.
 # @exitcode 1 Otherwise.

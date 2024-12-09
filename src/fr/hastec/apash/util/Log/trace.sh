@@ -35,7 +35,7 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.trace() {
+Log_trace() {
   local inLineNumber="${1:-}"
   local inMessage="${2:-}"
   local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
@@ -44,3 +44,4 @@ Log.trace() {
   Log.message "$APASH_LOG_LEVEL_TRACE" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
+alias Log.trace="Log_trace"

@@ -19,4 +19,4 @@
 #/
 Integer_MIN_VALUE=-2147483648
 Integer_MAX_VALUE=2147483647
-lang.Integer() { true; }
+lang_Integer() { true; }

@@ -33,7 +33,7 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.in() {
+Log_in() {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="${1:-}"
   local parentFunction
@@ -50,3 +50,4 @@ Log.in() {
   Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
+alias Log.in="Log_in"

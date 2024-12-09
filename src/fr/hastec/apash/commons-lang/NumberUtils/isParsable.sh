@@ -43,7 +43,7 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 0 When the input string is a parsable number.
 # @exitcode 1 When the input string contains characters other than digits and a minus before and a potential dot with meaning numbers.
 #/
-NumberUtils.isParsable() {
+NumberUtils_isParsable() {
   Log.in $LINENO "$@"
   local inNumber="${1:-}"
   local pattern="^-?[0-9]*\.?[0-9]+$"
@@ -52,3 +52,4 @@ NumberUtils.isParsable() {
   
   Log.out $LINENO; return "$APASH_FAILURE"
 }
+alias NumberUtils.isParsable="NumberUtils_isParsable"

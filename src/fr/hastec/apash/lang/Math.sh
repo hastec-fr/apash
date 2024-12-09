@@ -16,4 +16,4 @@
 #
 # @apashSummaryTable
 #/
-commons-lang.MathUtils() { true; }
+lang_Math() { true; }

@@ -27,7 +27,7 @@ apash.import fr.hastec.apash.util.Log
 # ```
 #
 # @stdout None.
-# @stderr None
+# @stderr None.
 #
 # @exitcode 0 If the string are equal (case-sensitive), or both empty.
 # @exitcode 1 Otherwise.

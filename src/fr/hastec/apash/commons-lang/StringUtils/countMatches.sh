@@ -41,11 +41,13 @@ StringUtils.countMatches() {
   local inSubstring="${2:-}"
   local -i count=0
 
+  # If the input string or search sequence is empty, then return 0.
   if [[ -z $inString || -z $inSubstring ]]; then
     echo "$count" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
+  # Display line each time a pattern is match and return the number of line.
   count=$(echo "$inString" | grep -o "$inSubstring" | wc -l)
   echo "$count" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 

@@ -32,7 +32,7 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log.out() {
+Log_out() {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
   local inLineNumber="${1:-}"
   local parentFunction
@@ -51,3 +51,4 @@ Log.out() {
   Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
+alias Log.out="Log_out"

@@ -32,9 +32,10 @@ apash.import fr.hastec.apash.util.Log
 # @exitcode 0 When the command name is correct.
 # @exitcode 1 Otherwise.
 #/
-ShellUtils.isCommandValid() {
+ShellUtils_isCommandValid() {
   Log.in $LINENO "$@"
   local commandName="${1:-}"
   command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS";
 }
+alias ShellUtils.isCommandValid="ShellUtils_isCommandValid"

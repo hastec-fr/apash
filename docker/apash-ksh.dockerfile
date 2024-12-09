@@ -54,7 +54,7 @@ EOF
 # Force environment file
 # @see: https://stackoverflow.com/q/29021704
 # @see: https://github.com/NeverOddOrEven/alpine-bash-profile/blob/master/README.md
-ENV KSH_ENV="/home/apash/.kshhrc"
+ENV KSH_ENV="/home/apash/.kshrc"
 
 # Define ksh as default binary execution.
 ENTRYPOINT [ "/bin/ksh", "-c" ]

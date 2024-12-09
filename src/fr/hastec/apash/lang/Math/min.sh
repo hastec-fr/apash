@@ -44,7 +44,7 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.isCommandValid
 # @exitcode 0 When the input strings is a parsable number.
 # @exitcode 1 When the input strings are not parsable.
 #/
-Math.min() {
+Math_min() {
   Log.in $LINENO "$@"
   local inNum1="${1:-}"
   local inNum2="${2:-}"
@@ -72,3 +72,4 @@ Math.min() {
 
   Log.out $LINENO; return "$APASH_FAILURE"
 }
+alias Math.min="Math_min"
