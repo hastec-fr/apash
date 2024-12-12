@@ -7,14 +7,14 @@
 [Apash Docker Maintainers](https://github.com/hastec-fr/apash)
 
 # Supported tags and respective Dockerfile links
-- <u>[`0.2.0`](https://hub.docker.com/layers/hastec/apash/0.2.0/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u> , 
-  <u>[`latest`](https://hub.docker.com/layers/hastec/apash/latest/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u>
-  - <u>[`0.2.0-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u> ,
-    <u>[`latest-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u>
-  -  <u>[`0.2.0-bash`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u> , 
-  <u>[`0.2.0-bash-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-d69cb0b7e63cb7c9d06009774b809f93e00205fb0736347d68cf40cebe0454d0?context=explore)</u>
-  -  <u>[`0.2.0-zsh`](https://hub.docker.com/layers/hastec/apash/0.2.0-zsh/images/sha256-ca303b8b150fc20d1664565d415a6c7e3e8b7251a8aa85a357a7933f7524ffb1?context=explore)</u> , 
-  <u>[`0.2.0-zsh-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-zsh-ready/images/sha256-bee3abe687aa95b67990820f473202e2461dad79615192c003bf2f6ef37da89c?context=explore)</u>  
+- <u>[`0.2.0`](https://hub.docker.com/layers/hastec/apash/0.2.0/images/sha256-7fc6b91634ab17429449546101b49189ca70cc36988fda6bcb45b0fb24fc565d?context=explore)</u> , 
+  <u>[`latest`](https://hub.docker.com/layers/hastec/apash/latest/images/sha256-7fc6b91634ab17429449546101b49189ca70cc36988fda6bcb45b0fb24fc565d?context=explore)</u>
+  - <u>[`0.2.0-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-ready/images/sha256-380462969a3c25d766bbcbc6df0e3ca2ce6334ffd06eb6998062d49fdc88fe96?context=explore)</u> ,
+    <u>[`latest-ready`](https://hub.docker.com/layers/hastec/apash/latest-ready/images/sha256-380462969a3c25d766bbcbc6df0e3ca2ce6334ffd06eb6998062d49fdc88fe96?context=explore)</u>
+  -  <u>[`0.2.0-bash`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-7fc6b91634ab17429449546101b49189ca70cc36988fda6bcb45b0fb24fc565d?context=explore)</u> , 
+  <u>[`0.2.0-bash-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-bash/images/sha256-380462969a3c25d766bbcbc6df0e3ca2ce6334ffd06eb6998062d49fdc88fe96?context=explore)</u>
+  -  <u>[`0.2.0-zsh`](https://hub.docker.com/layers/hastec/apash/0.2.0-zsh/images/sha256-edd2e5a5411765da20c05874bbad7cb1ae168144078d920ff9aa2a67309e61e7?context=explore)</u> , 
+  <u>[`0.2.0-zsh-ready`](https://hub.docker.com/layers/hastec/apash/0.2.0-zsh-ready/images/sha256-34c8b10516189fd66742507d87cc120a0aa76c966b26b02085bdfe6a717e4f1d?context=explore)</u>  
 
 
 - <u>[`0.1.0`](https://hub.docker.com/layers/hastec/apash/0.1.0/images/sha256-d91483d585cdac9ca9a5f6966dc901fc848045e9c9f2069b2bf508e76de84e66?context=explore)</u> , 

@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+export APASH_VERSION=0.2.0
 # shellcheck disable=all
 # Apash configurations
 
@@ -132,7 +133,7 @@ apash.lang() { true; }
 Integer_MIN_VALUE=-2147483648
 Integer_MAX_VALUE=2147483647
 lang.Integer() { true; }
-commons-lang.MathUtils() { true; }
+lang.Math() { true; }
 Long_MIN_VALUE=-9223372036854775808
 Long_MAX_VALUE=9223372036854775807
 lang.Long() { true; }
@@ -190,6 +191,14 @@ echo "$inNum1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
+}
+FileNameUtils.getExtension() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+inFileName="$(basename "$inFileName")"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+! StringUtils.contains "$inFileName" "." && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+echo "${inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.ex $LINENO; return "$APASH_SUCCESS";
 }
 apash.util() { true; }
 util.Array() { true; }
@@ -512,6 +521,66 @@ comp=$(VersionUtils.compare "$version1" "$version2") || { Log.ex $LINENO; return
 [[ "$comp" == "-1" || "$comp" == "0" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 Log.out $LINENO; return "$APASH_FAILURE"
 }
+ShellUtils.getParentFunctionName() {
+ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
+return "$APASH_SUCCESS"
+}
+ShellUtils.isCommandValid() {
+Log.in $LINENO "$@"
+local commandName="${1:-}"
+command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS";
+}
+ShellUtils.declareArray() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+if [ "$APASH_SHELL" = "zsh" ]; then
+declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else # bash
+declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.getFunctionName() {
+local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
+local functionName
+if [ "$APASH_SHELL" = "zsh" ]; then
+[ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FAILURE"
+functionName="${funcstack[inDepth]}"
+else # bash
+[ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FAILURE"
+functionName="${FUNCNAME[inDepth]}"
+fi
+echo "$functionName" || return "$APASH_FAILURE"
+return "$APASH_SUCCESS"
+}
+ShellUtils.isVariable() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+ShellUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.isZsh() {
+Log.in $LINENO "$@"
+[[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.isDeclared() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.isVariableNameValid() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+[ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+local LC_COLLATE=C
+[[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
 CsvUtils.merge() {
 Log.in $LINENO "$@"
 local inFile1="${1:-}"
@@ -779,6 +848,15 @@ reversed_string="$reversed_string${inString:$i:1}"
 done
 echo "$reversed_string" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.contains(){
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSequence="${2:-}"
+[[ -z $inSequence ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inString == *"$inSequence"* ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 Log.out $LINENO; return "$APASH_FAILURE"
 }
 StringUtils.rightPad() {
@@ -1762,66 +1840,6 @@ local inNumber="${1:-}"
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 commons-lang.StringUtils() { true; }
-ShellUtils.getParentFunctionName() {
-ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
-return "$APASH_SUCCESS"
-}
-ShellUtils.isCommandValid() {
-Log.in $LINENO "$@"
-local commandName="${1:-}"
-command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS";
-}
-ShellUtils.declareArray() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-if [ "$APASH_SHELL" = "zsh" ]; then
-declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else # bash
-declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.getFunctionName() {
-local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
-local functionName
-if [ "$APASH_SHELL" = "zsh" ]; then
-[ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FAILURE"
-functionName="${funcstack[inDepth]}"
-else # bash
-[ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FAILURE"
-functionName="${FUNCNAME[inDepth]}"
-fi
-echo "$functionName" || return "$APASH_FAILURE"
-return "$APASH_SUCCESS"
-}
-ShellUtils.isVariable() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-ShellUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
-MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isZsh() {
-Log.in $LINENO "$@"
-[[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isDeclared() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isVariableNameValid() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-[ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-local LC_COLLATE=C
-[[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
 DateUtils.addDays() {
 Log.in $LINENO "$@"
 local inDate="${1:-}"
