@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export APASH_VERSION=0.2.0
 # shellcheck disable=all
 # Apash configurations
 
@@ -1993,7 +1994,7 @@ fi
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
-commons-lang.MathUtils() { true; }
+lang.Math() { true; }
 apash.lang() { true; }
 Array.bubbleSort() {
 Log.in $LINENO "$@"

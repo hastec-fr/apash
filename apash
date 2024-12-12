@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-export APASH_VERSION="0.2.0-snapshot"
+export APASH_VERSION="0.2.0"
 
 ##############################################################################
 # @name apash

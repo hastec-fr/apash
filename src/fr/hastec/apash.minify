@@ -60,6 +60,7 @@ apash.minify(){
   done < <(find "$APASH_HOME_DIR/src/fr/hastec/apash" -name "*.sh" -print0)
 
   echo '#!/usr/bin/env '"$shellName" > "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  echo "export APASH_VERSION=$APASH_VERSION" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
   # @todo: Create a real minifier which does not take care about the logic (if possible) due to the mix of shells
   # Remove all lines starting by a hashtag, leading spaces and emptys lines.
   cat "$APASH_HOME_DIR/.apashrc" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
