@@ -20,4 +20,5 @@
 #/
 Long_MIN_VALUE=-9223372036854775808
 Long_MAX_VALUE=9223372036854775807
-lang.Long() { true; }
+alias lang.Long="apash_lang_Long"
+function lang_Long { true ;}

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.util.Log.message
-apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
+apash_import fr.hastec.apash.util.Log.message
+apash_import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name Log.in
@@ -33,21 +33,21 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log_in() {
+alias Log.in="Log_in"
+function Log_in {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-  local inLineNumber="${1:-}"
-  local parentFunction
-  local args
-  local arg
+  typeset inLineNumber="${1:-}"
+  typeset parentFunction
+  typeset args
+  typeset arg
   shift
 
-  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils_getParentFunctionName || echo "Unknown")"
 
   for arg in "$@"; do
     args+="'$arg' "
   done
 
-  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
+  Log_message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
-alias Log.in="Log_in"

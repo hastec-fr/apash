@@ -52,7 +52,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.init
 # @exitcode 0 When input arguments are arrays.
 # @exitcode 1 Otherwise.
 #/
-ArrayUtils.clone() {
+alias ArrayUtils.clone="ArrayUtils_clone"
+function ArrayUtils_clone {
   Log.in $LINENO "$@"
   local apash_ArrayUtils_clone_inArrayName="${1:-}"
   local apash_ArrayUtils_clone_outArrayName="${2:-}"

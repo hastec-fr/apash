@@ -35,7 +35,8 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log_error() {
+alias Log.error="Log_error"
+function Log_error {
   local inLineNumber="${1:-}"
   local inMessage="${2:-}"
   local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
@@ -44,4 +45,4 @@ Log_error() {
   Log.message "$APASH_LOG_LEVEL_ERROR" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
-alias Log.error="Log_error"
+

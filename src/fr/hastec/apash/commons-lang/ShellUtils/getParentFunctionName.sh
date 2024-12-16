@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.commons-lang.ShellUtils.getFunctionName
+apash_import fr.hastec.apash.commons-lang.ShellUtils.getFunctionName
 
 ##/
 # @name ShellUtils.getParentFunctionName
@@ -33,9 +33,9 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getFunctionName
 # @exitcode 0 When the input name corresponds to a variable (not including arrays and maps).
 # @exitcode 1 Otherwise.
 #/
-ShellUtils_getParentFunctionName() {
+alias ShellUtils.getParentFunctionName="apash_ShellUtils_getParentFunctionName"
+function apash_ShellUtils_getParentFunctionName {
   # Parent(3) -> Caller (2)-> getParentFunctionName(1) -> getFunctionName(0)
-  ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
+  apash_ShellUtils_getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"
 }
-alias ShellUtils.getParentFunctionName="ShellUtils_getParentFunctionName"

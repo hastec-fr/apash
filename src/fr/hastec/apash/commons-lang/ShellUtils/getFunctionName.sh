@@ -33,9 +33,10 @@
 # @exitcode 0 When the function name is returned.
 # @exitcode 1 When the index is not valid.
 #/
-ShellUtils_getFunctionName() {
-  local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
-  local functionName
+alias ShellUtils.getFunctionName="apash_ShellUtils_getFunctionName"
+function apash_ShellUtils_getFunctionName {
+  typeset inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
+  typeset functionName
 
   if [ "$APASH_SHELL" = "zsh" ]; then
     [ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FAILURE"
@@ -48,4 +49,3 @@ ShellUtils_getFunctionName() {
   echo "$functionName" || return "$APASH_FAILURE"
   return "$APASH_SUCCESS"
 }
-alias ShellUtils.getFunctionName="ShellUtils_getFunctionName"

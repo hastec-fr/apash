@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
+apash_import fr.hastec.apash.util.Log
+apash_import fr.hastec.apash.commons-lang.NumberUtils.isLong
 
 ##/
 # @name NumberUtils.isLongPositive
@@ -40,10 +40,11 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 # @exitcode 0 When the input string is a long int.
 # @exitcode 1 When the input string contains characters other than digits and a minus before, or is out of bound from 64bits integer.
 #/
-NumberUtils.isLongPositive() {
-  Log.in $LINENO "$@"
-  local inNumber="${1:-}"
-  NumberUtils.isLong "$inNumber" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-  [[ $inNumber -ge 0 ]]          || { Log.out $LINENO; return "$APASH_FAILURE"; }
-  Log.out $LINENO; return "$APASH_SUCCESS"
+alias NumberUtils.isLongPositive=apash_NumberUtils_isLongPositive
+function NumberUtils_isLongPositive() {
+  Log_in $LINENO "$@"
+  typeset inNumber="${1:-}"
+  NumberUtils_isLong "$inNumber" || { Log_out $LINENO; return "$APASH_FAILURE"; }
+  [[ $inNumber -ge 0 ]]          || { Log_out $LINENO; return "$APASH_FAILURE"; }
+  Log_out $LINENO; return "$APASH_SUCCESS"
 }

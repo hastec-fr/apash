@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.util.Log.message
-apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
+apash_import fr.hastec.apash.util.Log.message
+apash_import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name Log.out
@@ -32,23 +32,23 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log_out() {
+alias Log.out="apash_Log_out"
+function apash_Log_out {
   [ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-  local inLineNumber="${1:-}"
-  local parentFunction
-  local outMessage="Out"
-  local args
-  local arg
+  typeset inLineNumber="${1:-}"
+  typeset parentFunction
+  typeset outMessage="Out"
+  typeset args
+  typeset arg
   shift 1
 
-  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
+  parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" apash_ShellUtils_getParentFunctionName || echo "Unknown")"
 
   for arg in "$@"; do
     args+="'$arg' "
   done
   [ -n "${args[*]}" ] && outMessage="$outMessage { $args}"
 
-  Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
+  Log_message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
   return "$APASH_FAILURE"
 }
-alias Log.out="Log_out"

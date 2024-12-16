@@ -61,21 +61,22 @@
 #
 # @todo: Optimize a maximum this function to reduce loading time.
 #/
+alias apash.import="apash_import"
 function apash_import {
-  local lib cacheLib l
-  local -a libs
-  local location=""
-  local APASH_SRC_DIR="$APASH_HOME_DIR/src"
-  local APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
-  local APASH_IMPORT_FORCE="${APASH_IMPORT_FORCE:-false}"
-  local APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
-  local APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
-  local APASH_SUCCESS=0
-  local APASH_FAILURE=1
+  typeset lib cacheLib l
+  typeset -a libs
+  typeset location=""
+  typeset APASH_SRC_DIR="$APASH_HOME_DIR/src"
+  typeset APASH_IMPORT_IGNORE="${APASH_IMPORT_IGNORE:-false}"
+  typeset APASH_IMPORT_FORCE="${APASH_IMPORT_FORCE:-false}"
+  typeset APASH_IMPORT_NO_CACHE="${APASH_IMPORT_NO_CACHE:-false}"
+  typeset APASH_IMPORT_SHOW="${APASH_IMPORT_SHOW:-false}"
+  typeset APASH_SUCCESS=0
+  typeset APASH_FAILURE=1
 
   # Declare a variable shared with recursive import preventing endless cycles.
   # Usefull, when forcing the re-import of all libraries.
-  [ -z "${APASH_LIB_TO_IMPORT:-}" ] && local APASH_LIB_TO_IMPORT=""
+  [ -z "${APASH_LIB_TO_IMPORT:-}" ] && typeset APASH_LIB_TO_IMPORT=""
 
   # When list of lib are cached, then ignore imports.
   [ "$APASH_IMPORT_IGNORE" = "true" ] && return
@@ -88,8 +89,8 @@ function apash_import {
 
   # Declare function to resolve which script version should be used: (.sh, .zsh, .bash_4.2 ...)
   function apash_import_resolve_version {
-    local lib="${1:-}"
-    local vlib version
+    typeset lib="${1:-}"
+    typeset vlib version
 
     # Change lib in case a variant exist for the current shell.
     [[ -f "${lib%.*}.$APASH_SHELL" ]] && lib="${lib%.*}.$APASH_SHELL"
@@ -110,7 +111,7 @@ function apash_import {
 
   # Check if the given function already exists.
   function apash_import_function_exists {
-    local lib=$1
+    typeset lib=$1
     typeset -f "$(basename "$(dirname "$lib")").$(basename "${lib%.*}")" > /dev/null 2>&1 && return $APASH_SUCCESS
     return $APASH_FAILURE
   }
@@ -185,7 +186,7 @@ function apash_import {
     [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
     
     # Protect against cycling import (if lib already in list of import)
-    [[ ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]] && continue
+    [[ ":${APASH_LIB_TO_IMPORT:-}:" =~ ":${lib:-}:" ]] && continue
     # Check if the cache must be used (pre-build list of import)
     # or source recursively each apash.import (could be slow).
     if [ "$APASH_SHELL" = "ksh" ]; then
@@ -210,7 +211,6 @@ function apash_import {
   done
   return $APASH_SUCCESS
 }
-alias apash.import="apash_import"
 
 # Expose the function as much as it's possible when apash.import is sourced(done 1 time).
 if [ "$APASH_SHELL" = "bash" ]; then

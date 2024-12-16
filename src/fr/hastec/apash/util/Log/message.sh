@@ -2,9 +2,9 @@
 # shellcheck disable=SC2034
 
 # Dependencies #################################################################
-apash.import fr.hastec.apash.lang.Integer.sh
-apash.import fr.hastec.apash.util.Log.sh
-apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
+apash_import fr.hastec.apash.lang.Integer.sh
+apash_import fr.hastec.apash.util.Log.sh
+apash_import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 
 ##/
 # @name LogUtils.logger
@@ -38,14 +38,15 @@ apash.import fr.hastec.apash.commons-lang.ShellUtils.getParentFunctionName
 # @exitcode 0 When the message has been logged.
 # @exitcode 1 Otherwise.
 #/
-Log_message() {
-  local inLevel="${1:-}"
-  local inFunction="${2:-}"
-  local inLineNumber="${3:-}"
-  local inMessage="${4:-}"
-  local inChannel="${5:-$APASH_LOG_CHANNEL_STDERR}"
+alias Log.message="Log_message"
+function Log_message {
+  typeset inLevel="${1:-}"
+  typeset inFunction="${2:-}"
+  typeset inLineNumber="${3:-}"
+  typeset inMessage="${4:-}"
+  typeset inChannel="${5:-$APASH_LOG_CHANNEL_STDERR}"
 
-  local inLevelStr="${APASH_LOG_LEVEL_STR[$inLevel]}"
+  typeset inLevelStr="${APASH_LOG_LEVEL_STR[$inLevel]}"
   [ -z "$inLevelStr" ] && inLevelStr="Custom-$inLevel"
 
   # Return immediatly if the provided level is greater than the Apash global log level.
@@ -59,4 +60,3 @@ Log_message() {
 
   return "$APASH_FAILURE"
 }
-alias Log.message="Log_message"

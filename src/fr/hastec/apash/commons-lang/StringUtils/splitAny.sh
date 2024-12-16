@@ -42,7 +42,8 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.clone
 # @exitcode 0 When result array exists.
 # @exitcode 1 When input array does not exists.
 #/
-StringUtils.splitAny() {
+alias StringUtils.splitAny="StringUtils_splitAny"
+function StringUtils_splitAny {
   Log.in $LINENO "$@"
   local apash_inArrayName="${1:-}"
   local apash_inString="${2:-}"
