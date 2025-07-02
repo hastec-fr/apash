@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Dependencies #################################################################
-#apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.util.Log
 
 # File description ###########################################################
 # @name FileNameUtils.isSymlink
@@ -34,10 +34,12 @@
 # @exitcode 1 Otherwise.
 #/
 FileUtils.isSymlink() {
-    local inFileName="${1:-}"
-    if test -h "$inFileName"; then
-        return 0
-    else
-        return 1
-    fi
+  Log.in "$LINENO" "$@"
+  local inFileName="${1:-}"
+
+  if test -h "$inFileName" ; then
+    Log.out "$LINENO"; return "$APASH_SUCCESS"
+  else
+    Log.out "$LINENO"; return "$APASH_FAILURE"
+  fi
 }
