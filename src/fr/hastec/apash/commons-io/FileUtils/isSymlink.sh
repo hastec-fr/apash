@@ -10,7 +10,7 @@
 #   This method returns 0 or 1 depending on whether the argument is a symbolic link or not  
 #
 # ## History
-#  @since 0.2.0 (Benjamin Vargin)
+#  @since 0.2.0 (Guilhem Baerchler)
 #
 # ## Interface
 # @apashPackage
@@ -41,7 +41,3 @@ FileUtils.isSymlink() {
         return 1
     fi
 }
-
-#FileUtils.isSymlink "regularFile.txt"
-#FileUtils.isSymlink "notARegularFile"
-#FileUtils.isSymlink "symlink"

@@ -10,7 +10,7 @@
 #   This method returns 0 or 1 depending on whether the argument is a directory or not  
 #
 # ## History
-#  @since 0.2.0 (Benjamin Vargin)
+#  @since 0.2.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -41,7 +41,3 @@ FileUtils.isDirectory() {
         return 1
     fi
 }
-
-#FileUtils.isDirectory "regularFile.txt"
-#FileUtils.isDirectory "notARegularFile"
-#FileUtils.isDirectory "symlink"
