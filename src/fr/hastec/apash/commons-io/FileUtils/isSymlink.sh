@@ -16,8 +16,8 @@ apash.import fr.hastec.apash.util.Log
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                                 |
-# |--------|----------------|---------------|----------|------------|---------------------------------------------|
+# | #      | varName        | Type          | in/out   | Default    | Description            |
+# |--------|----------------|---------------|----------|------------|------------------------|
 # | $1     | inFileName     | string        | in       |            | The file name to test. |
 #
 # ### Example

@@ -16,15 +16,19 @@ apash.import fr.hastec.apash.util.Log
 # @apashPackage
 #
 # ### Arguments
-# | #      | varName        | Type          | in/out   | Default    | Description                                 |
-# |--------|----------------|---------------|----------|------------|---------------------------------------------|
-# | $1     | inFileName     | string        | in       |            | The file name to test. |
+# | #      | varName        | Type          | in/out   | Default    | Description               |
+# |--------|----------------|---------------|----------|------------|---------------------------|
+# | $1     | inFileName     | string        | in       |            | The file name to test.    |
+# | $2     | inLinkOption   | string        | in       |            | The symbolic link options |
 #
 # ### Example
 # ```bash
-#    FileUtils.isRegularFile "regularFile.txt"  #0
-#    FileUtils.isRegularFile "notARegularFile"  #1
-#    FileUtils.isRegularFile "symlink"          #1
+#    FileUtils.isRegularFile "regularFile.txt"                                    #0
+#    FileUtils.isRegularFile "notARegularFile"                                    #1
+#    FileUtils.isRegularFile "symlinkToADir"                                      #1
+#    FileUtils.isRegularFile "path/to/symlink/regularFile.txt" "NOFOLLOW_LINKS"   #0
+#    FileUtils.isRegularFile "symlink" "NOFOLLOW_LINKS"                           #0
+#    FileUtils.isRegularFile "symlinkToADir" "NOFOLLOW_LINKS"                     #0
 # ```
 #
 # @stdout None. 
@@ -36,7 +40,20 @@ apash.import fr.hastec.apash.util.Log
 FileUtils.isRegularFile() {
   Log.in "$LINENO" "$@"
   local inFileName="${1:-}"
-  if test -f "$inFileName" && ! test -h "$inFileName"; then
+  local inLinkOption="${2:-}"
+
+  if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && [ "$(realpath "$inFileName")" != "$inFileName" ]; then
+    local inDirectory
+    inDirectory="$(dirname "$inFileName")"
+
+    if [ "$(realpath "$inDirectory")" = "$inDirectory" ]; then
+      Log.out "$LINENO"; return "$APASH_SUCCESS";
+    else
+      Log.out "$LINENO"; return "$APASH_FAILURE";
+    fi
+  fi
+
+  if test -f "$inFileName"; then
     Log.out "$LINENO"; return "$APASH_SUCCESS"
   else
     Log.out "$LINENO"; return "$APASH_FAILURE"
