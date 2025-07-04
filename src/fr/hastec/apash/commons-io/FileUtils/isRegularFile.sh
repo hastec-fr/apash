@@ -2,6 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 
 # File description ###########################################################
 # @name FileNameUtils.isRegularFile
@@ -44,7 +45,7 @@ FileUtils.isRegularFile() {
 
   if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && [ "$(realpath "$inFileName")" != "$inFileName" ]; then
     local inDirectory
-    inDirectory="$(dirname "$inFileName")"
+    inDirectory="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
     if [ "$(realpath "$inDirectory")" = "$inDirectory" ]; then
       Log.out "$LINENO"; return "$APASH_SUCCESS";
