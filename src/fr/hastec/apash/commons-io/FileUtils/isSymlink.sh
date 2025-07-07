@@ -3,6 +3,7 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
+##/
 # File description ###########################################################
 # @name FileNameUtils.isSymlink
 # @brief Tests whether the specified File is a symbolic link rather than an actual file.

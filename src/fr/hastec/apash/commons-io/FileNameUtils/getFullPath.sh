@@ -4,6 +4,7 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 
+##/
 # File description ###########################################################
 # @name FileNameUtils.getFullPath
 # @brief Gets the full path (prefix + path) from a full file name.

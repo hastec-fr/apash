@@ -3,6 +3,7 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 
+##/
 # File description ###########################################################
 # @name FileNameUtils.isDirectory
 # @brief Tests whether the specified File is a directory or not.
