@@ -40,15 +40,32 @@ StringUtils.lastIndexOf() {
   Log.in $LINENO "$@"
   local inString="${1:-}"
   local inResearch="${2:-}"
-  inString="$(StringUtils.reverse "$inString")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  inResearch="$(StringUtils.reverse "$inResearch")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  local index
-  index="$(StringUtils.indexOf "$inString" "$inResearch")"
-  if [ "$index" -eq -1 ]; then
-    echo "-1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local index=-1
+
+  # Case when string is empty but not the inResearch
+  if [[ -z "$inString" &&  -n "$inResearch" ]]; then
+    echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
-  echo $((${#inString} - index - ${#inResearch})) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  # Case when researh is empty but not the input string
+  if [[ -n "$inString" &&  -z "$inResearch" ]]; then
+    echo "${#inString}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
+  fi
+
+  # Case when both are empty
+  if [[ -z "$inString" &&  -z "$inResearch" ]]; then
+    echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    Log.out $LINENO; return "$APASH_SUCCESS"
+  fi  
+
+  # Find character index in string (preffered to expr: SC2308)
+  # If the number of characters remains the same, it means that no 
+  # occurence has been found.
+  index=${inString##*"${inResearch}"}
+  [ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#inString} - ${#index} - ${#inResearch}))
+
+  echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out $LINENO; return "$APASH_SUCCESS"
 }
