@@ -2,8 +2,6 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-lang.StringUtils.indexOf
-apash.import fr.hastec.apash.commons-lang.StringUtils.reverse
 
 ##/
 # @name StringUtils.lastIndexOf
