@@ -1,7 +1,7 @@
 
 <div align='center' id='apash-top'>
   <a href='https://github.com/hastec-fr/apash'>
-    <img alt='apash-logo' src='../../../assets/apash-logo.svg'/>
+    <img alt='apash-logo' src='../../../../assets/apash-logo.svg'/>
   </a>
 
   # Apash
@@ -9,29 +9,28 @@
 
 
  <!-- @package -->
-# apash
-Translation for shell scripts of some apache libraries and more.
+# commons-io
+Provides utility methods for working with files.
 ## Description
-   Provides highly reusable utility methods.
+   Provides utility methods for working with files.
+   This implementation do reference to the [java apache implementation](http://commons.apache.org/proper/commons-io/javadocs/api-2.7/).
 
 ## History
 ### Since
-  * 0.1.0 (hastec-fr)
+  * 0.1.0
 
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
-None.
+[apash](../apash.md) / 
 <!-- apash.packageEnd -->
 
 ### Method Summary
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
-|[commons-io](apash/commons-io.md)|Provides utility methods for working with files.|
-|[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
-|[lang](apash/lang.md)|Provides methods that are fundamental to the design script. |
-|[util](apash/util.md)|Provides miscellaneous utility.|
+|[FileNameUtils](commons-io/FileNameUtils.md)|General file name and file path manipulation utilities.|
+|[FileUtils](commons-io/FileUtils.md)|General file manipulation utilities.|
 <!-- apash.summaryTableEnd -->
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

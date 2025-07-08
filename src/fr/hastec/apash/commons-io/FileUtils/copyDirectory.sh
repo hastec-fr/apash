@@ -33,7 +33,10 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 #
 # ### Example
 # ```bash
-#  
+#   FileUtils.copyDirectory "path" "dest"                                       # copies all path directory and sub directories in dest without replacing existing files 
+#   FileUtils.copyDirectory "path" "dest" ".*1"                                 # copies all path directory and sub directories that ends with '1' in dest without replacing existing files 
+#   FileUtils.copyDirectory "path" "dest" ".*" true                             # copies all path directory and sub directories in dest without replacing existing files but it copies file dates 
+#   FileUtils.copyDirectory "path" "dest" ".*" true "REPLACE_EXISTING"          # copies all path directory and sub directories in dest without replacing existing files but it copies file dates and replace files that have same names 
 # ```
 #
 # @stdout None. 
