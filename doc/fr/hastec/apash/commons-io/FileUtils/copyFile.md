@@ -13,9 +13,8 @@ Copies the contents of a file to a new location.
 ## Description
    This method copies the contents of the specified source file to the specified destination file.
    The directory holding the destination file is created if it does not exist.
-   If the destination file exists, you can overwrite it with StandardCopyOption.REPLACE_EXISTING.
-   By default, a symbolic link is resolved before copying so the new file is not a link.
-   To copy symbolic links as links, you can pass LinkOption.NO_FOLLOW_LINKS as the last argument.
+   If the destination file exists, you can overwrite it with REPLACE_EXISTING.
+
    CopyOptions.ATOMIC_MOVE is not supported
 ## History
 ### Since

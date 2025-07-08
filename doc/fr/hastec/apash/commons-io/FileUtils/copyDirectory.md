@@ -11,10 +11,10 @@
 # FileNameUtils.copyDirectory
 Copies a filtered directory to a new location.
 ## Description
-    This method copies the contents of the specified source directory to within the specified destination directory.
-    The destination directory is created if it does not exist.
-    If the destination directory does exist, then this method merges the source with the destination,
-    with the source taking precedence. 
+   This method copies the contents of the specified source directory to within the specified destination directory.
+   The destination directory is created if it does not exist.
+   If the destination directory does exist, then this method merges the source with the destination,
+   with the source taking precedence. 
 
 ## History
 ### Since
