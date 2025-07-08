@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# Dependencies #################################################################
+apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-io.FileUtils.isDirectory
+apash.import fr.hastec.apash.commons-io.FileUtils.copyFile
+apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
+
+##/
+# File description ###########################################################
+# @name FileNameUtils.copyDirectory
+# @brief Copies a filtered directory to a new location. 
+# @description
+#    This method copies the contents of the specified source directory to within the specified destination directory.
+#    The destination directory is created if it does not exist.
+#    If the destination directory does exist, then this method merges the source with the destination,
+#    with the source taking precedence. 
+#
+# ## History
+#  @since 0.2.0 (Guilhem Baechler)
+#
+# ## Interface
+# @apashPackage
+#
+# ### Arguments
+# | #      | varName        | Type          | in/out   | Default | Description                        |
+# |--------|----------------|---------------|----------|---------|------------------------------------|
+# | $1     | inSrc          | string        | in       |         | The folder name to copy.           |
+# | $2     | inDst          | string        | in       |         | The destination folder name.       |
+# | $3     | inFileFilter   | string        | in       | *       | The file name filter. (regex)      |
+# | $4     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
+# | $5     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
+#
+# ### Example
+# ```bash
+#  
+# ```
+#
+# @stdout None. 
+# @stderr None.
+#
+# @exitcode 0 when the inSrc has been copied in inDst.
+# @exitcode 1 Otherwise.
+#/
+FileUtils.copyDirectory() {
+  Log.in "$LINENO" "$@"
+  local inSrc="${1:-}"
+  local inDst="${2:-}"
+  local inFileFilter="${3-.*}"
+  local inPreserveDate="${4:-false}"
+  local inCopyOption="${5:-}"
+
+  mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+  
+  for path in "$inSrc"/*; do
+    #echo "$path"
+    local baseName
+    baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    
+    if echo "$baseName" | grep -q "$inFileFilter"; then
+      local relPath="${path#"$inSrc"/}"
+      local dstPath="$inDst/$relPath"
+
+      if FileUtils.isDirectory "$path"; then
+        #echo "copy folder: $path to $dstPath"
+        FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+      else
+        #echo "copy file: $path to $dstPath"
+        FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+      fi
+    fi
+  done
+
+  Log.out "$LINENO";
+  return "$APASH_SUCCESS"
+}

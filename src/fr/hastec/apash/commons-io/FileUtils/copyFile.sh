@@ -6,6 +6,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
 apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 
+##/
 # File description ###########################################################
 # @name FileNameUtils.copyFile
 # @brief Copies the contents of a file to a new location. 
@@ -25,10 +26,10 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 # ### Arguments
 # | #      | varName        | Type          | in/out   | Default | Description                        |
 # |--------|----------------|---------------|----------|---------|------------------------------------|
-# | $1     | inSrc          | string        | in       |         | The folder name to test.           |
-# | $1     | inDst          | string        | in       |         | The folder name to test.           |
-# | $1     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
-# | $2     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
+# | $1     | inSrc          | string        | in       |         | The file name to copy.             |
+# | $2     | inDst          | string        | in       |         | The destination file name.         |
+# | $3     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
+# | $4     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
 #
 # ### Example
 # ```bash
