@@ -6,7 +6,6 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.substring
 apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 
 ##/
-# File description ###########################################################
 # @name FileNameUtils.getFullPathNoEndSeparator
 # @brief Gets the full path (prefix + path) from a full file name, excluding the final directory separator.
 # @description

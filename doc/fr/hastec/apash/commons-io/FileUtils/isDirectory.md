@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.isDirectory
 Tests whether the specified File is a directory or not.
 ## Description

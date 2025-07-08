@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.getFullPathNoEndSeparator
 Gets the full path (prefix + path) from a full file name, excluding the final directory separator.
 ## Description

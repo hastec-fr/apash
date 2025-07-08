@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.copyFile
 Copies the contents of a file to a new location.
 ## Description

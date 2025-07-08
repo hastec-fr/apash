@@ -4,7 +4,7 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 
-# File description ###########################################################
+##/
 # @name FileNameUtils.getExtension
 # @brief Gets the extension of a fileName.
 # @description

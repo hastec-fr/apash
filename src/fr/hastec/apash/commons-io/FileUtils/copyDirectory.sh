@@ -7,7 +7,6 @@ apash.import fr.hastec.apash.commons-io.FileUtils.copyFile
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 
 ##/
-# File description ###########################################################
 # @name FileNameUtils.copyDirectory
 # @brief Copies a filtered directory to a new location. 
 # @description

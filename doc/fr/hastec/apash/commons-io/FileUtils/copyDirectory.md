@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.copyDirectory
 Copies a filtered directory to a new location.
 ## Description

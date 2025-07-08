@@ -7,7 +7,6 @@ apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
 apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 
 ##/
-# File description ###########################################################
 # @name FileNameUtils.copyFile
 # @brief Copies the contents of a file to a new location. 
 # @description

@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.isRegularFile
 Tests whether the specified File is a regular file or not.
 ## Description

@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.isSymlink
 Tests whether the specified File is a symbolic link rather than an actual file.
 ## Description

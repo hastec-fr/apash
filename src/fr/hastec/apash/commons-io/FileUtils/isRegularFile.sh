@@ -5,7 +5,6 @@ apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 
 ##/
-# File description ###########################################################
 # @name FileNameUtils.isRegularFile
 # @brief Tests whether the specified File is a regular file or not.
 # @description

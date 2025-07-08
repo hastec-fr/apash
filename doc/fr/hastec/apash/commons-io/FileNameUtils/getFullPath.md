@@ -8,7 +8,6 @@
 </div>
 
 
- File description ###########################################################
 # FileNameUtils.getFullPath
 Gets the full path (prefix + path) from a full file name.
 ## Description
