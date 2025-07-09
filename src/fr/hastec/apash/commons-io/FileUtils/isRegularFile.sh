@@ -2,7 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
+apash.import fr.hastec.apash.commons-io.FileUtils.isSymlink
 
 ##/
 # @name FileNameUtils.isRegularFile
@@ -43,18 +43,11 @@ FileUtils.isRegularFile() {
   local inFileName="${1:-}"
   local inLinkOption="${2:-}"
 
-  if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && [ "$(realpath "$inFileName")" != "$inFileName" ]; then
-    local inDirectory
-    inDirectory="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-
-    if [ "$(realpath "$inDirectory")" = "$inDirectory" ]; then
-      Log.out "$LINENO"; return "$APASH_SUCCESS";
-    else
-      Log.out "$LINENO"; return "$APASH_FAILURE";
-    fi
+  if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFileName"; then
+    Log.out "$LINENO"; return "$APASH_FAILURE"
   fi
 
-  if test -f "$inFileName"; then
+  if [ -f "$inFileName" ] ; then
     Log.out "$LINENO"; return "$APASH_SUCCESS"
   else
     Log.out "$LINENO"; return "$APASH_FAILURE"

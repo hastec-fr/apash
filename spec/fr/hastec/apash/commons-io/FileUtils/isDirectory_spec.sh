@@ -41,7 +41,7 @@ Describe 'FileUtils.isDirectory'
 
   It 'passes when the input refer to a full path with a symlink in it with arg NOFOLLOW_LINKS'
     When call FileUtils.isDirectory "$TMPDIR/thisIsASymLinkToADir/to" "NOFOLLOW_LINKS"
-    The status should be failure
+    The status should be success
   End
 
   It 'passes when the input refer to a regular file with extension'
@@ -84,4 +84,8 @@ Describe 'FileUtils.isDirectory'
     The status should be failure
   End
 
+  It 'passes when the input refer to a full path without symlink with arg NOFOLLOW_LINKS'
+    When call FileUtils.isDirectory "$TMPDIR/path" "NOFOLLOW_LINKS"
+    The status should be success
+  End
 End

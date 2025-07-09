@@ -2,6 +2,7 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-io.FileUtils.isSymlink
 
 ##/
 # @name FileNameUtils.isDirectory
@@ -40,7 +41,7 @@ FileUtils.isDirectory() {
   local inFolderName="${1:-}"
   local inLinkOption="${2:-}"
 
-  if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && [ "$(realpath "$inFolderName")" != "$inFolderName" ]; then
+  if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFolderName"; then
     Log.out "$LINENO"; return "$APASH_FAILURE"; 
   fi
 
