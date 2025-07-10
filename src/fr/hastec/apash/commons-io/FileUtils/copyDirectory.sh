@@ -76,3 +76,22 @@ FileUtils.copyDirectory() {
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
 }
+
+_FileUtils.copyDirectory () {
+
+  local BOOLEAN="true false"
+  local COPY_OPTIONS="REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES"
+
+  COMPREPLY=()
+
+  if [ "$COMP_CWORD" -eq 3 ]; then
+    COMPREPLY=($( compgen -W "$BOOLEAN" -- "${COMP_WORDS[$COMP_CWORD]}" ))
+  elif [ "$COMP_CWORD" -eq 4 ]; then
+    COMPREPLY=($( compgen -W "$COPY_OPTIONS" -- "${COMP_WORDS[$COMP_CWORD]}" ))
+  else
+    COMPREPLY=($( ls ))
+  fi
+
+}
+
+complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
