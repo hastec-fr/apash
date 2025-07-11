@@ -84,12 +84,13 @@ _FileUtils.copyDirectory () {
 
   COMPREPLY=()
 
+  local current="${COMP_WORDS[$COMP_CWORD]}"
   if [ "$COMP_CWORD" -eq 3 ]; then
-    mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "${COMP_WORDS[$COMP_CWORD]}")
+    mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "$current")
   elif [ "$COMP_CWORD" -eq 4 ]; then
-    mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "${COMP_WORDS[$COMP_CWORD]}")
+    mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "$current")
   else
-    mapfile -t COMPREPLY < <(ls)
+    mapfile -t COMPREPLY < <(compgen -W "$(ls)" -- "$current")
   fi
 
 }
