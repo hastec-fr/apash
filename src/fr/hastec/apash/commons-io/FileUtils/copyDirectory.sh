@@ -48,7 +48,7 @@ FileUtils.copyDirectory() {
   Log.in "$LINENO" "$@"
   local inSrc="${1:-}"
   local inDst="${2:-}"
-  local inFileFilter="${3-.*}"
+  local inFileFilter="${3:-*}"
   local inPreserveDate="${4:-false}"
   local inCopyOption="${5:-}"
 
@@ -61,15 +61,23 @@ FileUtils.copyDirectory() {
   IFS=',' read -ra optionList <<< "$inCopyOption"
 
   local options=()
-  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
-    options+=("-p")
+  local firstTag="-"
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+    firstTag+="a"
+  else
+    if [[ "$inPreserveDate" == true ]]; then
+      firstTag+="t"
+    fi
+    firstTag+="r"
   fi
+
+  options+=("$firstTag")
 
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
-    options+=("-n")
+    options+=("--ignore-existing")
   fi
-
-  find "$inSrc" -name "$inFileFilter" -type f,d -exec cp -r "${options[@]}" {} "$inDst" \; || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ 
+  rsync "${options[@]}" --include="$inFileFilter" --exclude='*' "$inSrc/" "$inDst/" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out "$LINENO";
   return "$APASH_SUCCESS"

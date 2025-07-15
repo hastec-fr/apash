@@ -22,7 +22,7 @@ Describe 'FileUtils.copyDirectory'
   echo "file4 content that is not overwritten" > "$TMPDIR/dest/file4"
 
   It 'passes when the input is source, destination, file filter'
-    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" ".*" 
+    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*" 
     The status should be success
   End
 
@@ -56,7 +56,7 @@ Describe 'FileUtils.copyDirectory'
   echo "file4 content that is not overwritten" > "$TMPDIR/dest/file4"
   
   It 'passes when the input is a source, a destination with preserve date enable and REPLACE_EXISTING'
-    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" ".*" true "REPLACE_EXISTING"
+    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*" true "REPLACE_EXISTING"
     The status should be success
   End
 
@@ -123,7 +123,7 @@ Describe 'FileUtils.copyDirectory'
   echo "file65 content" > "$TMPDIR/path/file65"
 
   It 'passes when the input is source, destination, file filter'
-    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" ".*5" 
+    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*5" 
     The status should be success
   End
 
