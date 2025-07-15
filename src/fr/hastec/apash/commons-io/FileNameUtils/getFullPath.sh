@@ -12,7 +12,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 #  and returns the text before and including the last forward or backslash.
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -25,9 +25,10 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 # ### Example
 # ```bash
 #    FileNameUtils.getFullPath  "foo.txt"          # ""
-#    FileNameUtils.getFullPath  "a/b/c.jpg"        # "a/b/c/"
+#    FileNameUtils.getFullPath  "a/b/c.jpg"        # "a/b/"
 #    FileNameUtils.getFullPath  "a/b/c"            # "a/b/c/"
 #    FileNameUtils.getFullPath  "a/b/c/"           # "a/b/c/"
+#    FileNameUtils.getFullPath  "a/b/c//"           # "a/b/c//"
 # ```
 #
 # @stdout The path of the file, an empty string if none exists
@@ -42,7 +43,7 @@ FileNameUtils.getFullPath() {
   local fullPath
   fullPath="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
-  if [ "$fullPath" = "" ]; then
+  if [ -z "$fullPath" ]; then
     echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi

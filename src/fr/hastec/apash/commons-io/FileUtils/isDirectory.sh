@@ -45,9 +45,8 @@ FileUtils.isDirectory() {
     Log.out "$LINENO"; return "$APASH_FAILURE"; 
   fi
 
-  if test -d "$inFolderName" ; then
+  if [ -d "$inFolderName" ]; then
     Log.out "$LINENO"; return "$APASH_SUCCESS"
-  else
-    Log.out "$LINENO"; return "$APASH_FAILURE"
   fi
+  Log.out "$LINENO"; return "$APASH_FAILURE"
 }

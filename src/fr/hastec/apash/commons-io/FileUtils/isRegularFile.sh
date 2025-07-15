@@ -49,7 +49,6 @@ FileUtils.isRegularFile() {
 
   if [ -f "$inFileName" ] ; then
     Log.out "$LINENO"; return "$APASH_SUCCESS"
-  else
-    Log.out "$LINENO"; return "$APASH_FAILURE"
   fi
+  Log.out "$LINENO"; return "$APASH_FAILURE"
 }

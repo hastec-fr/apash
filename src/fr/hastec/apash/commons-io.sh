@@ -9,7 +9,7 @@
 #   This implementation do reference to the [java apache implementation](http://commons.apache.org/proper/commons-io/javadocs/api-2.7/).
 #
 # ## History
-# @since 0.1.0
+# @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage

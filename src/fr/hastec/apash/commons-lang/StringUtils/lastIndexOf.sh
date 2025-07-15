@@ -8,7 +8,7 @@ apash.import fr.hastec.apash.util.Log
 # @brief Finds the last index of a substring occurence within another string.
 #
 # ## History
-# @since 0.1.0 (hastec-fr)
+# @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage

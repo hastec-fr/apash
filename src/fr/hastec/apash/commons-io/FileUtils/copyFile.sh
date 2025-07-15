@@ -4,7 +4,7 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
-apash.import fr.hastec.apash.commons-lang.StringUtils.contains
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 
 ##/
 # @name FileNameUtils.copyFile
@@ -51,19 +51,18 @@ FileUtils.copyFile() {
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  #if REPLACE_EXISTING is not set and the dst already existsl it doesn't copy
-  if ! StringUtils.contains "$inCopyOption" "REPLACE_EXISTING" && FileUtils.isRegularFile "$inDst"; then
-    Log.out "$LINENO";
-    return "$APASH_SUCCESS"
+  IFS=',' read -ra optionList <<< "$inCopyOption"
+
+  local options=()
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
+    options+=("-p")
   fi
 
-  if StringUtils.contains "$inCopyOption" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
-    cp "-p" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-  else
-    cp "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+    options+=("-n")
   fi
-
-
+ 
+  cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
 }

@@ -3,6 +3,7 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
+apash.import fr.hastec.apash.commons-lang.StringUtils.startsWith
 apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 
 ##/
@@ -29,6 +30,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c.jpg"        # "a/b/c"
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c"            # "a/b/c"
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c/"           # "a/b/c"
+#    FileNameUtils.getFullPathNoEndSeparator  "a/b/c//"           # "a/b/c/"
 # ```
 #
 # @stdout The path of the file, an empty string if none exists
@@ -42,7 +44,7 @@ FileNameUtils.getFullPathNoEndSeparator() {
   local inFileName="${1:-}"
 
   #exceptions
-  if [ "$inFileName" = "~" ] || [ "$inFileName" = "~user" ]; then
+  if StringUtils.startsWith "$inFileName" "~"; then
     echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi

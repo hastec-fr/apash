@@ -48,4 +48,10 @@ Describe 'FileNameUtils.getFullPath'
     The output should equal "~user/"
     The status should be success
   End
+
+ It 'passes when the input ends with 2 /'
+    When call FileNameUtils.getFullPathNoEndSeparator "path/to//"
+    The output should equal "path/to//"
+    The status should be success
+  End
 End

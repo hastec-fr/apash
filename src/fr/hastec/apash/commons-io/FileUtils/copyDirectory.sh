@@ -52,26 +52,24 @@ FileUtils.copyDirectory() {
   local inPreserveDate="${4:-false}"
   local inCopyOption="${5:-}"
 
+  if FileUtils.isRegularFile "$inDst"; then 
+    Log.ex $LINENO; return "$APASH_FAILURE"; 
+  fi
+
   mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
   
-  for path in "$inSrc"/*; do
-    #echo "$path"
-    local baseName
-    baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    
-    if echo "$baseName" | grep -q "$inFileFilter"; then
-      local relPath="${path#"$inSrc"/}"
-      local dstPath="$inDst/$relPath"
+  IFS=',' read -ra optionList <<< "$inCopyOption"
 
-      if FileUtils.isDirectory "$path"; then
-        #echo "copy folder: $path to $dstPath"
-        FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-      else
-        #echo "copy file: $path to $dstPath"
-        FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-      fi
-    fi
-  done
+  local options=()
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
+    options+=("-p")
+  fi
+
+  if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+    options+=("-n")
+  fi
+
+  find "$inSrc" -name "$inFileFilter" -type f,d -exec cp -r "${options[@]}" {} "$inDst" \; || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
