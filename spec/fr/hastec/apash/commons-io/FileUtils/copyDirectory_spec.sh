@@ -58,6 +58,20 @@ Describe 'FileUtils.copyDirectory'
   touch "$TMPDIR/dest/file4"
   echo "$FILE4CONTENTBIS" > "$TMPDIR/dest/file4"
 
+  It 'passes when the input is source, destination, file filter (source and destination end with /)'
+    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*" 
+    The status should be success
+    The contents of path file1bis should equal "$FILE1CONTENT" 
+    The contents of path file2bis should equal "$FILE2CONTENT" 
+    The contents of path file3bis should equal "$FILE3CONTENT" 
+    The contents of path file4bis should equal "$FILE4CONTENTBIS" 
+  End
+
+  rm -rf "$TMPDIR/dest"
+  mkdir "$TMPDIR/dest"
+  touch "$TMPDIR/dest/file4"
+  echo "$FILE4CONTENTBIS" > "$TMPDIR/dest/file4"
+  
   It 'passes when the input is a source, a destination with preserve date enable and REPLACE_EXISTING'
     When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*" true "REPLACE_EXISTING"
     The status should be success
