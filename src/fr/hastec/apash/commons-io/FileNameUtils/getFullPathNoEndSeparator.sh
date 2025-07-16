@@ -4,6 +4,7 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
 apash.import fr.hastec.apash.commons-lang.StringUtils.startsWith
+apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 
 ##/
@@ -44,7 +45,7 @@ FileNameUtils.getFullPathNoEndSeparator() {
   local inFileName="${1:-}"
 
   #exceptions
-  if StringUtils.startsWith "$inFileName" "~"; then
+  if StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"; then
     echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi

@@ -50,7 +50,7 @@ Describe 'FileNameUtils.getFullPath'
   End
 
  It 'passes when the input ends with 2 /'
-    When call FileNameUtils.getFullPathNoEndSeparator "path/to//"
+    When call FileNameUtils.getFullPath "path/to//"
     The output should equal "path/to//"
     The status should be success
   End
