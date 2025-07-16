@@ -16,7 +16,7 @@ apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 #
 #   CopyOptions.ATOMIC_MOVE is not supported
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage

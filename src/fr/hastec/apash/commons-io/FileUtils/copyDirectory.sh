@@ -16,7 +16,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 #   with the source taking precedence. 
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -76,7 +76,7 @@ FileUtils.copyDirectory() {
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
     options+=("--ignore-existing")
   fi
- 
+
   rsync "${options[@]}" --include="$inFileFilter" --exclude='*' "$inSrc/" "$inDst/" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out "$LINENO";

@@ -14,7 +14,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 #  and returns the text before the last forward or backslash.
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage

@@ -8,7 +8,7 @@
 #   General file manipulation utilities.
 #
 # ## History
-# @since 0.2.0 (hastec-fr)
+# @since 0.3.0 (hastec-fr)
 #
 # ## Interface
 # @apashPackage
