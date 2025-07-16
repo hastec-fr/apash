@@ -15,7 +15,7 @@ Tests whether the specified File is a directory or not.
 
 ## History
 ### Since
-  * 0.2.0 (Guilhem Baechler)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

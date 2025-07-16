@@ -16,7 +16,7 @@ Gets the full path (prefix + path) from a full file name.
 
 ## History
 ### Since
-  * 0.2.0 (Guilhem Baechler)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package
@@ -32,9 +32,10 @@ Gets the full path (prefix + path) from a full file name.
 ### Example
  ```bash
     FileNameUtils.getFullPath  "foo.txt"          # ""
-    FileNameUtils.getFullPath  "a/b/c.jpg"        # "a/b/c/"
+    FileNameUtils.getFullPath  "a/b/c.jpg"        # "a/b/"
     FileNameUtils.getFullPath  "a/b/c"            # "a/b/c/"
     FileNameUtils.getFullPath  "a/b/c/"           # "a/b/c/"
+    FileNameUtils.getFullPath  "a/b/c//"           # "a/b/c//"
  ```
 
 ### Stdout
