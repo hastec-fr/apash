@@ -1,7 +1,7 @@
 Describe 'FileUtils.isRegularFile'
   apash.import "fr.hastec.apash.commons-io.FileUtils.isRegularFile"
 
-  TMPDIR="/tmp"
+  TMPDIR="${SHELLSPEC_TMPBASE}"
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
   

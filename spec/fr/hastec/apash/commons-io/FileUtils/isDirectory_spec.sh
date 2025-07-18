@@ -1,7 +1,7 @@
 Describe 'FileUtils.isDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.isDirectory"
 
-  TMPDIR="/tmp"
+  TMPDIR="${SHELLSPEC_TMPBASE}"
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
  

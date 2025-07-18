@@ -2,8 +2,8 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
-apash.import fr.hastec.apash.commons-io.FileUtils.isDirectory
-apash.import fr.hastec.apash.commons-io.FileUtils.copyFile
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
+apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 
 ##/
@@ -52,6 +52,10 @@ FileUtils.copyDirectory() {
   local inPreserveDate="${4:-false}"
   local inCopyOption="${5:-}"
 
+  #ensure inSrc and inDst don't end with '/' 
+  inSrc="${inSrc%/}"
+  inDst="${inDst%/}"
+
   if FileUtils.isRegularFile "$inDst"; then 
     Log.ex $LINENO; return "$APASH_FAILURE"; 
   fi
@@ -61,23 +65,23 @@ FileUtils.copyDirectory() {
   IFS=',' read -ra optionList <<< "$inCopyOption"
 
   local options=()
-  local firstTag="-"
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
-    firstTag+="a"
-  else
-    if [[ "$inPreserveDate" == true ]]; then
-      firstTag+="t"
-    fi
-    firstTag+="r"
+    options+=("--preserve=all")
+  elif [[ "$inPreserveDate" == true ]]; then
+    options+=("--preserve=timestamps")
   fi
-
-  options+=("$firstTag")
-
+  
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
-    options+=("--ignore-existing")
+    # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
+    options+=("-n") 
   fi
 
-  rsync "${options[@]}" --include="$inFileFilter" --exclude='*' "$inSrc/" "$inDst/" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
+    relPath="${file#"$inSrc/"}"
+    dst="$inDst/$relPath"
+    mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+    cp "${options[@]}" "$file" "$dst"           
+  done
 
   Log.out "$LINENO";
   return "$APASH_SUCCESS"

@@ -46,7 +46,7 @@ FileUtils.copyFile() {
   Log.in "$LINENO" "$@"
   local inSrc="${1:-}"
   local inDst="${2:-}"
-  local inPreserveDate="${3:-false}"
+  local inPreserveDate="${3:-true}"
   local inCopyOption="${4:-}"
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
@@ -54,11 +54,14 @@ FileUtils.copyFile() {
   IFS=',' read -ra optionList <<< "$inCopyOption"
 
   local options=()
-  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
-    options+=("-p")
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+    options+=("--preserve=all")
+  elif [[ "$inPreserveDate" == true ]]; then
+    options+=("--preserve=timestamps")
   fi
-
+  
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+    # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
     options+=("-n")
   fi
  

@@ -41,6 +41,8 @@ FileNameUtils.getFullPath() {
   Log.in $LINENO "$@"
   local inFileName="${1:-}"
   local fullPath
+
+  #the work is delegated to the getFullPathNoEndSeparator function which does the same thing ecxept it excludes the last / 
   fullPath="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   
   if [ -z "$fullPath" ]; then
