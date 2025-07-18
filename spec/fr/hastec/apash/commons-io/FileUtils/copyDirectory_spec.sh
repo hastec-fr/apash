@@ -2,6 +2,8 @@ Describe 'FileUtils.copyDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyDirectory"
 
   TMPDIR="${SHELLSPEC_TMPBASE}"
+  RELPATH="$(target="${1:-.}"; p=$(realpath "$target"); [ "$p" = "/" ] && echo . || printf './%s\n' "$(printf '../%.0s' $(seq 2 $(echo "$p" | tr -cd '/' | wc -c)))")/../${TMPDIR#/}"
+
   rm -rf "$TMPDIR/path"
   mkdir -p "$TMPDIR/path/to/dir" 
 
@@ -125,6 +127,14 @@ Describe 'FileUtils.copyDirectory'
     The status should be success
     The contents of path file5bis should equal "$FILE5CONTENT"
     The contents of path file65bis should equal "$FILE65CONTENT"
+  End
+
+  It 'passes when the input is a relative path'
+    When call FileUtils.copyDirectory "$RELPATH/path" "$RELPATH/dest"
+    The contents of path file1bis should equal "$FILE1CONTENT" 
+    The contents of path file2bis should equal "$FILE2CONTENT" 
+    The contents of path file3bis should equal "$FILE3CONTENT" 
+    The contents of path file4bis should equal "$FILE4CONTENTBIS" 
   End
 
 End
