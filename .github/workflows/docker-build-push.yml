@@ -30,6 +30,6 @@ jobs:
         id: docker_builds
         run: |
           VERSION="${{ needs.extract-version.outputs.version }}"
-          docker build docker/ -f apash-bash.dockerfile -t apash-fork-bash:$VERSION
-          docker build docker/ -f apash-zsh.dockerfile -t apash-fork-zsh:$VERSION
+          docker build . -f docker/apash-bash.dockerfile -t apash-fork-bash:$VERSION
+          docker build . -f docker/apash-zsh.dockerfile -t apash-fork-zsh:$VERSION
           docker images
