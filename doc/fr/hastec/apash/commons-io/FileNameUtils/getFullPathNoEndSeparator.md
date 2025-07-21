@@ -35,7 +35,12 @@ Gets the full path (prefix + path) from a full file name, excluding the final di
     FileNameUtils.getFullPathNoEndSeparator  "a/b/c.jpg"        # "a/b/c"
     FileNameUtils.getFullPathNoEndSeparator  "a/b/c"            # "a/b/c"
     FileNameUtils.getFullPathNoEndSeparator  "a/b/c/"           # "a/b/c"
-    FileNameUtils.getFullPathNoEndSeparator  "a/b/c//"           # "a/b/c/"
+    FileNameUtils.getFullPathNoEndSeparator  "a/b c/"           # "a/b c"
+    FileNameUtils.getFullPathNoEndSeparator  "a/b/c//"          # "a/b/c/"
+    FileNameUtils.getFullPathNoEndSeparator  "~"                # "~"
+    FileNameUtils.getFullPathNoEndSeparator  "~/"               # "~"
+    FileNameUtils.getFullPathNoEndSeparator  "~user"            # "~user"
+    FileNameUtils.getFullPathNoEndSeparator  "~user/"           # "~user"
  ```
 
 ### Stdout

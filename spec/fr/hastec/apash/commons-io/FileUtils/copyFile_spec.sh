@@ -1,7 +1,7 @@
 Describe 'FileUtils.copyFile'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyFile"
 
-  TMPDIR="${SHELLSPEC_TMPBASE}"
+  TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
  
@@ -11,14 +11,14 @@ Describe 'FileUtils.copyFile'
   touch "$TMPDIR/srcFile.txt"
   touch "$TMPDIR/dstFile.txt"
 
-  Path srcFile=$TMPDIR/srcFile.txt
-  Path anotherSrcFile=$TMPDIR/path/to/srcFile.txt
-  Path dstFile=$TMPDIR/dstFile.txt
-  Path anotherDstFile=$TMPDIR/path/to/dstFile.txt
-  Path fileThatDoesntExistYet=$TMPDIR/dirThatDoesntExistsYet/dstThatDoesntExistsYet.txt
+  Path "srcFile=$TMPDIR/srcFile.txt"
+  Path "anotherSrcFile=$TMPDIR/path/to/srcFile.txt"
+  Path "dstFile=$TMPDIR/dstFile.txt"
+  Path "anotherDstFile=$TMPDIR/path/to/dstFile.txt"
+  Path "fileThatDoesntExistYet=$TMPDIR/dirThatDoesntExistsYet/dstThatDoesntExistsYet.txt"
 
   SRCFILECONTENT="this is the content of the source file"
-  ANOTHERSRCFILECONTENT="this is the content of another the source file"
+  ANOTHERSRCFILECONTENT="this is the content of another source file"
   DSTFILECONTENT="this is the content of the destination file"
   ANOTHERDSTFILECONTENT="this is the content of the other destination file"
 

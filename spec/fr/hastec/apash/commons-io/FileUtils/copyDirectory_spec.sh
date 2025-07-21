@@ -1,7 +1,7 @@
 Describe 'FileUtils.copyDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyDirectory"
 
-  TMPDIR="${SHELLSPEC_TMPBASE}"
+  TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
   RELPATH=".$(echo "$(pwd)" | sed -E 's/\/[^\/]+/\/../g')/${TMPDIR#/home}"
 
   rm -rf "$TMPDIR/path"
@@ -16,19 +16,19 @@ Describe 'FileUtils.copyDirectory'
 
   touch "$TMPDIR/dest/file4"
  
-  Path file1=$TMPDIR/path/to/dir/file1
-  Path file2=$TMPDIR/path/to/dir/file2
-  Path file3=$TMPDIR/path/to/file3
-  Path file4=$TMPDIR/path/file4
-  Path file5=$TMPDIR/path/file5
-  Path file65=$TMPDIR/path/file65
+  Path "file1=$TMPDIR/path/to/dir/file1"
+  Path "file2=$TMPDIR/path/to/dir/file2"
+  Path "file3=$TMPDIR/path/to/file3"
+  Path "file4=$TMPDIR/path/file4"
+  Path "file5=$TMPDIR/path/file5"
+  Path "file65=$TMPDIR/path/file65"
   
-  Path file1bis=$TMPDIR/dest/to/dir/file1
-  Path file2bis=$TMPDIR/dest/to/dir/file2
-  Path file3bis=$TMPDIR/dest/to/file3
-  Path file4bis=$TMPDIR/dest/file4
-  Path file5bis=$TMPDIR/dest/file5
-  Path file65bis=$TMPDIR/dest/file65
+  Path "file1bis=$TMPDIR/dest/to/dir/file1"
+  Path "file2bis=$TMPDIR/dest/to/dir/file2"
+  Path "file3bis=$TMPDIR/dest/to/file3"
+  Path "file4bis=$TMPDIR/dest/file4"
+  Path "file5bis=$TMPDIR/dest/file5"
+  Path "file65bis=$TMPDIR/dest/file65"
   
   FILE1CONTENT="file1 content"
   FILE2CONTENT="file2 content"
@@ -135,6 +135,15 @@ Describe 'FileUtils.copyDirectory'
     The contents of path file2bis should equal "$FILE2CONTENT" 
     The contents of path file3bis should equal "$FILE3CONTENT" 
     The contents of path file4bis should equal "$FILE4CONTENTBIS" 
+  End
+
+  It 'passes when the input is a source, a destination with preserve and REPLACE_EXISTING , COPY_ATTRIBUTES'
+    When call FileUtils.copyDirectory "$TMPDIR/path" "$TMPDIR/dest" "*" true "REPLACE_EXISTING , COPY_ATTRIBUTES"
+    The status should be success
+    The contents of path file1bis should equal "$FILE1CONTENT" 
+    The contents of path file2bis should equal "$FILE2CONTENT" 
+    The contents of path file3bis should equal "$FILE3CONTENT" 
+    The contents of path file4bis should equal "$FILE4CONTENT" 
   End
 
 End

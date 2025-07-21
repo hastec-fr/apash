@@ -26,7 +26,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 # |--------|----------------|---------------|----------|---------|------------------------------------|
 # | $1     | inSrc          | string        | in       |         | The folder name to copy.           |
 # | $2     | inDst          | string        | in       |         | The destination folder name.       |
-# | $3     | inFileFilter   | string        | in       |  *      | The file name filter. (regex)      |
+# | $3     | inFileFilter   | string        | in       | *       | The file name filter. (regex)      |
 # | $4     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
 # | $5     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
 #
@@ -62,7 +62,15 @@ FileUtils.copyDirectory() {
 
   mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
   
-  IFS=',' read -ra optionList <<< "$inCopyOption"
+  IFS=',' read -ra optionListRaw <<< "$inCopyOption"
+  
+  local optionList=()
+  for opt in "${optionListRaw[@]}"; do
+    # Trim leading/trailing whitespace using parameter expansion
+    trimmed="${opt#"${opt%%[![:space:]]*}"}"
+    trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
+    optionList+=("$trimmed")
+  done
 
   local options=()
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
@@ -70,19 +78,19 @@ FileUtils.copyDirectory() {
   elif [[ "$inPreserveDate" == true ]]; then
     options+=("--preserve=timestamps")
   fi
-  
+
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
     # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
     options+=("-n") 
   fi
 
   find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
-    relPath="${file#"$inSrc/"}"
-    dst="$inDst/$relPath"
-    mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
-    cp "${options[@]}" "$file" "$dst"           
-  done
+  relPath="${file#"$inSrc/"}"
+  dst="$inDst/$relPath"
+  mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+  cp "${options[@]}" "$file" "$dst"           
+done
 
-  Log.out "$LINENO";
-  return "$APASH_SUCCESS"
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
 }

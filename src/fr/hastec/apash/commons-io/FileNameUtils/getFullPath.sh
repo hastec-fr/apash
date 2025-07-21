@@ -28,7 +28,12 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 #    FileNameUtils.getFullPath  "a/b/c.jpg"        # "a/b/"
 #    FileNameUtils.getFullPath  "a/b/c"            # "a/b/c/"
 #    FileNameUtils.getFullPath  "a/b/c/"           # "a/b/c/"
-#    FileNameUtils.getFullPath  "a/b/c//"           # "a/b/c//"
+#    FileNameUtils.getFullPath  "a/b c/"           # "a/b c/"
+#    FileNameUtils.getFullPath  "a/b/c//"          # "a/b/c//"
+#    FileNameUtils.getFullPath  "~"                # "~/"
+#    FileNameUtils.getFullPath  "~/"               # "~/"
+#    FileNameUtils.getFullPath  "~user"            # "~user/"
+#    FileNameUtils.getFullPath  "~user/"           # "~user/"
 # ```
 #
 # @stdout The path of the file, an empty string if none exists

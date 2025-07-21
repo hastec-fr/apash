@@ -16,7 +16,10 @@ General file name and file path manipulation utilities.
 
 ## History
 ### Since
-  * 0.3.0 (hastec-fr)
+  * 0.2.0 (hastec-fr)
+
+### ChangeLogs:
+ - 0.3.0: new functions: getFullPath and getFullPathNoEndSeparator | add FileNameUtils.sh (Guilhem Baechler)
 
 ## Interface
 ### Package

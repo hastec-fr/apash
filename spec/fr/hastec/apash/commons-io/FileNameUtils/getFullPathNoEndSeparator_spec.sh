@@ -54,4 +54,11 @@ Describe 'FileNameUtils.getFullPathNoEndSeparator'
     The output should equal "path/to/"
     The status should be success
   End
+
+  It 'passes when the input contains spaces'
+    When call FileNameUtils.getFullPathNoEndSeparator "a/b c/d/"
+    The output should equal "a/b c/d"
+    The status should be success
+  End
+
 End
