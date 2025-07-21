@@ -1,9 +1,13 @@
 name: Docker build & push
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'release-*'
+    branches:
+      - 'main'
+      - 'docker-workflow-integration'
 
 jobs:
   release:
