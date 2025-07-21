@@ -1,0 +1,21 @@
+name: Docker build & push
+
+on:
+  push:
+    tags:
+      - 'release:*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          TAG_NAME="${GITHUB_REF_NAME}"
+          VERSION="${TAG_NAME#release:}"
+          echo "Version is $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
