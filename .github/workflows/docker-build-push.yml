@@ -3,7 +3,7 @@ name: Docker build & push
 on:
   push:
     tags:
-      - 'release:*'
+      - 'release-*'
 
 jobs:
   release:
@@ -16,6 +16,6 @@ jobs:
         id: get_version
         run: |
           TAG_NAME="${GITHUB_REF_NAME}"
-          VERSION="${TAG_NAME#release:}"
+          VERSION="${TAG_NAME#release-}"
           echo "Version is $VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
