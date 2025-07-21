@@ -2,7 +2,7 @@ Describe 'FileUtils.copyDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyDirectory"
 
   TMPDIR="${SHELLSPEC_TMPBASE}"
-  RELPATH="$(target="${1:-.}"; p=$(realpath "$target"); [ "$p" = "/" ] && echo . || printf './%s\n' "$(printf '../%.0s' $(seq 2 $(echo "$p" | tr -cd '/' | wc -c)))")/../${TMPDIR#/}"
+  RELPATH=".$(echo "$(pwd)" | sed -E 's/\/[^\/]+/\/../g')/${TMPDIR#/home}"
 
   rm -rf "$TMPDIR/path"
   mkdir -p "$TMPDIR/path/to/dir" 
