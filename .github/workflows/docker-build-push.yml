@@ -23,3 +23,10 @@ jobs:
           VERSION="${TAG_NAME#release-}"
           echo "Version is $VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+    
+      - name: build docker images
+        id: docker builds
+        run: |
+          docker build docker/ -f apash-bash.dockerfile -t apash-fork-bash:$VERSION
+          docker build docker/ -f apash-zsh.dockerfile -t apash-fork-zsh:$VERSION
+          docker images
