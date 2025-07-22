@@ -31,12 +31,18 @@ jobs:
         run: |
           VERSION="${{ needs.extract-version.outputs.version }}"
           USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
-          docker build . -f docker/apash-bash.dockerfile -t "$USERNAME/apash_fork:bash-$VERSION"
+          sudo docker build . -f docker/apash-bash.dockerfile -t "$USERNAME/apash_fork:bash-$VERSION"
+
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: push docker image to docker hub
         id: docker_push_bash
         run: |
           VERSION="${{ needs.extract-version.outputs.version }}"
           USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
-          PASSWORD="${{ secrets.DOCKERHUB_PASSWORD }}"
-          docker login -u "$USERNAME" -p "$PASSWORD" && docker push "$USERNAME/apash_fork:bash-$VERSION"
+          docker push "$USERNAME/apash_fork:bash-$VERSION"
