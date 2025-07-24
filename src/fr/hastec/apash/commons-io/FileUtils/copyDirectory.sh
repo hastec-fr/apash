@@ -3,8 +3,9 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
-apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
+apash.import fr.hastec.apash.commons-io.FileUtils.isDirectory
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 ##/
 # @name FileNameUtils.copyDirectory
@@ -56,7 +57,7 @@ FileUtils.copyDirectory() {
   inSrc="${inSrc%/}"
   inDst="${inDst%/}"
 
-  if FileUtils.isRegularFile "$inDst"; then 
+  if ! FileUtils.isDirectory "$inDst"; then 
     Log.ex $LINENO; return "$APASH_FAILURE"; 
   fi
 
@@ -66,10 +67,7 @@ FileUtils.copyDirectory() {
   
   local optionList=()
   for opt in "${optionListRaw[@]}"; do
-    # Trim leading/trailing whitespace using parameter expansion
-    trimmed="${opt#"${opt%%[![:space:]]*}"}"
-    trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
-    optionList+=("$trimmed")
+    optionList+=("$(StringUtils.trim "$opt")")
   done
 
   local options=()

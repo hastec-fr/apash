@@ -2,7 +2,7 @@ Describe 'FileUtils.copyDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyDirectory"
 
   TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
-  RELPATH=".$(echo "$(pwd)" | sed -E 's/\/[^\/]+/\/../g')/${TMPDIR#/home}"
+  RELPATH=".$(echo "$(pwd)" | sed -E 's:/[^/]+:/..:g')$TMPDIR"
 
   rm -rf "$TMPDIR/path"
   mkdir -p "$TMPDIR/path/to/dir" 

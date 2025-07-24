@@ -49,12 +49,14 @@ FileNameUtils.getFullPathNoEndSeparator() {
   Log.in $LINENO "$@"
   local inFileName="${1:-}"
 
-  #exceptions
+  #special case: ~user & ~
   if StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"; then
     echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
+  #find the last / in $inFileName a/b/c/ a/b/c
+  #                                    ^    ^
   local lastStepIndex
   lastStepIndex="$(StringUtils.lastIndexOf "$inFileName" "/")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$lastStepIndex" -eq -1 ]; then
@@ -62,6 +64,9 @@ FileNameUtils.getFullPathNoEndSeparator() {
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
+  #see FilenameUtils.doGetFullPath
+  #includeSeparator = false
+  #https://github.com/apache/commons-io/blob/master/src/main/java/org/apache/commons/io/FilenameUtils.java
   local fullPath
   fullPath="$(StringUtils.substring "$inFileName" 0 "$lastStepIndex")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
