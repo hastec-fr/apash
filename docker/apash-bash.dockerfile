@@ -29,7 +29,7 @@ RUN su -c "sh -c 'curl -fsSL https://git.io/shellspec | sh -s -- --yes'" apash
 
 # Change directly the user rights to apash user
 COPY "." "/home/apash/.apash"
-RUN chown "apash:tribe" "/home/apash/.apash"
+RUN chown -R "apash:tribe" "/home/apash/.apash"
 
 USER apash
 WORKDIR /home/apash
