@@ -10,7 +10,7 @@ jobs:
   extract-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get_version.outputs.version }}
+      version: ${{ steps.extract-version.outputs.version }}
     steps:
       - name: Get version
         id: get_version
@@ -38,7 +38,7 @@ jobs:
           context: .
           file: docker/apash-bash.dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/apash_fork:bash-${{ needs.get_version.outputs.version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/apash_fork:bash-${{ needs.extract-version.outputs.version }}
 
   zsh-build:
     needs: extract-version
@@ -59,4 +59,4 @@ jobs:
           context: .
           file: docker/apash-zsh.dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/apash_fork:zsh-${{ needs.get_version.outputs.version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/apash_fork:zsh-${{ needs.extract-version.outputs.version }}
