@@ -77,6 +77,8 @@ FileUtils.copyDirectory() {
   return "$APASH_SUCCESS"
 }
 
+if [ "$APASH_SHELL" = "bash" ]; then
+
 _FileUtils.copyDirectory () {
 
   local BOOLEAN="true false"
@@ -96,3 +98,5 @@ _FileUtils.copyDirectory () {
 }
 
 complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
+
+fi

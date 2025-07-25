@@ -67,6 +67,10 @@ apash.minify(){
   sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d'  "$apashTmpDir/apash-$shellName-min.tmp" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
   rm "$apashTmpDir/apash-$shellName-min.tmp"
 
+  if [ "$shellName" = "zsh" ]; then
+    echo "fpath+=(\"\$APASH_HOME_DIR/completions/zsh\")" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+    echo "autoload -Uz compinit && compinit" >> "$APASH_HOME_DIR/bin/apash-$shellName-min.sh"
+  fi
   # Minification of apash.import:
   # sed -e '/^\s*#/d' -e 's/^\s*//g' -e '/^$/d' $APASH_HOME_DIR/src/fr/hastec/apash.import | tr '\n' ';' | sed -e 's/then;/then /g' -e 's/else;/else /g' -e 's/elif;/elif /g' -e 's/do;/do /g' -e 's/{;/{ /g' > $APASH_HOME_DIR/src/fr/hastec/apash.import-min
   # shfmt need to parse and so understand what the script is doing. Zsh piece of code break the minification.
