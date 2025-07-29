@@ -62,8 +62,12 @@ FileUtils.copyDirectory() {
   fi
 
   mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-  
-  IFS=',' read -ra optionListRaw <<< "$inCopyOption"
+
+  local readOption="-ra"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    readOption="-rA"
+  fi
+  IFS=',' read "$readOption" optionListRaw <<< "$inCopyOption"
   
   local optionList=()
   for opt in "${optionListRaw[@]}"; do

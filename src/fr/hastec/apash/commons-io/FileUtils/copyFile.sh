@@ -5,6 +5,7 @@ apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 ##/
 # @name FileNameUtils.copyFile
@@ -51,7 +52,16 @@ FileUtils.copyFile() {
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  IFS=',' read -ra optionList <<< "$inCopyOption"
+  local readOption="-ra"
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    readOption="-rA"
+  fi
+  IFS=',' read "$readOption" optionListRaw <<< "$inCopyOption"
+  
+  local optionList=()
+  for opt in "${optionListRaw[@]}"; do
+    optionList+=("$(StringUtils.trim "$opt")")
+  done
 
   local options=()
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
@@ -59,10 +69,10 @@ FileUtils.copyFile() {
   elif [[ "$inPreserveDate" == true ]]; then
     options+=("--preserve=timestamps")
   fi
-  
+
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
     # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
-    options+=("-n")
+    options+=("-n") 
   fi
  
   cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
