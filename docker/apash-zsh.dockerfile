@@ -11,6 +11,9 @@ ARG APASH_LOCAL_COPY="false"
 
 LABEL maintainer="Benjamin Vargin"
 
+RUN echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list && \
+echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
+
 # Dependencies:
 # - curl:      download apash installer
 # - git:       download apash
