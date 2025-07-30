@@ -63,15 +63,22 @@ FileUtils.copyDirectory() {
 
   mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  IFS=',' 
-  local tmp
-  read -r tmp <<< "$inCopyOption"
   local optionList=()
-  for word in $tmp; do
-    optionList+=("$(StringUtils.trim "$word")")
-  done
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+    for opt in "${optionListRaw[@]}"; do
+      optionList+=("$(StringUtils.trim "$opt")")
+    done
+  else 
+    IFS=',' 
+    local tmp
+    read -r tmp <<< "$inCopyOption"
+    for word in $tmp; do
+      optionList+=("$(StringUtils.trim "$word")")
+    done
+  fi
 
-  local options=()
+  local -a options=()
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
     options+=("--preserve=all")
   elif [[ "$inPreserveDate" == true ]]; then
@@ -84,12 +91,12 @@ FileUtils.copyDirectory() {
   fi
 
   find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
-  relPath="${file#"$inSrc/"}"
-  dst="$inDst/$relPath"
-  mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
-  cp "${options[@]}" "$file" "$dst"           
-done
+    relPath="${file#"$inSrc/"}"
+    dst="$inDst/$relPath"
+    mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+    cp "${options[@]}" "$file" "$dst"           
+  done || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-Log.out "$LINENO";
-return "$APASH_SUCCESS"
+  Log.out "$LINENO";
+  return "$APASH_SUCCESS"
 }
