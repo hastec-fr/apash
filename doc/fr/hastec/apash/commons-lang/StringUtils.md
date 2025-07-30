@@ -40,6 +40,7 @@ Operations on String considering null as empty string.
 |[isAnyEmpty](StringUtils/isAnyEmpty.md)|Checks if one of the input string is empty ("").|
 |[isBlank](StringUtils/isBlank.md)|Checks if a string contains only whitespaces characters or is empty or not existing.|
 |[isEmpty](StringUtils/isEmpty.md)|Checks if a string is empty ("") or not existing.|
+|[lastIndexOf](StringUtils/lastIndexOf.md)|Finds the last index of a substring occurence within another string.|
 |[leftPad](StringUtils/leftPad.md)|Left pad a String with a specified String.|
 |[lowerCase](StringUtils/lowerCase.md)|Converts a String to lower case.|
 |[remove](StringUtils/remove.md)|Removes all occurrences of a substring from within the source string.|

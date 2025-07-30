@@ -28,6 +28,7 @@ None.
 <!-- apash.summaryTableBegin -->
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
+|[commons-io](apash/commons-io.md)|Provides utility methods for working with files.|
 |[commons-lang](apash/commons-lang.md)|Provides highly reusable utility methods.|
 |[lang](apash/lang.md)|Provides methods that are fundamental to the design script. |
 |[util](apash/util.md)|Provides miscellaneous utility.|

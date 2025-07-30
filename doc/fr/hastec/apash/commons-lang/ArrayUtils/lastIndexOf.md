@@ -15,7 +15,7 @@ Finds the last index of the given value in the array starting at the given index
 
 ## History
 ### Since
-  * 0.1.0 (hastec-fr)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

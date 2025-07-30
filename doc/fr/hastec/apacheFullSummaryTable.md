@@ -10,7 +10,18 @@
 | Methods                  | Brief                                 |
 |--------------------------|---------------------------------------|
 | [apash](apash.md) | Translation for shell scripts of some apache libraries and more. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) | Provides utility methods for working with files. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) | General file name and file path manipulation utilities. |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getExtension](apash/commons-io/FileNameUtils/getExtension.md) | Gets the extension of a fileName. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getFullPath](apash/commons-io/FileNameUtils/getFullPath.md) | Gets the full path (prefix + path) from a full file name. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getFullPathNoEndSeparator](apash/commons-io/FileNameUtils/getFullPathNoEndSeparator.md) | Gets the full path (prefix + path) from a full file name, excluding the final directory separator. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [normalize](apash/commons-io/FileNameUtils/normalize.md) | Normalizes a path, removing double and single period path steps. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) | General file manipulation utilities. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [copyDirectory](apash/commons-io/FileUtils/copyDirectory.md) | Copies a filtered directory to a new location.  |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [copyFile](apash/commons-io/FileUtils/copyFile.md) | Copies the contents of a file to a new location.  |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [isDirectory](apash/commons-io/FileUtils/isDirectory.md) | Tests whether the specified File is a directory or not. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [isRegularFile](apash/commons-io/FileUtils/isRegularFile.md) | Tests whether the specified File is a regular file or not. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [isSymlink](apash/commons-io/FileUtils/isSymlink.md) | Tests whether the specified File is a symbolic link rather than an actual file. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) | Provides highly reusable utility methods. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) | Utility functions specific to apash. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [ApashUtils](apash/commons-lang/ApashUtils.md) / [doc](apash/commons-lang/ApashUtils/doc.md) | Generate a markdown file(.md) according to comments of the input file. |
@@ -115,6 +126,7 @@
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [isAnyEmpty](apash/commons-lang/StringUtils/isAnyEmpty.md) | Checks if one of the input string is empty (""). |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [isBlank](apash/commons-lang/StringUtils/isBlank.md) | Checks if a string contains only whitespaces characters or is empty or not existing. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [isEmpty](apash/commons-lang/StringUtils/isEmpty.md) | Checks if a string is empty ("") or not existing. |
+| [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [lastIndexOf](apash/commons-lang/StringUtils/lastIndexOf.md) | Finds the last index of a substring occurence within another string. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [leftPad](apash/commons-lang/StringUtils/leftPad.md) | Left pad a String with a specified String. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [lowerCase](apash/commons-lang/StringUtils/lowerCase.md) | Converts a String to lower case. |
 | [apash](apash.md) / [commons-lang](apash/commons-lang.md) / [StringUtils](apash/commons-lang/StringUtils.md) / [remove](apash/commons-lang/StringUtils/remove.md) | Removes all occurrences of a substring from within the source string. |

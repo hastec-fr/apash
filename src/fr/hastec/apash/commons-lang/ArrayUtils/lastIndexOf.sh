@@ -14,7 +14,7 @@ apash.import fr.hastec.apash.commons-lang.NumberUtils.isLong
 #   A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty
 #
 # ## History
-# @since 0.1.0 (hastec-fr)
+# @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage

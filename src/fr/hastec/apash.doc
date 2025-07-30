@@ -125,8 +125,7 @@ apash.substitutePlaceHolders() {
       # Create a line where the method is the name of the script without .md and its brief content.
       rows+="| Methods                  | Brief                                 |\n"
       rows+="|--------------------------|---------------------------------------|\n"
-      if [ -d "$srcPackage/$class" ] &&
-         { [ "$APASH_SHELL" = "bash" ] || { [ "$APASH_SHELL" = "zsh" ] && [ -n "$(print -l $srcPackage/$class/*.sh(N))" ]; }; }; then
+      if [ -d "$srcPackage/$class" ]; then
         while IFS= read -r -d '' f; do
           [ ! -r "$f" ] && continue
           method=$(basename "$f"  | sed 's/\.sh//')
