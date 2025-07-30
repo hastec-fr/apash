@@ -52,15 +52,12 @@ FileUtils.copyFile() {
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  local readOption="-ra"
-  if [ "$APASH_SHELL" = "zsh" ]; then
-    readOption="-rA"
-  fi
-  IFS=',' read "$readOption" optionListRaw <<< "$inCopyOption"
-  
+  IFS=',' 
+  local tmp
+  read -r tmp <<< "$inCopyOption"
   local optionList=()
-  for opt in "${optionListRaw[@]}"; do
-    optionList+=("$(StringUtils.trim "$opt")")
+  for word in $tmp; do
+    optionList+=("$(StringUtils.trim "$word")")
   done
 
   local options=()
@@ -74,7 +71,7 @@ FileUtils.copyFile() {
     # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
     options+=("-n") 
   fi
- 
+
   cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   Log.out "$LINENO";
   return "$APASH_SUCCESS"

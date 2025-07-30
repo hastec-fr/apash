@@ -999,16 +999,16 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
       <td title='bash 5.1' >✅</td>
       <td title='bash 5.0' >✅</td>
       <td title='bash 4.4' >✅</td>
-      <td title='bash 4.3' >❌</td>
+      <td title='bash 4.3' >✅</td>
       <td title='bash 4.2' >❌</td>
-      <td title='zsh 5.9' >✅</td>
-      <td title='zsh 5.8' >✅</td>
-      <td title='zsh 5.7' >✅</td>
-      <td title='zsh 5.6' >✅</td>
-      <td title='zsh 5.5' >✅</td>
-      <td title='zsh 5.4' >✅</td>
-      <td title='zsh 5.3' >✅</td>
-      <td title='zsh 5.2' >✅</td>
+      <td title='zsh 5.9' >❌</td>
+      <td title='zsh 5.8' >❌</td>
+      <td title='zsh 5.7' >❌</td>
+      <td title='zsh 5.6' >❌</td>
+      <td title='zsh 5.5' >❌</td>
+      <td title='zsh 5.4' >❌</td>
+      <td title='zsh 5.3' >❌</td>
+      <td title='zsh 5.2' >❌</td>
     </tr>
     <tr>
       <td>FileUtils.copyFile</td>
