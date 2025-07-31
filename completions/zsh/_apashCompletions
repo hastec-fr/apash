@@ -1,0 +1,1415 @@
+#compdef FileNameUtils.getExtension FileNameUtils.getFullPathNoEndSeparator FileNameUtils.getFullPath FileUtils.copyDirectory FileUtils.copyFile FileUtils.isDirectory FileUtils.isRegularFile FileUtils.isSymlink ApashUtils.doc ArrayUtils.addAll ArrayUtils.addFirst ArrayUtils.add ArrayUtils.anythingToEmpty ArrayUtils.clone ArrayUtils.clone ArrayUtils.concat ArrayUtils.contains ArrayUtils.countMatches ArrayUtils.getLastIndex ArrayUtils.getLength ArrayUtils.getNumberOfElements ArrayUtils.get ArrayUtils.indexesOf ArrayUtils.indexOf ArrayUtils.init ArrayUtils.initWithValue ArrayUtils.insert ArrayUtils.isArrayIndex ArrayUtils.isArrayIndexValid ArrayUtils.isArray ArrayUtils.isEmpty ArrayUtils.isNotEmpty ArrayUtils.isSameLastIndex ArrayUtils.isSameLength ArrayUtils.isSorted ArrayUtils.join ArrayUtils.lastIndexOf ArrayUtils.nullToEmpty ArrayUtils.removeAllOccurrences ArrayUtils.removeAll ArrayUtils.removeDuplicates ArrayUtils.removeElement ArrayUtils.removeElements ArrayUtils.remove ArrayUtils.reverse ArrayUtils.shift ArrayUtils.shuffle ArrayUtils.subarray ArrayUtils.swap ArrayUtils.toArray CsvUtils.merge DateUtils.addDays DateUtils.addHours DateUtils.addMinutes DateUtils.addMonths DateUtils.addSeconds DateUtils.add DateUtils.addWeeks DateUtils.addYears DateUtils.isDate MapUtils.clone MapUtils.containsKey MapUtils.getKeys MapUtils.init MapUtils.isMap MatrixUtils.create MatrixUtils.getDimLastIndex MatrixUtils.getDimOffset MatrixUtils.getDim MatrixUtils.getIndex MatrixUtils.get MatrixUtils.isMatrix MatrixUtils.setDim MatrixUtils.set MatrixUtils.toString NumberUtils.compare NumberUtils.isDigits NumberUtils.isInteger NumberUtils.isLongPositive NumberUtils.isLong NumberUtils.isParsable NumberUtils.max NumberUtils.min ShellUtils.declareArray ShellUtils.getFunctionName ShellUtils.getParentFunctionName ShellUtils.isCommandValid ShellUtils.isDeclared ShellUtils.isVariableNameValid ShellUtils.isVariable ShellUtils.isZsh StringUtils.abbreviate StringUtils.containsOnly StringUtils.contains StringUtils.countMatches StringUtils.endsWith StringUtils.equals StringUtils.indexOfAny StringUtils.indexOf StringUtils.isAlpha StringUtils.isAnyEmpty StringUtils.isBlank StringUtils.isEmpty StringUtils.lastIndexOf StringUtils.leftPad StringUtils.lowerCase StringUtils.lowerCase.bash_4 StringUtils.lowerCase StringUtils.lowerCase StringUtils.removeLeading StringUtils.remove StringUtils.repeat StringUtils.replace StringUtils.reverse StringUtils.rightPad StringUtils.rotate StringUtils.splitAny StringUtils.splitPreserveAllTokens StringUtils.split StringUtils.startsWith StringUtils.substring StringUtils.trim StringUtils.upperCase VersionUtils.compare VersionUtils.isLowerOrEquals Math.abs Math.max Math.min Array.bubbleSort Array.sort Log.debug Log.error Log.ex Log.fatal Log.info Log.in Log.message Log.out Log.trace Log.warn Random.nextInt 
+
+#=== Completion for: 'FileNameUtils.getExtension' ===
+_FileNameUtils.getExtension() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileNameUtils.getExtension)'
+}
+
+#=== Completion for: 'FileNameUtils.getFullPathNoEndSeparator' ===
+_FileNameUtils.getFullPathNoEndSeparator() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileNameUtils.getFullPathNoEndSeparator)'
+}
+
+#=== Completion for: 'FileNameUtils.getFullPath' ===
+_FileNameUtils.getFullPath() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileNameUtils.getFullPath)'
+}
+
+#=== Completion for: 'FileUtils.copyDirectory' ===
+_FileUtils.copyDirectory() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileUtils.copyDirectory)'
+}
+
+#=== Completion for: 'FileUtils.copyFile' ===
+_FileUtils.copyFile() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileUtils.copyFile)'
+}
+
+#=== Completion for: 'FileUtils.isDirectory' ===
+_FileUtils.isDirectory() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileUtils.isDirectory)'
+}
+
+#=== Completion for: 'FileUtils.isRegularFile' ===
+_FileUtils.isRegularFile() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileUtils.isRegularFile)'
+}
+
+#=== Completion for: 'FileUtils.isSymlink' ===
+_FileUtils.isSymlink() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_FileUtils.isSymlink)'
+}
+
+#=== Completion for: 'ApashUtils.doc' ===
+_ApashUtils.doc() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ApashUtils.doc)'
+}
+
+#=== Completion for: 'ArrayUtils.addAll' ===
+_ArrayUtils.addAll() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.addAll)'
+}
+
+#=== Completion for: 'ArrayUtils.addFirst' ===
+_ArrayUtils.addFirst() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.addFirst)'
+}
+
+#=== Completion for: 'ArrayUtils.add' ===
+_ArrayUtils.add() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.add)'
+}
+
+#=== Completion for: 'ArrayUtils.anythingToEmpty' ===
+_ArrayUtils.anythingToEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.anythingToEmpty)'
+}
+
+#=== Completion for: 'ArrayUtils.clone' ===
+_ArrayUtils.clone() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.clone)'
+}
+
+#=== Completion for: 'ArrayUtils.clone' ===
+_ArrayUtils.clone() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.clone)'
+}
+
+#=== Completion for: 'ArrayUtils.concat' ===
+_ArrayUtils.concat() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.concat)'
+}
+
+#=== Completion for: 'ArrayUtils.contains' ===
+_ArrayUtils.contains() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.contains)'
+}
+
+#=== Completion for: 'ArrayUtils.countMatches' ===
+_ArrayUtils.countMatches() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.countMatches)'
+}
+
+#=== Completion for: 'ArrayUtils.getLastIndex' ===
+_ArrayUtils.getLastIndex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.getLastIndex)'
+}
+
+#=== Completion for: 'ArrayUtils.getLength' ===
+_ArrayUtils.getLength() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.getLength)'
+}
+
+#=== Completion for: 'ArrayUtils.getNumberOfElements' ===
+_ArrayUtils.getNumberOfElements() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.getNumberOfElements)'
+}
+
+#=== Completion for: 'ArrayUtils.get' ===
+_ArrayUtils.get() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.get)'
+}
+
+#=== Completion for: 'ArrayUtils.indexesOf' ===
+_ArrayUtils.indexesOf() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.indexesOf)'
+}
+
+#=== Completion for: 'ArrayUtils.indexOf' ===
+_ArrayUtils.indexOf() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.indexOf)'
+}
+
+#=== Completion for: 'ArrayUtils.init' ===
+_ArrayUtils.init() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.init)'
+}
+
+#=== Completion for: 'ArrayUtils.initWithValue' ===
+_ArrayUtils.initWithValue() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.initWithValue)'
+}
+
+#=== Completion for: 'ArrayUtils.insert' ===
+_ArrayUtils.insert() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.insert)'
+}
+
+#=== Completion for: 'ArrayUtils.isArrayIndex' ===
+_ArrayUtils.isArrayIndex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isArrayIndex)'
+}
+
+#=== Completion for: 'ArrayUtils.isArrayIndexValid' ===
+_ArrayUtils.isArrayIndexValid() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isArrayIndexValid)'
+}
+
+#=== Completion for: 'ArrayUtils.isArray' ===
+_ArrayUtils.isArray() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isArray)'
+}
+
+#=== Completion for: 'ArrayUtils.isEmpty' ===
+_ArrayUtils.isEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isEmpty)'
+}
+
+#=== Completion for: 'ArrayUtils.isNotEmpty' ===
+_ArrayUtils.isNotEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isNotEmpty)'
+}
+
+#=== Completion for: 'ArrayUtils.isSameLastIndex' ===
+_ArrayUtils.isSameLastIndex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isSameLastIndex)'
+}
+
+#=== Completion for: 'ArrayUtils.isSameLength' ===
+_ArrayUtils.isSameLength() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isSameLength)'
+}
+
+#=== Completion for: 'ArrayUtils.isSorted' ===
+_ArrayUtils.isSorted() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.isSorted)'
+}
+
+#=== Completion for: 'ArrayUtils.join' ===
+_ArrayUtils.join() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.join)'
+}
+
+#=== Completion for: 'ArrayUtils.lastIndexOf' ===
+_ArrayUtils.lastIndexOf() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.lastIndexOf)'
+}
+
+#=== Completion for: 'ArrayUtils.nullToEmpty' ===
+_ArrayUtils.nullToEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.nullToEmpty)'
+}
+
+#=== Completion for: 'ArrayUtils.removeAllOccurrences' ===
+_ArrayUtils.removeAllOccurrences() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.removeAllOccurrences)'
+}
+
+#=== Completion for: 'ArrayUtils.removeAll' ===
+_ArrayUtils.removeAll() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.removeAll)'
+}
+
+#=== Completion for: 'ArrayUtils.removeDuplicates' ===
+_ArrayUtils.removeDuplicates() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.removeDuplicates)'
+}
+
+#=== Completion for: 'ArrayUtils.removeElement' ===
+_ArrayUtils.removeElement() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.removeElement)'
+}
+
+#=== Completion for: 'ArrayUtils.removeElements' ===
+_ArrayUtils.removeElements() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.removeElements)'
+}
+
+#=== Completion for: 'ArrayUtils.remove' ===
+_ArrayUtils.remove() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.remove)'
+}
+
+#=== Completion for: 'ArrayUtils.reverse' ===
+_ArrayUtils.reverse() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.reverse)'
+}
+
+#=== Completion for: 'ArrayUtils.shift' ===
+_ArrayUtils.shift() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.shift)'
+}
+
+#=== Completion for: 'ArrayUtils.shuffle' ===
+_ArrayUtils.shuffle() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.shuffle)'
+}
+
+#=== Completion for: 'ArrayUtils.subarray' ===
+_ArrayUtils.subarray() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.subarray)'
+}
+
+#=== Completion for: 'ArrayUtils.swap' ===
+_ArrayUtils.swap() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.swap)'
+}
+
+#=== Completion for: 'ArrayUtils.toArray' ===
+_ArrayUtils.toArray() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ArrayUtils.toArray)'
+}
+
+#=== Completion for: 'CsvUtils.merge' ===
+_CsvUtils.merge() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_CsvUtils.merge)'
+}
+
+#=== Completion for: 'DateUtils.addDays' ===
+_DateUtils.addDays() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addDays)'
+}
+
+#=== Completion for: 'DateUtils.addHours' ===
+_DateUtils.addHours() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addHours)'
+}
+
+#=== Completion for: 'DateUtils.addMinutes' ===
+_DateUtils.addMinutes() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addMinutes)'
+}
+
+#=== Completion for: 'DateUtils.addMonths' ===
+_DateUtils.addMonths() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addMonths)'
+}
+
+#=== Completion for: 'DateUtils.addSeconds' ===
+_DateUtils.addSeconds() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addSeconds)'
+}
+
+#=== Completion for: 'DateUtils.add' ===
+_DateUtils.add() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.add)'
+}
+
+#=== Completion for: 'DateUtils.addWeeks' ===
+_DateUtils.addWeeks() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addWeeks)'
+}
+
+#=== Completion for: 'DateUtils.addYears' ===
+_DateUtils.addYears() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.addYears)'
+}
+
+#=== Completion for: 'DateUtils.isDate' ===
+_DateUtils.isDate() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_DateUtils.isDate)'
+}
+
+#=== Completion for: 'MapUtils.clone' ===
+_MapUtils.clone() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MapUtils.clone)'
+}
+
+#=== Completion for: 'MapUtils.containsKey' ===
+_MapUtils.containsKey() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MapUtils.containsKey)'
+}
+
+#=== Completion for: 'MapUtils.getKeys' ===
+_MapUtils.getKeys() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MapUtils.getKeys)'
+}
+
+#=== Completion for: 'MapUtils.init' ===
+_MapUtils.init() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MapUtils.init)'
+}
+
+#=== Completion for: 'MapUtils.isMap' ===
+_MapUtils.isMap() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MapUtils.isMap)'
+}
+
+#=== Completion for: 'MatrixUtils.create' ===
+_MatrixUtils.create() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.create)'
+}
+
+#=== Completion for: 'MatrixUtils.getDimLastIndex' ===
+_MatrixUtils.getDimLastIndex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.getDimLastIndex)'
+}
+
+#=== Completion for: 'MatrixUtils.getDimOffset' ===
+_MatrixUtils.getDimOffset() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.getDimOffset)'
+}
+
+#=== Completion for: 'MatrixUtils.getDim' ===
+_MatrixUtils.getDim() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.getDim)'
+}
+
+#=== Completion for: 'MatrixUtils.getIndex' ===
+_MatrixUtils.getIndex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.getIndex)'
+}
+
+#=== Completion for: 'MatrixUtils.get' ===
+_MatrixUtils.get() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.get)'
+}
+
+#=== Completion for: 'MatrixUtils.isMatrix' ===
+_MatrixUtils.isMatrix() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.isMatrix)'
+}
+
+#=== Completion for: 'MatrixUtils.setDim' ===
+_MatrixUtils.setDim() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.setDim)'
+}
+
+#=== Completion for: 'MatrixUtils.set' ===
+_MatrixUtils.set() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.set)'
+}
+
+#=== Completion for: 'MatrixUtils.toString' ===
+_MatrixUtils.toString() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_MatrixUtils.toString)'
+}
+
+#=== Completion for: 'NumberUtils.compare' ===
+_NumberUtils.compare() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.compare)'
+}
+
+#=== Completion for: 'NumberUtils.isDigits' ===
+_NumberUtils.isDigits() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.isDigits)'
+}
+
+#=== Completion for: 'NumberUtils.isInteger' ===
+_NumberUtils.isInteger() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.isInteger)'
+}
+
+#=== Completion for: 'NumberUtils.isLongPositive' ===
+_NumberUtils.isLongPositive() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.isLongPositive)'
+}
+
+#=== Completion for: 'NumberUtils.isLong' ===
+_NumberUtils.isLong() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.isLong)'
+}
+
+#=== Completion for: 'NumberUtils.isParsable' ===
+_NumberUtils.isParsable() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.isParsable)'
+}
+
+#=== Completion for: 'NumberUtils.max' ===
+_NumberUtils.max() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.max)'
+}
+
+#=== Completion for: 'NumberUtils.min' ===
+_NumberUtils.min() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_NumberUtils.min)'
+}
+
+#=== Completion for: 'ShellUtils.declareArray' ===
+_ShellUtils.declareArray() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.declareArray)'
+}
+
+#=== Completion for: 'ShellUtils.getFunctionName' ===
+_ShellUtils.getFunctionName() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.getFunctionName)'
+}
+
+#=== Completion for: 'ShellUtils.getParentFunctionName' ===
+_ShellUtils.getParentFunctionName() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.getParentFunctionName)'
+}
+
+#=== Completion for: 'ShellUtils.isCommandValid' ===
+_ShellUtils.isCommandValid() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.isCommandValid)'
+}
+
+#=== Completion for: 'ShellUtils.isDeclared' ===
+_ShellUtils.isDeclared() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.isDeclared)'
+}
+
+#=== Completion for: 'ShellUtils.isVariableNameValid' ===
+_ShellUtils.isVariableNameValid() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.isVariableNameValid)'
+}
+
+#=== Completion for: 'ShellUtils.isVariable' ===
+_ShellUtils.isVariable() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.isVariable)'
+}
+
+#=== Completion for: 'ShellUtils.isZsh' ===
+_ShellUtils.isZsh() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_ShellUtils.isZsh)'
+}
+
+#=== Completion for: 'StringUtils.abbreviate' ===
+_StringUtils.abbreviate() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.abbreviate)'
+}
+
+#=== Completion for: 'StringUtils.containsOnly' ===
+_StringUtils.containsOnly() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.containsOnly)'
+}
+
+#=== Completion for: 'StringUtils.contains' ===
+_StringUtils.contains() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.contains)'
+}
+
+#=== Completion for: 'StringUtils.countMatches' ===
+_StringUtils.countMatches() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.countMatches)'
+}
+
+#=== Completion for: 'StringUtils.endsWith' ===
+_StringUtils.endsWith() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.endsWith)'
+}
+
+#=== Completion for: 'StringUtils.equals' ===
+_StringUtils.equals() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.equals)'
+}
+
+#=== Completion for: 'StringUtils.indexOfAny' ===
+_StringUtils.indexOfAny() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.indexOfAny)'
+}
+
+#=== Completion for: 'StringUtils.indexOf' ===
+_StringUtils.indexOf() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.indexOf)'
+}
+
+#=== Completion for: 'StringUtils.isAlpha' ===
+_StringUtils.isAlpha() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.isAlpha)'
+}
+
+#=== Completion for: 'StringUtils.isAnyEmpty' ===
+_StringUtils.isAnyEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.isAnyEmpty)'
+}
+
+#=== Completion for: 'StringUtils.isBlank' ===
+_StringUtils.isBlank() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.isBlank)'
+}
+
+#=== Completion for: 'StringUtils.isEmpty' ===
+_StringUtils.isEmpty() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.isEmpty)'
+}
+
+#=== Completion for: 'StringUtils.lastIndexOf' ===
+_StringUtils.lastIndexOf() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.lastIndexOf)'
+}
+
+#=== Completion for: 'StringUtils.leftPad' ===
+_StringUtils.leftPad() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.leftPad)'
+}
+
+#=== Completion for: 'StringUtils.lowerCase' ===
+_StringUtils.lowerCase() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.lowerCase)'
+}
+
+#=== Completion for: 'StringUtils.lowerCase.bash_4' ===
+_StringUtils.lowerCase.bash_4() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.lowerCase.bash_4)'
+}
+
+#=== Completion for: 'StringUtils.lowerCase' ===
+_StringUtils.lowerCase() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.lowerCase)'
+}
+
+#=== Completion for: 'StringUtils.lowerCase' ===
+_StringUtils.lowerCase() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.lowerCase)'
+}
+
+#=== Completion for: 'StringUtils.removeLeading' ===
+_StringUtils.removeLeading() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.removeLeading)'
+}
+
+#=== Completion for: 'StringUtils.remove' ===
+_StringUtils.remove() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.remove)'
+}
+
+#=== Completion for: 'StringUtils.repeat' ===
+_StringUtils.repeat() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.repeat)'
+}
+
+#=== Completion for: 'StringUtils.replace' ===
+_StringUtils.replace() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.replace)'
+}
+
+#=== Completion for: 'StringUtils.reverse' ===
+_StringUtils.reverse() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.reverse)'
+}
+
+#=== Completion for: 'StringUtils.rightPad' ===
+_StringUtils.rightPad() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.rightPad)'
+}
+
+#=== Completion for: 'StringUtils.rotate' ===
+_StringUtils.rotate() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.rotate)'
+}
+
+#=== Completion for: 'StringUtils.splitAny' ===
+_StringUtils.splitAny() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.splitAny)'
+}
+
+#=== Completion for: 'StringUtils.splitPreserveAllTokens' ===
+_StringUtils.splitPreserveAllTokens() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.splitPreserveAllTokens)'
+}
+
+#=== Completion for: 'StringUtils.split' ===
+_StringUtils.split() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.split)'
+}
+
+#=== Completion for: 'StringUtils.startsWith' ===
+_StringUtils.startsWith() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.startsWith)'
+}
+
+#=== Completion for: 'StringUtils.substring' ===
+_StringUtils.substring() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.substring)'
+}
+
+#=== Completion for: 'StringUtils.trim' ===
+_StringUtils.trim() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.trim)'
+}
+
+#=== Completion for: 'StringUtils.upperCase' ===
+_StringUtils.upperCase() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_StringUtils.upperCase)'
+}
+
+#=== Completion for: 'VersionUtils.compare' ===
+_VersionUtils.compare() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_VersionUtils.compare)'
+}
+
+#=== Completion for: 'VersionUtils.isLowerOrEquals' ===
+_VersionUtils.isLowerOrEquals() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_VersionUtils.isLowerOrEquals)'
+}
+
+#=== Completion for: 'Math.abs' ===
+_Math.abs() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Math.abs)'
+}
+
+#=== Completion for: 'Math.max' ===
+_Math.max() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Math.max)'
+}
+
+#=== Completion for: 'Math.min' ===
+_Math.min() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Math.min)'
+}
+
+#=== Completion for: 'Array.bubbleSort' ===
+_Array.bubbleSort() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Array.bubbleSort)'
+}
+
+#=== Completion for: 'Array.sort' ===
+_Array.sort() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Array.sort)'
+}
+
+#=== Completion for: 'Log.debug' ===
+_Log.debug() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.debug)'
+}
+
+#=== Completion for: 'Log.error' ===
+_Log.error() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.error)'
+}
+
+#=== Completion for: 'Log.ex' ===
+_Log.ex() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.ex)'
+}
+
+#=== Completion for: 'Log.fatal' ===
+_Log.fatal() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.fatal)'
+}
+
+#=== Completion for: 'Log.info' ===
+_Log.info() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.info)'
+}
+
+#=== Completion for: 'Log.in' ===
+_Log.in() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.in)'
+}
+
+#=== Completion for: 'Log.message' ===
+_Log.message() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.message)'
+}
+
+#=== Completion for: 'Log.out' ===
+_Log.out() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.out)'
+}
+
+#=== Completion for: 'Log.trace' ===
+_Log.trace() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.trace)'
+}
+
+#=== Completion for: 'Log.warn' ===
+_Log.warn() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Log.warn)'
+}
+
+#=== Completion for: 'Random.nextInt' ===
+_Random.nextInt() {
+  _arguments \
+    '1:first arg:_files' \
+    '2:second arg:(completion_for_Random.nextInt)'
+}
+
+#=== Dispatcher ===
+case $services in
+  FileNameUtils.getExtension)
+    _FileNameUtils.getExtension "$@"
+    ;;
+  FileNameUtils.getFullPathNoEndSeparator)
+    _FileNameUtils.getFullPathNoEndSeparator "$@"
+    ;;
+  FileNameUtils.getFullPath)
+    _FileNameUtils.getFullPath "$@"
+    ;;
+  FileUtils.copyDirectory)
+    _FileUtils.copyDirectory "$@"
+    ;;
+  FileUtils.copyFile)
+    _FileUtils.copyFile "$@"
+    ;;
+  FileUtils.isDirectory)
+    _FileUtils.isDirectory "$@"
+    ;;
+  FileUtils.isRegularFile)
+    _FileUtils.isRegularFile "$@"
+    ;;
+  FileUtils.isSymlink)
+    _FileUtils.isSymlink "$@"
+    ;;
+  ApashUtils.doc)
+    _ApashUtils.doc "$@"
+    ;;
+  ArrayUtils.addAll)
+    _ArrayUtils.addAll "$@"
+    ;;
+  ArrayUtils.addFirst)
+    _ArrayUtils.addFirst "$@"
+    ;;
+  ArrayUtils.add)
+    _ArrayUtils.add "$@"
+    ;;
+  ArrayUtils.anythingToEmpty)
+    _ArrayUtils.anythingToEmpty "$@"
+    ;;
+  ArrayUtils.clone)
+    _ArrayUtils.clone "$@"
+    ;;
+  ArrayUtils.clone)
+    _ArrayUtils.clone "$@"
+    ;;
+  ArrayUtils.concat)
+    _ArrayUtils.concat "$@"
+    ;;
+  ArrayUtils.contains)
+    _ArrayUtils.contains "$@"
+    ;;
+  ArrayUtils.countMatches)
+    _ArrayUtils.countMatches "$@"
+    ;;
+  ArrayUtils.getLastIndex)
+    _ArrayUtils.getLastIndex "$@"
+    ;;
+  ArrayUtils.getLength)
+    _ArrayUtils.getLength "$@"
+    ;;
+  ArrayUtils.getNumberOfElements)
+    _ArrayUtils.getNumberOfElements "$@"
+    ;;
+  ArrayUtils.get)
+    _ArrayUtils.get "$@"
+    ;;
+  ArrayUtils.indexesOf)
+    _ArrayUtils.indexesOf "$@"
+    ;;
+  ArrayUtils.indexOf)
+    _ArrayUtils.indexOf "$@"
+    ;;
+  ArrayUtils.init)
+    _ArrayUtils.init "$@"
+    ;;
+  ArrayUtils.initWithValue)
+    _ArrayUtils.initWithValue "$@"
+    ;;
+  ArrayUtils.insert)
+    _ArrayUtils.insert "$@"
+    ;;
+  ArrayUtils.isArrayIndex)
+    _ArrayUtils.isArrayIndex "$@"
+    ;;
+  ArrayUtils.isArrayIndexValid)
+    _ArrayUtils.isArrayIndexValid "$@"
+    ;;
+  ArrayUtils.isArray)
+    _ArrayUtils.isArray "$@"
+    ;;
+  ArrayUtils.isEmpty)
+    _ArrayUtils.isEmpty "$@"
+    ;;
+  ArrayUtils.isNotEmpty)
+    _ArrayUtils.isNotEmpty "$@"
+    ;;
+  ArrayUtils.isSameLastIndex)
+    _ArrayUtils.isSameLastIndex "$@"
+    ;;
+  ArrayUtils.isSameLength)
+    _ArrayUtils.isSameLength "$@"
+    ;;
+  ArrayUtils.isSorted)
+    _ArrayUtils.isSorted "$@"
+    ;;
+  ArrayUtils.join)
+    _ArrayUtils.join "$@"
+    ;;
+  ArrayUtils.lastIndexOf)
+    _ArrayUtils.lastIndexOf "$@"
+    ;;
+  ArrayUtils.nullToEmpty)
+    _ArrayUtils.nullToEmpty "$@"
+    ;;
+  ArrayUtils.removeAllOccurrences)
+    _ArrayUtils.removeAllOccurrences "$@"
+    ;;
+  ArrayUtils.removeAll)
+    _ArrayUtils.removeAll "$@"
+    ;;
+  ArrayUtils.removeDuplicates)
+    _ArrayUtils.removeDuplicates "$@"
+    ;;
+  ArrayUtils.removeElement)
+    _ArrayUtils.removeElement "$@"
+    ;;
+  ArrayUtils.removeElements)
+    _ArrayUtils.removeElements "$@"
+    ;;
+  ArrayUtils.remove)
+    _ArrayUtils.remove "$@"
+    ;;
+  ArrayUtils.reverse)
+    _ArrayUtils.reverse "$@"
+    ;;
+  ArrayUtils.shift)
+    _ArrayUtils.shift "$@"
+    ;;
+  ArrayUtils.shuffle)
+    _ArrayUtils.shuffle "$@"
+    ;;
+  ArrayUtils.subarray)
+    _ArrayUtils.subarray "$@"
+    ;;
+  ArrayUtils.swap)
+    _ArrayUtils.swap "$@"
+    ;;
+  ArrayUtils.toArray)
+    _ArrayUtils.toArray "$@"
+    ;;
+  CsvUtils.merge)
+    _CsvUtils.merge "$@"
+    ;;
+  DateUtils.addDays)
+    _DateUtils.addDays "$@"
+    ;;
+  DateUtils.addHours)
+    _DateUtils.addHours "$@"
+    ;;
+  DateUtils.addMinutes)
+    _DateUtils.addMinutes "$@"
+    ;;
+  DateUtils.addMonths)
+    _DateUtils.addMonths "$@"
+    ;;
+  DateUtils.addSeconds)
+    _DateUtils.addSeconds "$@"
+    ;;
+  DateUtils.add)
+    _DateUtils.add "$@"
+    ;;
+  DateUtils.addWeeks)
+    _DateUtils.addWeeks "$@"
+    ;;
+  DateUtils.addYears)
+    _DateUtils.addYears "$@"
+    ;;
+  DateUtils.isDate)
+    _DateUtils.isDate "$@"
+    ;;
+  MapUtils.clone)
+    _MapUtils.clone "$@"
+    ;;
+  MapUtils.containsKey)
+    _MapUtils.containsKey "$@"
+    ;;
+  MapUtils.getKeys)
+    _MapUtils.getKeys "$@"
+    ;;
+  MapUtils.init)
+    _MapUtils.init "$@"
+    ;;
+  MapUtils.isMap)
+    _MapUtils.isMap "$@"
+    ;;
+  MatrixUtils.create)
+    _MatrixUtils.create "$@"
+    ;;
+  MatrixUtils.getDimLastIndex)
+    _MatrixUtils.getDimLastIndex "$@"
+    ;;
+  MatrixUtils.getDimOffset)
+    _MatrixUtils.getDimOffset "$@"
+    ;;
+  MatrixUtils.getDim)
+    _MatrixUtils.getDim "$@"
+    ;;
+  MatrixUtils.getIndex)
+    _MatrixUtils.getIndex "$@"
+    ;;
+  MatrixUtils.get)
+    _MatrixUtils.get "$@"
+    ;;
+  MatrixUtils.isMatrix)
+    _MatrixUtils.isMatrix "$@"
+    ;;
+  MatrixUtils.setDim)
+    _MatrixUtils.setDim "$@"
+    ;;
+  MatrixUtils.set)
+    _MatrixUtils.set "$@"
+    ;;
+  MatrixUtils.toString)
+    _MatrixUtils.toString "$@"
+    ;;
+  NumberUtils.compare)
+    _NumberUtils.compare "$@"
+    ;;
+  NumberUtils.isDigits)
+    _NumberUtils.isDigits "$@"
+    ;;
+  NumberUtils.isInteger)
+    _NumberUtils.isInteger "$@"
+    ;;
+  NumberUtils.isLongPositive)
+    _NumberUtils.isLongPositive "$@"
+    ;;
+  NumberUtils.isLong)
+    _NumberUtils.isLong "$@"
+    ;;
+  NumberUtils.isParsable)
+    _NumberUtils.isParsable "$@"
+    ;;
+  NumberUtils.max)
+    _NumberUtils.max "$@"
+    ;;
+  NumberUtils.min)
+    _NumberUtils.min "$@"
+    ;;
+  ShellUtils.declareArray)
+    _ShellUtils.declareArray "$@"
+    ;;
+  ShellUtils.getFunctionName)
+    _ShellUtils.getFunctionName "$@"
+    ;;
+  ShellUtils.getParentFunctionName)
+    _ShellUtils.getParentFunctionName "$@"
+    ;;
+  ShellUtils.isCommandValid)
+    _ShellUtils.isCommandValid "$@"
+    ;;
+  ShellUtils.isDeclared)
+    _ShellUtils.isDeclared "$@"
+    ;;
+  ShellUtils.isVariableNameValid)
+    _ShellUtils.isVariableNameValid "$@"
+    ;;
+  ShellUtils.isVariable)
+    _ShellUtils.isVariable "$@"
+    ;;
+  ShellUtils.isZsh)
+    _ShellUtils.isZsh "$@"
+    ;;
+  StringUtils.abbreviate)
+    _StringUtils.abbreviate "$@"
+    ;;
+  StringUtils.containsOnly)
+    _StringUtils.containsOnly "$@"
+    ;;
+  StringUtils.contains)
+    _StringUtils.contains "$@"
+    ;;
+  StringUtils.countMatches)
+    _StringUtils.countMatches "$@"
+    ;;
+  StringUtils.endsWith)
+    _StringUtils.endsWith "$@"
+    ;;
+  StringUtils.equals)
+    _StringUtils.equals "$@"
+    ;;
+  StringUtils.indexOfAny)
+    _StringUtils.indexOfAny "$@"
+    ;;
+  StringUtils.indexOf)
+    _StringUtils.indexOf "$@"
+    ;;
+  StringUtils.isAlpha)
+    _StringUtils.isAlpha "$@"
+    ;;
+  StringUtils.isAnyEmpty)
+    _StringUtils.isAnyEmpty "$@"
+    ;;
+  StringUtils.isBlank)
+    _StringUtils.isBlank "$@"
+    ;;
+  StringUtils.isEmpty)
+    _StringUtils.isEmpty "$@"
+    ;;
+  StringUtils.lastIndexOf)
+    _StringUtils.lastIndexOf "$@"
+    ;;
+  StringUtils.leftPad)
+    _StringUtils.leftPad "$@"
+    ;;
+  StringUtils.lowerCase)
+    _StringUtils.lowerCase "$@"
+    ;;
+  StringUtils.lowerCase.bash_4)
+    _StringUtils.lowerCase.bash_4 "$@"
+    ;;
+  StringUtils.lowerCase)
+    _StringUtils.lowerCase "$@"
+    ;;
+  StringUtils.lowerCase)
+    _StringUtils.lowerCase "$@"
+    ;;
+  StringUtils.removeLeading)
+    _StringUtils.removeLeading "$@"
+    ;;
+  StringUtils.remove)
+    _StringUtils.remove "$@"
+    ;;
+  StringUtils.repeat)
+    _StringUtils.repeat "$@"
+    ;;
+  StringUtils.replace)
+    _StringUtils.replace "$@"
+    ;;
+  StringUtils.reverse)
+    _StringUtils.reverse "$@"
+    ;;
+  StringUtils.rightPad)
+    _StringUtils.rightPad "$@"
+    ;;
+  StringUtils.rotate)
+    _StringUtils.rotate "$@"
+    ;;
+  StringUtils.splitAny)
+    _StringUtils.splitAny "$@"
+    ;;
+  StringUtils.splitPreserveAllTokens)
+    _StringUtils.splitPreserveAllTokens "$@"
+    ;;
+  StringUtils.split)
+    _StringUtils.split "$@"
+    ;;
+  StringUtils.startsWith)
+    _StringUtils.startsWith "$@"
+    ;;
+  StringUtils.substring)
+    _StringUtils.substring "$@"
+    ;;
+  StringUtils.trim)
+    _StringUtils.trim "$@"
+    ;;
+  StringUtils.upperCase)
+    _StringUtils.upperCase "$@"
+    ;;
+  VersionUtils.compare)
+    _VersionUtils.compare "$@"
+    ;;
+  VersionUtils.isLowerOrEquals)
+    _VersionUtils.isLowerOrEquals "$@"
+    ;;
+  Math.abs)
+    _Math.abs "$@"
+    ;;
+  Math.max)
+    _Math.max "$@"
+    ;;
+  Math.min)
+    _Math.min "$@"
+    ;;
+  Array.bubbleSort)
+    _Array.bubbleSort "$@"
+    ;;
+  Array.sort)
+    _Array.sort "$@"
+    ;;
+  Log.debug)
+    _Log.debug "$@"
+    ;;
+  Log.error)
+    _Log.error "$@"
+    ;;
+  Log.ex)
+    _Log.ex "$@"
+    ;;
+  Log.fatal)
+    _Log.fatal "$@"
+    ;;
+  Log.info)
+    _Log.info "$@"
+    ;;
+  Log.in)
+    _Log.in "$@"
+    ;;
+  Log.message)
+    _Log.message "$@"
+    ;;
+  Log.out)
+    _Log.out "$@"
+    ;;
+  Log.trace)
+    _Log.trace "$@"
+    ;;
+  Log.warn)
+    _Log.warn "$@"
+    ;;
+  Random.nextInt)
+    _Random.nextInt "$@"
+    ;;
+esac
