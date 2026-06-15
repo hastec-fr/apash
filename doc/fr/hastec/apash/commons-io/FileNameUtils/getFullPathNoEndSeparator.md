@@ -8,16 +8,15 @@
 </div>
 
 
-# FileNameUtils.getExtension
-Gets the extension of a fileName.
+# FileNameUtils.getFullPathNoEndSeparator
+Gets the full path (prefix + path) from a full file name, excluding the final directory separator.
 ## Description
-   This method returns the textual part of the file name after the last dot. 
-   There must be no directory separator after the dot.
-   Only the last extension is returned.
+  The method is entirely text based,
+  and returns the text before the last forward or backslash.
 
 ## History
 ### Since
-  * 0.2.0 (Benjamin Vargin)
+  * 0.2.0 (Guilhem Baechler)
 
 ## Interface
 ### Package
@@ -28,19 +27,18 @@ Gets the extension of a fileName.
 ### Arguments
  | #      | varName        | Type          | in/out   | Default    | Description                                 |
  |--------|----------------|---------------|----------|------------|---------------------------------------------|
- | $1     | inFileName     | string        | in       |            | The file name to retrieve the extension of. |
+ | $1     | inFileName     | string        | in       |            | The file name to retrieve the full path of. |
 
 ### Example
  ```bash
-    FileNameUtils.getExtension  "foo.txt"          # "txt"
-    FileNameUtils.getExtension  "a/b/c.jpg"        # "jpg"
-    FileNameUtils.getExtension  "a/b.txt/c"        # ""
-    FileNameUtils.getExtension  "a/b/c"            # ""
-    FileNameUtils.getExtension  "a/b/c.txt.tmp"    # ".tmp"
+    FileNameUtils.getFullPathNoEndSeparator  "foo.txt"          # ""
+    FileNameUtils.getFullPathNoEndSeparator  "a/b/c.jpg"        # "a/b/c"
+    FileNameUtils.getFullPathNoEndSeparator  "a/b/c"            # "a/b/c"
+    FileNameUtils.getFullPathNoEndSeparator  "a/b/c/"           # "a/b/c"
  ```
 
 ### Stdout
-  * The extension of the file or an empty string if none exists.
+  * The path of the file, an empty string if none exists
 ### Stderr
   * None.
 

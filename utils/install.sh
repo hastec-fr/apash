@@ -56,6 +56,10 @@ echo ". Add apash initialisation to [$startup_script]"
   echo "export APASH_HOME_DIR=\"${APASH_HOME_DIR:-\$HOME/.apash}\" ##$apash_keyword"
   echo ". \"\$APASH_HOME_DIR/.apashrc\"                            ##$apash_keyword"
   echo ". \"\$APASH_HOME_DIR/apash.source\"                        ##$apash_keyword"
+  if [ "$shell_type" = "zsh" ]; then
+    echo "fpath+=(\"\$APASH_HOME_DIR/completions/zsh\")            ##$apash_keyword"
+    echo "autoload -Uz compinit && compinit                        ##$apash_keyword"
+  fi
 ) >>"$startup_script"
 
 ## Script is finished.

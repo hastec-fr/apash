@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export APASH_VERSION=0.2.0
+export APASH_VERSION=
 # shellcheck disable=all
 # Apash configurations
 
@@ -129,6 +129,118 @@ elif [[ "$APASH_SHELL" == "zsh"  ]] && [[ ! ":${FPATH}:" =~ :${0:A:h}:  ]]; then
 FPATH+=":${0:A:h}"
 autoload -Uz apash.import
 fi
+FileUtils.copyFile() {
+Log.in "$LINENO" "$@"
+local inSrc="${1:-}"
+local inDst="${2:-}"
+local inPreserveDate="${3:-false}"
+local inCopyOption="${4:-}"
+mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+if ! StringUtils.contains "$inCopyOption" "REPLACE_EXISTING" && FileUtils.isRegularFile "$inDst"; then
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+fi
+if StringUtils.contains "$inCopyOption" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
+cp "-p" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+cp "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+}
+FileUtils.isSymlink() {
+Log.in "$LINENO" "$@"
+local inFileName="${1:-}"
+if test -h "$inFileName" ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+FileUtils.copyDirectory() {
+Log.in "$LINENO" "$@"
+local inSrc="${1:-}"
+local inDst="${2:-}"
+local inFileFilter="${3-.*}"
+local inPreserveDate="${4:-false}"
+local inCopyOption="${5:-}"
+mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+for path in "$inSrc"/*; do
+local baseName
+baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if echo "$baseName" | grep -q "$inFileFilter"; then
+local relPath="${path#"$inSrc"/}"
+local dstPath="$inDst/$relPath"
+if FileUtils.isDirectory "$path"; then
+FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+fi
+done
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+}
+if [ "$APASH_SHELL" = "bash" ]; then
+_FileUtils.copyDirectory () {
+local BOOLEAN="true false"
+local COPY_OPTIONS="REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES"
+COMPREPLY=()
+local current="${COMP_WORDS[$COMP_CWORD]}"
+if [ "$COMP_CWORD" -eq 3 ]; then
+mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "$current")
+elif [ "$COMP_CWORD" -eq 4 ]; then
+mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "$current")
+else
+mapfile -t COMPREPLY < <(compgen -W "$(ls)" -- "$current")
+fi
+}
+complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
+fi
+FileUtils.isDirectory() {
+Log.in "$LINENO" "$@"
+local inFolderName="${1:-}"
+local inLinkOption="${2:-}"
+if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFolderName"; then
+Log.out "$LINENO"; return "$APASH_FAILURE"; 
+fi
+if test -d "$inFolderName" ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+FileUtils.isRegularFile() {
+Log.in "$LINENO" "$@"
+local inFileName="${1:-}"
+local inLinkOption="${2:-}"
+if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFileName"; then
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+if [ -f "$inFileName" ] ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+FileNameUtils.getFullPathNoEndSeparator() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+if [ "$inFileName" = "~" ] || [ "$inFileName" = "~user" ]; then
+echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+local lastStepIndex
+lastStepIndex="$(StringUtils.lastIndexOf "$inFileName" "/")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$lastStepIndex" -eq -1 ]; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+local fullPath
+fullPath="$(StringUtils.substring "$inFileName" 0 "$lastStepIndex")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "$fullPath" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
 FileNameUtils.getExtension() { 
 Log.in $LINENO "$@"
 local inFileName="${1:-}"
@@ -136,6 +248,93 @@ inFileName="$(basename "$inFileName")"   || { Log.ex $LINENO; return "$APASH_FAI
 ! StringUtils.contains "$inFileName" "." && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 echo "${inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.ex $LINENO; return "$APASH_SUCCESS";
+}
+FileNameUtils.getFullPath() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+local fullPath
+fullPath="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$fullPath" = "" ]; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+echo "$fullPath/" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+commons-io.FileUtils() { true; }
+commons-io.FileNameUtils() { true; }
+apash.lang() { true; }
+apash.commons-io() { true; }
+NumberUtils.compare() {
+Log.in $LINENO "$@"
+local inNumber1="${1:-}"
+local inNumber2="${2:-}"
+NumberUtils.isLong "$inNumber1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$inNumber2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo $((inNumber1 - inNumber2)) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+NumberUtils.isDigits() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+local pattern="^[0-9]+$"
+[[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+NumberUtils.isLongPositive() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+NumberUtils.isLong "$inNumber" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inNumber -ge 0 ]]          || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+NumberUtils.isParsable() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+local pattern="^-?[0-9]*\.?[0-9]+$"
+[[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+NumberUtils.max() {
+Log.in $LINENO "$@"
+local max="${1:-}"
+NumberUtils.isParsable "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+shift
+for n in "$@"; do
+NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+max=$(Math.max "$max" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+echo "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+NumberUtils.isLong() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+local pattern="^-?[0-9]{1,19}$"
+[[ ! $inNumber =~ $pattern ]] && return "$APASH_FAILURE"
+[[ "${inNumber:0:1}" = "-"  && ${#inNumber} -eq 20 && "$inNumber" > "$Long_MIN_VALUE" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ "${inNumber:0:1}" != "-" && ${#inNumber} -eq 19 && "$inNumber" > "$Long_MAX_VALUE" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }  
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+NumberUtils.isInteger() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+[[ ! $inNumber =~ ^-?[0-9]+$ ]]        && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inNumber -gt $Integer_MAX_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inNumber -lt $Integer_MIN_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+NumberUtils.min() {
+Log.in $LINENO "$@"
+local min="${1:-}"
+NumberUtils.isParsable "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+shift
+for n in "$@"; do
+NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+min=$(Math.min "$min" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+echo "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ApashUtils.doc() {
 Log.in $LINENO "$@"
@@ -178,397 +377,25 @@ next
 echo -E "$comments" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-commons-lang.ApashUtils() { true; }
-ArrayUtils.add() {
-Log.in $LINENO "$@"
-local apash_ioArrayName="${1:-}"
-local apash_inValue="${2:-}"
-[ $# -gt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local -a apash_outArray=()
-ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_ioArrayName"
-apash_inArray+=("$apash_inValue") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.addAll() {
-Log.in $LINENO "$@"
-local apash_ioArrayName="${1:-}"
-ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-shift
-[ $# -eq 0 ] && return "$APASH_SUCCESS"
-if [ "$APASH_SHELL" = "zsh" ]; then
-local -a apash_outArray=()
-ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else # bash
-local -n apash_outArray="$apash_ioArrayName"
-fi
-apash_outArray+=("$@")                                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.addFirst() {
-Log.in $LINENO "$@"
-local apash_ioArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local -a apash_outArray=("$apash_inValue")
-local -a apash_inArray=()
-local -i apash_i
-[ $# -gt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-ArrayUtils.clone "$apash_ioArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-apash_outArray+=("${apash_inArray[@]}")
-else
-for apash_i in "${!apash_inArray[@]}"; do
-apash_outArray[apash_i+1]="${apash_inArray[apash_i]}"
-done
-fi
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.anythingToEmpty() {
-Log.in $LINENO "$@"
-local apash_ioArrayName="${1:-}"
-ShellUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-unset "$apash_ioArrayName"
-ShellUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-return "$APASH_SUCCESS"
-}
-ArrayUtils.clone() {
-Log.in $LINENO "$@"
-local apash_ArrayUtils_clone_inArrayName="${1:-}"
-local apash_ArrayUtils_clone_outArrayName="${2:-}"
-ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.init    "$apash_ArrayUtils_clone_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local -n apash_ArrayUtils_clone_inArrayName="$apash_ArrayUtils_clone_inArrayName"
-local -n apash_ArrayUtils_clone_outArray="$apash_ArrayUtils_clone_outArrayName"
-local -i apash_i
-for apash_i in "${!apash_ArrayUtils_clone_inArrayName[@]}"; do
-apash_ArrayUtils_clone_outArray[apash_i]="${apash_ArrayUtils_clone_inArrayName[apash_i]}"
-done
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.concat() {
-Log.in $LINENO "$@"
-local apash_outArrayName="${1:-}"
-local apash_arrayName
-local -a apash_outArray=()
-local -i apash_i apash_counter=0
-[ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-shift
-for apash_arrayName in "$@"; do
-ArrayUtils.isArray "$apash_arrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
-ArrayUtils.nullToEmpty "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for apash_arrayName in "$@"; do
-if [ "$APASH_SHELL" = "zsh" ]; then
-[[ ${#${(P)apash_arrayName[@]}} == 1 && ${${(P)apash_arrayName}[@]} == "" ]] \
-&& apash_outArray+=("") \
-|| apash_outArray+=("${${(P)apash_arrayName}[@]}")
-else
-local -n apash_inArray="$apash_arrayName"
-[[ ${#apash_inArray[@]} -eq 0 ]] && continue
-for apash_i in "${!apash_inArray[@]}"; do
-apash_outArray[apash_counter+apash_i]="${apash_inArray[apash_i]}"
-done
-apash_counter=$(ArrayUtils.getLastIndex "apash_outArray") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-((apash_counter++))
-fi
-done
-ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.contains() {
+declare -A MaptUtils_EMPTY_MAP=()
+commons-lang.MapUtils() { true; }
+DateUtils_UTC_FORMAT="+%FT%T.%3N%z"
+commons-lang.DateUtils() { true; }
+commons-lang.StringUtils() { true; }
+ArrayUtils.isSorted() {
 Log.in $LINENO "$@"
 local apash_inArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local apash_value=""
-[ $# -ne 2 ]                            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -i apash_i
 ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 if [ "$APASH_SHELL" = "zsh" ]; then
-local -a apash_inArray=()
+local apash_inArray=()
 ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 else
 local -n apash_inArray="$apash_inArrayName"
-fi 
-for apash_value in "${apash_inArray[@]:-}"; do
-[[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i++ )); do
+[[ "${apash_inArray[apash_i]}" > "${apash_inArray[apash_i+1]}" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 done
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.countMatches() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local apash_value
-local -i apash_counter=0
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-for apash_value in "${${(P)apash_inArrayName}[@]}"; do
-[[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
-done
-else
-local -n apash_inArray="$apash_inArrayName"
-for apash_value in "${apash_inArray[@]}"; do
-[[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
-done
-fi
-echo "$apash_counter" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.get() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_inIndex="${2:-}"
-local apash_inDefaultValue="${3:-}"
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if ! ArrayUtils.isArrayIndexValid "$apash_inArrayName" "$apash_inIndex"; then
-[[ $# -ne 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-echo "$apash_inDefaultValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-if [ "$APASH_SHELL" = "zsh" ]; then
-echo "${${(P)apash_inArrayName}[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_inArrayName"
-echo "${apash_inArray[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.getLastIndex() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local apash_arrayLength=${#${(P)apash_inArrayName}[@]}
-[[ $apash_arrayLength == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? apash_arrayLength -  1 : apash_arrayLength))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-local -n apash_inArray="$apash_inArrayName"
-[[ ${#apash_inArray[@]} == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-local apash_indexes=("${!apash_inArray[@]}")
-echo "${apash_indexes[-1]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.getLength() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_lastIndex
-if [ "$APASH_SHELL" = "zsh" ]; then
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex  $LINENO; return "$APASH_FAILURE"; }
-echo "${#${(PA)apash_inArrayName}[@]}"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
-[[ $apash_lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-echo "$((apash_lastIndex+1))"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.getNumberOfElements() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-echo "${#${(PA)apash_inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-local -n apash_inArray="$apash_inArrayName"
-echo "${#apash_inArray[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.indexesOf() {
-Log.in $LINENO "$@"
-local apash_outIndexesName="${1:-}"
-local apash_inArrayName="${2:-}"
-local apash_inValue="${3:-}"
-local apash_inStart="${4:-0}"
-local -i apash_i
-local -a apash_outIndexes=()
-ArrayUtils.nullToEmpty "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray "$apash_inArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$apash_inStart"            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
-if [ "$APASH_SHELL" = "zsh" ]; then
-for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#${(P)apash_inArrayName}[@]} ; apash_i++ )); do
-[[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
-done
-else
-local -n apash_inArray="$apash_inArrayName"
-for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]} ; apash_i++ )); do
-[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
-done
-fi
-ArrayUtils.clone apash_outIndexes "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.indexOf() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local apash_inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
-local -i apash_i
-local apash_lastIndex
-[[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$apash_inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
-if [ "$APASH_SHELL" = "zsh" ]; then
-for (( apash_i=apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++ )); do
-[[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-done
-else
-local -n apash_inArray="$apash_inArrayName"
-for (( apash_i=apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++ )); do
-[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-done
-fi
-echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.init() {
-Log.in $LINENO "$@"
-local apash_ArrayUtils_init_ioArrayName="${1:-}"
-ShellUtils.isVariableNameValid "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ShellUtils.isVariable "$apash_ArrayUtils_init_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-MapUtils.isMap "$apash_ArrayUtils_init_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if ! ShellUtils.isDeclared "$apash_ArrayUtils_init_ioArrayName"; then
-ShellUtils.declareArray "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-if [ "$APASH_SHELL" = "zsh" ]; then
-: ${(PA)apash_ArrayUtils_init_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-local -n apash_ArrayUtils_init_outArray="$apash_ArrayUtils_init_ioArrayName"
-apash_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.initWithValue() {
-Log.in $LINENO "$@"
-local ioArrayName="${1:-}"
-local inWidth="${2:-0}"
-local inValue="${3:-}"
-local -i i
-local apash_ArrayUtils_initWithValue_outArray=()
-NumberUtils.isLong "$inWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( i=0 ; i < inWidth; i++ )); do
-apash_ArrayUtils_initWithValue_outArray+=("$inValue")
-done
-ArrayUtils.clone "apash_ArrayUtils_initWithValue_outArray" "$ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.insert() {
-Log.in $LINENO "$@"
-[ $# -lt 3 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_inIndex="${1:-}"
-local apash_ioArrayName="${2:-}"
-local -i apash_i
-local -i apash_j
-shift 2
-local apash_inValues=("$@")
-ArrayUtils.isArray "$apash_ioArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArrayIndex "$apash_inIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local -a apash_outArray=()
-apash_outArray=("${${(P)apash_ioArrayName}[@]:0:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}" \
-"${apash_inValues[@]}" \
-"${${(P)apash_ioArrayName}[@]:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-local -n apash_ioArray="$apash_ioArrayName"
-local apash_isInserted=false
-for apash_i in "${!apash_ioArray[@]}"; do
-if [[ $apash_i -lt apash_inIndex ]]; then
-apash_outArray[apash_i]="${apash_ioArray[apash_i]}"
-elif [[ $apash_i -ge apash_inIndex ]]; then
-if [[ $apash_isInserted == false ]]; then
-for (( apash_j=APASH_ARRAY_FIRST_INDEX; apash_j < APASH_ARRAY_FIRST_INDEX+${#apash_inValues[@]}; apash_j++ )); do
-apash_outArray[apash_j+apash_inIndex]=${apash_inValues[apash_j]}     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
-apash_isInserted=true
-fi
-apash_outArray[apash_i+${#apash_inValues[@]}]="${apash_ioArray[apash_i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-fi
-done
-if [[ $apash_isInserted == false ]]; then
-for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inValues[@]}; apash_i++ )); do
-apash_outArray[apash_i+apash_inIndex]="${apash_inValues[apash_i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-done
-fi
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.isArray() {
-Log.in $LINENO "$@"
-local inVarName="${1:-}"
-declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.isArrayIndex() {
-Log.in $LINENO "$@"
-local inIndex="${1:-}"
-NumberUtils.isLong "$inIndex"               || { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.isArrayIndexValid() {
-Log.in $LINENO "$@"
-local inArrayName="${1:-}"
-local inIndex="${2:-}"
-local lastIndex
-ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isDigits "$inIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-lastIndex=$(ArrayUtils.getLastIndex "$inArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isDigits "$lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inIndex -gt $lastIndex ]]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.isEmpty() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-[[ ${#${(P)apash_inArrayName}[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_inArrayName"
-[[ ${#apash_inArray[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.isNotEmpty() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [[ $APASH_SHELL == "zsh" ]]; then
-[[ ${#${(P)apash_inArrayName}[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_inArrayName"
-[[ ${#apash_inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.isSameLastIndex() {
-Log.in $LINENO "$@"
-local inArrayName1="${1:-}"
-local inArrayName2="${2:-}"
-local lastIndex1
-local lastIndex2
-lastIndex1=$(ArrayUtils.getLastIndex "$inArrayName1") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-lastIndex2=$(ArrayUtils.getLastIndex "$inArrayName2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $lastIndex1 -ne $lastIndex2 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ArrayUtils.isSameLength() {
@@ -586,180 +413,25 @@ local -n apash_inArray2="$apash_inArrayName2"
 fi
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils.isSorted() {
+ArrayUtils.isSameLastIndex() {
 Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local -i apash_i
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local apash_inArray=()
-ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_inArrayName"
-fi
-for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i++ )); do
-[[ "${apash_inArray[apash_i]}" > "${apash_inArray[apash_i+1]}" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-done
+local inArrayName1="${1:-}"
+local inArrayName2="${2:-}"
+local lastIndex1
+local lastIndex2
+lastIndex1=$(ArrayUtils.getLastIndex "$inArrayName1") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+lastIndex2=$(ArrayUtils.getLastIndex "$inArrayName2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $lastIndex1 -ne $lastIndex2 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils.join() {
+ArrayUtils.toArray() {
 Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_inDelimiter="${2:- }"
-local apash_outString=""
-local apash_arrayLength
-local -i apash_i
-apash_arrayLength=$(ArrayUtils.getLength "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-apash_outString="${${(P)apash_inArrayName}[APASH_ARRAY_FIRST_INDEX]:-}"
-for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX+apash_arrayLength; apash_i++ )); do
-apash_outString+="${apash_inDelimiter}${${(P)apash_inArrayName}[apash_i]:-}"
-done
-else # bash
-local -n apash_inArray="$apash_inArrayName"
-apash_outString="${apash_inArray[0]:-}"
-for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX+apash_arrayLength; apash_i++ )); do
-apash_outString+="${apash_inDelimiter}${apash_inArray[apash_i]:-}"
-done
-fi
-echo "$apash_outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.lastIndexOf() {
-Log.in $LINENO "$@"
-[[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_inArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local apash_inStart="${3:-0}"
-local apash_i
-ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
-if [ "$APASH_SHELL" =  "zsh" ]; then
-local -a apash_inArray=()
-ArrayUtils.clone "$apash_inArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else
-local -n apash_inArray="$apash_inArrayName"
-fi
-for (( apash_i=APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i >= apash_inStart; apash_i-- )); do
-[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-done
-echo "$ArrayUtils_INDEX_NOT_FOUND"
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-ArrayUtils.nullToEmpty() {
-Log.in $LINENO "$@"
-local inArrayName="${1:-}"
-ShellUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-ShellUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ShellUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.remove() {
-Log.in $LINENO "$@"
-[ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local ioArrayName="${1:-}"
-local inIndex="${2:-}"
-local i
-ArrayUtils.isArray "$ioArrayName"                       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_ioArrayName="${1:-}" 
 local -a apash_outArray=()
-if [ "$APASH_SHELL" = "zsh" ]; then
-apash_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
-"${${(P)ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX+1))}")
-else
-ArrayUtils.clone "$ioArrayName" apash_outArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-unset "apash_outArray[$inIndex]"
-for i in "${!apash_outArray[@]}"; do
-[[ $i -lt $inIndex ]] && continue
-apash_outArray[i-1]=${apash_outArray[i]}
-unset "apash_outArray[$i]"
-done
-fi
-ArrayUtils.clone "apash_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.removeAll() {
-Log.in $LINENO "$@"
-[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local ioArrayName="${1:-}"
-local -a indexes=()
-local index=""
-local -i i
-shift  
-for index in "$@"; do
-ArrayUtils.isArrayIndexValid "$ioArrayName" "$index"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-indexes+=("$index")
-done
-ArrayUtils.removeDuplicates "indexes" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Array.sort "indexes"                  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_ArrayUtils_removeAll_outArray=()
-ArrayUtils.clone "$ioArrayName" "apash_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i-- )); do
-ArrayUtils.remove "apash_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
-ArrayUtils.clone "apash_ArrayUtils_removeAll_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.removeAllOccurrences() {
-Log.in $LINENO "$@"
-[ $# -ne 2 ] && return "$APASH_FAILURE"
-local apash_ArrayUtils_rao_ioArrayName="${1:-}"
-local apash_inValue="${2:-}"
-local apash_lastIndex
-local -a apash_ArrayUtils_rao_outArray=()
-local -i apash_i
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ArrayUtils_rao_ioArrayName")       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "$apash_ArrayUtils_rao_ioArrayName" "apash_ArrayUtils_rao_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( apash_i=apash_lastIndex; apash_i >= APASH_ARRAY_FIRST_INDEX; apash_i-- )); do
-if [[ "${apash_ArrayUtils_rao_outArray[apash_i]:-}" == "$apash_inValue" ]]; then
-ArrayUtils.remove "apash_ArrayUtils_rao_outArray" $apash_i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-done
-ArrayUtils.clone "apash_ArrayUtils_rao_outArray" "$apash_ArrayUtils_rao_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.removeDuplicates() {
-Log.in $LINENO "$@"
-local apash_ioArrayName="${1:-}"
-local apash_lastIndex
-local -a apash_uniqueArray=()
-local -i apash_i
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
-ArrayUtils.contains "apash_uniqueArray" "${${(P)apash_ioArrayName}[apash_i]}" || apash_uniqueArray+=("${${(P)apash_ioArrayName}[apash_i]}")
-done
-else
-local -n ioArray="$apash_ioArrayName"
-for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
-ArrayUtils.contains "apash_uniqueArray" "${ioArray[apash_i]}" || apash_uniqueArray+=( "${ioArray[apash_i]}")
-done
-fi
-ArrayUtils.clone "apash_uniqueArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.removeElement() {
-Log.in $LINENO "$@"
-[ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local ioArrayName="${1:-}"
-local inValue="${2:-}"
-local index
-ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-index=$(ArrayUtils.indexOf "$ioArrayName" "$inValue")
-[[ "$index" = "$ArrayUtils_INDEX_NOT_FOUND" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-ArrayUtils.remove "$ioArrayName" "$index"      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ArrayUtils.removeElements() {
-Log.in $LINENO "$@"
-[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local ioArrayRef="${1:-}"
-ArrayUtils.isArray "$ioArrayRef" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for value in "$@"; do
-ArrayUtils.removeElement "$ioArrayRef" "$value" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
+shift
+apash_outArray=("$@")
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ArrayUtils.reverse() {
@@ -788,6 +460,156 @@ apash_inStartIndex=$((apash_inStartIndex + 1))
 apash_inEndIndex=$((apash_inEndIndex - 1))
 done
 ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.removeElements() {
+Log.in $LINENO "$@"
+[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local ioArrayRef="${1:-}"
+ArrayUtils.isArray "$ioArrayRef" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for value in "$@"; do
+ArrayUtils.removeElement "$ioArrayRef" "$value" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.getLength() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_lastIndex
+if [ "$APASH_SHELL" = "zsh" ]; then
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex  $LINENO; return "$APASH_FAILURE"; }
+echo "${#${(PA)apash_inArrayName}[@]}"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }  
+[[ $apash_lastIndex == $APASH_ARRAY_LAST_INDEX ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "$((apash_lastIndex+1))"                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.addAll() {
+Log.in $LINENO "$@"
+local apash_ioArrayName="${1:-}"
+ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+shift
+[ $# -eq 0 ] && return "$APASH_SUCCESS"
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a apash_outArray=()
+ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else # bash
+local -n apash_outArray="$apash_ioArrayName"
+fi
+apash_outArray+=("$@")                                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.subarray() {
+Log.in $LINENO "$@"
+local apash_outSubArrayName="${1:-}"
+local apash_inArrayName="${2:-}"
+local apash_inStartIndex="${3:-}"
+local apash_inEndIndex="${4:-}"
+local -a apash_inArray=()
+local -a apash_outArray=()
+local apash_lastIndex
+ArrayUtils.isArray "$apash_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "$apash_inArrayName" "apash_inArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $apash_inStartIndex -gt $apash_lastIndex         ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
+[[ $apash_inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inEndIndex=$APASH_ARRAY_FIRST_INDEX
+[[ $apash_inEndIndex   -gt $apash_lastIndex         ]] && apash_inEndIndex=$((apash_lastIndex+1))
+[[ $apash_inStartIndex -gt $apash_inEndIndex        ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+apash_outArray=("${apash_inArray[@]:$apash_inStartIndex-$APASH_ARRAY_FIRST_INDEX:$apash_inEndIndex-$apash_inStartIndex}")
+ArrayUtils.clone "apash_outArray" "$apash_outSubArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.removeElement() {
+Log.in $LINENO "$@"
+[ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local ioArrayName="${1:-}"
+local inValue="${2:-}"
+local index
+ArrayUtils.isArray "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+index=$(ArrayUtils.indexOf "$ioArrayName" "$inValue")
+[[ "$index" = "$ArrayUtils_INDEX_NOT_FOUND" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+ArrayUtils.remove "$ioArrayName" "$index"      || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.contains() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inValue="${2:-}"
+local apash_value=""
+[ $# -ne 2 ]                            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a apash_inArray=()
+ArrayUtils.clone "$apash_inArrayName" apash_inArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_inArrayName"
+fi 
+for apash_value in "${apash_inArray[@]:-}"; do
+[[ "$apash_value" == "$apash_inValue" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+done
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.add() {
+Log.in $LINENO "$@"
+local apash_ioArrayName="${1:-}"
+local apash_inValue="${2:-}"
+[ $# -gt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a apash_outArray=()
+ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_outArray+=("$apash_inValue")                     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_ioArrayName"
+apash_inArray+=("$apash_inValue") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.nullToEmpty() {
+Log.in $LINENO "$@"
+local inArrayName="${1:-}"
+ShellUtils.isVariableNameValid "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+ShellUtils.isDeclared "$inArrayName" && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.declareArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.addFirst() {
+Log.in $LINENO "$@"
+local apash_ioArrayName="${1:-}"
+local apash_inValue="${2:-}"
+local -a apash_outArray=("$apash_inValue")
+local -a apash_inArray=()
+local -i apash_i
+[ $# -gt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.nullToEmpty "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[ $# -lt 2 ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+ArrayUtils.clone "$apash_ioArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+apash_outArray+=("${apash_inArray[@]}")
+else
+for apash_i in "${!apash_inArray[@]}"; do
+apash_outArray[apash_i+1]="${apash_inArray[apash_i]}"
+done
+fi
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.isArrayIndex() {
+Log.in $LINENO "$@"
+local inIndex="${1:-}"
+NumberUtils.isLong "$inIndex"               || { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ArrayUtils.shift() {
@@ -831,39 +653,111 @@ done
 ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils.shuffle() {
+ArrayUtils.anythingToEmpty() {
 Log.in $LINENO "$@"
 local apash_ioArrayName="${1:-}"
+ShellUtils.isVariableNameValid "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+unset "$apash_ioArrayName"
+ShellUtils.declareArray "$apash_ioArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+return "$APASH_SUCCESS"
+}
+ArrayUtils.removeDuplicates() {
+Log.in $LINENO "$@"
+local apash_ioArrayName="${1:-}"
+local apash_lastIndex
+local -a apash_uniqueArray=()
 local -i apash_i
-local -a apash_outArray=()
-ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( apash_i=${#apash_outArray[@]}; apash_i > 1; apash_i-- )); do
-ArrayUtils.swap "apash_outArray" $((apash_i - 1)) "$(Random.nextInt 0 $apash_i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ioArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
+ArrayUtils.contains "apash_uniqueArray" "${${(P)apash_ioArrayName}[apash_i]}" || apash_uniqueArray+=("${${(P)apash_ioArrayName}[apash_i]}")
 done
-ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+local -n ioArray="$apash_ioArrayName"
+for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i <= apash_lastIndex ; apash_i++ )); do
+ArrayUtils.contains "apash_uniqueArray" "${ioArray[apash_i]}" || apash_uniqueArray+=( "${ioArray[apash_i]}")
+done
+fi
+ArrayUtils.clone "apash_uniqueArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils.subarray() {
+ArrayUtils.removeAllOccurrences() {
 Log.in $LINENO "$@"
-local apash_outSubArrayName="${1:-}"
-local apash_inArrayName="${2:-}"
-local apash_inStartIndex="${3:-}"
-local apash_inEndIndex="${4:-}"
-local -a apash_inArray=()
-local -a apash_outArray=()
+[ $# -ne 2 ] && return "$APASH_FAILURE"
+local apash_ArrayUtils_rao_ioArrayName="${1:-}"
+local apash_inValue="${2:-}"
 local apash_lastIndex
-ArrayUtils.isArray "$apash_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$apash_inStartIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$apash_inEndIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "$apash_inArrayName" "apash_inArray"           || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $apash_inStartIndex -gt $apash_lastIndex         ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-[[ $apash_inStartIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStartIndex=$APASH_ARRAY_FIRST_INDEX
-[[ $apash_inEndIndex   -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inEndIndex=$APASH_ARRAY_FIRST_INDEX
-[[ $apash_inEndIndex   -gt $apash_lastIndex         ]] && apash_inEndIndex=$((apash_lastIndex+1))
-[[ $apash_inStartIndex -gt $apash_inEndIndex        ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-apash_outArray=("${apash_inArray[@]:$apash_inStartIndex-$APASH_ARRAY_FIRST_INDEX:$apash_inEndIndex-$apash_inStartIndex}")
-ArrayUtils.clone "apash_outArray" "$apash_outSubArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -a apash_ArrayUtils_rao_outArray=()
+local -i apash_i
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_ArrayUtils_rao_ioArrayName")       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "$apash_ArrayUtils_rao_ioArrayName" "apash_ArrayUtils_rao_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( apash_i=apash_lastIndex; apash_i >= APASH_ARRAY_FIRST_INDEX; apash_i-- )); do
+if [[ "${apash_ArrayUtils_rao_outArray[apash_i]:-}" == "$apash_inValue" ]]; then
+ArrayUtils.remove "apash_ArrayUtils_rao_outArray" $apash_i || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+done
+ArrayUtils.clone "apash_ArrayUtils_rao_outArray" "$apash_ArrayUtils_rao_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.lastIndexOf() {
+Log.in $LINENO "$@"
+[[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_inArrayName="${1:-}"
+local apash_inValue="${2:-}"
+local apash_inStart="${3:-0}"
+local apash_i
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$apash_inStart"     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
+if [ "$APASH_SHELL" =  "zsh" ]; then
+local -a apash_inArray=()
+ArrayUtils.clone "$apash_inArrayName" "apash_inArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_inArrayName"
+fi
+for (( apash_i=APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]}-1; apash_i >= apash_inStart; apash_i-- )); do
+[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+done
+echo "$ArrayUtils_INDEX_NOT_FOUND"
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.get() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inIndex="${2:-}"
+local apash_inDefaultValue="${3:-}"
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if ! ArrayUtils.isArrayIndexValid "$apash_inArrayName" "$apash_inIndex"; then
+[[ $# -ne 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "$apash_inDefaultValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [ "$APASH_SHELL" = "zsh" ]; then
+echo "${${(P)apash_inArrayName}[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_inArrayName"
+echo "${apash_inArray[$apash_inIndex]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.countMatches() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inValue="${2:-}"
+local apash_value
+local -i apash_counter=0
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+for apash_value in "${${(P)apash_inArrayName}[@]}"; do
+[[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
+done
+else
+local -n apash_inArray="$apash_inArrayName"
+for apash_value in "${apash_inArray[@]}"; do
+[[ "$apash_value" == "$apash_inValue" ]] && ((apash_counter++))
+done
+fi
+echo "$apash_counter" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 ArrayUtils.swap() {
@@ -894,130 +788,364 @@ done
 ArrayUtils.clone "apash_ArrayUtils_swap_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils.toArray() {
+ArrayUtils.removeAll() {
 Log.in $LINENO "$@"
-[ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_ioArrayName="${1:-}" 
+[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local ioArrayName="${1:-}"
+local -a indexes=()
+local index=""
+local -i i
+shift  
+for index in "$@"; do
+ArrayUtils.isArrayIndexValid "$ioArrayName" "$index"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+indexes+=("$index")
+done
+ArrayUtils.removeDuplicates "indexes" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Array.sort "indexes"                  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_ArrayUtils_removeAll_outArray=()
+ArrayUtils.clone "$ioArrayName" "apash_ArrayUtils_removeAll_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( i=APASH_ARRAY_FIRST_INDEX+${#indexes[@]}-1; i >= APASH_ARRAY_FIRST_INDEX; i-- )); do
+ArrayUtils.remove "apash_ArrayUtils_removeAll_outArray" "${indexes[i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+ArrayUtils.clone "apash_ArrayUtils_removeAll_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.initWithValue() {
+Log.in $LINENO "$@"
+local ioArrayName="${1:-}"
+local inWidth="${2:-0}"
+local inValue="${3:-}"
+local -i i
+local apash_ArrayUtils_initWithValue_outArray=()
+NumberUtils.isLong "$inWidth" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( i=0 ; i < inWidth; i++ )); do
+apash_ArrayUtils_initWithValue_outArray+=("$inValue")
+done
+ArrayUtils.clone "apash_ArrayUtils_initWithValue_outArray" "$ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.isArray() {
+Log.in $LINENO "$@"
+local inVarName="${1:-}"
+declare -p "$inVarName" 2> /dev/null | grep -q "^\(declare\|typeset\).* -a " && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.indexOf() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inValue="${2:-}"
+local apash_inStart="${3:-$APASH_ARRAY_FIRST_INDEX}"
+local -i apash_i
+local apash_lastIndex
+[[ $# -lt 2 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$apash_inStart" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
+if [ "$APASH_SHELL" = "zsh" ]; then
+for (( apash_i=apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++ )); do
+[[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+done
+else
+local -n apash_inArray="$apash_inArrayName"
+for (( apash_i=apash_inStart; apash_i < apash_lastIndex+1 ; apash_i++ )); do
+[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && echo "$apash_i" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+done
+fi
+echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.isNotEmpty() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [[ $APASH_SHELL == "zsh" ]]; then
+[[ ${#${(P)apash_inArrayName}[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_inArrayName"
+[[ ${#apash_inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.getLastIndex() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local apash_arrayLength=${#${(P)apash_inArrayName}[@]}
+[[ $apash_arrayLength == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+echo "$(( APASH_ARRAY_FIRST_INDEX == 0 ? apash_arrayLength -  1 : apash_arrayLength))" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+local -n apash_inArray="$apash_inArrayName"
+[[ ${#apash_inArray[@]} == 0 ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local apash_indexes=("${!apash_inArray[@]}")
+echo "${apash_indexes[-1]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.isArrayIndexValid() {
+Log.in $LINENO "$@"
+local inArrayName="${1:-}"
+local inIndex="${2:-}"
+local lastIndex
+ArrayUtils.isArray "$inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isDigits "$inIndex"   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+lastIndex=$(ArrayUtils.getLastIndex "$inArrayName")  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isDigits "$lastIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $inIndex -lt $APASH_ARRAY_FIRST_INDEX ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inIndex -gt $lastIndex ]]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.shuffle() {
+Log.in $LINENO "$@"
+local apash_ioArrayName="${1:-}"
+local -i apash_i
 local -a apash_outArray=()
-shift
-apash_outArray=("$@")
+ArrayUtils.clone "$apash_ioArrayName" "apash_outArray" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( apash_i=${#apash_outArray[@]}; apash_i > 1; apash_i-- )); do
+ArrayUtils.swap "apash_outArray" $((apash_i - 1)) "$(Random.nextInt 0 $apash_i)" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
 ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-ArrayUtils_INDEX_NOT_FOUND="-1"
-ArrayUtils_EMPTY_ARRAY=()
-commons-lang.ArrayUtils() { true; }
-commons-lang.ShellUtils() { true; }
-CsvUtils.merge() {
+ArrayUtils.indexesOf() {
 Log.in $LINENO "$@"
-local inFile1="${1:-}"
-local inFile2="${2:-}"
-local -A functionMap=()
-local -a keys=()
-local functionName
-local header1 header2
-local -i nbFields1=0 nbFields2=0
-header1="$(head -n 1 "$inFile1")"
-header2="$(head -n 1 "$inFile2")"
-nbFields1=$(StringUtils.countMatches "$header1" ",")
-nbFields2=$(StringUtils.countMatches "$header2" ",")
-while IFS= read -r line; do
-functionName=${line%%,*}
-functionMap[$functionName]="$line"
-done < <(tail -n +2 "$inFile1")
-while IFS= read -r line; do
-functionName=${line%%,*}
-if MapUtils.containsKey functionMap "$functionName"; then
-functionMap[$functionName]+=",${line#*,}"
+local apash_outIndexesName="${1:-}"
+local apash_inArrayName="${2:-}"
+local apash_inValue="${3:-}"
+local apash_inStart="${4:-0}"
+local -i apash_i
+local -a apash_outIndexes=()
+ArrayUtils.nullToEmpty "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$apash_inArrayName"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong "$apash_inStart"            || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $apash_inStart -lt $APASH_ARRAY_FIRST_INDEX ]] && apash_inStart=$APASH_ARRAY_FIRST_INDEX
+if [ "$APASH_SHELL" = "zsh" ]; then
+for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#${(P)apash_inArrayName}[@]} ; apash_i++ )); do
+[[ "${${(P)apash_inArrayName}[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
+done
 else
-functionMap[$functionName]="${functionName}$(StringUtils.repeat "$nbFields1" ","),${line#*,}"
+local -n apash_inArray="$apash_inArrayName"
+for (( apash_i=apash_inStart; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inArray[@]} ; apash_i++ )); do
+[[ "${apash_inArray[apash_i]}" == "$apash_inValue" ]] && apash_outIndexes+=("$apash_i")
+done
 fi
-done < <(tail -n +2 "$inFile2")
-echo "$header1,${header2#*,}"
-MapUtils.getKeys "keys" "functionMap"
-for functionName in "${keys[@]}"; do
-if [[ $(StringUtils.countMatches "${functionMap["$functionName"]}" "," ) -eq $nbFields1 ]]; then
-functionMap[$functionName]+="$(StringUtils.repeat "$((nbFields2-1))" ",")"
+ArrayUtils.clone apash_outIndexes "$apash_outIndexesName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ArrayUtils.join() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inDelimiter="${2:- }"
+local apash_outString=""
+local apash_arrayLength
+local -i apash_i
+apash_arrayLength=$(ArrayUtils.getLength "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+apash_outString="${${(P)apash_inArrayName}[APASH_ARRAY_FIRST_INDEX]:-}"
+for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX+apash_arrayLength; apash_i++ )); do
+apash_outString+="${apash_inDelimiter}${${(P)apash_inArrayName}[apash_i]:-}"
+done
+else # bash
+local -n apash_inArray="$apash_inArrayName"
+apash_outString="${apash_inArray[0]:-}"
+for (( apash_i=APASH_ARRAY_FIRST_INDEX+1; apash_i < APASH_ARRAY_FIRST_INDEX+apash_arrayLength; apash_i++ )); do
+apash_outString+="${apash_inDelimiter}${apash_inArray[apash_i]:-}"
+done
 fi
-echo "${functionMap[$functionName]}"
-done 
+echo "$apash_outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-commons-lang.CsvUtils() { true; }
-DateUtils.add() {
+ArrayUtils.init() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local inAmount="${2:-}"
-local inType="${3:-}"
-local amount=$inAmount
-local type="$inType"
-local types=("years" "months" "weeks" "days" "hours" "minutes" "seconds" "milliseconds")
-ArrayUtils.contains "types" "$inType" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-DateUtils.isDate    "$inDate"         || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong  "$inAmount"       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$inType" = "milliseconds" ]; then
-type="seconds"
-amount=$(printf "%.3f\n" "$(echo "scale=3; $inAmount / 1000" | bc)")
+local apash_ArrayUtils_init_ioArrayName="${1:-}"
+ShellUtils.isVariableNameValid "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariable "$apash_ArrayUtils_init_ioArrayName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+MapUtils.isMap "$apash_ArrayUtils_init_ioArrayName"                && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if ! ShellUtils.isDeclared "$apash_ArrayUtils_init_ioArrayName"; then
+ShellUtils.declareArray "$apash_ArrayUtils_init_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 fi
-date -d "$inDate + $amount $type" "$DateUtils_UTC_FORMAT" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
+if [ "$APASH_SHELL" = "zsh" ]; then
+: ${(PA)apash_ArrayUtils_init_ioArrayName::=${ArrayUtils_EMPTY_ARRAY[@]}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+local -n apash_ArrayUtils_init_outArray="$apash_ArrayUtils_init_ioArrayName"
+apash_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
 }
-DateUtils.addDays() {
+ArrayUtils.clone() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "days" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+local apash_ArrayUtils_clone_inArrayName="${1:-}"
+local apash_ArrayUtils_clone_outArrayName="${2:-}"
+ArrayUtils.isArray "$apash_ArrayUtils_clone_inArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.init    "$apash_ArrayUtils_clone_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -n apash_ArrayUtils_clone_inArrayName="$apash_ArrayUtils_clone_inArrayName"
+local -n apash_ArrayUtils_clone_outArray="$apash_ArrayUtils_clone_outArrayName"
+local -i apash_i
+for apash_i in "${!apash_ArrayUtils_clone_inArrayName[@]}"; do
+apash_ArrayUtils_clone_outArray[apash_i]="${apash_ArrayUtils_clone_inArrayName[apash_i]}"
+done
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-DateUtils.addHours() {
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "hours" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-DateUtils.addMinutes() {
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "minutes" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-DateUtils.addMonths() {
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "months" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-DateUtils.addSeconds() {
+ArrayUtils.getNumberOfElements() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "seconds" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
+local apash_inArrayName="${1:-}"
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+echo "${#${(PA)apash_inArrayName}[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+local -n apash_inArray="$apash_inArrayName"
+echo "${#apash_inArray[@]}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
 }
-DateUtils.addWeeks() {
+ArrayUtils.isEmpty() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "weeks" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+local apash_inArrayName="${1:-}"
+ArrayUtils.isArray "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+[[ ${#${(P)apash_inArrayName}[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+else
+local -n apash_inArray="$apash_inArrayName"
+[[ ${#apash_inArray[@]} -ne 0 ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+fi
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-DateUtils.addYears() {
+ArrayUtils.concat() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local inAmount="${2:-0}"
-DateUtils.add "$inDate" "$inAmount" "years" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+local apash_outArrayName="${1:-}"
+local apash_arrayName
+local -a apash_outArray=()
+local -i apash_i apash_counter=0
+[ $# -lt 1 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+shift
+for apash_arrayName in "$@"; do
+ArrayUtils.isArray "$apash_arrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+ArrayUtils.nullToEmpty "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for apash_arrayName in "$@"; do
+if [ "$APASH_SHELL" = "zsh" ]; then
+[[ ${#${(P)apash_arrayName[@]}} == 1 && ${${(P)apash_arrayName}[@]} == "" ]] \
+&& apash_outArray+=("") \
+|| apash_outArray+=("${${(P)apash_arrayName}[@]}")
+else
+local -n apash_inArray="$apash_arrayName"
+[[ ${#apash_inArray[@]} -eq 0 ]] && continue
+for apash_i in "${!apash_inArray[@]}"; do
+apash_outArray[apash_counter+apash_i]="${apash_inArray[apash_i]}"
+done
+apash_counter=$(ArrayUtils.getLastIndex "apash_outArray") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+((apash_counter++))
+fi
+done
+ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-DateUtils.isDate() {
+ArrayUtils.insert() {
 Log.in $LINENO "$@"
-local inDate="${1:-}"
-local datePattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\+[0-9]{4}$"
-[[ ! $inDate =~ $datePattern ]]    && { Log.out $LINENO; return "$APASH_FAILURE"; }
-date -d "$inDate" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+[ $# -lt 3 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_inIndex="${1:-}"
+local apash_ioArrayName="${2:-}"
+local -i apash_i
+local -i apash_j
+shift 2
+local apash_inValues=("$@")
+ArrayUtils.isArray "$apash_ioArrayName"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArrayIndex "$apash_inIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a apash_outArray=()
+apash_outArray=("${${(P)apash_ioArrayName}[@]:0:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+"${apash_inValues[@]}" \
+"${${(P)apash_ioArrayName}[@]:$((apash_inIndex-APASH_ARRAY_FIRST_INDEX))}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+local -n apash_ioArray="$apash_ioArrayName"
+local apash_isInserted=false
+for apash_i in "${!apash_ioArray[@]}"; do
+if [[ $apash_i -lt apash_inIndex ]]; then
+apash_outArray[apash_i]="${apash_ioArray[apash_i]}"
+elif [[ $apash_i -ge apash_inIndex ]]; then
+if [[ $apash_isInserted == false ]]; then
+for (( apash_j=APASH_ARRAY_FIRST_INDEX; apash_j < APASH_ARRAY_FIRST_INDEX+${#apash_inValues[@]}; apash_j++ )); do
+apash_outArray[apash_j+apash_inIndex]=${apash_inValues[apash_j]}     || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+done
+apash_isInserted=true
+fi
+apash_outArray[apash_i+${#apash_inValues[@]}]="${apash_ioArray[apash_i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+fi
+done
+if [[ $apash_isInserted == false ]]; then
+for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+${#apash_inValues[@]}; apash_i++ )); do
+apash_outArray[apash_i+apash_inIndex]="${apash_inValues[apash_i]}" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+done
+fi
+ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+ArrayUtils.remove() {
+Log.in $LINENO "$@"
+[ $# -ne 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local ioArrayName="${1:-}"
+local inIndex="${2:-}"
+local i
+ArrayUtils.isArray "$ioArrayName"                       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArrayIndexValid "$ioArrayName" "$inIndex"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -a apash_outArray=()
+if [ "$APASH_SHELL" = "zsh" ]; then
+apash_outArray=("${${(P)ioArrayName}[@]:0:$((inIndex-APASH_ARRAY_FIRST_INDEX))}" \
+"${${(P)ioArrayName}[@]:$((inIndex-APASH_ARRAY_FIRST_INDEX+1))}")
+else
+ArrayUtils.clone "$ioArrayName" apash_outArray || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+unset "apash_outArray[$inIndex]"
+for i in "${!apash_outArray[@]}"; do
+[[ $i -lt $inIndex ]] && continue
+apash_outArray[i-1]=${apash_outArray[i]}
+unset "apash_outArray[$i]"
+done
+fi
+ArrayUtils.clone "apash_outArray" "$ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-DateUtils_UTC_FORMAT="+%FT%T.%3N%z"
-commons-lang.DateUtils() { true; }
+commons-lang.ShellUtils() { true; }
+MapUtils.getKeys() {
+Log.in $LINENO "$@"
+local apash_outArrayName="${1:-}"
+local apash_inMapName="${2:-}"
+local -a apash_outArray=()
+MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+apash_outArray=("${(@kP)apash_inMapName}")
+else # bash
+local -n inMap="$apash_inMapName"
+apash_outArray=("${!inMap[@]}")
+fi
+ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MapUtils.isMap() {
+Log.in $LINENO "$@"
+declare -p "${1:-}" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MapUtils.init() {
+Log.in $LINENO "$@"
+local apash_MapUtils_init_ioMapName="${1:-}"
+ShellUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ShellUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$apash_MapUtils_init_ioMapName"            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if ! ShellUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
+ShellUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [ "$APASH_SHELL" = "zsh" ]; then
+: ${(PAA)apash_MapUtils_init_ioMapName::=${(kv)${MaptUtils_EMPTY_MAP:-}}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+local -n apash_ArrayUtils_init_outArray="$apash_MapUtils_init_ioMapName"
+apash_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
 MapUtils.clone() {
 Log.in $LINENO "$@"
 local apash_MapUtils_clone_inMapName="${1:-}"
@@ -1055,46 +1183,228 @@ done
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
-MapUtils.getKeys() {
+commons-lang.VersionUtils() { true; }
+ArrayUtils_INDEX_NOT_FOUND="-1"
+ArrayUtils_EMPTY_ARRAY=()
+commons-lang.ArrayUtils() { true; }
+ShellUtils.isDeclared() {
 Log.in $LINENO "$@"
-local apash_outArrayName="${1:-}"
-local apash_inMapName="${2:-}"
-local -a apash_outArray=()
-MapUtils.isMap "$apash_inMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-apash_outArray=("${(@kP)apash_inMapName}")
-else # bash
-local -n inMap="$apash_inMapName"
-apash_outArray=("${!inMap[@]}")
-fi
-ArrayUtils.clone "apash_outArray" "$apash_outArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local varName="${1:-}"
+declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-MapUtils.init() {
+ShellUtils.isVariableNameValid() {
 Log.in $LINENO "$@"
-local apash_MapUtils_init_ioMapName="${1:-}"
-ShellUtils.isVariableNameValid "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ShellUtils.isVariable "$apash_MapUtils_init_ioMapName"          && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray "$apash_MapUtils_init_ioMapName"            && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if ! ShellUtils.isDeclared "$apash_MapUtils_init_ioMapName"; then
-ShellUtils.declareArray "$apash_MapUtils_init_ioMapName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local varName="${1:-}"
+[ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+local LC_COLLATE=C
+[[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
-fi
+}
+ShellUtils.getFunctionName() {
+local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
+local functionName
 if [ "$APASH_SHELL" = "zsh" ]; then
-: ${(PAA)apash_MapUtils_init_ioMapName::=${(kv)${MaptUtils_EMPTY_MAP:-}}} && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-local -n apash_ArrayUtils_init_outArray="$apash_MapUtils_init_ioMapName"
-apash_ArrayUtils_init_outArray=() && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FAILURE"
+functionName="${funcstack[inDepth]}"
+else # bash
+[ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FAILURE"
+functionName="${FUNCNAME[inDepth]}"
 fi
+echo "$functionName" || return "$APASH_FAILURE"
+return "$APASH_SUCCESS"
+}
+ShellUtils.isZsh() {
+Log.in $LINENO "$@"
+[[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.isCommandValid() {
+Log.in $LINENO "$@"
+local commandName="${1:-}"
+command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS";
+}
+ShellUtils.isVariable() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+ShellUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.declareArray() {
+Log.in $LINENO "$@"
+local varName="${1:-}"
+if [ "$APASH_SHELL" = "zsh" ]; then
+declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else # bash
+declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+ShellUtils.getParentFunctionName() {
+ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
+return "$APASH_SUCCESS"
+}
+MatrixUtils_DIM_ARRAY_PREFIX="_apash_matrix_dim_"
+commons-lang.MatrixUtils() { true; }
+CsvUtils.merge() {
+Log.in $LINENO "$@"
+local inFile1="${1:-}"
+local inFile2="${2:-}"
+local -A functionMap=()
+local -a keys=()
+local functionName
+local header1 header2
+local -i nbFields1=0 nbFields2=0
+header1="$(head -n 1 "$inFile1")"
+header2="$(head -n 1 "$inFile2")"
+nbFields1=$(StringUtils.countMatches "$header1" ",")
+nbFields2=$(StringUtils.countMatches "$header2" ",")
+while IFS= read -r line; do
+functionName=${line%%,*}
+functionMap[$functionName]="$line"
+done < <(tail -n +2 "$inFile1")
+while IFS= read -r line; do
+functionName=${line%%,*}
+if MapUtils.containsKey functionMap "$functionName"; then
+functionMap[$functionName]+=",${line#*,}"
+else
+functionMap[$functionName]="${functionName}$(StringUtils.repeat "$nbFields1" ","),${line#*,}"
+fi
+done < <(tail -n +2 "$inFile2")
+echo "$header1,${header2#*,}"
+MapUtils.getKeys "keys" "functionMap"
+for functionName in "${keys[@]}"; do
+if [[ $(StringUtils.countMatches "${functionMap["$functionName"]}" "," ) -eq $nbFields1 ]]; then
+functionMap[$functionName]+="$(StringUtils.repeat "$((nbFields2-1))" ",")"
+fi
+echo "${functionMap[$functionName]}"
+done 
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+commons-lang.CsvUtils() { true; }
+DateUtils.addHours() {
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "hours" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addMonths() {
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "months" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.isDate() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local datePattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\+[0-9]{4}$"
+[[ ! $inDate =~ $datePattern ]]    && { Log.out $LINENO; return "$APASH_FAILURE"; }
+date -d "$inDate" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addDays() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "days" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.add() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local inAmount="${2:-}"
+local inType="${3:-}"
+local amount=$inAmount
+local type="$inType"
+local types=("years" "months" "weeks" "days" "hours" "minutes" "seconds" "milliseconds")
+ArrayUtils.contains "types" "$inType" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+DateUtils.isDate    "$inDate"         || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isLong  "$inAmount"       || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$inType" = "milliseconds" ]; then
+type="seconds"
+amount=$(printf "%.3f\n" "$(echo "scale=3; $inAmount / 1000" | bc)")
+fi
+date -d "$inDate + $amount $type" "$DateUtils_UTC_FORMAT" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addSeconds() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "seconds" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addWeeks() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "weeks" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addMinutes() {
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "minutes" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+DateUtils.addYears() {
+Log.in $LINENO "$@"
+local inDate="${1:-}"
+local inAmount="${2:-0}"
+DateUtils.add "$inDate" "$inAmount" "years" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+VersionUtils.compare() {
+Log.in $LINENO "$@"
+local version1="${1:-}"
+local version2="${2:-}"
+local -a vArray1=()
+local -a vArray2=()
+local -i i
+[[ "$version1" == "$version2" ]] && echo "0" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+StringUtils.splitAny "vArray1" "$version1" "." "-"
+StringUtils.splitAny "vArray2" "$version2" "." "-"
+maxIndex=$((APASH_ARRAY_FIRST_INDEX + $(NumberUtils.max "${#vArray1[@]}" "${#vArray2[@]}")))
+for (( i=APASH_ARRAY_FIRST_INDEX; i < maxIndex; i++)); do
+[[ "${vArray1[i]:-}" == "${vArray2[i]:-}" ]] && continue
+if [[ $i -lt $((APASH_ARRAY_FIRST_INDEX+4)) ]]; then
+[[ -n "${vArray1[i]:-}" && -z "${vArray2[i]:-}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ -z "${vArray1[i]:-}" && -n "${vArray2[i]:-}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+[[ -n "${vArray1[i]:-}" && -z "${vArray2[i]:-}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ -z "${vArray1[i]:-}" && -n "${vArray2[i]:-}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+if NumberUtils.isLongPositive "${vArray1[i]:-}" \
+&& NumberUtils.isLongPositive "${vArray2[i]:-}" ; then
+if [[ ${vArray1[i]:-} -lt  ${vArray2[i]:-}  ]]; then
+echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+else # At least one fied is not numeric, then check alphanumeric order
+if [[ "${vArray1[i]:-}" <  "${vArray2[i]:-}"  ]]; then
+echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+fi
+done
 Log.out $LINENO; return "$APASH_FAILURE"
 }
-MapUtils.isMap() {
+VersionUtils.isLowerOrEquals() {
 Log.in $LINENO "$@"
-declare -p "${1:-}" 2> /dev/null | grep -q "^\(declare\|typeset\).* -A " || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
+local version1="${1:-}"
+local version2="${2:-}"
+local comp
+comp=$(VersionUtils.compare "$version1" "$version2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ "$comp" == "-1" || "$comp" == "0" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
 }
-declare -A MaptUtils_EMPTY_MAP=()
-commons-lang.MapUtils() { true; }
+commons-lang.ApashUtils() { true; }
+commons-lang.NumberUtils() { true; }
 MatrixUtils.create() {
 Log.in $LINENO "$@"
 [[ $# -lt 3 ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
@@ -1115,6 +1425,78 @@ fi
 nbDim=$((nbDim+1))
 done
 Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MatrixUtils.isMatrix() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_inArrayName}"
+local -i apash_i
+ArrayUtils.isArray "$apash_inArrayName"        || { Log.out $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$apash_dimMatrixName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+for apash_i in "${${(P)apash_dimMatrixName}[@]}"; do
+ArrayUtils.isArrayIndex "$apash_i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+[ "$apash_i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
+done
+else
+local -n inMatrixDim="$apash_dimMatrixName"
+for apash_i in "${inMatrixDim[@]}"; do
+ArrayUtils.isArrayIndex "$apash_i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+[ "$apash_i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
+done
+fi
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MatrixUtils.toString() {
+Log.in $LINENO "$@"
+local apash_matrixName="${1:-}"
+local apash_matrix_toString
+local -i apash_i
+local -i apash_j
+MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a apash_matrix=()
+ArrayUtils.clone "$apash_matrixName" "apash_matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else # bash
+local -n apash_matrix="$apash_matrixName"
+local -n apash_matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
+fi
+ArrayUtils.clone "apash_matrixDim" "apash_matrix_toString"
+for (( apash_i=0; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
+[[ $apash_i == 0 ]] && totalIndexes=${apash_matrixDim[apash_i]} || totalIndexes=$((totalIndexes * apash_matrixDim[apash_i]))
+apash_matrix_toString[apash_i]=0
+done
+for (( apash_i=0; apash_i < totalIndexes; apash_i++ )); do
+echo "$apash_matrixName($(ArrayUtils.join apash_matrix_toString ","))=${apash_matrix[apash_i]} "
+apash_matrix_toString[-1]=$((apash_matrix_toString[-1]+1))
+for (( apash_j=${#apash_matrix_toString[@]}-1; apash_j > 0; apash_j--)); do
+if [[ ${apash_matrix_toString[apash_j]} -ge ${apash_matrixDim[apash_j]} ]]; then
+apash_matrix_toString[apash_j]=0
+apash_matrix_toString[apash_j-1]=$((apash_matrix_toString[apash_j-1]+1))
+fi
+done
+done
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MatrixUtils.set() {
+Log.in $LINENO "$@"
+[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_matrixName="${1:-}"
+local apash_value="${2:-}"
+local -i apash_cellIndex=$APASH_ARRAY_FIRST_INDEX
+shift 2
+MatrixUtils.isMatrix "$apash_matrixName"                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_cellIndex=$(MatrixUtils.getIndex "$apash_matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local -a matrix=()
+ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+matrix[apash_cellIndex]="$apash_value"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+local -n matrix="$apash_matrixName"
+matrix[apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
 }
 MatrixUtils.get() {
 Log.in $LINENO "$@"
@@ -1146,6 +1528,31 @@ start=$(MatrixUtils.getIndex "$matrixName" "${indexes[@]:-}")      || { Log.ex $
 length=$(MatrixUtils.getDimOffset "$matrixName" "${indexes[@]:-}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 [[ $length -le 0 ]] && length=1
 ArrayUtils.subarray "$inArrayName" "$matrixName" "$start" $((start + length)) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+MatrixUtils.setDim() {
+Log.in $LINENO "$@"
+[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local apash_inMatrixName="${1:-}"
+local apash_inArrayName="${2:-}"
+shift 2
+local apash_indexes=("$@")
+local -i apash_start=$APASH_ARRAY_FIRST_INDEX
+local -i apash_lastDimIndex=0
+local -i apash_i
+MatrixUtils.isMatrix "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.isArray "$apash_inArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_start=$(MatrixUtils.getIndex "$apash_inMatrixName" "${apash_indexes[@]}")               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+apash_lastDimIndex=$(MatrixUtils.getDimLastIndex "$apash_inMatrixName" "${apash_indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -a inMatrix=()
+local -a inArray=()
+ArrayUtils.clone "$apash_inMatrixName" "inMatrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "$apash_inArrayName"  "inArray"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $((apash_start + ${#inArray[@]}-1)) -gt ${apash_lastDimIndex} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( apash_i=apash_start; apash_i < apash_lastDimIndex+1; apash_i++ )); do
+inMatrix[apash_i]=${inArray[APASH_ARRAY_FIRST_INDEX+apash_i-apash_start]}
+done
+ArrayUtils.clone "inMatrix" "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
 MatrixUtils.getDimLastIndex() {
@@ -1233,236 +1640,61 @@ apash_cellIndex=$(( apash_cellIndex + ${apash_indexes[-1]}))
 echo "$apash_cellIndex" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-MatrixUtils.isMatrix() {
+StringUtils.replace() {
 Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_dimMatrixName="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_inArrayName}"
-local -i apash_i
-ArrayUtils.isArray "$apash_inArrayName"        || { Log.out $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray "$apash_dimMatrixName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-for apash_i in "${${(P)apash_dimMatrixName}[@]}"; do
-ArrayUtils.isArrayIndex "$apash_i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-[ "$apash_i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
+local inString="${1:-}"
+local inSubstring="${2:-}"
+local inReplacement="${3:-}"
+[ -z "$inSubstring" ] && echo "${inString}"         && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+echo "${inString//"$inSubstring"/"$inReplacement"}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.trim() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local trimmedString=""
+trimmedString="$(echo "$inString" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+echo "$trimmedString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.repeat() {
+Log.in $LINENO "$@"
+local inNumber="${1:-}"
+local inString="${2:-}"
+local outString=""
+local -i i
+NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [[ $APASH_SHELL == "zsh" ]] && \
+VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
+for (( i=0; i < inNumber; i++ )); do
+outString+="$inString"
 done
 else
-local -n inMatrixDim="$apash_dimMatrixName"
-for apash_i in "${inMatrixDim[@]}"; do
-ArrayUtils.isArrayIndex "$apash_i" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-[ "$apash_i" -eq 0 ]               && { Log.out $LINENO; return "$APASH_FAILURE"; }
-done
+outString=$(printf "%0.s$inString" $(seq 1 "$inNumber")) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 fi
+echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-MatrixUtils.set() {
+StringUtils.reverse() {
 Log.in $LINENO "$@"
-[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_matrixName="${1:-}"
-local apash_value="${2:-}"
-local -i apash_cellIndex=$APASH_ARRAY_FIRST_INDEX
-shift 2
-MatrixUtils.isMatrix "$apash_matrixName"                   || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_cellIndex=$(MatrixUtils.getIndex "$apash_matrixName" "$@") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local -a matrix=()
-ArrayUtils.clone "$apash_matrixName" "matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-matrix[apash_cellIndex]="$apash_value"        || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "matrix" "$apash_matrixName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local inString="${1:-}"
+local reversed_string=""
+local -i i
+if ShellUtils.isCommandValid "rev"; then
+echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 else
-local -n matrix="$apash_matrixName"
-matrix[apash_cellIndex]="$apash_value" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
+for (( i=${#inString}-1; i>=0; i-- )); do
+reversed_string="$reversed_string${inString:$i:1}"
+done
+echo "$reversed_string" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
-MatrixUtils.setDim() {
+StringUtils.equals() {
 Log.in $LINENO "$@"
-[ $# -lt 2 ] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local apash_inMatrixName="${1:-}"
-local apash_inArrayName="${2:-}"
-shift 2
-local apash_indexes=("$@")
-local -i apash_start=$APASH_ARRAY_FIRST_INDEX
-local -i apash_lastDimIndex=0
-local -i apash_i
-MatrixUtils.isMatrix "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray "$apash_inArrayName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_start=$(MatrixUtils.getIndex "$apash_inMatrixName" "${apash_indexes[@]}")               || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-apash_lastDimIndex=$(MatrixUtils.getDimLastIndex "$apash_inMatrixName" "${apash_indexes[@]}") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local -a inMatrix=()
-local -a inArray=()
-ArrayUtils.clone "$apash_inMatrixName" "inMatrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "$apash_inArrayName"  "inArray"  || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $((apash_start + ${#inArray[@]}-1)) -gt ${apash_lastDimIndex} ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( apash_i=apash_start; apash_i < apash_lastDimIndex+1; apash_i++ )); do
-inMatrix[apash_i]=${inArray[APASH_ARRAY_FIRST_INDEX+apash_i-apash_start]}
-done
-ArrayUtils.clone "inMatrix" "$apash_inMatrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-MatrixUtils.toString() {
-Log.in $LINENO "$@"
-local apash_matrixName="${1:-}"
-local apash_matrix_toString
-local -i apash_i
-local -i apash_j
-MatrixUtils.isMatrix "$apash_matrixName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local -a apash_matrix=()
-ArrayUtils.clone "$apash_matrixName" "apash_matrix" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else # bash
-local -n apash_matrix="$apash_matrixName"
-local -n apash_matrixDim="${MatrixUtils_DIM_ARRAY_PREFIX}${apash_matrixName}"
-fi
-ArrayUtils.clone "apash_matrixDim" "apash_matrix_toString"
-for (( apash_i=0; apash_i < ${#apash_matrixDim[@]}; apash_i++ )); do
-[[ $apash_i == 0 ]] && totalIndexes=${apash_matrixDim[apash_i]} || totalIndexes=$((totalIndexes * apash_matrixDim[apash_i]))
-apash_matrix_toString[apash_i]=0
-done
-for (( apash_i=0; apash_i < totalIndexes; apash_i++ )); do
-echo "$apash_matrixName($(ArrayUtils.join apash_matrix_toString ","))=${apash_matrix[apash_i]} "
-apash_matrix_toString[-1]=$((apash_matrix_toString[-1]+1))
-for (( apash_j=${#apash_matrix_toString[@]}-1; apash_j > 0; apash_j--)); do
-if [[ ${apash_matrix_toString[apash_j]} -ge ${apash_matrixDim[apash_j]} ]]; then
-apash_matrix_toString[apash_j]=0
-apash_matrix_toString[apash_j-1]=$((apash_matrix_toString[apash_j-1]+1))
-fi
-done
-done
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-MatrixUtils_DIM_ARRAY_PREFIX="_apash_matrix_dim_"
-commons-lang.MatrixUtils() { true; }
-NumberUtils.compare() {
-Log.in $LINENO "$@"
-local inNumber1="${1:-}"
-local inNumber2="${2:-}"
-NumberUtils.isLong "$inNumber1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isLong "$inNumber2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-echo $((inNumber1 - inNumber2)) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-NumberUtils.isDigits() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-local pattern="^[0-9]+$"
-[[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-NumberUtils.isInteger() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-[[ ! $inNumber =~ ^-?[0-9]+$ ]]        && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inNumber -gt $Integer_MAX_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inNumber -lt $Integer_MIN_VALUE ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-NumberUtils.isLong() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-local pattern="^-?[0-9]{1,19}$"
-[[ ! $inNumber =~ $pattern ]] && return "$APASH_FAILURE"
-[[ "${inNumber:0:1}" = "-"  && ${#inNumber} -eq 20 && "$inNumber" > "$Long_MIN_VALUE" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ "${inNumber:0:1}" != "-" && ${#inNumber} -eq 19 && "$inNumber" > "$Long_MAX_VALUE" ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }  
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-NumberUtils.isLongPositive() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-NumberUtils.isLong "$inNumber" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inNumber -ge 0 ]]          || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-NumberUtils.isParsable() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-local pattern="^-?[0-9]*\.?[0-9]+$"
-[[ $inNumber =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-NumberUtils.max() {
-Log.in $LINENO "$@"
-local max="${1:-}"
-NumberUtils.isParsable "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-shift
-for n in "$@"; do
-NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-max=$(Math.max "$max" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
-echo "$max" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-NumberUtils.min() {
-Log.in $LINENO "$@"
-local min="${1:-}"
-NumberUtils.isParsable "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-shift
-for n in "$@"; do
-NumberUtils.isParsable "$n" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-min=$(Math.min "$min" "$n") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-done
-echo "$min" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-commons-lang.NumberUtils() { true; }
-ShellUtils.declareArray() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-if [ "$APASH_SHELL" = "zsh" ]; then
-declare -g -a "$varName"    || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else # bash
-declare -g -a "$varName=()" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.getFunctionName() {
-local inDepth="${1:-$((APASH_ARRAY_FIRST_INDEX+1))}"
-local functionName
-if [ "$APASH_SHELL" = "zsh" ]; then
-[ "$inDepth" -gt "${#funcstack[@]}" ] && return "$APASH_FAILURE"
-functionName="${funcstack[inDepth]}"
-else # bash
-[ "$inDepth" -gt "${#FUNCNAME[@]}" ] && return "$APASH_FAILURE"
-functionName="${FUNCNAME[inDepth]}"
-fi
-echo "$functionName" || return "$APASH_FAILURE"
-return "$APASH_SUCCESS"
-}
-ShellUtils.getParentFunctionName() {
-ShellUtils.getFunctionName $((APASH_ARRAY_FIRST_INDEX+3)) || return "$APASH_FAILURE"
-return "$APASH_SUCCESS"
-}
-ShellUtils.isCommandValid() {
-Log.in $LINENO "$@"
-local commandName="${1:-}"
-command -v "$commandName" >/dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS";
-}
-ShellUtils.isDeclared() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-declare -p "$varName" > /dev/null 2>&1 || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isVariable() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-ShellUtils.isDeclared "$varName" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.isArray   "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
-MapUtils.isMap       "$varName" && { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isVariableNameValid() {
-Log.in $LINENO "$@"
-local varName="${1:-}"
-[ "$varName" = "_" ] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-local LC_COLLATE=C
-[[ "$varName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-ShellUtils.isZsh() {
-Log.in $LINENO "$@"
-[[ "$APASH_SHELL" == "zsh" ]] || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
+[[ "${1:-}" == "${2:-}" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+{ Log.out $LINENO; return "$APASH_FAILURE"; }
 }
 StringUtils.abbreviate() {
 Log.in $LINENO "$@"
@@ -1502,269 +1734,6 @@ Log.out $LINENO; return "$APASH_SUCCESS"
 fi
 echo "$inMarker$(StringUtils.substring "$inString" $((${#inString} - (inMaxWidth - abbrevMarkerLength))))" || { Log.out $LINENO; return "$APASH_FAILURE"; }
 return "$APASH_SUCCESS"
-}
-StringUtils.contains(){
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSequence="${2:-}"
-[[ -z $inSequence ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-[[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inString == *"$inSequence"* ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.containsOnly(){
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSequence="${2:-}"
-[[ -z $inString ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-[[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
-[[ $inString =~ ^[$inSequence]*$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.countMatches() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSubstring="${2:-}"
-local -i count=0
-if [[ -z $inString || -z $inSubstring ]]; then
-echo "$count" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-count=$(echo "$inString" | grep -o "$inSubstring" | wc -l)
-echo "$count" || { Log.out $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.endsWith(){
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSuffix="${2:-}"
-if [ "$APASH_SHELL" = "zsh" ]; then
-[[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-[[ "$inString" =~ "${inSuffix}"$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-{ Log.out $LINENO; return "$APASH_FAILURE"; }
-}
-StringUtils.equals() {
-Log.in $LINENO "$@"
-[[ "${1:-}" == "${2:-}" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-{ Log.out $LINENO; return "$APASH_FAILURE"; }
-}
-StringUtils.indexOf() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inResearch="${2:-}"
-local index=-1
-if [[ -z "$inString" &&  -n "$inResearch" ]]; then
-echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-if [[ -n "$inString" &&  -z "$inResearch" ]]; then
-echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-if [[ -z "$inString" &&  -z "$inResearch" ]]; then
-echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi  
-index=${inString%%"${inResearch}"*}
-[ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#index}))
-echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.indexOfAny() {
-Log.in $LINENO "$@"
-local apash_inString="${1:-}"
-local apash_researchName="${2:-}"
-local apash_index="$ArrayUtils_INDEX_NOT_FOUND"
-local apash_r
-local -i apash_i
-local -a apash_researh=()
-if ! ArrayUtils.clone "$apash_researchName" "research"; then
-echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-fi
-if [[ ${#research[@]} -eq 0 ]]; then
-echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-fi
-for apash_r in "${research[@]}"; do
-apash_i=$(StringUtils.indexOf "$apash_inString" "$apash_r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $apash_i -ge 0  && ($apash_index -eq $ArrayUtils_INDEX_NOT_FOUND || $apash_i -lt $apash_index) ]] && apash_index=$apash_i
-done
-echo "$apash_index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.isAlpha() {
-Log.in $LINENO "$@"
-local pattern="^[[:alpha:]]+$"
-[[ ${1:-} =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.isAnyEmpty() {
-Log.in $LINENO "$@"
-[ $# -eq 0 ] &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
-for s in "$@"; do
-[[ -z $s ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-done
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.isBlank() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local trimmedString  
-trimmedString=$(StringUtils.trim "$inString") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[ -z "$trimmedString" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.isEmpty() {
-Log.in $LINENO "$@"
-[ -z "${1:-}" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.leftPad() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSize="${2:-}"
-local inPadString="${3:- }"
-local leftPadString=""
-NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local padCount=$((inSize - ${#inString}))
-[[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-local padNbPattern=$((padCount / ${#inPadString}))
-local padNbRemaining=$((padCount % ${#inPadString}))
-leftPadString=$(printf "%${padNbPattern}s")
-leftPadString="${leftPadString// /"$inPadString"}"
-leftPadString+="${inPadString:0:$padNbRemaining}"
-echo "${leftPadString}${inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.lowerCase() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-echo "${inString,,}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.remove() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSubstring="${2:-}"
-echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.remove() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSubstring="${2:-}"
-echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.repeat() {
-Log.in $LINENO "$@"
-local inNumber="${1:-}"
-local inString="${2:-}"
-local outString=""
-local -i i
-NumberUtils.isLongPositive "$inNumber" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [[ $APASH_SHELL == "zsh" ]] && \
-VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "5.2"; then
-for (( i=0; i < inNumber; i++ )); do
-outString+="$inString"
-done
-else
-outString=$(printf "%0.s$inString" $(seq 1 "$inNumber")) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.replace() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSubstring="${2:-}"
-local inReplacement="${3:-}"
-[ -z "$inSubstring" ] && echo "${inString}"         && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-echo "${inString//"$inSubstring"/"$inReplacement"}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.reverse() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local reversed_string=""
-local -i i
-if ShellUtils.isCommandValid "rev"; then
-echo "$inString" | rev && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-[ "$APASH_LOG_WARNING_DEGRADED" = "true" ] && Log.warn $LINENO "**DEGRADED MODE** rev command not found."
-for (( i=${#inString}-1; i>=0; i-- )); do
-reversed_string="$reversed_string${inString:$i:1}"
-done
-echo "$reversed_string" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.rightPad() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inSize="${2:-}"
-local inPadString="${3:- }"
-local rightPadString=""
-NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-local padCount=$((inSize - ${#inString}))
-[[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-local padNbPattern=$((padCount / ${#inPadString}))
-local padNbRemaining=$((padCount % ${#inPadString}))
-rightPadString=$(printf "%${padNbPattern}s")
-rightPadString="${rightPadString// /"$inPadString"}"
-rightPadString+="${inPadString:0:$padNbRemaining}"
-echo "${inString}${rightPadString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-StringUtils.rotate() {
-Log.in $LINENO "$@"
-local inString="${1:-}"
-local inNbChars="${2:-0}"
-local outString=""
-[[ -z $inNbChars ]] && inNbChars=0
-NumberUtils.isInteger "$inNbChars" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ ${#inString} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-inNbChars=$((inNbChars % ${#inString}))
-if [[ $inNbChars -eq 0 ]]; then
-outString="$inString"
-elif [[ $inNbChars -gt 0 ]]; then
-indexFrom=$((${#inString}-inNbChars))
-outString="${inString:$indexFrom}${inString:0:$indexFrom}"
-else
-inNbChars=$(Math.abs "$inNbChars")
-outString="${inString:$inNbChars}${inString:0:$inNbChars}"
-fi
-echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-StringUtils.split() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_inString="${2:-}"
-local apash_inDelimiter="${3:- }"
-local apash_currentString=""
-local -i apash_i
-local -a apash_outArray=()
-apash_inString=${apash_inString##+("$apash_inDelimiter")}
-apash_inString=${apash_inString%%+("$apash_inDelimiter")}
-for (( apash_i=0; apash_i<${#apash_inString}; apash_i++ )); do
-if [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" && ${#apash_inDelimiter} -gt 0 ]]; then
-apash_outArray+=("$apash_currentString")
-apash_currentString=""
-while [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" ]]; do
-apash_i=$((apash_i + ${#apash_inDelimiter}))
-done
-apash_i=$((apash_i - 1))
-continue
-fi
-apash_currentString+=${apash_inString:$apash_i:1}
-done
-[ -n "$apash_currentString" ] && apash_outArray+=("$apash_currentString")
-ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
 }
 StringUtils.splitAny() {
 Log.in $LINENO "$@"
@@ -1811,6 +1780,214 @@ done
 ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
+StringUtils.contains(){
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSequence="${2:-}"
+[[ -z $inSequence ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inString == *"$inSequence"* ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.isAnyEmpty() {
+Log.in $LINENO "$@"
+[ $# -eq 0 ] &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
+for s in "$@"; do
+[[ -z $s ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+done
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.startsWith(){
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inPrefix="${2:-}"
+if [ "$APASH_SHELL" = "zsh" ]; then
+[[ "${inString:0:${#inPrefix}}" == "$inPrefix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+[[ $inString =~ ^"$inPrefix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.containsOnly(){
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSequence="${2:-}"
+[[ -z $inString ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+[[ -n $inString && -z $inSequence ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
+[[ $inString =~ ^[$inSequence]*$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.rightPad() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSize="${2:-}"
+local inPadString="${3:- }"
+local rightPadString=""
+NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local padCount=$((inSize - ${#inString}))
+[[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local padNbPattern=$((padCount / ${#inPadString}))
+local padNbRemaining=$((padCount % ${#inPadString}))
+rightPadString=$(printf "%${padNbPattern}s")
+rightPadString="${rightPadString// /"$inPadString"}"
+rightPadString+="${inPadString:0:$padNbRemaining}"
+echo "${inString}${rightPadString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.lastIndexOf() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inResearch="${2:-}"
+local index=-1
+if [[ -z "$inString" &&  -n "$inResearch" ]]; then
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -n "$inString" &&  -z "$inResearch" ]]; then
+echo "${#inString}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -z "$inString" &&  -z "$inResearch" ]]; then
+echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi  
+index=${inString##*"${inResearch}"}
+[ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#inString} - ${#index} - ${#inResearch}))
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.countMatches() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSubstring="${2:-}"
+local -i count=0
+if [[ -z $inString || -z $inSubstring ]]; then
+echo "$count" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+count=$(echo "$inString" | grep -o "$inSubstring" | wc -l)
+echo "$count" || { Log.out $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.indexOf() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inResearch="${2:-}"
+local index=-1
+if [[ -z "$inString" &&  -n "$inResearch" ]]; then
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -n "$inString" &&  -z "$inResearch" ]]; then
+echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -z "$inString" &&  -z "$inResearch" ]]; then
+echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi  
+index=${inString%%"${inResearch}"*}
+[ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#index}))
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.isAlpha() {
+Log.in $LINENO "$@"
+local pattern="^[[:alpha:]]+$"
+[[ ${1:-} =~ $pattern ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.rotate() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inNbChars="${2:-0}"
+local outString=""
+[[ -z $inNbChars ]] && inNbChars=0
+NumberUtils.isInteger "$inNbChars" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ ${#inString} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+inNbChars=$((inNbChars % ${#inString}))
+if [[ $inNbChars -eq 0 ]]; then
+outString="$inString"
+elif [[ $inNbChars -gt 0 ]]; then
+indexFrom=$((${#inString}-inNbChars))
+outString="${inString:$indexFrom}${inString:0:$indexFrom}"
+else
+inNbChars=$(Math.abs "$inNbChars")
+outString="${inString:$inNbChars}${inString:0:$inNbChars}"
+fi
+echo "$outString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.indexOfAny() {
+Log.in $LINENO "$@"
+local apash_inString="${1:-}"
+local apash_researchName="${2:-}"
+local apash_index="$ArrayUtils_INDEX_NOT_FOUND"
+local apash_r
+local -i apash_i
+local -a apash_researh=()
+if ! ArrayUtils.clone "$apash_researchName" "research"; then
+echo "$ArrayUtils_INDEX_NOT_FOUND" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+fi
+if [[ ${#research[@]} -eq 0 ]]; then
+echo "$ArrayUtils_INDEX_NOT_FOUND" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+for apash_r in "${research[@]}"; do
+apash_i=$(StringUtils.indexOf "$apash_inString" "$apash_r") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $apash_i -ge 0  && ($apash_index -eq $ArrayUtils_INDEX_NOT_FOUND || $apash_i -lt $apash_index) ]] && apash_index=$apash_i
+done
+echo "$apash_index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.split() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_inString="${2:-}"
+local apash_inDelimiter="${3:- }"
+local apash_currentString=""
+local -i apash_i
+local -a apash_outArray=()
+apash_inString=${apash_inString##+("$apash_inDelimiter")}
+apash_inString=${apash_inString%%+("$apash_inDelimiter")}
+for (( apash_i=0; apash_i<${#apash_inString}; apash_i++ )); do
+if [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" && ${#apash_inDelimiter} -gt 0 ]]; then
+apash_outArray+=("$apash_currentString")
+apash_currentString=""
+while [[ ${apash_inString:$apash_i:${#apash_inDelimiter}} = "$apash_inDelimiter" ]]; do
+apash_i=$((apash_i + ${#apash_inDelimiter}))
+done
+apash_i=$((apash_i - 1))
+continue
+fi
+apash_currentString+=${apash_inString:$apash_i:1}
+done
+[ -n "$apash_currentString" ] && apash_outArray+=("$apash_currentString")
+ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.isBlank() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local trimmedString  
+trimmedString=$(StringUtils.trim "$inString") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[ -z "$trimmedString" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.upperCase() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+if [ "$APASH_SHELL" = "zsh" ]; then
+echo "${(U)inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+elif [ "$APASH_SHELL" = "bash" ] && \
+! VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.2"; then
+echo "${inString^^}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # More POSIX
+echo "$inString" | awk '{print toupper($0)}' && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+Log.out $LINENO; return "$APASH_FAILURE"
+}
 StringUtils.splitPreserveAllTokens() {
 Log.in $LINENO "$@"
 local apash_ioArrayName="${1:-}"  
@@ -1833,15 +2010,26 @@ done
 ArrayUtils.clone "apash_outArray" "$apash_ioArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-StringUtils.startsWith(){
+StringUtils.isEmpty() {
+Log.in $LINENO "$@"
+[ -z "${1:-}" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.leftPad() {
 Log.in $LINENO "$@"
 local inString="${1:-}"
-local inPrefix="${2:-}"
-if [ "$APASH_SHELL" = "zsh" ]; then
-[[ "${inString:0:${#inPrefix}}" == "$inPrefix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-[[ $inString =~ ^"$inPrefix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
+local inSize="${2:-}"
+local inPadString="${3:- }"
+local leftPadString=""
+NumberUtils.isDigits "$inSize" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local padCount=$((inSize - ${#inString}))
+[[ $padCount -le 0 ]] && echo "$inString" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local padNbPattern=$((padCount / ${#inPadString}))
+local padNbRemaining=$((padCount % ${#inPadString}))
+leftPadString=$(printf "%${padNbPattern}s")
+leftPadString="${leftPadString// /"$inPadString"}"
+leftPadString+="${inPadString:0:$padNbRemaining}"
+echo "${leftPadString}${inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 Log.out $LINENO; return "$APASH_FAILURE"
 }
 StringUtils.substring() {
@@ -1863,82 +2051,237 @@ local substring=${inString:$start:$((end - start))}
 echo "$substring" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-StringUtils.trim() {
+StringUtils.lowerCase() {
 Log.in $LINENO "$@"
 local inString="${1:-}"
-local trimmedString=""
-trimmedString="$(echo "$inString" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-echo "$trimmedString" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "${inString,,}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 }
-StringUtils.upperCase() {
+StringUtils.remove() {
 Log.in $LINENO "$@"
 local inString="${1:-}"
-if [ "$APASH_SHELL" = "zsh" ]; then
-echo "${(U)inString}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-elif [ "$APASH_SHELL" = "bash" ] && \
-! VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.2"; then
-echo "${inString^^}" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # More POSIX
-echo "$inString" | awk '{print toupper($0)}' && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
+local inSubstring="${2:-}"
+echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 }
-commons-lang.StringUtils() { true; }
-VersionUtils.compare() {
+StringUtils.remove() {
 Log.in $LINENO "$@"
-local version1="${1:-}"
-local version2="${2:-}"
-local -a vArray1=()
-local -a vArray2=()
-local -i i
-[[ "$version1" == "$version2" ]] && echo "0" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-StringUtils.splitAny "vArray1" "$version1" "." "-"
-StringUtils.splitAny "vArray2" "$version2" "." "-"
-maxIndex=$((APASH_ARRAY_FIRST_INDEX + $(NumberUtils.max "${#vArray1[@]}" "${#vArray2[@]}")))
-for (( i=APASH_ARRAY_FIRST_INDEX; i < maxIndex; i++)); do
-[[ "${vArray1[i]:-}" == "${vArray2[i]:-}" ]] && continue
-if [[ $i -lt $((APASH_ARRAY_FIRST_INDEX+4)) ]]; then
-[[ -n "${vArray1[i]:-}" && -z "${vArray2[i]:-}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-[[ -z "${vArray1[i]:-}" && -n "${vArray2[i]:-}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-[[ -n "${vArray1[i]:-}" && -z "${vArray2[i]:-}" ]] && echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-[[ -z "${vArray1[i]:-}" && -n "${vArray2[i]:-}" ]] && echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local inString="${1:-}"
+local inSubstring="${2:-}"
+echo "${inString//"$inSubstring"/}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+StringUtils.endsWith(){
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inSuffix="${2:-}"
+if [ "$APASH_SHELL" = "zsh" ]; then
+[[ -z "$inSuffix" || "${inString: -${#inSuffix}}" = "$inSuffix" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+[[ "$inString" =~ "${inSuffix}"$ ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 fi
-if NumberUtils.isLongPositive "${vArray1[i]:-}" \
-&& NumberUtils.isLongPositive "${vArray2[i]:-}" ; then
-if [[ ${vArray1[i]:-} -lt  ${vArray2[i]:-}  ]]; then
-echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-else # At least one fied is not numeric, then check alphanumeric order
-if [[ "${vArray1[i]:-}" <  "${vArray2[i]:-}"  ]]; then
-echo "-1" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-echo "1"  && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
+{ Log.out $LINENO; return "$APASH_FAILURE"; }
+}
+Random.nextInt() {
+local minValue="${1:-}"
+local maxValue="${2:-}"
+[[ -z $minValue && $# -lt 1 ]] && minValue=$Integer_MIN_VALUE
+[[ -z $maxValue && $# -lt 2 ]] && maxValue=$Integer_MAX_VALUE
+NumberUtils.isInteger "$minValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+NumberUtils.isInteger "$maxValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+[[ $minValue -gt $maxValue ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue )) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+util.Array() { true; }
+APASH_LOG_LEVEL_OFF=0
+APASH_LOG_LEVEL_FATAL=100
+APASH_LOG_LEVEL_ERROR=200
+APASH_LOG_LEVEL_WARN=300
+APASH_LOG_LEVEL_INFO=400
+APASH_LOG_LEVEL_DEBUG=500
+APASH_LOG_LEVEL_TRACE=600
+APASH_LOG_LEVEL_ALL="$Integer_MAX_VALUE"
+APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-$APASH_LOG_LEVEL_WARN}"
+APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-false}"
+APASH_LOG_CHANNEL_STDOUT=1
+APASH_LOG_CHANNEL_STDERR=2
+declare -Ag APASH_LOG_LEVEL_STR
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_OFF]="OFF"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_FATAL]="FATAL"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_ERROR]="ERROR"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_WARN]="WARN"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_INFO]="INFO"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_DEBUG]="DEBUG"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_TRACE]="TRACE"
+APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_ALL]="ALL"
+util.Log() { true; }
+Array.bubbleSort() {
+Log.in $LINENO "$@"
+local apash_inArrayName="${1:-}"
+local apash_lastIndex
+local apash_temp
+local -a apash_outArray=()
+local -i apash_i apash_j
+ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+ArrayUtils.clone "$apash_inArrayName" "apash_outArray"
+apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1; apash_i++ )); do
+for (( apash_j=APASH_ARRAY_FIRST_INDEX; apash_j < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1-apash_i-1; apash_j++ )); do
+if [[ "${apash_outArray[apash_j]}" > "${apash_outArray[apash_j+1]}" ]]; then
+apash_temp="${apash_outArray[apash_j]}"
+apash_outArray[apash_j]="${apash_outArray[apash_j+1]}"
+apash_outArray[apash_j+1]="$apash_temp"
 fi
 done
-Log.out $LINENO; return "$APASH_FAILURE"
+done
+ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 }
-VersionUtils.isLowerOrEquals() {
+Array.sort() {
 Log.in $LINENO "$@"
-local version1="${1:-}"
-local version2="${2:-}"
-local comp
-comp=$(VersionUtils.compare "$version1" "$version2") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ "$comp" == "-1" || "$comp" == "0" ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+local apash_inArrayName="${1:-}"
+ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$APASH_SHELL" = "zsh" ]; then
+local apash_inArray=("${(o)${(P)apash_inArrayName}[@]}")
+ArrayUtils.clone "apash_inArray" "$apash_inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else # bash
+local -n inArray="$apash_inArrayName"
+[[ ${#inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+if VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.3"; then
+Array.bubbleSort "$apash_inArrayName" &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
+else
+readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
+fi
+fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
-commons-lang.VersionUtils() { true; }
-apash.commons-lang() { true; }
+Log.info() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_INFO" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.trace() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_TRACE" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.fatal() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_FATAL" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.message() {
+local inLevel="${1:-}"
+local inFunction="${2:-}"
+local inLineNumber="${3:-}"
+local inMessage="${4:-}"
+local inChannel="${5:-$APASH_LOG_CHANNEL_STDERR}"
+local inLevelStr="${APASH_LOG_LEVEL_STR[$inLevel]}"
+[ -z "$inLevelStr" ] && inLevelStr="Custom-$inLevel"
+[ "$inLevel" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+[ -n "$APASH_LOG_BLACKLIST" ] && [[   ":$APASH_LOG_BLACKLIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
+[ -n "$APASH_LOG_WHITELIST" ] && [[ ! ":$APASH_LOG_WHITELIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
+echo "$(date +"%FT%T.%3N%z") [$inLevelStr] $inFunction ($inLineNumber): $inMessage" >&"$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.debug() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_DEBUG" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.error() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_ERROR" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.ex() {
+[ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+local inLineNumber="${1:-}"
+local parentFunction
+local outMessage="Exception"
+local -i i
+if [ "$APASH_LOG_STACK_TRACE" = "true" ]; then
+local APASH_LOG_STACK_TRACE_MAX_DEFAULT=10
+local APASH_LOG_STACK_TRACE_MAX=${APASH_LOG_STACK_TRACE_MAX:-$APASH_LOG_STACK_TRACE_MAX_DEFAULT}
+local stackSize
+local stackBound
+if [ "$APASH_SHELL" = "bash" ]; then
+stackSize="${#FUNCNAME[@]}"
+stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+for (( i=APASH_ARRAY_FIRST_INDEX; i < stackBound; i++ )); do
+outMessage+=$'\n'"  at ${FUNCNAME[i+1]}(${BASH_SOURCE[i+1]}:${BASH_LINENO[i]})"
+done
+elif [ "$APASH_SHELL" = "zsh" ]; then
+stackSize="${#funcfiletrace[@]}"
+stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
+for (( i=APASH_ARRAY_FIRST_INDEX+1; i < stackBound; i++ )); do
+outMessage+=$'\n'"  at ${funcstack[i]}(${funcfiletrace[i]})"
+done
+fi
+[ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
+fi
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")" 
+Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
+return "$APASH_SUCCESS"
+}
+Log.out() {
+[ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+local inLineNumber="${1:-}"
+local parentFunction
+local outMessage="Out"
+local args
+local arg
+shift 1
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
+for arg in "$@"; do
+args+="'$arg' "
+done
+[ -n "${args[*]}" ] && outMessage="$outMessage { $args}"
+Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.warn() {
+local inLineNumber="${1:-}"
+local inMessage="${2:-}"
+local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
+local inChannel="${4:-2}"
+Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+Log.in() {
+[ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
+local inLineNumber="${1:-}"
+local parentFunction
+local args
+local arg
+shift
+parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
+for arg in "$@"; do
+args+="'$arg' "
+done
+Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
+return "$APASH_FAILURE"
+}
+util.Random() { true; }
 Integer_MIN_VALUE=-2147483648
 Integer_MAX_VALUE=2147483647
 lang.Integer() { true; }
-Long_MIN_VALUE=-9223372036854775808
-Long_MAX_VALUE=9223372036854775807
-lang.Long() { true; }
 Math.abs() {
 Log.in $LINENO "$@"
 local inNumber="${1:-}"
@@ -1994,203 +2337,9 @@ fi
 fi
 Log.out $LINENO; return "$APASH_FAILURE"
 }
+Long_MIN_VALUE=-9223372036854775808
+Long_MAX_VALUE=9223372036854775807
+lang.Long() { true; }
 lang.Math() { true; }
-apash.lang() { true; }
-Array.bubbleSort() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-local apash_lastIndex
-local apash_temp
-local -a apash_outArray=()
-local -i apash_i apash_j
-ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-ArrayUtils.clone "$apash_inArrayName" "apash_outArray"
-apash_lastIndex=$(ArrayUtils.getLastIndex "$apash_inArrayName") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-for (( apash_i=APASH_ARRAY_FIRST_INDEX; apash_i < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1; apash_i++ )); do
-for (( apash_j=APASH_ARRAY_FIRST_INDEX; apash_j < APASH_ARRAY_FIRST_INDEX+apash_lastIndex+1-apash_i-1; apash_j++ )); do
-if [[ "${apash_outArray[apash_j]}" > "${apash_outArray[apash_j+1]}" ]]; then
-apash_temp="${apash_outArray[apash_j]}"
-apash_outArray[apash_j]="${apash_outArray[apash_j+1]}"
-apash_outArray[apash_j+1]="$apash_temp"
-fi
-done
-done
-ArrayUtils.clone "apash_outArray" "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-Array.sort() {
-Log.in $LINENO "$@"
-local apash_inArrayName="${1:-}"
-ArrayUtils.nullToEmpty "$apash_inArrayName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$APASH_SHELL" = "zsh" ]; then
-local apash_inArray=("${(o)${(P)apash_inArrayName}[@]}")
-ArrayUtils.clone "apash_inArray" "$apash_inArrayName" && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else # bash
-local -n inArray="$apash_inArrayName"
-[[ ${#inArray[@]} -eq 0 ]] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-if VersionUtils.isLowerOrEquals "$APASH_SHELL_VERSION" "4.3"; then
-Array.bubbleSort "$apash_inArrayName" &&  { Log.out $LINENO; return "$APASH_SUCCESS"; }
-else
-readarray -d '' inArray < <(printf "%s\0" "${inArray[@]}" | sort -z) && { Log.out $LINENO; return "$APASH_SUCCESS"; }
-fi
-fi
-Log.out $LINENO; return "$APASH_FAILURE"
-}
-util.Array() { true; }
-Log.debug() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_DEBUG" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.error() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_ERROR" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.ex() {
-[ "$APASH_LOG_LEVEL_ERROR" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-local inLineNumber="${1:-}"
-local parentFunction
-local outMessage="Exception"
-local -i i
-if [ "$APASH_LOG_STACK_TRACE" = "true" ]; then
-local APASH_LOG_STACK_TRACE_MAX_DEFAULT=10
-local APASH_LOG_STACK_TRACE_MAX=${APASH_LOG_STACK_TRACE_MAX:-$APASH_LOG_STACK_TRACE_MAX_DEFAULT}
-local stackSize
-local stackBound
-if [ "$APASH_SHELL" = "bash" ]; then
-stackSize="${#FUNCNAME[@]}"
-stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
-for (( i=APASH_ARRAY_FIRST_INDEX; i < stackBound; i++ )); do
-outMessage+=$'\n'"  at ${FUNCNAME[i+1]}(${BASH_SOURCE[i+1]}:${BASH_LINENO[i]})"
-done
-elif [ "$APASH_SHELL" = "zsh" ]; then
-stackSize="${#funcfiletrace[@]}"
-stackBound="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" Math.min "$APASH_LOG_STACK_TRACE_MAX" "$((APASH_ARRAY_FIRST_INDEX+stackSize-1))" || echo $APASH_LOG_STACK_TRACE_MAX_DEFAULT )"
-for (( i=APASH_ARRAY_FIRST_INDEX+1; i < stackBound; i++ )); do
-outMessage+=$'\n'"  at ${funcstack[i]}(${funcfiletrace[i]})"
-done
-fi
-[ "$APASH_LOG_STACK_TRACE_MAX" -le "$stackBound" ] && outMessage+=$'\n'"  ..."
-fi
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")" 
-Log.message "$APASH_LOG_LEVEL_ERROR" "$parentFunction" "$inLineNumber" "$outMessage" || return "$APASH_FAILURE"
-return "$APASH_SUCCESS"
-}
-Log.fatal() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_FATAL" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.in() {
-[ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-local inLineNumber="${1:-}"
-local parentFunction
-local args
-local arg
-shift
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
-for arg in "$@"; do
-args+="'$arg' "
-done
-Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "In $parentFunction $args" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.info() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_INFO" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.message() {
-local inLevel="${1:-}"
-local inFunction="${2:-}"
-local inLineNumber="${3:-}"
-local inMessage="${4:-}"
-local inChannel="${5:-$APASH_LOG_CHANNEL_STDERR}"
-local inLevelStr="${APASH_LOG_LEVEL_STR[$inLevel]}"
-[ -z "$inLevelStr" ] && inLevelStr="Custom-$inLevel"
-[ "$inLevel" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-[ -n "$APASH_LOG_BLACKLIST" ] && [[   ":$APASH_LOG_BLACKLIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
-[ -n "$APASH_LOG_WHITELIST" ] && [[ ! ":$APASH_LOG_WHITELIST:" =~ :"$inFunction": ]] && return "$APASH_SUCCESS"
-echo "$(date +"%FT%T.%3N%z") [$inLevelStr] $inFunction ($inLineNumber): $inMessage" >&"$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.out() {
-[ "$APASH_LOG_LEVEL_TRACE" -gt "$APASH_LOG_LEVEL" ] && return "$APASH_SUCCESS"
-local inLineNumber="${1:-}"
-local parentFunction
-local outMessage="Out"
-local args
-local arg
-shift 1
-parentFunction="$(APASH_LOG_LEVEL="$APASH_LOG_LEVEL_OFF" ShellUtils.getParentFunctionName || echo "Unknown")"
-for arg in "$@"; do
-args+="'$arg' "
-done
-[ -n "${args[*]}" ] && outMessage="$outMessage { $args}"
-Log.message "$APASH_LOG_LEVEL_TRACE" "$parentFunction" "$inLineNumber" "$outMessage" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.trace() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_TRACE" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-Log.warn() {
-local inLineNumber="${1:-}"
-local inMessage="${2:-}"
-local inFunction="${3:-$(ShellUtils.getParentFunctionName)}"
-local inChannel="${4:-2}"
-Log.message "$APASH_LOG_LEVEL_WARN" "$inFunction" "$inLineNumber" "$inMessage" "$inChannel" && return "$APASH_SUCCESS"
-return "$APASH_FAILURE"
-}
-APASH_LOG_LEVEL_OFF=0
-APASH_LOG_LEVEL_FATAL=100
-APASH_LOG_LEVEL_ERROR=200
-APASH_LOG_LEVEL_WARN=300
-APASH_LOG_LEVEL_INFO=400
-APASH_LOG_LEVEL_DEBUG=500
-APASH_LOG_LEVEL_TRACE=600
-APASH_LOG_LEVEL_ALL="$Integer_MAX_VALUE"
-APASH_LOG_LEVEL="${APASH_LOG_LEVEL:-$APASH_LOG_LEVEL_WARN}"
-APASH_LOG_STACK_TRACE="${APASH_LOG_STACK_TRACE:-false}"
-APASH_LOG_CHANNEL_STDOUT=1
-APASH_LOG_CHANNEL_STDERR=2
-declare -Ag APASH_LOG_LEVEL_STR
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_OFF]="OFF"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_FATAL]="FATAL"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_ERROR]="ERROR"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_WARN]="WARN"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_INFO]="INFO"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_DEBUG]="DEBUG"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_TRACE]="TRACE"
-APASH_LOG_LEVEL_STR[$APASH_LOG_LEVEL_ALL]="ALL"
-util.Log() { true; }
-Random.nextInt() {
-local minValue="${1:-}"
-local maxValue="${2:-}"
-[[ -z $minValue && $# -lt 1 ]] && minValue=$Integer_MIN_VALUE
-[[ -z $maxValue && $# -lt 2 ]] && maxValue=$Integer_MAX_VALUE
-NumberUtils.isInteger "$minValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-NumberUtils.isInteger "$maxValue" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-[[ $minValue -gt $maxValue ]] && { Log.ex $LINENO; return "$APASH_FAILURE"; }
-echo $(( RANDOM * (maxValue - minValue) / 32768 + minValue )) || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-Log.out $LINENO; return "$APASH_SUCCESS"
-}
-util.Random() { true; }
 apash.util() { true; }
+apash.commons-lang() { true; }
