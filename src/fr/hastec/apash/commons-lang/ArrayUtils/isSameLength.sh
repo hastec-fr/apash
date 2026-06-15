@@ -53,7 +53,7 @@ ArrayUtils.isSameLength() {
   ArrayUtils.isArray "$apash_inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   ArrayUtils.isArray "$apash_inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-  if [ $APASH_SHELL = "zsh" ]; then
+  if [ "$APASH_SHELL" = "zsh" ]; then
     [[ ${#${(P)apash_inArrayName1}[@]} -ne ${#${(P)apash_inArrayName2}[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
   else
     local -n apash_inArray1="$apash_inArrayName1"  
