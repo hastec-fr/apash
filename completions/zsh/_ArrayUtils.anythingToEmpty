@@ -1,0 +1,4 @@
+#compdef ArrayUtils.anythingToEmpty
+
+_arguments -C \
+  '1:array name:_files'

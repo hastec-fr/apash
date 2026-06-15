@@ -1,0 +1,4 @@
+#compdef ApashUtils.doc 
+
+_arguments -C \
+  '1:file name:_files'

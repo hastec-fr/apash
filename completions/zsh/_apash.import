@@ -1,0 +1,20 @@
+#compdef apash.import 
+
+_arguments -C \
+  '1:module name:( \
+  fr.hastec.apash.util.Array
+  fr.hastec.apash.util.Log
+  fr.hastec.apash.util.Random
+  fr.hastec.apash.lang.Math 
+  fr.hastec.apash.commons-lang.ApashUtils
+  fr.hastec.apash.commons-lang.ArrayUtils
+  fr.hastec.apash.commons-lang.CsvUtils
+  fr.hastec.apash.commons-lang.DateUtils
+  fr.hastec.apash.commons-lang.MapUtils
+  fr.hastec.apash.commons-lang.MatrixUtils
+  fr.hastec.apash.commons-lang.NumberUtils
+  fr.hastec.apash.commons-lang.ShellUtils
+  fr.hastec.apash.commons-lang.StringUtils
+  fr.hastec.apash.commons-lang.VersionUtils
+  fr.hastec.apash.commons-io.FileNameUtils
+  fr.hastec.apash.commons-io.FileUtils)'
