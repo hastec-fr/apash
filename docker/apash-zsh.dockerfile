@@ -11,6 +11,9 @@ ARG APASH_LOCAL_COPY="false"
 
 LABEL maintainer="Benjamin Vargin"
 
+# todo: find a way to update the zsh image (based on debian buster)
+RUN printf 'deb http://archive.debian.org/debian buster main\ndeb http://archive.debian.org/debian buster-updates main\n' > /etc/apt/sources.list
+
 # Dependencies:
 # - curl:      download apash installer
 # - git:       download apash
@@ -38,8 +41,8 @@ SHELL ["/usr/bin/zsh", "-c"]
 # By default, the version from github is selected.
 # Add interactivecomments to allow copy/paste on zsh with # sign
 RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
-        rm -rf "/home/apash/.apash"; \
-        git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
+    rm -rf "/home/apash/.apash"; \
+    git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
     fi; \
     cat <<EOF > $HOME/.zshenv
 # setopt ksh_arrays                        ##apashInstallTag
