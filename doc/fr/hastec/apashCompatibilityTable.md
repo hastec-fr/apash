@@ -995,12 +995,12 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>FileNameUtils.getFullPath</td>
-      <td title='bash 5.3' >❌</td>
-      <td title='bash 5.2' >❌</td>
-      <td title='bash 5.1' >❌</td>
-      <td title='bash 5.0' >❌</td>
-      <td title='bash 4.4' >❌</td>
-      <td title='bash 4.3' >❌</td>
+      <td title='bash 5.3' >✅</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
       <td title='bash 4.2' >✅</td>
       <td title='zsh 5.9' >✅</td>
       <td title='zsh 5.8' >✅</td>
@@ -1013,12 +1013,12 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>FileNameUtils.getFullPathNoEndSeparator</td>
-      <td title='bash 5.3' >❌</td>
-      <td title='bash 5.2' >❌</td>
-      <td title='bash 5.1' >❌</td>
-      <td title='bash 5.0' >❌</td>
-      <td title='bash 4.4' >❌</td>
-      <td title='bash 4.3' >❌</td>
+      <td title='bash 5.3' >✅</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
       <td title='bash 4.2' >✅</td>
       <td title='zsh 5.9' >✅</td>
       <td title='zsh 5.8' >✅</td>
@@ -1049,12 +1049,12 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>FileUtils.copyDirectory</td>
-      <td title='bash 5.3' >❌</td>
-      <td title='bash 5.2' >❌</td>
-      <td title='bash 5.1' >❌</td>
-      <td title='bash 5.0' >❌</td>
-      <td title='bash 4.4' >❌</td>
-      <td title='bash 4.3' >❌</td>
+      <td title='bash 5.3' >✅</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
       <td title='bash 4.2' >❌</td>
       <td title='zsh 5.9' >✅</td>
       <td title='zsh 5.8' >✅</td>
@@ -1067,12 +1067,12 @@ to have a table with fixed header, so let your mouse on a cell to know on which 
     </tr>
     <tr>
       <td>FileUtils.copyFile</td>
-      <td title='bash 5.3' >❌</td>
-      <td title='bash 5.2' >❌</td>
-      <td title='bash 5.1' >❌</td>
-      <td title='bash 5.0' >❌</td>
-      <td title='bash 4.4' >❌</td>
-      <td title='bash 4.3' >❌</td>
+      <td title='bash 5.3' >✅</td>
+      <td title='bash 5.2' >✅</td>
+      <td title='bash 5.1' >✅</td>
+      <td title='bash 5.0' >✅</td>
+      <td title='bash 4.4' >✅</td>
+      <td title='bash 4.3' >✅</td>
       <td title='bash 4.2' >❌</td>
       <td title='zsh 5.9' >✅</td>
       <td title='zsh 5.8' >✅</td>
