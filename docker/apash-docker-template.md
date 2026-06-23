@@ -75,8 +75,8 @@ Thanks to ab...
 Use the default command of the container to get an interactive prompt.
 ```bash
 docker run --rm -it hastec/apash:latest
-apash:bash-5.2 $ echo $BASH_VERSION
-# 5.2.32(1)-release
+apash:bash-5.3 $ echo $BASH_VERSION
+# 5.3.15(1)-release
 ```
 
 ## <a id="license" ></a> 📃 License
