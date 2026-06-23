@@ -15,7 +15,7 @@ Tests whether the specified File is a symbolic link rather than an actual file.
 
 ## History
 ### Since
-  * 0.2.0 (Guilhem Baerchler)
+  * 0.3.0 (Guilhem Baerchler)
 
 ## Interface
 ### Package

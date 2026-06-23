@@ -1,7 +1,7 @@
 Describe 'FileUtils.copyFile'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyFile"
 
-  TMPDIR="/tmp"
+  TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
  
@@ -11,47 +11,42 @@ Describe 'FileUtils.copyFile'
   touch "$TMPDIR/srcFile.txt"
   touch "$TMPDIR/dstFile.txt"
 
-  echo "this is the content of the source file" > "$TMPDIR/srcFile.txt"
-  echo "this is the content of another source file" > "$TMPDIR/path/to/srcFile.txt"
+  Path "srcFile=$TMPDIR/srcFile.txt"
+  Path "anotherSrcFile=$TMPDIR/path/to/srcFile.txt"
+  Path "dstFile=$TMPDIR/dstFile.txt"
+  Path "anotherDstFile=$TMPDIR/path/to/dstFile.txt"
+  Path "fileThatDoesntExistYet=$TMPDIR/dirThatDoesntExistsYet/dstThatDoesntExistsYet.txt"
+
+  SRCFILECONTENT="this is the content of the source file"
+  ANOTHERSRCFILECONTENT="this is the content of another source file"
+  DSTFILECONTENT="this is the content of the destination file"
+  ANOTHERDSTFILECONTENT="this is the content of the other destination file"
+
+  echo "$SRCFILECONTENT" > "$TMPDIR/srcFile.txt"
+  echo "$ANOTHERSRCFILECONTENT" > "$TMPDIR/path/to/srcFile.txt"
 
   It 'passes when the input is just a source and a destination'
     When call FileUtils.copyFile "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt" false "REPLACE_EXISTING"
     The status should be success
+    The contents of path dstFile should equal "$SRCFILECONTENT"
   End
 
-  It 'passes when the content of the source and destination are equal'
-    When call diff "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt" 
-    The output should equal ""
-    The status should be success
-  End
-
-  echo "this is the destination" > "$TMPDIR/dstFile.txt"
-  echo "this is the other destination" > "$TMPDIR/path/to/dstFile.txt"
+  echo "$DSTFILECONTENT" > "$TMPDIR/dstFile.txt"
+  echo "$ANOTHERDSTFILECONTENT" > "$TMPDIR/path/to/dstFile.txt"
   
   It 'passes when the input is a source and a destination with full path'
     When call FileUtils.copyFile "$TMPDIR/path/to/srcFile.txt" "$TMPDIR/path/to/dstFile.txt" false "REPLACE_EXISTING"
-
     The status should be success
+    The contents of path anotherDstFile should equal "$ANOTHERSRCFILECONTENT"
   End
-
-  It 'passes when the content of the source and destination are equal'
-    When call diff "$TMPDIR/path/to/srcFile.txt" "$TMPDIR/path/to/dstFile.txt" 
-    The output should equal ""
-    The status should be success
-  End
-  
-  echo "this is the content of the source file" > "$TMPDIR/srcFile.txt"
-  echo "this is the destination" > "$TMPDIR/dstFile.txt"
+ 
+  echo "$SRCFILECONTENT" > "$TMPDIR/srcFile.txt"
+  echo "$DSTFILECONTENT" > "$TMPDIR/dstFile.txt"
 
   It 'passes when the input is just a source and a destination and preserve date'
     When call FileUtils.copyFile "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt" true "REPLACE_EXISTING"
     The status should be success
-  End
-
-  It 'passes when the content of the source and destination are equal'
-    When call diff "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt"
-    The output should equal ""
-    The status should be success
+    The contents of path dstFile should equal "$SRCFILECONTENT"
   End
   
   It 'preserves modification date'
@@ -61,30 +56,21 @@ Describe 'FileUtils.copyFile'
     The status should be success
   End
 
-  echo "this is the content of the source file" > "$TMPDIR/srcFile.txt"
-  echo "this is the destination" > "$TMPDIR/dstFile.txt"
+  echo "$SRCFILECONTENT" > "$TMPDIR/srcFile.txt"
+  echo "$DSTFILECONTENT" > "$TMPDIR/dstFile.txt"
 
   It 'passes when the input is a source and a destination and the dst should not be replaced'
     When call FileUtils.copyFile "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt" false 
+    The contents of path dstFile should equal "$DSTFILECONTENT"
     The status should be success
   End
 
-  It 'passes when the content of the source and destination are equal'
-    When call diff "$TMPDIR/srcFile.txt" "$TMPDIR/dstFile.txt"
-    The output should not equal ""
-    The status should be failure
-  End
-  
-  echo "this is the content of the source file" > "$TMPDIR/srcFile.txt"
+  echo "$SRCFILECONTENT" > "$TMPDIR/srcFile.txt"
 
   It 'passes when the input is a source and a destination that must be created'
     When call FileUtils.copyFile "$TMPDIR/srcFile.txt" "$TMPDIR/dirThatDoesntExistsYet/dstThatDoesntExistsYet.txt"
     The status should be success
+    The contents of path fileThatDoesntExistYet should equal "$SRCFILECONTENT"
   End
 
-  It 'passes when the content of the source and destination are equal'
-    When call diff "$TMPDIR/srcFile.txt" "$TMPDIR/dirThatDoesntExistsYet/dstThatDoesntExistsYet.txt"
-    The output should equal ""
-    The status should be success
-  End
 End

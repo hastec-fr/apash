@@ -18,7 +18,7 @@ Copies a filtered directory to a new location.
 
 ## History
 ### Since
-  * 0.2.0 (Guilhem Baechler)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package
@@ -31,7 +31,7 @@ Copies a filtered directory to a new location.
  |--------|----------------|---------------|----------|---------|------------------------------------|
  | $1     | inSrc          | string        | in       |         | The folder name to copy.           |
  | $2     | inDst          | string        | in       |         | The destination folder name.       |
- | $3     | inFileFilter   | string        | in       | .*      | The file name filter. (regex)      |
+ | $3     | inFileFilter   | string        | in       | *       | The file name filter. (regex)      |
  | $4     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
  | $5     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
 

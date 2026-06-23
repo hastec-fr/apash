@@ -17,7 +17,7 @@ Provides utility methods for working with files.
 
 ## History
 ### Since
-  * 0.1.0
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

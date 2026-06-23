@@ -13,7 +13,7 @@ Finds the last index of a substring occurence within another string.
 
 ## History
 ### Since
-  * 0.1.0 (hastec-fr)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

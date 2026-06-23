@@ -16,7 +16,7 @@ General file manipulation utilities.
 
 ## History
 ### Since
-  * 0.2.0 (hastec-fr)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

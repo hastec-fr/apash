@@ -18,7 +18,7 @@ Copies the contents of a file to a new location.
    CopyOptions.ATOMIC_MOVE is not supported
 ## History
 ### Since
-  * 0.2.0 (Guilhem Baechler)
+  * 0.3.0 (Guilhem Baechler)
 
 ## Interface
 ### Package

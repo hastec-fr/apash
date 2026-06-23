@@ -32,8 +32,14 @@ Describe 'FileNameUtils.getFullPathNoEndSeparator'
   End
   
   It 'passes when the input is the home directory ending with a /'
-    When call FileNameUtils.getFullPathNoEndSeparator "~"
+    When call FileNameUtils.getFullPathNoEndSeparator "~/"
     The output should equal "~"
+    The status should be success
+  End
+
+  It 'passes when the input is the root directory /'
+    When call FileNameUtils.getFullPathNoEndSeparator "/"
+    The output should equal "/"
     The status should be success
   End
 
@@ -48,4 +54,17 @@ Describe 'FileNameUtils.getFullPathNoEndSeparator'
     The output should equal "~user"
     The status should be success
   End
+
+  It 'passes when the input ends with 2 /'
+    When call FileNameUtils.getFullPathNoEndSeparator "path/to//"
+    The output should equal "path/to/"
+    The status should be success
+  End
+
+  It 'passes when the input contains spaces'
+    When call FileNameUtils.getFullPathNoEndSeparator "a/b c/d/"
+    The output should equal "a/b c/d"
+    The status should be success
+  End
+
 End

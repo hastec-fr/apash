@@ -10,7 +10,7 @@ apash.import fr.hastec.apash.util.Log
 #   This method returns 0 or 1 depending on whether the argument is a symbolic link or not  
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baerchler)
+#  @since 0.3.0 (Guilhem Baerchler)
 #
 # ## Interface
 # @apashPackage

@@ -3,6 +3,8 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.StringUtils.substring
+apash.import fr.hastec.apash.commons-lang.StringUtils.startsWith
+apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 
 ##/
@@ -13,7 +15,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 #  and returns the text before the last forward or backslash.
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -29,6 +31,13 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c.jpg"        # "a/b/c"
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c"            # "a/b/c"
 #    FileNameUtils.getFullPathNoEndSeparator  "a/b/c/"           # "a/b/c"
+#    FileNameUtils.getFullPathNoEndSeparator  "a/b c/"           # "a/b c"
+#    FileNameUtils.getFullPathNoEndSeparator  "a/b/c//"          # "a/b/c/"
+#    FileNameUtils.getFullPathNoEndSeparator  "~"                # "~"
+#    FileNameUtils.getFullPathNoEndSeparator  "~/"               # "~"
+#    FileNameUtils.getFullPathNoEndSeparator  "~user"            # "~user"
+#    FileNameUtils.getFullPathNoEndSeparator  "~user/"           # "~user"
+#    FileNameUtils.getFullPathNoEndSeparator  "/"                # "/"
 # ```
 #
 # @stdout The path of the file, an empty string if none exists
@@ -41,12 +50,14 @@ FileNameUtils.getFullPathNoEndSeparator() {
   Log.in $LINENO "$@"
   local inFileName="${1:-}"
 
-  #exceptions
-  if [ "$inFileName" = "~" ] || [ "$inFileName" = "~user" ]; then
+  #special case: /, ~user, ~
+  if [ "$inFileName" = "/" ] || (StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"); then
     echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
+  #find the last / in $inFileName a/b/c/ a/b/c
+  #                                    ^    ^
   local lastStepIndex
   lastStepIndex="$(StringUtils.lastIndexOf "$inFileName" "/")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   if [ "$lastStepIndex" -eq -1 ]; then
@@ -54,6 +65,9 @@ FileNameUtils.getFullPathNoEndSeparator() {
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
 
+  #see FilenameUtils.doGetFullPath
+  #includeSeparator = false
+  #https://github.com/apache/commons-io/blob/master/src/main/java/org/apache/commons/io/FilenameUtils.java
   local fullPath
   fullPath="$(StringUtils.substring "$inFileName" 0 "$lastStepIndex")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 

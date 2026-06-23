@@ -1,7 +1,9 @@
 Describe 'FileUtils.isSymlink'
   apash.import "fr.hastec.apash.commons-io.FileUtils.isSymlink"
   
-  TMPDIR="/tmp"
+  TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
+  RELPATH=".$(echo "$(pwd)" | sed -E 's:/[^/]+:/..:g')$TMPDIR"
+
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
   
@@ -63,4 +65,18 @@ Describe 'FileUtils.isSymlink'
     The status should be failure
   End
 
+  It 'passes when the input is a relative path to a symlink'
+    When call FileUtils.isSymlink "$RELPATH/path/to/thisFileIsASymlink"
+    The status should be success
+  End
+
+  It 'passes when the input is a relative path to a directory'
+    When call FileUtils.isSymlink "$RELPATH/path/to"
+    The status should be failure
+  End
+
+  It 'passes when the input is a relative path to a regular file'
+    When call FileUtils.isSymlink "$RELPATH/path/to/regularFile"
+    The status should be failure
+  End
 End

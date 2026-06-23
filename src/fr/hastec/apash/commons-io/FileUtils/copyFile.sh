@@ -4,7 +4,9 @@
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
-apash.import fr.hastec.apash.commons-lang.StringUtils.contains
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
+apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
 ##/
 # @name FileNameUtils.copyFile
@@ -16,7 +18,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.contains
 #
 #   CopyOptions.ATOMIC_MOVE is not supported
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -46,24 +48,43 @@ FileUtils.copyFile() {
   Log.in "$LINENO" "$@"
   local inSrc="${1:-}"
   local inDst="${2:-}"
-  local inPreserveDate="${3:-false}"
+  local inPreserveDate="${3:-true}"
   local inCopyOption="${4:-}"
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  #if REPLACE_EXISTING is not set and the dst already existsl it doesn't copy
-  if ! StringUtils.contains "$inCopyOption" "REPLACE_EXISTING" && FileUtils.isRegularFile "$inDst"; then
-    Log.out "$LINENO";
-    return "$APASH_SUCCESS"
+  local optionList=()
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+    for opt in "${optionListRaw[@]}"; do
+      optionList+=("$(StringUtils.trim "$opt")")
+    done
+  else 
+    IFS=',' 
+    local tmp
+    read -r tmp <<< "$inCopyOption"
+    for word in $tmp; do
+      optionList+=("$(StringUtils.trim "$word")")
+    done
   fi
 
-  if StringUtils.contains "$inCopyOption" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
-    cp "-p" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  local -a options=()
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+    options+=("--preserve=all")
+  elif [[ "$inPreserveDate" == true ]]; then
+    options+=("--preserve=timestamps")
+  fi
+
+  if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+    # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
+    options+=("-n") 
+  fi
+
+  if [ "$APASH_SHELL" = "bash" ] && VersionUtils.isLowerOrEquals "$BASH_VERSION" "4.3"; then
+    cp "${options[@]+"${options[@]}"}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   else
-    cp "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+    cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
   fi
-
-
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
 }

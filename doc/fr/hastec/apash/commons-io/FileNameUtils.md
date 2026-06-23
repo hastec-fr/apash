@@ -18,6 +18,9 @@ General file name and file path manipulation utilities.
 ### Since
   * 0.2.0 (hastec-fr)
 
+### ChangeLogs:
+ - 0.3.0: new functions: getFullPath and getFullPathNoEndSeparator | add FileNameUtils.sh (Guilhem Baechler)
+
 ## Interface
 ### Package
 <!-- apash.packageBegin -->
@@ -31,6 +34,7 @@ General file name and file path manipulation utilities.
 |[getExtension](FileNameUtils/getExtension.md)|Gets the extension of a fileName.|
 |[getFullPath](FileNameUtils/getFullPath.md)|Gets the full path (prefix + path) from a full file name.|
 |[getFullPathNoEndSeparator](FileNameUtils/getFullPathNoEndSeparator.md)|Gets the full path (prefix + path) from a full file name, excluding the final directory separator.|
+|[normalize](FileNameUtils/normalize.md)|Normalizes a path, removing double and single period path steps.|
 <!-- apash.summaryTableEnd -->
 
   <div align='right'>[ <a href='#apash-top'>↑ Back to top ↑</a> ]</div>

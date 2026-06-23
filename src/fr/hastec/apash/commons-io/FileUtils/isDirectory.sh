@@ -11,7 +11,7 @@ apash.import fr.hastec.apash.commons-io.FileUtils.isSymlink
 #   This method returns 0 or 1 depending on whether the argument is a directory or not
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -45,9 +45,8 @@ FileUtils.isDirectory() {
     Log.out "$LINENO"; return "$APASH_FAILURE"; 
   fi
 
-  if test -d "$inFolderName" ; then
+  if [ -d "$inFolderName" ]; then
     Log.out "$LINENO"; return "$APASH_SUCCESS"
-  else
-    Log.out "$LINENO"; return "$APASH_FAILURE"
   fi
+  Log.out "$LINENO"; return "$APASH_FAILURE"
 }

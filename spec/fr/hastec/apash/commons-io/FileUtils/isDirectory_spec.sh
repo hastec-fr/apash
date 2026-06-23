@@ -1,7 +1,7 @@
 Describe 'FileUtils.isDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.isDirectory"
 
-  TMPDIR="/tmp"
+  TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
   mkdir -p "$TMPDIR/path/to"
   mkdir -p "$TMPDIR/path/to/dir"
  
@@ -13,7 +13,8 @@ Describe 'FileUtils.isDirectory'
   ln -sf "$TMPDIR/regularFile" "$TMPDIR/thisFileIsASymlink"
   ln -sf "$TMPDIR/path/to/regularFile" "$TMPDIR/path/to/thisFileIsASymlink"
   ln -sf "$TMPDIR/path" "$TMPDIR/thisIsASymLinkToADir"
-
+  ln -sf "$TMPDIR/thisIsASymLinkToADir" "$TMPDIR/symlinkOfSymlink"
+  
   It 'passes when the input is a symlink'
     When call FileUtils.isDirectory "$TMPDIR/thisFileIsASymlink"
     The status should be failure
@@ -87,5 +88,15 @@ Describe 'FileUtils.isDirectory'
   It 'passes when the input refer to a full path without symlink with arg NOFOLLOW_LINKS'
     When call FileUtils.isDirectory "$TMPDIR/path" "NOFOLLOW_LINKS"
     The status should be success
+  End
+
+  It 'passes when the input is a symlink which points to a symlink which points to a directory'
+    When call FileUtils.isDirectory "$TMPDIR/symlinkOfSymlink"
+    The status should be success
+  End
+
+  It 'passes when the input is a symlink which points to a symlink which points to a directory with NOFOLLOW_LINKS options'
+    When call FileUtils.isDirectory "$TMPDIR/symlinkOfSymlink" "NOFOLLOW_LINKS"
+    The status should be failure
   End
 End

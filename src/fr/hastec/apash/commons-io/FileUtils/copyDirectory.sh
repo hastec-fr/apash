@@ -2,9 +2,10 @@
 
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
+apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
 apash.import fr.hastec.apash.commons-io.FileUtils.isDirectory
-apash.import fr.hastec.apash.commons-io.FileUtils.copyFile
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 ##/
 # @name FileNameUtils.copyDirectory
@@ -16,7 +17,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 #   with the source taking precedence. 
 #
 # ## History
-#  @since 0.2.0 (Guilhem Baechler)
+#  @since 0.3.0 (Guilhem Baechler)
 #
 # ## Interface
 # @apashPackage
@@ -26,7 +27,7 @@ apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 # |--------|----------------|---------------|----------|---------|------------------------------------|
 # | $1     | inSrc          | string        | in       |         | The folder name to copy.           |
 # | $2     | inDst          | string        | in       |         | The destination folder name.       |
-# | $3     | inFileFilter   | string        | in       | .*      | The file name filter. (regex)      |
+# | $3     | inFileFilter   | string        | in       | *       | The file name filter. (regex)      |
 # | $4     | inPreserveDate | boolean       | in       | false   | Tells if the date should be copied |
 # | $5     | inCopyOption   | string        | in       |         | The copy options separated by a ','|
 #
@@ -48,55 +49,54 @@ FileUtils.copyDirectory() {
   Log.in "$LINENO" "$@"
   local inSrc="${1:-}"
   local inDst="${2:-}"
-  local inFileFilter="${3-.*}"
+  local inFileFilter="${3:-*}"
   local inPreserveDate="${4:-false}"
   local inCopyOption="${5:-}"
 
-  mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-  
-  for path in "$inSrc"/*; do
-    #echo "$path"
-    local baseName
-    baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-    
-    if echo "$baseName" | grep -q "$inFileFilter"; then
-      local relPath="${path#"$inSrc"/}"
-      local dstPath="$inDst/$relPath"
+  #ensure inSrc and inDst don't end with '/' 
+  inSrc="${inSrc%/}"
+  inDst="${inDst%/}"
 
-      if FileUtils.isDirectory "$path"; then
-        #echo "copy folder: $path to $dstPath"
-        FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-      else
-        #echo "copy file: $path to $dstPath"
-        FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-      fi
-    fi
-  done
+  if ! FileUtils.isDirectory "$inDst"; then 
+    Log.ex $LINENO; return "$APASH_FAILURE"; 
+  fi
+
+  mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+
+  local optionList=()
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+    for opt in "${optionListRaw[@]}"; do
+      optionList+=("$(StringUtils.trim "$opt")")
+    done
+  else 
+    IFS=',' 
+    local tmp
+    read -r tmp <<< "$inCopyOption"
+    for word in $tmp; do
+      optionList+=("$(StringUtils.trim "$word")")
+    done
+  fi
+
+  local -a options=()
+  if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+    options+=("--preserve=all")
+  elif [[ "$inPreserveDate" == true ]]; then
+    options+=("--preserve=timestamps")
+  fi
+
+  if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+    # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
+    options+=("-n") 
+  fi
+
+  find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
+    relPath="${file#"$inSrc/"}"
+    dst="$inDst/$relPath"
+    mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+    cp "${options[@]}" "$file" "$dst"           
+  done || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
 }
-
-if [ "$APASH_SHELL" = "bash" ]; then
-
-_FileUtils.copyDirectory () {
-
-  local BOOLEAN="true false"
-  local COPY_OPTIONS="REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES"
-
-  COMPREPLY=()
-
-  local current="${COMP_WORDS[$COMP_CWORD]}"
-  if [ "$COMP_CWORD" -eq 3 ]; then
-    mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "$current")
-  elif [ "$COMP_CWORD" -eq 4 ]; then
-    mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "$current")
-  else
-    mapfile -t COMPREPLY < <(compgen -W "$(ls)" -- "$current")
-  fi
-
-}
-
-complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
-
-fi
