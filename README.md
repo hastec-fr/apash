@@ -82,7 +82,7 @@ curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils
 **Open a new terminal** and check the apash version:
 ```bash
 apash --version
-# 0.2.0
+# 0.3.0
 ```
 <details>
 <summary>ZSH Variant</summary>
@@ -95,7 +95,7 @@ curl -s "https://raw.githubusercontent.com/hastec-fr/apash/refs/heads/main/utils
 **Open a new terminal** and check the apash version:
 ```bash
 apash --version
-# 0.2.0
+# 0.3.0
 ```
 </details>
 
@@ -299,19 +299,19 @@ By example for bash, you should declare again the aliases from subscript or acti
 If you don't want to install apash but test it quickly, you can pull its containers on [docker hub](https://hub.docker.com/r/hastec/apash).
 Default is bash, but you can get zsh too.
 ```bash
-docker run --rm hastec/apash:0.2.0             # run with bash (5.2)
-docker run --rm hastec/apash:0.2.0-zsh         # run with zsh  (5.9)
-docker run --rm hastec/apash:0.2.0-bash-ready  # run with bash (5.2) and functions are already imported.
+docker run --rm hastec/apash:0.3.0             # run with bash (5.2)
+docker run --rm hastec/apash:0.3.0-zsh         # run with zsh  (5.9)
+docker run --rm hastec/apash:0.3.0-bash-ready  # run with bash (5.2) and functions are already imported.
 
 # Example:
-docker run --rm -it hastec/apash:0.2.0-bash
+docker run --rm -it hastec/apash:0.3.0-bash
 apash:bash-5.2 $ echo $BASH_VERSION
 # 5.2.32(1)-release
 ```
 
 ### One shot command
 ```bash
-docker run --rm hastec/apash:0.2.0 '
+docker run --rm hastec/apash:0.3.0 '
 apash.import "fr.hastec.apash.commons-lang.StringUtils"
 StringUtils.reverse "Never odd or even!"
 '
@@ -324,7 +324,7 @@ Result:
 ### Ready version
 If you don't like to import the command yourself, then use the image with all functions ready to use:
 ```bash
-docker run --rm hastec/apash:0.2.0-ready 'StringUtils.upperCase "Please, speak louder !!"'
+docker run --rm hastec/apash:0.3.0-ready 'StringUtils.upperCase "Please, speak louder !!"'
 ```
 Result:
 ```bash
@@ -339,7 +339,7 @@ cat <<EOF > ./test.sh
 apash.import fr.hastec.apash.commons-lang.StringUtils.abbreviate
 StringUtils.abbreviate "Thanks to abbreviate this long description which does not lead anywhere except to pretend that this function could have a use case." 15
 EOF
-docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.2.0 ./test.sh
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.3.0 ./test.sh
 ```
 Result:
 ```bash
@@ -350,8 +350,8 @@ Thanks to ab...
 Modify your apash installation and test non regression using containers.
 ```bash
 # From root apash workspace directory ($APASH_HOME_DIR)
-docker build -t docker.io/hastec/apash:0.2.0 -f ./docker/apash-bash.dockerfile .
-docker run --rm hastec/apash:0.2.0 'apash test'
+docker build -t docker.io/hastec/apash:0.3.0 -f ./docker/apash-bash.dockerfile .
+docker run --rm hastec/apash:0.3.0 'apash test'
 ```
 
 ### Local container
@@ -360,8 +360,8 @@ Ideal for testing:
 ```bash
 # Create and run the image with current context($APASH_HOME_DIR).
 # The image is named as following: hastec/apash-local:<version>-<shell>_<version>
-apash docker --shell "zsh" --version "5.9"  # hastec/apash-local:0.2.0-zsh_5.9
-apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.2.0-bash_5.0
+apash docker --shell "zsh" --version "5.9"  # hastec/apash-local:0.3.0-zsh_5.9
+apash docker -s "bash" -v "5.0"             # hastec/apash-local:0.3.0-bash_5.0
 ```
 <div align="right">[ <a href="#apash-top">↑ Back to top ↑</a> ]</div>
 
@@ -542,12 +542,12 @@ Note that options should be set in the alphabetic order (-f -n -s).
 Double check that the bind mount has an absolute path (not a relative one which does not work everywhere).
 ```bash
 # Example of issue:
-docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.2.0 ./test.sh
+docker run --rm -v "./test.sh:/home/apash/test.sh:ro" hastec/apash:0.3.0 ./test.sh
 # bash: line 1: ./test.sh: Is a directory
 
-# docker run --rm -v "/absolute/path/to/test.sh:/home/apash/test.sh:ro" hastec/apash:0.2.0 ./test.sh
+# docker run --rm -v "/absolute/path/to/test.sh:/home/apash/test.sh:ro" hastec/apash:0.3.0 ./test.sh
 # For pseudo relative path, you can use the $PWD variable
-docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.2.0 ./test.sh
+docker run --rm -v "$PWD/test.sh:/home/apash/test.sh:ro" hastec/apash:0.3.0 ./test.sh
 ```
 
 ### Dates issues

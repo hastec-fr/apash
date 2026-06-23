@@ -1,0 +1,5 @@
+ #compdef ArrayUtils.addAll
+
+_arguments -C \
+  '1:array name:_files' \
+  '*:new elt name:_files'

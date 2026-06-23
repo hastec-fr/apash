@@ -5,6 +5,8 @@ apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
 apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
+apash.import fr.hastec.apash.commons-lang.VersionUtils.isLowerOrEquals
 
 ##/
 # @name FileNameUtils.copyFile
@@ -51,21 +53,38 @@ FileUtils.copyFile() {
 
   mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
 
-  IFS=',' read -ra optionList <<< "$inCopyOption"
+  local optionList=()
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+    for opt in "${optionListRaw[@]}"; do
+      optionList+=("$(StringUtils.trim "$opt")")
+    done
+  else 
+    IFS=',' 
+    local tmp
+    read -r tmp <<< "$inCopyOption"
+    for word in $tmp; do
+      optionList+=("$(StringUtils.trim "$word")")
+    done
+  fi
 
-  local options=()
+  local -a options=()
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
     options+=("--preserve=all")
   elif [[ "$inPreserveDate" == true ]]; then
     options+=("--preserve=timestamps")
   fi
-  
+
   if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
     # -n/--no-clobber are depracated in latest GNU coreutils version but --update=none is not yet supported everywhere
-    options+=("-n")
+    options+=("-n") 
   fi
- 
-  cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+
+  if [ "$APASH_SHELL" = "bash" ] && VersionUtils.isLowerOrEquals "$BASH_VERSION" "4.3"; then
+    cp "${options[@]+"${options[@]}"}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  else
+    cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+  fi
   Log.out "$LINENO";
   return "$APASH_SUCCESS"
 }

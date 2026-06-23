@@ -1,0 +1,7 @@
+#compdef FileUtils.copyFile
+
+_arguments -C \
+  '1:input file src:_files' \
+  '2:input file dst:_files' \
+  '3:preserve date:(true false)' \
+  '4:copy options:(REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES)'

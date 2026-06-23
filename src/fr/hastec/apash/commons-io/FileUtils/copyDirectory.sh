@@ -3,8 +3,9 @@
 # Dependencies #################################################################
 apash.import fr.hastec.apash.util.Log
 apash.import fr.hastec.apash.commons-lang.ArrayUtils.contains
-apash.import fr.hastec.apash.commons-io.FileUtils.isRegularFile
+apash.import fr.hastec.apash.commons-io.FileUtils.isDirectory
 apash.import fr.hastec.apash.commons-io.FileNameUtils.getFullPathNoEndSeparator
+apash.import fr.hastec.apash.commons-lang.StringUtils.trim
 
 ##/
 # @name FileNameUtils.copyDirectory
@@ -56,23 +57,28 @@ FileUtils.copyDirectory() {
   inSrc="${inSrc%/}"
   inDst="${inDst%/}"
 
-  if FileUtils.isRegularFile "$inDst"; then 
+  if ! FileUtils.isDirectory "$inDst"; then 
     Log.ex $LINENO; return "$APASH_FAILURE"; 
   fi
 
   mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-  
-  IFS=',' read -ra optionListRaw <<< "$inCopyOption"
-  
-  local optionList=()
-  for opt in "${optionListRaw[@]}"; do
-    # Trim leading/trailing whitespace using parameter expansion
-    trimmed="${opt#"${opt%%[![:space:]]*}"}"
-    trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
-    optionList+=("$trimmed")
-  done
 
-  local options=()
+  local optionList=()
+  if [ "$APASH_SHELL" = "zsh" ]; then
+    IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+    for opt in "${optionListRaw[@]}"; do
+      optionList+=("$(StringUtils.trim "$opt")")
+    done
+  else 
+    IFS=',' 
+    local tmp
+    read -r tmp <<< "$inCopyOption"
+    for word in $tmp; do
+      optionList+=("$(StringUtils.trim "$word")")
+    done
+  fi
+
+  local -a options=()
   if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
     options+=("--preserve=all")
   elif [[ "$inPreserveDate" == true ]]; then
@@ -85,12 +91,12 @@ FileUtils.copyDirectory() {
   fi
 
   find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
-  relPath="${file#"$inSrc/"}"
-  dst="$inDst/$relPath"
-  mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
-  cp "${options[@]}" "$file" "$dst"           
-done
+    relPath="${file#"$inSrc/"}"
+    dst="$inDst/$relPath"
+    mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+    cp "${options[@]}" "$file" "$dst"           
+  done || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 
-Log.out "$LINENO";
-return "$APASH_SUCCESS"
+  Log.out "$LINENO";
+  return "$APASH_SUCCESS"
 }

@@ -3,14 +3,14 @@
 #   Based on apash-bash.dockerfile, it preloads the minified script
 #
 # @example
-# docker build --build-arg APASH_SHELL=${APASH_SHELL} -t docker.io/hastec/apash:0.2.0-${APASH_SHELL}-ready -f ./docker/apash-ready.dockerfile .
-# docker run --rm -it --name apash-ready hastec/apash:0.2.0-ready
-# docker push docker.io/hastec/apash:0.2.0-ready
+# docker build --build-arg APASH_SHELL=${APASH_SHELL} -t docker.io/hastec/apash:0.3.0-${APASH_SHELL}-ready -f ./docker/apash-ready.dockerfile .
+# docker run --rm -it --name apash-ready hastec/apash:0.3.0-ready
+# docker push docker.io/hastec/apash:0.3.0-ready
 #
 # Bash is the default tag:
-# docker tag docker.io/hastec/apash:0.2.0-bash-ready docker.io/hastec/apash:0.2.0-ready
+# docker tag docker.io/hastec/apash:0.3.0-bash-ready docker.io/hastec/apash:0.3.0-ready
 ARG APASH_SHELL="bash"
-FROM docker.io/hastec/apash:0.2.0-${APASH_SHELL}
+FROM docker.io/hastec/apash:0.3.0-${APASH_SHELL}
 
 LABEL maintainer="Benjamin Vargin"
 

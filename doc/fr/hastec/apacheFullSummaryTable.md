@@ -15,6 +15,7 @@
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getExtension](apash/commons-io/FileNameUtils/getExtension.md) | Gets the extension of a fileName. |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getFullPath](apash/commons-io/FileNameUtils/getFullPath.md) | Gets the full path (prefix + path) from a full file name. |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [getFullPathNoEndSeparator](apash/commons-io/FileNameUtils/getFullPathNoEndSeparator.md) | Gets the full path (prefix + path) from a full file name, excluding the final directory separator. |
+| [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileNameUtils](apash/commons-io/FileNameUtils.md) / [normalize](apash/commons-io/FileNameUtils/normalize.md) | Normalizes a path, removing double and single period path steps. |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) | General file manipulation utilities. |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [copyDirectory](apash/commons-io/FileUtils/copyDirectory.md) | Copies a filtered directory to a new location.  |
 | [apash](apash.md) / [commons-io](apash/commons-io.md) / [FileUtils](apash/commons-io/FileUtils.md) / [copyFile](apash/commons-io/FileUtils/copyFile.md) | Copies the contents of a file to a new location.  |
