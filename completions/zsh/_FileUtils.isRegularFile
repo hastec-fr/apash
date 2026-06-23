@@ -1,0 +1,5 @@
+#compdef FileUtils.isRegularFile
+
+_arguments -C \
+  '1:input file:_files' \
+  '2:link options:(NOFOLLOW_LINKS)'

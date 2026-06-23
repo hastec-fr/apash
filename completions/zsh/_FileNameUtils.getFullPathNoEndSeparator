@@ -1,0 +1,4 @@
+#compdef FileNameUtils.getFullPathNoEndSeparator
+
+_arguments -C \
+  '1:input file src:_files' \

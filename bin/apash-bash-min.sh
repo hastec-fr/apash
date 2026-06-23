@@ -137,6 +137,133 @@ inFileName="$(basename "$inFileName")"   || { Log.ex $LINENO; return "$APASH_FAI
 echo "${inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.ex $LINENO; return "$APASH_SUCCESS";
 }
+FileNameUtils.getFullPath() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+local fullPath
+fullPath="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$fullPath" = "" ]; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+echo "$fullPath/" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+FileNameUtils.getFullPathNoEndSeparator() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+if [ "$inFileName" = "~" ] || [ "$inFileName" = "~user" ]; then
+echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+local lastStepIndex
+lastStepIndex="$(StringUtils.lastIndexOf "$inFileName" "/")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if [ "$lastStepIndex" -eq -1 ]; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+local fullPath
+fullPath="$(StringUtils.substring "$inFileName" 0 "$lastStepIndex")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "$fullPath" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
+commons-io.FileNameUtils() { true; }
+FileUtils.copyDirectory() {
+Log.in "$LINENO" "$@"
+local inSrc="${1:-}"
+local inDst="${2:-}"
+local inFileFilter="${3-.*}"
+local inPreserveDate="${4:-false}"
+local inCopyOption="${5:-}"
+mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+for path in "$inSrc"/*; do
+local baseName
+baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if echo "$baseName" | grep -q "$inFileFilter"; then
+local relPath="${path#"$inSrc"/}"
+local dstPath="$inDst/$relPath"
+if FileUtils.isDirectory "$path"; then
+FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+fi
+done
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+}
+if [ "$APASH_SHELL" = "bash" ]; then
+_FileUtils.copyDirectory () {
+local BOOLEAN="true false"
+local COPY_OPTIONS="REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES"
+COMPREPLY=()
+local current="${COMP_WORDS[$COMP_CWORD]}"
+if [ "$COMP_CWORD" -eq 3 ]; then
+mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "$current")
+elif [ "$COMP_CWORD" -eq 4 ]; then
+mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "$current")
+else
+mapfile -t COMPREPLY < <(compgen -W "$(ls)" -- "$current")
+fi
+}
+complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
+fi
+FileUtils.copyFile() {
+Log.in "$LINENO" "$@"
+local inSrc="${1:-}"
+local inDst="${2:-}"
+local inPreserveDate="${3:-false}"
+local inCopyOption="${4:-}"
+mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
+if ! StringUtils.contains "$inCopyOption" "REPLACE_EXISTING" && FileUtils.isRegularFile "$inDst"; then
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+fi
+if StringUtils.contains "$inCopyOption" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
+cp "-p" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+else
+cp "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+fi
+Log.out "$LINENO";
+return "$APASH_SUCCESS"
+}
+FileUtils.isDirectory() {
+Log.in "$LINENO" "$@"
+local inFolderName="${1:-}"
+local inLinkOption="${2:-}"
+if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFolderName"; then
+Log.out "$LINENO"; return "$APASH_FAILURE"; 
+fi
+if test -d "$inFolderName" ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+FileUtils.isRegularFile() {
+Log.in "$LINENO" "$@"
+local inFileName="${1:-}"
+local inLinkOption="${2:-}"
+if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFileName"; then
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+if [ -f "$inFileName" ] ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+FileUtils.isSymlink() {
+Log.in "$LINENO" "$@"
+local inFileName="${1:-}"
+if test -h "$inFileName" ; then
+Log.out "$LINENO"; return "$APASH_SUCCESS"
+else
+Log.out "$LINENO"; return "$APASH_FAILURE"
+fi
+}
+commons-io.FileUtils() { true; }
+apash.commons-io() { true; }
 ApashUtils.doc() {
 Log.in $LINENO "$@"
 local inFile="${1:-}"
@@ -577,7 +704,7 @@ local apash_inArrayName1="${1:-}"
 local apash_inArrayName2="${2:-}"
 ArrayUtils.isArray "$apash_inArrayName1" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 ArrayUtils.isArray "$apash_inArrayName2" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ $APASH_SHELL = "zsh" ]; then
+if [ "$APASH_SHELL" = "zsh" ]; then
 [[ ${#${(P)apash_inArrayName1}[@]} -ne ${#${(P)apash_inArrayName2}[@]} ]] && { Log.out $LINENO; return "$APASH_FAILURE"; }
 else
 local -n apash_inArray1="$apash_inArrayName1"  
@@ -1621,6 +1748,28 @@ StringUtils.isEmpty() {
 Log.in $LINENO "$@"
 [ -z "${1:-}" ] && { Log.out $LINENO; return "$APASH_SUCCESS"; }
 Log.out $LINENO; return "$APASH_FAILURE"
+}
+StringUtils.lastIndexOf() {
+Log.in $LINENO "$@"
+local inString="${1:-}"
+local inResearch="${2:-}"
+local index=-1
+if [[ -z "$inString" &&  -n "$inResearch" ]]; then
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -n "$inString" &&  -z "$inResearch" ]]; then
+echo "${#inString}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi
+if [[ -z "$inString" &&  -z "$inResearch" ]]; then
+echo "0" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+fi  
+index=${inString##*"${inResearch}"}
+[ ${#index} -eq ${#inString} ] && index=-1 || index=$((${#inString} - ${#index} - ${#inResearch}))
+echo "$index" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
 }
 StringUtils.leftPad() {
 Log.in $LINENO "$@"

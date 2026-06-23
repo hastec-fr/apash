@@ -485,7 +485,7 @@ apashExecuteTest(){
   
   # Create a subshell to preserve the current user location.
   (
-    cd "$APASH_HOME_DIR"
+    cd "$APASH_HOME_DIR" || echo "APASH directory does not exists" && return
     # @todo: Find a more elegant way to inject arguments (protected by zsh).
     # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
     # Split word intentionnaly the shellspec options.
@@ -539,7 +539,7 @@ apashParseCacheArgs() {
       # Show helps
       -h|-\?|--help)
         apashShowCacheHelp
-        return $APASH_FAILURE
+        return "$APASH_FAILURE"
         ;;
 
       # End of all options.
@@ -551,7 +551,7 @@ apashParseCacheArgs() {
       # Display error message on unknown option
       -?*)
         printf 'WARN: Unknown option: %s\n' "${1:-}" >&2
-        return $APASH_FAILURE
+        return "$APASH_FAILURE"
         ;;
 
       # Stop parsing
@@ -560,7 +560,7 @@ apashParseCacheArgs() {
     esac
     shift
   done
-  return $APASH_SUCCESS
+  return "$APASH_SUCCESS"
 }
 
 apashParseCheckArgs() {

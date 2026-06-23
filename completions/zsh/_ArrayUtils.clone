@@ -1,0 +1,5 @@
+#compdef ArrayUtils.clone
+
+_arguments -C \
+  '1:inArray name:_files' \
+  '2:outArray name:_files'
