@@ -37,6 +37,12 @@ Describe 'FileNameUtils.getFullPathNoEndSeparator'
     The status should be success
   End
 
+  It 'passes when the input is the root directory /'
+    When call FileNameUtils.getFullPathNoEndSeparator "/"
+    The output should equal "/"
+    The status should be success
+  End
+
   It 'passes when the input is the ~user directory'
     When call FileNameUtils.getFullPathNoEndSeparator "~user"
     The output should equal "~user"

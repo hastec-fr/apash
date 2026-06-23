@@ -16,5 +16,7 @@ $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/ShellUtils/isCommandValid.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/lang/Math/min.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/util/Log/ex.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/StringUtils/substring.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/StringUtils/startsWith.sh
+$APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/StringUtils/contains.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/commons-lang/StringUtils/lastIndexOf.sh
 $APASH_HOME_DIR/src/fr/hastec/apash/commons-io/FileNameUtils/getFullPathNoEndSeparator.sh

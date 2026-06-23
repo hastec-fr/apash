@@ -177,11 +177,15 @@ apash.import(){
           continue
         fi
       else
-        match="$(find "$APASH_SRC_DIR" -type d -name "$l" | head -n 1)"
-        if [ -n "$match" ]; then
+        match="$(find "$APASH_SRC_DIR" -name "$l*" | head -n 1)"
+        if [ -n "$match" ] && [ -d "$match" ]; then
+          echo "$(date +"%FT%T.%3N%z") [INFO] apash.import package library: '$match'"
           for lib in "$match"/*.sh; do
             libs+=("$lib")
           done
+        elif [ -n "$match" ] && [ -f "$match" ]; then
+          echo "$(date +"%FT%T.%3N%z") [INFO] apash.import library: '$match'"
+          libs+=("$match")
         else
           # The library cannot be imported
           echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2

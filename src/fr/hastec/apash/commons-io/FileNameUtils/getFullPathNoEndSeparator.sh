@@ -37,6 +37,7 @@ apash.import fr.hastec.apash.commons-lang.StringUtils.lastIndexOf
 #    FileNameUtils.getFullPathNoEndSeparator  "~/"               # "~"
 #    FileNameUtils.getFullPathNoEndSeparator  "~user"            # "~user"
 #    FileNameUtils.getFullPathNoEndSeparator  "~user/"           # "~user"
+#    FileNameUtils.getFullPathNoEndSeparator  "/"                # "/"
 # ```
 #
 # @stdout The path of the file, an empty string if none exists
@@ -49,8 +50,8 @@ FileNameUtils.getFullPathNoEndSeparator() {
   Log.in $LINENO "$@"
   local inFileName="${1:-}"
 
-  #special case: ~user & ~
-  if StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"; then
+  #special case: /, ~user, ~
+  if [ "$inFileName" = "/" ] || (StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"); then
     echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
     Log.out $LINENO; return "$APASH_SUCCESS"
   fi
