@@ -1,10 +1,10 @@
-# docker build -t docker.io/hastec/apash:0.2.0-bash -f ./docker/apash-bash.dockerfile .
-# docker tag docker.io/hastec/apash:0.2.0-bash docker.io/hastec/apash:0.2.0
-# docker run --rm -it hastec/apash:0.2.0
-# docker push docker.io/hastec/apash:0.2.0
+# docker build -t docker.io/hastec/apash:0.3.0-bash -f ./docker/apash-bash.dockerfile .
+# docker tag docker.io/hastec/apash:0.3.0-bash docker.io/hastec/apash:0.3.0
+# docker run --rm -it hastec/apash:0.3.0
+# docker push docker.io/hastec/apash:0.3.0
 
 # Only version is before from for ARG scope
-ARG SHELL_VERSION=5.2.32
+ARG SHELL_VERSION=5.3.15
 FROM docker.io/bash:${SHELL_VERSION}
 
 ARG APASH_BRANCH="main"

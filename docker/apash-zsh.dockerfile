@@ -1,6 +1,6 @@
-# docker build -t docker.io/hastec/apash:0.2.0-zsh -f ./docker/apash-zsh.dockerfile .
-# docker run --rm -it hastec/apash:0.2.0-zsh
-# docker push docker.io/hastec/apash:0.2.0-zsh
+# docker build -t docker.io/hastec/apash:0.3.0-zsh -f ./docker/apash-zsh.dockerfile .
+# docker run --rm -it hastec/apash:0.3.0-zsh
+# docker push docker.io/hastec/apash:0.3.0-zsh
 
 # Only version is before from for ARG scope
 ARG SHELL_VERSION=5.9

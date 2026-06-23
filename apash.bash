@@ -485,7 +485,7 @@ apashExecuteTest(){
   
   # Create a subshell to preserve the current user location.
   (
-    cd "$APASH_HOME_DIR" || echo "APASH directory does not exists" && return
+    cd "$APASH_HOME_DIR" || { echo "APASH directory does not exists"; return; }
     # @todo: Find a more elegant way to inject arguments (protected by zsh).
     # @todo: Ask shellcheck team if there is a way to disable rules per scope (zsh blocs).
     # Split word intentionnaly the shellspec options.

@@ -13,7 +13,7 @@
 #  @since <The current version: 0.1.0> (authors,)
 #
 # ### ChangeLogs:
-# * <version 0.2.0> (authors,): <Single modification>
+# * <version 0.3.0> (authors,): <Single modification>
 #   * <Modification 1>
 #   * <Modification 2>
 #
