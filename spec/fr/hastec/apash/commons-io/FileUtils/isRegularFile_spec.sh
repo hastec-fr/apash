@@ -19,7 +19,9 @@ Describe 'FileUtils.isRegularFile'
     The status should be success
   End
   
+  # Windows does not support the way to create a symbolic link without admin rights.
   It 'passes when the input is the symlink file itself with NOFOLLOW_LINKS link option'
+    Skip if "is gitbash" global_helper_is_gitbash
     When call FileUtils.isRegularFile "$TMPDIR/thisFileIsASymlink" "NOFOLLOW_LINKS"
     The status should be failure
   End
@@ -29,7 +31,9 @@ Describe 'FileUtils.isRegularFile'
     The status should be success
   End
  
+  # Windows does not support the way to create a symbolic link without admin rights.
   It 'passes when the input refer to a full path ending in a symlink with NOFOLLOW_LINKS link option'
+    Skip if "is gitbash" global_helper_is_gitbash
     When call FileUtils.isRegularFile "$TMPDIR/path/to/thisFileIsASymlink" "NOFOLLOW_LINKS"
     The status should be failure
   End 
