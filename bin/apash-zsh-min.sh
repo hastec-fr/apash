@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-export APASH_VERSION=0.2.0
+export APASH_VERSION=0.3.0
 # shellcheck disable=all
 # Apash configurations
 
@@ -98,15 +98,39 @@ for lib in "$location"/*.sh; do
 libs+=("$lib")
 done
 else
+local match
+if [[ "$l" == *.* ]]; then
+dir="${l%%.*}"
+file="${l#*.}.sh"
+match="$(find "$APASH_SRC_DIR" -type f -path "*/$dir/$file" | head -n 1)"
+if [ -n "$match" ]; then
+libs+=("$match")
+else
 echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
 continue
+fi
+else
+match="$(find "$APASH_SRC_DIR" -name "$l*" | head -n 1)"
+if [ -n "$match" ] && [ -d "$match" ]; then
+echo "$(date +"%FT%T.%3N%z") [INFO] apash.import package library: '$match'"
+for lib in "$match"/*.sh; do
+libs+=("$lib")
+done
+elif [ -n "$match" ] && [ -f "$match" ]; then
+echo "$(date +"%FT%T.%3N%z") [INFO] apash.import library: '$match'"
+libs+=("$match")
+else
+echo "$(date +"%FT%T.%3N%z") [WARNING] apash.import ($LINENO): Unknown library: '$l' - '$location'" >&2
+continue
+fi
+fi
 fi
 done
 for lib in "${libs[@]}"; do
 [ "$APASH_IMPORT_FORCE" = "false" ] && apash.import.function.exists "$lib" && continue
 lib=$(apash.import.resolve.version "$lib")
 [ ! -r "$lib" ] && echo "WARNING: non readable library: $lib" >&2 && continue
-[[ ":$APASH_LIB_TO_IMPORT:" =~ ":$lib:" ]] && continue
+[[ ":${APASH_LIB_TO_IMPORT:-}:" =~ ":${lib:-}:" ]] && continue
 cacheLib="${lib/$APASH_HOME_DIR\/src/$APASH_HOME_DIR\/cache}"
 cacheLib="${cacheLib%.sh}.cache"
 if [ "$APASH_IMPORT_NO_CACHE" = "false" ] && [ -f "$cacheLib" ]; then
@@ -396,7 +420,7 @@ commons-io.FileUtils() { true; }
 FileNameUtils.getFullPathNoEndSeparator() { 
 Log.in $LINENO "$@"
 local inFileName="${1:-}"
-if [ "$inFileName" = "~" ] || [ "$inFileName" = "~user" ]; then
+if [ "$inFileName" = "/" ] || (StringUtils.startsWith "$inFileName" "~" && ! StringUtils.contains "$inFileName" "/"); then
 echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 fi
@@ -416,7 +440,7 @@ Log.in $LINENO "$@"
 local inFileName="${1:-}"
 local fullPath
 fullPath="$(FileNameUtils.getFullPathNoEndSeparator "$inFileName")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if [ "$fullPath" = "" ]; then
+if [ -z "$fullPath" ]; then
 echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out $LINENO; return "$APASH_SUCCESS"
 fi
@@ -431,6 +455,23 @@ inFileName="$(basename "$inFileName")"   || { Log.ex $LINENO; return "$APASH_FAI
 echo "${inFileName##*.}" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.ex $LINENO; return "$APASH_SUCCESS";
 }
+FileNameUtils.normalize() { 
+Log.in $LINENO "$@"
+local inFileName="${1:-}"
+if [ -z "$inFileName" ] || StringUtils.contains "$inFileName" "~/.."; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+fi
+inFileName=$(echo "$inFileName" | sed "s/\/\//\//g") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+inFileName=$(echo "$inFileName" | sed -E ':a; s#[^/]+/\.\./##; ta') || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+if StringUtils.contains "$inFileName" ".."; then
+echo "" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_FAILURE"
+fi
+inFileName=$(echo "$inFileName" | sed "s/\.\///g") || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+echo "$inFileName" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+Log.out $LINENO; return "$APASH_SUCCESS"
+}
 commons-io.FileNameUtils() { true; }
 FileUtils.isDirectory() {
 Log.in "$LINENO" "$@"
@@ -439,11 +480,10 @@ local inLinkOption="${2:-}"
 if [ "NOFOLLOW_LINKS" = "$inLinkOption" ] && FileUtils.isSymlink "$inFolderName"; then
 Log.out "$LINENO"; return "$APASH_FAILURE"; 
 fi
-if test -d "$inFolderName" ; then
+if [ -d "$inFolderName" ]; then
 Log.out "$LINENO"; return "$APASH_SUCCESS"
-else
-Log.out "$LINENO"; return "$APASH_FAILURE"
 fi
+Log.out "$LINENO"; return "$APASH_FAILURE"
 }
 FileUtils.isSymlink() {
 Log.in "$LINENO" "$@"
@@ -458,42 +498,47 @@ FileUtils.copyDirectory() {
 Log.in "$LINENO" "$@"
 local inSrc="${1:-}"
 local inDst="${2:-}"
-local inFileFilter="${3-.*}"
+local inFileFilter="${3:-*}"
 local inPreserveDate="${4:-false}"
 local inCopyOption="${5:-}"
+inSrc="${inSrc%/}"
+inDst="${inDst%/}"
+if ! FileUtils.isDirectory "$inSrc"; then 
+Log.ex $LINENO; return "$APASH_FAILURE"; 
+fi
 mkdir -p "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-for path in "$inSrc"/*; do
-local baseName
-baseName="$(basename "$path")" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-if echo "$baseName" | grep -q "$inFileFilter"; then
-local relPath="${path#"$inSrc"/}"
-local dstPath="$inDst/$relPath"
-if FileUtils.isDirectory "$path"; then
-FileUtils.copyDirectory "$path" "$dstPath" "$inFileFilter" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-else
-FileUtils.copyFile "$path" "$dstPath" "$inPreserveDate" "$inCopyOption" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
-fi
-fi
+local optionList=()
+if [ "$APASH_SHELL" = "zsh" ]; then
+IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+for opt in "${optionListRaw[@]}"; do
+optionList+=("$(StringUtils.trim "$opt")")
 done
+else 
+IFS=',' 
+local tmp
+read -r tmp <<< "$inCopyOption"
+for word in $tmp; do
+optionList+=("$(StringUtils.trim "$word")")
+done
+fi
+local -a options=()
+if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+options+=("--preserve=all")
+elif [[ "$inPreserveDate" == true ]]; then
+options+=("--preserve=timestamps")
+fi
+if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+options+=("-n") 
+fi
+find "$inSrc" -type f -name "$inFileFilter" | while IFS= read -r file; do
+relPath="${file#"$inSrc/"}"
+dst="$inDst/$relPath"
+mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$dst")"
+cp "${options[@]}" "$file" "$dst"           
+done || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 Log.out "$LINENO";
 return "$APASH_SUCCESS"
 }
-if [ "$APASH_SHELL" = "bash" ]; then
-_FileUtils.copyDirectory () {
-local BOOLEAN="true false"
-local COPY_OPTIONS="REPLACE_EXISTING COPY_ATTRIBUTES REPLACE_EXISTING,COPY_ATTRIBUTES"
-COMPREPLY=()
-local current="${COMP_WORDS[$COMP_CWORD]}"
-if [ "$COMP_CWORD" -eq 3 ]; then
-mapfile -t COMPREPLY < <(compgen -W "$BOOLEAN" -- "$current")
-elif [ "$COMP_CWORD" -eq 4 ]; then
-mapfile -t COMPREPLY < <(compgen -W "$COPY_OPTIONS" -- "$current")
-else
-mapfile -t COMPREPLY < <(compgen -W "$(ls)" -- "$current")
-fi
-}
-complete -F _FileUtils.copyDirectory FileUtils.copyDirectory
-fi
 FileUtils.isRegularFile() {
 Log.in "$LINENO" "$@"
 local inFileName="${1:-}"
@@ -503,25 +548,43 @@ Log.out "$LINENO"; return "$APASH_FAILURE"
 fi
 if [ -f "$inFileName" ] ; then
 Log.out "$LINENO"; return "$APASH_SUCCESS"
-else
-Log.out "$LINENO"; return "$APASH_FAILURE"
 fi
+Log.out "$LINENO"; return "$APASH_FAILURE"
 }
 FileUtils.copyFile() {
 Log.in "$LINENO" "$@"
 local inSrc="${1:-}"
 local inDst="${2:-}"
-local inPreserveDate="${3:-false}"
+local inPreserveDate="${3:-true}"
 local inCopyOption="${4:-}"
 mkdir -p "$(FileNameUtils.getFullPathNoEndSeparator "$inDst")" || { Log.ex $LINENO; return "$APASH_FAILURE"; } 
-if ! StringUtils.contains "$inCopyOption" "REPLACE_EXISTING" && FileUtils.isRegularFile "$inDst"; then
-Log.out "$LINENO";
-return "$APASH_SUCCESS"
+local optionList=()
+if [ "$APASH_SHELL" = "zsh" ]; then
+IFS=',' read -rA optionListRaw <<< "$inCopyOption"
+for opt in "${optionListRaw[@]}"; do
+optionList+=("$(StringUtils.trim "$opt")")
+done
+else 
+IFS=',' 
+local tmp
+read -r tmp <<< "$inCopyOption"
+for word in $tmp; do
+optionList+=("$(StringUtils.trim "$word")")
+done
 fi
-if StringUtils.contains "$inCopyOption" "COPY_ATTRIBUTES" || [[ "$inPreserveDate" == true ]]; then
-cp "-p" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+local -a options=()
+if ArrayUtils.contains "optionList" "COPY_ATTRIBUTES"; then
+options+=("--preserve=all")
+elif [[ "$inPreserveDate" == true ]]; then
+options+=("--preserve=timestamps")
+fi
+if ! ArrayUtils.contains "optionList" "REPLACE_EXISTING"; then
+options+=("-n") 
+fi
+if [ "$APASH_SHELL" = "bash" ] && VersionUtils.isLowerOrEquals "$BASH_VERSION" "4.3"; then
+cp "${options[@]+"${options[@]}"}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 else
-cp "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
+cp "${options[@]}" "$inSrc" "$inDst" || { Log.ex $LINENO; return "$APASH_FAILURE"; }
 fi
 Log.out "$LINENO";
 return "$APASH_SUCCESS"

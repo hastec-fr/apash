@@ -299,14 +299,14 @@ By example for bash, you should declare again the aliases from subscript or acti
 If you don't want to install apash but test it quickly, you can pull its containers on [docker hub](https://hub.docker.com/r/hastec/apash).
 Default is bash, but you can get zsh too.
 ```bash
-docker run --rm hastec/apash:0.3.0             # run with bash (5.2)
+docker run --rm hastec/apash:0.3.0             # run with bash (5.3)
 docker run --rm hastec/apash:0.3.0-zsh         # run with zsh  (5.9)
-docker run --rm hastec/apash:0.3.0-bash-ready  # run with bash (5.2) and functions are already imported.
+docker run --rm hastec/apash:0.3.0-bash-ready  # run with bash (5.3) and functions are already imported.
 
 # Example:
 docker run --rm -it hastec/apash:0.3.0-bash
-apash:bash-5.2 $ echo $BASH_VERSION
-# 5.2.32(1)-release
+apash:bash-5.3 $ echo $BASH_VERSION
+# 5.3.15(1)-release
 ```
 
 ### One shot command
@@ -370,7 +370,7 @@ A compatibility [matrix](doc/fr/hastec/apashCompatibilityTable.md) is available.
 The scope of this matrix is on the functions of the library (directory: *src/fr/hastec/apash*), not on the tools around (doc test...) where it's recommended to use latest shell versions when you develop new features.
 
 ### Bash
-Currently, the library (not tools) is compatible from bash version 5.2 to 4.3 (2014-02-26)<br/>
+Currently, the library (not tools) is compatible from bash version 5.3 to 4.3 (2014-02-26)<br/>
 Issues appear at the version 4.2 (2011-02-13) and older.<br/>
 This is essentially due the **nameref** statement (local -n) which is a key feature appearing with the version 4.3.<br/>
 This feature prevents the call of the **evil** (*I mean eval. Sorry it seems to be running gag, so I did it*).<br/>

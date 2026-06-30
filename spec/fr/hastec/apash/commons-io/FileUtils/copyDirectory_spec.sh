@@ -1,8 +1,9 @@
 Describe 'FileUtils.copyDirectory'
   apash.import "fr.hastec.apash.commons-io.FileUtils.copyDirectory"
-
   TMPDIR="${SHELLSPEC_TMPBASE:=/tmp}"
-  RELPATH=".$(echo "$(pwd)" | sed -E 's:/[^/]+:/..:g')$TMPDIR"
+
+  # Fix issue using realpth when symbolic links are in the middle.
+  RELPATH=".$(realpath "$PWD" | sed -E 's:/[^/]+:/..:g')$TMPDIR"
 
   rm -rf "$TMPDIR/path"
   mkdir -p "$TMPDIR/path/to/dir" 

@@ -57,7 +57,7 @@ FileUtils.copyDirectory() {
   inSrc="${inSrc%/}"
   inDst="${inDst%/}"
 
-  if ! FileUtils.isDirectory "$inDst"; then 
+  if ! FileUtils.isDirectory "$inSrc"; then 
     Log.ex $LINENO; return "$APASH_FAILURE"; 
   fi
 

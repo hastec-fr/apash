@@ -385,7 +385,7 @@ apashExecuteDocker(){
   local APASH_DOCKER_NO_BUILD_FLAG=false
   local APASH_DOCKER_NO_RUN_FLAG=false
   local APASH_DOCKER_SHELL="bash"
-  local APASH_DOCKER_SHELL_VERSION="5.2"
+  local APASH_DOCKER_SHELL_VERSION="5.3"
   local apashDockerSudo
 
   apashParseDockerArgs "$@" || return

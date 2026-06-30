@@ -41,6 +41,7 @@ Gets the full path (prefix + path) from a full file name, excluding the final di
     FileNameUtils.getFullPathNoEndSeparator  "~/"               # "~"
     FileNameUtils.getFullPathNoEndSeparator  "~user"            # "~user"
     FileNameUtils.getFullPathNoEndSeparator  "~user/"           # "~user"
+    FileNameUtils.getFullPathNoEndSeparator  "/"                # "/"
  ```
 
 ### Stdout
