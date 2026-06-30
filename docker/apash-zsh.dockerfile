@@ -31,8 +31,7 @@ RUN addgroup tribe && \
 RUN su -c "sh -c 'curl -fsSL https://git.io/shellspec | sh -s -- --yes'" apash
 
 # Change directly the user rights to apash user
-COPY "." "/home/apash/.apash"
-RUN chown -R "apash:tribe" "/home/apash/.apash"
+COPY --chown=apash:tribe --chmod=750 "." "/home/apash/.apash"
 
 USER apash
 WORKDIR /home/apash
@@ -41,8 +40,9 @@ SHELL ["/usr/bin/zsh", "-c"]
 # By default, the version from github is selected.
 # Add interactivecomments to allow copy/paste on zsh with # sign
 RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
-    rm -rf "/home/apash/.apash"; \
-    git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
+        rm -rf "/home/apash/.apash"; \
+        git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
+        chmod -R 750 /home/apash/.apash; \
     fi; \
     cat <<EOF > $HOME/.zshenv
 # setopt ksh_arrays                        ##apashInstallTag

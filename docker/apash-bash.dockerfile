@@ -28,8 +28,7 @@ RUN addgroup -S tribe && \
 RUN su -c "sh -c 'curl -fsSL https://git.io/shellspec | sh -s -- --yes'" apash
 
 # Change directly the user rights to apash user
-COPY "." "/home/apash/.apash"
-RUN chown -R "apash:tribe" "/home/apash/.apash"
+COPY --chown=apash:tribe --chmod=750 "." "/home/apash/.apash"
 
 USER apash
 WORKDIR /home/apash
@@ -39,6 +38,7 @@ SHELL ["/usr/local/bin/bash", "-c"]
 RUN if [ "${APASH_LOCAL_COPY}" = "false" ]; then \
         rm -rf "/home/apash/.apash"; \
         git clone -b "$APASH_BRANCH" https://github.com/hastec-fr/apash.git /home/apash/.apash; \
+        chmod -R 750 /home/apash/.apash \
     fi; \
     cat <<EOF > $HOME/.bashrc
 export PS1="apash:bash-\${BASH_VERSION%.*} \$ "  ##apashInstallTag

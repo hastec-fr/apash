@@ -35,12 +35,16 @@ Describe 'FileUtils.isDirectory'
     The status should be success
   End
 
+  # Windows does not support the way to create a symbolic link without admin rights.
   It 'passes when the input refer to a symlink which points to a directory with arg NOFOLLOW_LINKS'
+    Skip if "is gitbash" global_helper_is_gitbash
     When call FileUtils.isDirectory "$TMPDIR/thisIsASymLinkToADir" "NOFOLLOW_LINKS"
     The status should be failure
   End
 
+  # Windows does not support the way to create a symbolic link without admin rights.
   It 'passes when the input refer to a full path with a symlink in it with arg NOFOLLOW_LINKS'
+    Skip if "is gitbash" global_helper_is_gitbash
     When call FileUtils.isDirectory "$TMPDIR/thisIsASymLinkToADir/to" "NOFOLLOW_LINKS"
     The status should be success
   End
@@ -95,7 +99,9 @@ Describe 'FileUtils.isDirectory'
     The status should be success
   End
 
+  # Windows does not support the way to create a symbolic link without admin rights.
   It 'passes when the input is a symlink which points to a symlink which points to a directory with NOFOLLOW_LINKS options'
+    Skip if "is gitbash" global_helper_is_gitbash
     When call FileUtils.isDirectory "$TMPDIR/symlinkOfSymlink" "NOFOLLOW_LINKS"
     The status should be failure
   End

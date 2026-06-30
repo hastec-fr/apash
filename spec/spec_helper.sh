@@ -30,6 +30,10 @@ spec_helper_configure() {
   : import 'support/custom_matcher'
 }
 
+global_helper_is_gitbash(){
+ { [ "$OSTYPE" = "msys" ] || [ "$OSTYPE" = "cygwin" ] ; } && return "$APASH_SUCCESS" || return "$APASH_FAILURE"
+}
+
 global_helper_is_zsh(){
   [ "$APASH_SHELL" = "zsh" ] && return "$APASH_SUCCESS" || return "$APASH_FAILURE"
 }
